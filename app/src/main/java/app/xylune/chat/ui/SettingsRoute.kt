@@ -2,15 +2,14 @@ package app.xylune.chat.ui
 
 import java.util.Locale
 
-enum class SettingsRoute(
-    private val englishTitle: String,
-) {
+internal enum class SettingsRoute(private val englishTitle: String) {
     HOME("Settings"),
     DEFAULTS("New chat defaults"),
     RESPONSE_STYLE("Response style"),
     SEARCH("Search & web"),
     AUTOMATION("Background tasks"),
     MEMORY("Memory"),
+    LANGUAGE("App language"),
     APPEARANCE("Appearance"),
     PRIVACY("Privacy & safety"),
     BACKUP("Backup & transfer"),
@@ -19,17 +18,17 @@ enum class SettingsRoute(
     SYSTEM_PROMPTS("Custom instructions"),
     PROVIDERS("Providers & models"),
     ABOUT("About Xylune"),
-    LICENSES("Licenses & notices"),
-    ;
+    LICENSES("Licenses & notices");
 
-    private val turkishTitle: String
-        get() = when (this) {
+    val title: String
+        get() = if (Locale.getDefault().language == "tr") when (this) {
             HOME -> "Ayarlar"
             DEFAULTS -> "Yeni sohbet varsayılanları"
             RESPONSE_STYLE -> "Yanıt stili"
             SEARCH -> "Arama ve web"
             AUTOMATION -> "Arka plan görevleri"
             MEMORY -> "Hafıza"
+            LANGUAGE -> "Uygulama dili"
             APPEARANCE -> "Görünüm"
             PRIVACY -> "Gizlilik ve güvenlik"
             BACKUP -> "Yedekleme ve aktarım"
@@ -39,12 +38,5 @@ enum class SettingsRoute(
             PROVIDERS -> "Sağlayıcılar ve modeller"
             ABOUT -> "Xylune hakkında"
             LICENSES -> "Lisanslar ve bildirimler"
-        }
-
-    val title: String
-        get() = if (Locale.getDefault().language.equals("tr", ignoreCase = true)) {
-            turkishTitle
-        } else {
-            englishTitle
-        }
+        } else englishTitle
 }
