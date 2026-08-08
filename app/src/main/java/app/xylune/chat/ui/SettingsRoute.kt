@@ -9,7 +9,6 @@ internal enum class SettingsRoute(private val englishTitle: String) {
     SEARCH("Search & web"),
     AUTOMATION("Background tasks"),
     MEMORY("Memory"),
-    LANGUAGE("App language"),
     APPEARANCE("Appearance"),
     PRIVACY("Privacy & safety"),
     BACKUP("Backup & transfer"),
@@ -28,7 +27,6 @@ internal enum class SettingsRoute(private val englishTitle: String) {
             SEARCH -> "Arama ve web"
             AUTOMATION -> "Arka plan görevleri"
             MEMORY -> "Hafıza"
-            LANGUAGE -> "Uygulama dili"
             APPEARANCE -> "Görünüm"
             PRIVACY -> "Gizlilik ve güvenlik"
             BACKUP -> "Yedekleme ve aktarım"
