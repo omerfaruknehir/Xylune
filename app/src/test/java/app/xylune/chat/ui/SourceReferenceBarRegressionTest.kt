@@ -11,15 +11,15 @@ class SourceReferenceBarRegressionTest {
         ?: error("Could not locate repository file: $path")
 
     @Test
-    fun `bottom source bar stays horizontal while overlay morphs above layout`() {
+    fun `bottom source bar stays horizontal and opens anchored preview`() {
         val source = repositoryFile(
             "app/src/main/java/app/xylune/chat/ui/SourceReferenceBar.kt",
         ).readText()
         val richMessage = repositoryFile(
             "app/src/main/java/app/xylune/chat/ui/RichMessage.kt",
         ).readText()
-        val morph = repositoryFile(
-            "app/src/main/java/app/xylune/chat/ui/SourceMorphPreview.kt",
+        val preview = repositoryFile(
+            "app/src/main/java/app/xylune/chat/ui/LinkPreview.kt",
         ).readText()
 
         assertTrue(source.contains("LowSensitivityHorizontalScroll"))
@@ -27,7 +27,8 @@ class SourceReferenceBarRegressionTest {
         assertTrue(source.contains("var pendingSource"))
         assertTrue(source.contains("onGloballyPositioned"))
         assertTrue(source.contains("anchorBoundsInWindow = anchor"))
-        assertTrue(source.contains("MorphingSourcePreview("))
+        assertTrue(source.contains("AnchoredLinkPreview("))
+        assertFalse(source.contains("MorphingSourcePreview("))
         assertTrue(source.contains("widthIn(max = 230.dp)"))
         assertTrue(source.contains("anchorBounds.width > 0 && anchorBounds.height > 0"))
         assertFalse(source.contains("animateContentSize("))
@@ -35,21 +36,13 @@ class SourceReferenceBarRegressionTest {
         assertTrue(richMessage.contains("SourceReferenceBar("))
         assertFalse(richMessage.contains("sourceReferencesFooterMarkdown"))
 
-        assertTrue(morph.contains("Animatable(0f)"))
-        assertTrue(morph.contains("LocalWindowInfo.current.containerSize"))
-        assertTrue(morph.contains(".size(popupWidth, popupHeight)"))
-        assertFalse(morph.contains(".fillMaxSize()"))
-        assertTrue(morph.contains("delay(750)"))
-        assertTrue(morph.contains("cardSize.width <= 0 || cardSize.height <= 0"))
-        assertTrue(morph.contains(".width(330.dp)"))
-        assertTrue(morph.contains(".heightIn(max = 420.dp)"))
-        assertTrue(morph.contains("this.scaleX = scaleX"))
-        assertTrue(morph.contains("this.scaleY = scaleY"))
-        assertTrue(morph.contains("this.translationX = translationX"))
-        assertTrue(morph.contains("this.translationY = translationY"))
-        assertTrue(morph.contains("dismissOnBackPress = false"))
-        assertTrue(morph.contains("dismissOnClickOutside = false"))
-        assertTrue(morph.contains("val wasTap = maxTravelSquared <= slop * slop"))
-        assertTrue(morph.contains("!boundsReady || !startedInsideCard"))
+        val anchored = preview.substringAfter("internal fun AnchoredLinkPreview(")
+            .substringBefore("internal fun LinkPreviewDetails(")
+        assertTrue(anchored.contains(".width(330.dp)"))
+        assertTrue(anchored.contains(".heightIn(max = 420.dp)"))
+        assertTrue(anchored.contains("AnimatedVisibility("))
+        assertTrue(anchored.contains("dismissOnBackPress = true"))
+        assertTrue(anchored.contains("dismissOnClickOutside = true"))
+        assertTrue(anchored.contains("onDismissRequest = requestDismiss"))
     }
 }

@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Xylune</string>
+    <string name="app_name_possessive">Xylune\'un</string>
+    <string name="generation_channel_name">Yapay zekâ yanıtları</string>
+    <string name="generation_channel_description">Xylune arka plandayken devam eden yanıtlar</string>
+    <string name="home_widget_name">Xylune programlanabilir widget\'ı</string>
+    <string name="home_widget_description">Xylune tarafından oluşturulan, izin kontrollü programlanabilir ana ekran widget\'ı</string>
+    <string name="home_widget_program_content">Programlanabilir widget içeriği</string>
+    <string name="home_widget_refresh">Widget\'ı yenile</string>
+
+    <string name="language">Dil</string>
+    <string name="language_description">Xylune arayüzünde kullanılacak dili seçin.</string>
+    <string name="language_system">Sistem varsayılanı</string>
+    <string name="language_english">English</string>
+    <string name="language_turkish">Türkçe</string>
+    <string name="language_dialog_title">Uygulama dili</string>
+
+    <string name="sources">Kaynaklar</string>
+    <string name="source_number">Kaynak %1$d</string>
+    <string name="source_description">Bu yanıtı desteklemek için kullanılan bir kaynak.</string>
+    <string name="referenced_file">Başvurulan dosya</string>
+    <string name="external_link">Harici bağlantı</string>
+    <string name="file_reference_description">Bu yanıtta başvurulan bir dosya.</string>
+    <string name="source_reference_description">İlgili ifadeyi desteklemek için kullanılan bir kaynak.</string>
+    <string name="link_reference_description">Bu yanıttan bağlantı verilen harici bir sayfa.</string>
+    <string name="close">Kapat</string>
+    <string name="open">Aç</string>
+
+    <string name="crash_recovered_title">%1$s bir çökme raporunu kurtardı</string>
+    <string name="crash_safe_message">%1$s, oluşturulan widget\'lar duraklatılmış şekilde güvenli modda yeniden açıldı. Sohbetleriniz ve dosyalarınız silinmedi. Bu raporu kapatıp uygulamayı kullanmaya devam edebilir, hazır olduğunuzda tam işlemeyi yeniden deneyebilirsiniz.</string>
+    <string name="try_full_rendering_again">Tam işlemeyi yeniden dene</string>
+    <string name="crash_copy_instruction">Hatayı incelemek için yardıma ihtiyacınız varsa bu kişisel bilgilerden arındırılmış tanılama raporunu kopyalayın. Paylaşmadan önce raporu gözden geçirin.</string>
+    <string name="dismiss">Kapat</string>
+    <string name="copy_report">Raporu kopyala</string>
+    <string name="crash_report_clip_label">%1$s çökme raporu</string>
+</resources>

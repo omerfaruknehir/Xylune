@@ -7,4 +7,30 @@
     <string name="home_widget_description">A permissioned programmable Home-screen widget created by Xylune</string>
     <string name="home_widget_program_content">Programmable widget content</string>
     <string name="home_widget_refresh">Refresh widget</string>
+
+    <string name="language">Language</string>
+    <string name="language_description">Choose the language Xylune uses for its interface.</string>
+    <string name="language_system">System default</string>
+    <string name="language_english">English</string>
+    <string name="language_turkish">Türkçe</string>
+    <string name="language_dialog_title">App language</string>
+
+    <string name="sources">Sources</string>
+    <string name="source_number">Source %1$d</string>
+    <string name="source_description">A source used to support this response.</string>
+    <string name="referenced_file">Referenced file</string>
+    <string name="external_link">External link</string>
+    <string name="file_reference_description">A file referenced by this answer.</string>
+    <string name="source_reference_description">A source used to support the surrounding claim.</string>
+    <string name="link_reference_description">An external page linked from this answer.</string>
+    <string name="close">Close</string>
+    <string name="open">Open</string>
+
+    <string name="crash_recovered_title">%1$s recovered a crash report</string>
+    <string name="crash_safe_message">%1$s reopened safely with generated widgets paused. Your chats and files were not deleted. You can dismiss this report and keep using the app, then retry full rendering when ready.</string>
+    <string name="try_full_rendering_again">Try full rendering again</string>
+    <string name="crash_copy_instruction">Copy this redacted diagnostic report if you need help diagnosing the failure. Review it before sharing.</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="copy_report">Copy report</string>
+    <string name="crash_report_clip_label">%1$s crash report</string>
 </resources>

@@ -19,9 +19,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.automirrored.outlined.InsertDriveFile
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.TravelExplore
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -29,7 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.Text as MaterialText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -41,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -53,6 +54,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import androidx.core.net.toUri
+import app.xylune.chat.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -163,15 +165,17 @@ internal fun LinkPreviewDetails(
         loading = false
     }
 
+    val referencedFile = stringResource(R.string.referenced_file)
+    val externalLink = stringResource(R.string.external_link)
     val title = metadata?.title?.takeIf(String::isNotBlank) ?: reference.label.ifBlank {
-        if (reference.kind == LinkReferenceKind.FILE) "Referenced file" else host.ifBlank { "External link" }
+        if (reference.kind == LinkReferenceKind.FILE) referencedFile else host.ifBlank { externalLink }
     }
     val description = metadata?.description?.takeIf(String::isNotBlank)
         ?: reference.description.takeIf(String::isNotBlank)
         ?: when (reference.kind) {
-            LinkReferenceKind.FILE -> "A file referenced by this answer."
-            LinkReferenceKind.SOURCE -> "A source used to support the surrounding claim."
-            LinkReferenceKind.LINK -> "An external page linked from this answer."
+            LinkReferenceKind.FILE -> stringResource(R.string.file_reference_description)
+            LinkReferenceKind.SOURCE -> stringResource(R.string.source_reference_description)
+            LinkReferenceKind.LINK -> stringResource(R.string.link_reference_description)
         }
 
     Column(modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -228,7 +232,7 @@ internal fun LinkPreviewDetails(
         }
 
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
-            OutlinedButton(onClick = onDismiss) { Text("Close") }
+            OutlinedButton(onClick = onDismiss) { Text(stringResource(R.string.close)) }
             if (openable) {
                 Spacer(Modifier.width(8.dp))
                 Button(onClick = {
@@ -237,7 +241,7 @@ internal fun LinkPreviewDetails(
                     runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, target.toUri())) }
                 }) {
                     Icon(Icons.AutoMirrored.Outlined.OpenInNew, null, Modifier.size(17.dp))
-                    Text("Open", Modifier.padding(start = 6.dp))
+                    Text(stringResource(R.string.open), Modifier.padding(start = 6.dp))
                 }
             }
         }
