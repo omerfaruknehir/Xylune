@@ -16,6 +16,8 @@ class AppVersionAndProviderSheetRegressionTest {
         val updates = repositoryFile("app/src/main/java/app/xylune/chat/update/RepositoryUpdateManager.kt").readText()
         val settings = repositoryFile("app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt").readText()
         val archive = repositoryFile("app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt").readText()
+        val contextAssembler = repositoryFile("app/src/main/java/app/xylune/chat/chat/ContextAssembler.kt").readText()
+        val generationWorker = repositoryFile("app/src/main/java/app/xylune/chat/generation/GenerationWorker.kt").readText()
 
         assertTrue(version.contains("packageManager.getPackageInfo"))
         assertTrue(version.contains("BuildConfig.VERSION_NAME"))
@@ -28,6 +30,11 @@ class AppVersionAndProviderSheetRegressionTest {
         assertTrue(settings.contains("AboutInfoRow(\"Version\", installedVersion.versionName)"))
         assertTrue(settings.contains("AboutInfoRow(\"Build\", \"\${installedVersion.versionCode} · \${BuildConfig.BUILD_TYPE}\")"))
         assertTrue(archive.contains("appVersion = installedVersion.versionName"))
+        assertTrue(contextAssembler.contains("private val appVersion: String"))
+        assertTrue(contextAssembler.contains("Xylune app version: \$appVersion (installed Android package version)"))
+        assertTrue(contextAssembler.contains("prompt revision only; this is not the app version"))
+        assertTrue(generationWorker.contains("private val installedVersion = applicationContext.installedAppVersion()"))
+        assertTrue(generationWorker.contains("appVersion = installedVersion.versionName"))
     }
 
     @Test
