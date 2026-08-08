@@ -29,7 +29,10 @@ internal fun lessEmojiPromptLayer(enabled: Boolean): String {
     """.trimIndent()
 }
 
-class ContextAssembler(private val attachmentDao: AttachmentDao) {
+class ContextAssembler(
+    private val attachmentDao: AttachmentDao,
+    private val appVersion: String,
+) {
     suspend fun assemble(
         conversation: ConversationEntity,
         newestFirst: List<MessageEntity>,
@@ -46,7 +49,8 @@ class ContextAssembler(private val attachmentDao: AttachmentDao) {
         val localFormatter = DateTimeFormatter.ofPattern("EEEE, d MMMM uuuu, HH:mm:ss XXX", Locale.getDefault())
         val runtimeContext = buildString {
             appendLine("Xylune runtime context (authoritative for this request):")
-            appendLine("- Xylune core prompt revision: $XYLUNE_CORE_PROMPT_REVISION (bundled with this app build; not user-editable)")
+            appendLine("- Xylune app version: $appVersion (installed Android package version)")
+            appendLine("- Xylune core prompt revision: $XYLUNE_CORE_PROMPT_REVISION (prompt revision only; this is not the app version; not user-editable)")
             appendLine("- Current local date and time: ${now.format(localFormatter)}")
             appendLine("- Device time zone: ${now.zone.id}")
             appendLine("- Device locale: ${Locale.getDefault().toLanguageTag()}")
