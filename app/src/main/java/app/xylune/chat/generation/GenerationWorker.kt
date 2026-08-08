@@ -18,6 +18,7 @@ import androidx.work.WorkerParameters
 import app.xylune.chat.XyluneApplication
 import app.xylune.chat.MainActivity
 import app.xylune.chat.R
+import app.xylune.chat.installedAppVersion
 import app.xylune.chat.agent.XyluneNativeTools
 import app.xylune.chat.agent.AgentToolRequest
 import app.xylune.chat.agent.MessageTimelineEvent
@@ -59,6 +60,7 @@ class GenerationWorker(
     private val assistantId = requireNotNull(inputData.getString(KEY_ASSISTANT_ID))
     private val conversationId = requireNotNull(inputData.getString(KEY_CONVERSATION_ID))
     private val continuation = inputData.getBoolean(KEY_CONTINUATION, false)
+    private val installedVersion = applicationContext.installedAppVersion()
 
     override suspend fun doWork(): Result {
         val message = repository.message(assistantId) ?: return Result.success()
@@ -214,7 +216,10 @@ class GenerationWorker(
                     !webSearchSettings.pageFetchEnabled && tool.name.equals("web_fetch", ignoreCase = true)
                 }
         } else emptyList()
-        val messages = ContextAssembler(container.database.attachmentDao()).assemble(
+        val messages = ContextAssembler(
+            attachmentDao = container.database.attachmentDao(),
+            appVersion = installedVersion.versionName,
+        ).assemble(
             conversation,
             newest,
             compressedContext,

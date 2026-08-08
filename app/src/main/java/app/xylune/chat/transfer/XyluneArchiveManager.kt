@@ -5,7 +5,7 @@ import android.net.Uri
 import android.util.Base64
 import androidx.core.content.FileProvider
 import androidx.room.withTransaction
-import app.xylune.chat.BuildConfig
+import app.xylune.chat.installedAppVersion
 import app.xylune.chat.data.XyluneDatabase
 import app.xylune.chat.data.AttachmentEntity
 import app.xylune.chat.data.ConversationEntity
@@ -206,6 +206,7 @@ class XyluneArchiveManager(
     private val linuxEnvironments: LinuxEnvironmentArchiveStore,
     private val appSettings: AppSettingsArchiveStore,
 ) {
+    private val installedVersion = context.installedAppVersion()
     private val json = Json {
         encodeDefaults = true
         ignoreUnknownKeys = true
@@ -349,7 +350,7 @@ class XyluneArchiveManager(
             val manifest = ArchiveManifest(
                 kind = kind,
                 createdAt = now,
-                appVersion = BuildConfig.VERSION_NAME,
+                appVersion = installedVersion.versionName,
                 title = when {
                     kind == ArchiveKind.CHAT -> bundles.single().conversation.title
                     bundles.isEmpty() && preparedLinux.isNotEmpty() -> "Xylune Linux backup"

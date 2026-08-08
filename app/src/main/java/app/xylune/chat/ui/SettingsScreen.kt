@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,9 +14,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -76,6 +80,7 @@ import androidx.compose.material3.Text as MaterialText
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -110,6 +115,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.xylune.chat.BuildConfig
 import app.xylune.chat.R
+import app.xylune.chat.installedAppVersion
 import app.xylune.chat.data.ProviderEntity
 import app.xylune.chat.data.ProviderKind
 import app.xylune.chat.data.ModelEntity
@@ -1531,7 +1537,9 @@ private fun AboutSettingsPage(
     onOpenLicenses: () -> Unit,
 ) = SettingsPage {
     val appName = stringResource(R.string.app_name)
-    val applicationInfo = LocalContext.current.applicationInfo
+    val context = LocalContext.current
+    val applicationInfo = context.applicationInfo
+    val installedVersion = remember(context) { context.installedAppVersion() }
     val uriHandler = LocalUriHandler.current
     val updateState by viewModel.repositoryUpdateState.collectAsState()
     val sourceRepository = BuildConfig.SOURCE_REPOSITORY.takeIf(String::isNotBlank)
@@ -1546,7 +1554,7 @@ private fun AboutSettingsPage(
     val deletionUrl = remember(siteColors, matchLauncherIconToPalette) {
         xyluneWebsiteUrl("data-deletion/", siteColors, dynamicLogo = matchLauncherIconToPalette)
     }
-    SectionTitle("$appName ${BuildConfig.VERSION_NAME}", "Native Android BYOK model workspace.")
+    SectionTitle("$appName ${installedVersion.versionName}", "Native Android BYOK model workspace.")
 
     SettingsGroup("Project") {
         ListItem(
@@ -1701,8 +1709,8 @@ private fun AboutSettingsPage(
     }
 
     SettingsGroup("Build information") {
-        AboutInfoRow("Version", BuildConfig.VERSION_NAME)
-        AboutInfoRow("Build", "${BuildConfig.VERSION_CODE} · ${BuildConfig.BUILD_TYPE}")
+        AboutInfoRow("Version", installedVersion.versionName)
+        AboutInfoRow("Build", "${installedVersion.versionCode} · ${BuildConfig.BUILD_TYPE}")
         AboutInfoRow("Package", BuildConfig.APPLICATION_ID)
         AboutInfoRow("Source repository", sourceRepository ?: "Not embedded")
         if (BuildConfig.SOURCE_COMMIT.isNotBlank()) AboutInfoRow("Source commit", BuildConfig.SOURCE_COMMIT.take(12))
@@ -2817,6 +2825,7 @@ private data class ProviderDraft(
     val selectedModels: List<DiscoveredModel>,
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AddProviderDialog(
     templates: List<ProviderEntity>,
@@ -2862,12 +2871,60 @@ private fun AddProviderDialog(
         manualModelName = ""
     }
 
-    XyluneAlertDialog(
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val formScrollState = rememberScrollState()
+
+    fun submitProvider() {
+        val selected = discoveredModels.filter { it.id in selectedModelIds }
+        val manual = if (manualModelReady) {
+            listOf(DiscoveredModel(manualModelId, manualModelName.trim()))
+        } else {
+            emptyList()
+        }
+        onAdd(
+            ProviderDraft(
+                templateProviderId = templateId,
+                name = name.trim(),
+                kind = kind,
+                baseUrl = baseUrl.trim(),
+                apiKey = apiKey,
+                apiKeyRequired = apiKeyRequired,
+                headers = headers.ifBlank { "{}" },
+                selectedModels = (selected + manual).distinctBy { it.id },
+            ),
+        )
+    }
+
+    ModalBottomSheet(
         onDismissRequest = onDismiss,
-        title = { Text("Add provider") },
-        text = {
+        sheetState = sheetState,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.94f)
+                .heightIn(max = 760.dp)
+                .imePadding(),
+        ) {
             Column(
-                Modifier.heightIn(max = 590.dp).verticalScroll(rememberScrollState()),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+            ) {
+                Text("Add provider", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
+                Text(
+                    "Choose a preset or connect a custom API endpoint.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Spacer(Modifier.height(12.dp))
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(formScrollState)
+                    .padding(horizontal = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
                 Box {
@@ -3046,30 +3103,42 @@ private fun AddProviderDialog(
                 }
                 if (selectedModelIds.isNotEmpty()) Text("Only the selected provider models will be saved.", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             }
-        },
-        dismissButton = { OutlinedButton(onClick = onDismiss) { Text("Cancel") } },
-        confirmButton = {
-            Button(
-                enabled = valid,
-                onClick = {
-                    val selected = discoveredModels.filter { it.id in selectedModelIds }
-                    val manual = if (manualModelReady) listOf(DiscoveredModel(manualModelId, manualModelName.trim())) else emptyList()
-                    onAdd(
-                        ProviderDraft(
-                            templateProviderId = templateId,
-                            name = name.trim(),
-                            kind = kind,
-                            baseUrl = baseUrl.trim(),
-                            apiKey = apiKey,
-                            apiKeyRequired = apiKeyRequired,
-                            headers = headers.ifBlank { "{}" },
-                            selectedModels = (selected + manual).distinctBy { it.id },
-                        ),
-                    )
-                },
-            ) { Text("Add provider") }
-        },
-    )
+            Spacer(Modifier.height(12.dp))
+            HorizontalDivider()
+            BoxWithConstraints(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+                    .padding(horizontal = 20.dp, vertical = 14.dp),
+            ) {
+                if (maxWidth < 360.dp) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        Button(
+                            enabled = valid,
+                            onClick = ::submitProvider,
+                            modifier = Modifier.fillMaxWidth(),
+                        ) { Text("Add provider") }
+                        OutlinedButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) { Text("Cancel") }
+                    }
+                } else {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        OutlinedButton(onClick = onDismiss, modifier = Modifier.weight(1f)) { Text("Cancel") }
+                        Button(
+                            enabled = valid,
+                            onClick = ::submitProvider,
+                            modifier = Modifier.weight(1f),
+                        ) { Text("Add provider") }
+                    }
+                }
+            }
+        }
+    }
 }
 
 private fun providerKindLabel(kind: ProviderKind): String = when (kind) {
