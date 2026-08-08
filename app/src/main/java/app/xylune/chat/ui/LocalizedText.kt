@@ -47,7 +47,12 @@ internal fun Text(
     val language = LocalConfiguration.current.locales[0]?.language
     val localized = if (language == "tr") {
         val primary = TurkishUiCopy.translate(text)
-        if (primary != text) primary else TurkishUiCopyExtra.translate(text)
+        if (primary != text) {
+            primary
+        } else {
+            val secondary = TurkishUiCopyExtra2.translate(text)
+            if (secondary != text) secondary else TurkishUiCopyExtra.translate(text)
+        }
     } else {
         text
     }
