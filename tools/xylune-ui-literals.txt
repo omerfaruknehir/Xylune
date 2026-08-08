@@ -1,0 +1,2143 @@
+# Temporary localization audit
+# Direct app.xylune.chat.ui files whose Material Text import was routed through LocalizedText.kt:
+# app/src/main/java/app/xylune/chat/ui/AppLanguageMenuButton.kt
+# app/src/main/java/app/xylune/chat/ui/AttachmentCard.kt
+# app/src/main/java/app/xylune/chat/ui/ChatCollapsingTranslucentTopBar.kt
+# app/src/main/java/app/xylune/chat/ui/ChatConfigurationSheet.kt
+# app/src/main/java/app/xylune/chat/ui/ChatScreen.kt
+# app/src/main/java/app/xylune/chat/ui/CloudBackupUi.kt
+# app/src/main/java/app/xylune/chat/ui/CollapsingTranslucentTopBar.kt
+# app/src/main/java/app/xylune/chat/ui/ConversationSidebar.kt
+# app/src/main/java/app/xylune/chat/ui/DirectCloudProvidersUi.kt
+# app/src/main/java/app/xylune/chat/ui/ExecutionCards.kt
+# app/src/main/java/app/xylune/chat/ui/GeneratedContentRepairUi.kt
+# app/src/main/java/app/xylune/chat/ui/ImageGenerationScreen.kt
+# app/src/main/java/app/xylune/chat/ui/ImageGenerationUi.kt
+# app/src/main/java/app/xylune/chat/ui/LicenseCatalogScreen.kt
+# app/src/main/java/app/xylune/chat/ui/LinkPreview.kt
+# app/src/main/java/app/xylune/chat/ui/LinuxTerminalScreen.kt
+# app/src/main/java/app/xylune/chat/ui/ModelPickerSheet.kt
+# app/src/main/java/app/xylune/chat/ui/NativeVisuals.kt
+# app/src/main/java/app/xylune/chat/ui/OnboardingScreen.kt
+# app/src/main/java/app/xylune/chat/ui/PagedTextPreview.kt
+# app/src/main/java/app/xylune/chat/ui/PerformanceOverlay.kt
+# app/src/main/java/app/xylune/chat/ui/RichMessage.kt
+# app/src/main/java/app/xylune/chat/ui/SandboxScreen.kt
+# app/src/main/java/app/xylune/chat/ui/SearchScreen.kt
+# app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt
+# app/src/main/java/app/xylune/chat/ui/SetupRestoreUi.kt
+# app/src/main/java/app/xylune/chat/ui/SourceReferenceBar.kt
+# app/src/main/java/app/xylune/chat/ui/StreamingTokenPulse.kt
+# app/src/main/java/app/xylune/chat/ui/SyntaxHighlight.kt
+# app/src/main/java/app/xylune/chat/ui/TransferUi.kt
+# app/src/main/java/app/xylune/chat/ui/UsageDetailsUi.kt
+
+xylune-reference-$index
+!?\[[^\]\n]+\]\([^)\n]+\)
+!?\[[^\]\n]+\]\[[^\]\n]+\]
+$appName ${BuildConfig.VERSION_NAME}
+$appName ${status.distribution.displayName} root terminal
+Commands run as uid 0 inside the selected PRoot distribution.
+$appName core prompt only
+$appName will remove this Python package from the current chat environment. Other packages and the optional Linux runtime are kept.
+$appName's built-in core prompt is versioned with the app and cannot be edited. Create reusable custom profiles in Settings.
+$appNamePossessive green Material palette
+$count configured providers
+$distribution imports as ${names.joinToString().ifBlank {
+$distribution → import ${names.joinToString().ifBlank {
+$elapsedMs ms
+$label excluded
+$label included
+$label is running in the background • ${deadline}s deadline
+$label paused for crash recovery
+$messageKey:${segment.events.first().id}
+$metadataSource metadata
+$modelName requires at least one reference image.
+$operationScope:${parsed.key}:code:${block.language.lowercase()}
+$providerCount provider${if (providerCount == 1)
+$providerName · $modelName
+$referenceImageCount reference image${if (referenceImageCount == 1)
+$value B
+${(chromeBlurStrength * 100).roundToInt()}%
+${(chromeOverlayOpacity * 100).roundToInt()}%
+${(displayedSoftness * 100).roundToInt()}%
+${(finished - event.startedAt).coerceAtLeast(0)} ms
+${(it * 100).toInt()}%
+${(it.coerceIn(0f, 1f) * 100).toInt()}%
+${(scale * 100).toInt()}%
+${(settings.performanceOverlayBackgroundOpacity * 100).roundToInt()}%
+${(settings.performanceOverlayScale * 100).roundToInt()}%
+${(settings.performanceOverlayTextOpacity * 100).roundToInt()}%
+${activeIndex + 1} / ${options.size}
+${attachment.mimeType.substringAfter('/').uppercase()}  •  ${Formatter.formatShortFileSize(context, attachment.sizeBytes)}
+${BuildConfig.VERSION_CODE} · ${BuildConfig.BUILD_TYPE}
+${choice.provider.displayName} · ${choice.model.modelId}
+${component.category} · ${component.version}
+${contextWindow / 1_000}K context
+${current.decidedBy}: ${current.reason}
+${current.plan.items.size} packages resolved • $changed changes${if (dependencies > 0)
+${currentModel.displayName} accepts at most ${capabilities.maxInputImages} reference images.
+${currentModel.displayName} does not accept reference images.
+${currentModel?.displayName.orEmpty()} accepts up to ${caps.maxInputImages} reference images.
+${durationMs.f1()} ms of ${budgetMs.f1()} ms frame budget
+${effectiveEffort.displayName} effort
+${elapsedMs / 100 / 10.0} s
+${elapsedMs / 1_000} s
+${entry.name} will be permanently deleted from ${provider.displayName}.
+${entry.name} will be permanently removed from its cloud provider.
+${entry.sizeBytes} B
+${event.label} • ${event.status}
+${favoriteKeys.size} starred
+${filtered.size} of ${catalog.components.size} components
+${humanizeUsageName(it)} plan • reported by ChatGPT
+${if (memory.sourceConversationId == null)
+${index + 1}. ${result.title.ifBlank { host.ifBlank { result.url } }}
+${index + 1}. ${workEventTitle(event)}
+${input.blurSourceDrawsPerFrame.f1()} blur source traversals/frame
+${it / 1_000}K context
+${it.conversationId}:${it.nodeId}:${it.rank}:${it.snippet.hashCode()}
+${it.groupValues[1]} hafıza silinsin mi?
+${it.groupValues[1]} sağlayıcı yapılandırıldı
+${it.groupValues[1]} seçildi
+${it.key}: ${it.value}
+${it.name} ${it.spdx.orEmpty()}
+${it.name} · ${it.mode.name.lowercase()}
+${it.path}: ${it.message}
+${it.phase} ${it.path}: ${it.message}
+${item.name} • $status${item.detail.takeIf(String::isNotBlank)?.let {
+${item.name} • ${item.action.name.lowercase().replace('_', ' ')}${item.candidateVersion?.let {
+${item.name} • ${item.action.name.lowercase().replace('_', ' ')}${item.installedVersion?.let {
+${latest.runtime.name.lowercase()} · attempt ${latest.attempt} · revision ${latest.revision}
+${left.roundToInt()}% left
+${limit.name} • secondary
+${linuxStatus.distribution.displayName} ${linuxStatus.release} installed
+${maxOutputTokens / 1_000}K output
+${memories.size} saved item${if (memories.size == 1)
+${message.nodeId}:${message.updatedAt}:${message.status}:${message.error.orEmpty()}
+${minutes}m ${seconds}s
+${model.contextWindow.compactTokens()} context
+${model.maxOutputTokens.compactTokens()} output
+${models.size} available for ${provider.displayName} · metadata refreshes with the catalog
+${patch.summary}
+Revision ${patch.revision ?:
+${pending.size} image request${if (pending.size == 1)
+${pending.size} queued
+${pkg.name} ${pkg.version}
+${profile.name} · ${profile.mode.name.lowercase()}
+${provider.displayName} connection
+${provider.displayName} models
+${providerCountLabel(configuredProviderCount)} connected
+${providerCountLabel(configuredProviderCount)} ready
+${read.path} • lines ${read.startLine}–${read.endLine}
+${recompositions.f1()} recompositions/s at ${refresh.toDouble().f0()} Hz
+${result.conversationIds.size} chat${if (result.conversationIds.size == 1)
+${result.linuxEnvironmentCount} Linux environment${if (result.linuxEnvironmentCount == 1)
+${result.name} ${result.version}
+${results.size} results
+${review.decidedBy}: ${review.reason}
+${review.plan.items.size} packages resolved • $changes changes
+${review.plan.items.size} packages resolved • $changes changes • $dependencies dependencies
+${seconds / 3_600L}-hour limit
+${seconds / 86_400L}-day limit
+${selectedIds.size} selected
+${selectedModelIds.size} of ${discoveredModels.size} selected
+${settings.blurBoundaryDebugThicknessDp.roundToInt()} dp
+${settings.engine.title} credential
+${status.distribution.displayName}: ${status.detail.ifBlank { status.stage.name.lowercase() }}
+${summary.sourceMessageCount} older messages • about ${summary.tokenEstimate} tokens
+${this / 1_000_000}M
+${this / 1_000}K
+${traces.size + if (text.isNotBlank()) 1 else 0} steps
+${ubuntuStatus.distribution.description} • ${ubuntuStatus.distribution.release} • ${ubuntuStatus.distribution.packageManager.command}
+${ubuntuStatus.distribution.displayName} ${ubuntuStatus.release} · Ready
+${ubuntuStatus.distribution.displayName} • ${ubuntuStatus.stage.name.lowercase().replace('_', ' ')} • ${ubuntuStatus.architecture}
+${ubuntuStatus.distribution.packageManager.command} install failed
+${ubuntuStatus.distribution.packageManager.command} simulates the complete transaction first and checks what is already installed before approval.
+${used.roundToInt()}% used
+${value.conversationCount} chat${if (value.conversationCount == 1)
+%${it.groupValues[1]} kaldı
+%${it.groupValues[1]} kullanıldı
+%,d
+%.0f
+%.1f
+%.1f GiB
+%.1f KiB
+%.1f MiB
+%.2f
+%.4f
+%.5f
+%.6f
+%06x
+&& series.points.isNotEmpty()) {
+                    val last = point(series.points.lastIndex, series.points.last().second); val first = point(0, series.points.first().second)
+                    val fill = Path().apply { addPath(path); lineTo(last.x, plotBottom); lineTo(first.x, plotBottom); close() }
+                    drawPath(fill, color.copy(alpha = .2f))
+                }
+                if (chart.type !=
+' || (char == '`' && family in setOf(SyntaxFamily.C_LIKE, SyntaxFamily.SHELL, SyntaxFamily.PLAIN))) {
+            val quote = char
+            var end = index + 1
+            var escaped = false
+            while (end < code.length) {
+                val current = code[end++] 
+                if (escaped) escaped = false
+                else if (current == '\\') escaped = true
+                else if (current == quote) break
+            }
+            val property = family in setOf(SyntaxFamily.JSON, SyntaxFamily.YAML) &&
+                nextNonWhitespace(end).let { it < code.length && (code[it] == ':' || code[it] == '=') }
+            add(end, if (property) SyntaxKind.PROPERTY else SyntaxKind.STRING)
+            continue
+        }
+
+        if (char == '@' && index + 1 < code.length && (code[index + 1].isLetter() || code[index + 1] == '_')) {
+            var end = index + 2
+            while (end < code.length && (code[end].isLetterOrDigit() || code[end] in
+', ''', '`').replace(Regex(
+'][^>]+(?:property|name)\s*=\s*[
+'][^>]+content\s*=\s*[
+(?i)(?:flowchart|graph)\s+(TB|TD|BT|LR|RL)
+(?i)^(?:di)?graph\b
+(?i)^(?:participant|actor)\s+([A-Za-z0-9_.-]+)(?:\s+as\s+(.+))?
+(?i)label\\s*=\\s*[\"']?([^\"',]+)
+(?i)rankdir\s*=\s*(LR|RL|TB|BT)
+(?is)<meta[^>]+(?:property|name)\s*=\s*[
+(?is)<meta[^>]+content\s*=\s*[
+(?is)<title[^>]*>(.*?)</title>
+(?m)^\s*\|?.+\|.+?
+\s*\|?\s*:?-{3,}:?\s*\|
+([A-Za-z0-9_.-]+)\s*(->|--)\s*([A-Za-z0-9_.-]+)(?:\s*\[([^\]]*)\])?
+(\d+) provider configured
+(\d+) providers configured
+(\d+) selected
+(\d+)% left
+(\d+)% used
+)
+    val levelGroups = levels.entries.groupBy({ it.value }, { it.key }).toSortedMap()
+    val across = max(1, levelGroups.values.maxOfOrNull { it.size } ?: 1)
+    val deep = max(1, levelGroups.size)
+    val nodeW = if (large) 180.dp else 148.dp
+    val nodeH = 62.dp
+    val gapX = 26.dp
+    val gapY = 38.dp
+    val width = if (horizontal) (deep * (nodeW.value + gapX.value) + 20).dp else (across * (nodeW.value + gapX.value) + 20).dp
+    val height = if (horizontal) (across * (nodeH.value + gapY.value) + 20).dp else (deep * (nodeH.value + gapY.value) + 20).dp
+    val positions = remember(diagram, levels, horizontal, width, height) {
+        val map = mutableMapOf<String, Pair<Float, Float>>()
+        val maxLevel = levelGroups.keys.maxOrNull() ?: 0
+        levelGroups.forEach { (level, ids) ->
+            ids.forEachIndexed { row, id ->
+                val visualLevel = if (diagram.direction in setOf(
+) -> SyntaxKind.KEYWORD
+                family == SyntaxFamily.MARKUP && previous >= 0 && (code[previous] == '<' || code[previous] == '/') -> SyntaxKind.TYPE
+                next < code.length && code[next] in setOf(':', '=') && family in setOf(SyntaxFamily.JSON, SyntaxFamily.YAML, SyntaxFamily.MARKUP) -> SyntaxKind.PROPERTY
+                next < code.length && code[next] == '(' -> SyntaxKind.FUNCTION
+                word.firstOrNull()?.isUpperCase() == true -> SyntaxKind.TYPE
+                char == '$' -> SyntaxKind.PROPERTY
+                else -> null
+            }
+            if (kind != null) add(end, kind) else index = end
+            continue
+        }
+
+        if (char in
+) 270.dp else 250.dp, large = false)
+    }
+    if (expanded) VisualDialog(chart.title.ifBlank {
+) drawCircle(chartBackground, diameter * .23f, Offset(topLeft.x + diameter / 2, topLeft.y + diameter / 2))
+            return@Canvas
+        }
+        val minValue = minOf(0.0, all.minOrNull() ?: 0.0)
+        val maxValue = maxOf(1.0, all.maxOrNull() ?: 1.0)
+        val plotLeft = 42.dp.toPx(); val plotTop = 14.dp.toPx(); val plotRight = size.width - 10.dp.toPx(); val plotBottom = size.height - 34.dp.toPx()
+        repeat(5) { line ->
+            val y = plotTop + (plotBottom - plotTop) * line / 4f
+            drawLine(grid, Offset(plotLeft, y), Offset(plotRight, y), strokeWidth = 1.dp.toPx())
+            val value = maxValue - (maxValue - minValue) * line / 4.0
+            drawText(SafeNumber(value), Offset(2.dp.toPx(), y + 4.dp.toPx()), text.copy(alpha = .7f), 10.dp.toPx())
+        }
+        val count = chart.series.maxOf { it.points.size }.coerceAtLeast(1)
+        fun point(index: Int, value: Double): Offset {
+            val x = if (count == 1) (plotLeft + plotRight) / 2 else plotLeft + (plotRight - plotLeft) * index / (count - 1).toFloat()
+            val y = plotBottom - ((value - minValue) / (maxValue - minValue).coerceAtLeast(.000001) * (plotBottom - plotTop)).toFloat()
+            return Offset(x, y)
+        }
+        chart.series.forEachIndexed { seriesIndex, series ->
+            val color = colors[seriesIndex % colors.size]
+            if (chart.type ==
+) drawPath(path, color, style = Stroke(if (large) 3.dp.toPx() else 2.dp.toPx()))
+                series.points.forEachIndexed { index, (_, value) -> drawCircle(color, 3.5.dp.toPx(), point(index, value)) }
+            }
+        }
+        chart.series.first().points.take(if (large) 24 else 12).forEachIndexed { index, (label, _) ->
+            if (index % max(1, count / 8) == 0) drawText(label.take(10), Offset(point(index, minValue).x - 8.dp.toPx(), plotBottom + 18.dp.toPx()), text.copy(alpha = .75f), 10.dp.toPx())
+        }
+    }
+}
+
+@Composable
+private fun VisualFrame(title: String, onExpand: () -> Unit, content: @Composable () -> Unit) {
+    Surface(color = MaterialTheme.colorScheme.surfaceContainer, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row {
+                Text(title, Modifier.weight(1f), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
+                IconButton(onClick = onExpand) { Icon(Icons.Outlined.OpenInFull,
+) {
+                val groupWidth = (plotRight - plotLeft) / count
+                val barWidth = (groupWidth * .72f / chart.series.size).coerceAtLeast(3.dp.toPx())
+                series.points.forEachIndexed { index, (_, value) ->
+                    val zero = point(index, 0.0); val valuePoint = point(index, value)
+                    val left = plotLeft + groupWidth * index + groupWidth * .14f + seriesIndex * barWidth
+                    drawRoundRect(color, Offset(left, minOf(zero.y, valuePoint.y)), Size(barWidth, kotlin.math.abs(zero.y - valuePoint.y).coerceAtLeast(1f)), CornerRadius(3.dp.toPx()))
+                }
+            } else {
+                val path = Path()
+                series.points.forEachIndexed { index, (_, value) -> val p = point(index, value); if (index == 0) path.moveTo(p.x, p.y) else path.lineTo(p.x, p.y) }
+                if (chart.type ==
+) {
+            val values = chart.series.first().points.filter { it.second > 0 }
+            val total = values.sumOf { it.second }.takeIf { it > 0 } ?: return@Canvas
+            val diameter = minOf(size.width * .62f, size.height * .75f)
+            val topLeft = Offset(12.dp.toPx(), (size.height - diameter) / 2)
+            var start = -90f
+            values.forEachIndexed { index, (_, value) ->
+                val sweep = (value / total * 360).toFloat()
+                drawArc(colors[index % colors.size], start, sweep, true, topLeft, Size(diameter, diameter))
+                start += sweep
+            }
+            values.take(8).forEachIndexed { index, (label, value) ->
+                val y = 24.dp.toPx() + index * 24.dp.toPx()
+                drawCircle(colors[index % colors.size], 5.dp.toPx(), Offset(diameter + 34.dp.toPx(), y))
+                drawText(
+) {
+            var end = index + 1
+            while (end < code.length && code[end] in
+) }
+            }
+            content()
+        }
+    }
+}
+
+@Composable
+private fun VisualDialog(title: String, onDismiss: () -> Unit, content: @Composable () -> Unit) {
+    Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {
+        Surface(shape = MaterialTheme.shapes.extraLarge, modifier = Modifier.fillMaxSize().padding(10.dp)) {
+            Column(Modifier.padding(12.dp)) {
+                Row { Text(title, Modifier.weight(1f), style = MaterialTheme.typography.titleMedium); IconButton(onClick = onDismiss) { Icon(Icons.Outlined.Close,
+) } }
+                content()
+            }
+        }
+    }
+}
+
+private fun DrawScope.drawArrow(start: Offset, end: Offset, color: Color, dashed: Boolean, clip: Float = 34.dp.toPx()) {
+    val vector = end - start
+    val length = vector.getDistance().coerceAtLeast(1f)
+    val unit = vector / length
+    val clippedStart = start + unit * clip
+    val clippedEnd = end - unit * clip
+    if (dashed) {
+        val segment = 7.dp.toPx(); var at = 0f
+        while (at < (clippedEnd - clippedStart).getDistance()) { val a = clippedStart + unit * at; val b = clippedStart + unit * minOf(at + segment, (clippedEnd - clippedStart).getDistance()); drawLine(color, a, b, strokeWidth = 1.6.dp.toPx()); at += segment * 1.8f }
+    } else drawLine(color, clippedStart, clippedEnd, strokeWidth = 1.8.dp.toPx())
+    val angle = kotlin.math.atan2(unit.y, unit.x)
+    val wing = 8.dp.toPx()
+    drawLine(color, clippedEnd, Offset(clippedEnd.x - wing * cos(angle - PI / 6).toFloat(), clippedEnd.y - wing * sin(angle - PI / 6).toFloat()), strokeWidth = 1.8.dp.toPx())
+    drawLine(color, clippedEnd, Offset(clippedEnd.x - wing * cos(angle + PI / 6).toFloat(), clippedEnd.y - wing * sin(angle + PI / 6).toFloat()), strokeWidth = 1.8.dp.toPx())
+}
+
+private fun DrawScope.drawCenteredText(value: String, rect: Rect, color: Color) {
+    val lines = value.chunked(24).take(2)
+    lines.forEachIndexed { index, line ->
+        val y = rect.center.y + (index - (lines.size - 1) / 2f) * 16.dp.toPx()
+        drawIntoCanvas { canvas ->
+            val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color.toArgbCompat(); textSize = 13.dp.toPx(); textAlign = Paint.Align.CENTER }
+            canvas.nativeCanvas.drawText(line, rect.center.x, y - (paint.ascent() + paint.descent()) / 2, paint)
+        }
+    }
+}
+
+private fun DrawScope.drawLabel(value: String, center: Offset, color: Color, background: Color) {
+    val clean = value.take(42)
+    val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color.toArgbCompat(); textSize = 10.dp.toPx(); textAlign = Paint.Align.CENTER }
+    val width = paint.measureText(clean) + 9.dp.toPx()
+    drawRoundRect(background, Offset(center.x - width / 2, center.y - 10.dp.toPx()), Size(width, 17.dp.toPx()), CornerRadius(5.dp.toPx()))
+    drawIntoCanvas { it.nativeCanvas.drawText(clean, center.x, center.y + 3.dp.toPx(), paint) }
+}
+
+private fun DrawScope.drawText(value: String, at: Offset, color: Color, size: Float) = drawIntoCanvas { canvas ->
+    canvas.nativeCanvas.drawText(value, at.x, at.y, Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color.toArgbCompat(); textSize = size })
+}
+
+private fun SafeNumber(value: Double): String = if (value % 1.0 == 0.0) value.toLong().toString() else
+)) end++
+            add(end, SyntaxKind.ANNOTATION)
+            continue
+        }
+
+        if (char.isDigit() || (char == '.' && index + 1 < code.length && code[index + 1].isDigit())) {
+            var end = index + 1
+            while (end < code.length && (code[end].isLetterOrDigit() || code[end] in
+)) end++
+            add(end, SyntaxKind.NUMBER)
+            continue
+        }
+
+        if (char.isLetter() || char == '_' || (char == '$' && index + 1 < code.length && (code[index + 1].isLetter() || code[index + 1] == '_'))) {
+            var end = index + 1
+            while (end < code.length && (code[end].isLetterOrDigit() || code[end] == '_' || code[end] == '$')) end++
+            val word = code.substring(index, end)
+            val lowered = word.lowercase()
+            val next = nextNonWhitespace(end)
+            val previous = previousNonWhitespace(index - 1)
+            val kind = when {
+                family == SyntaxFamily.PYTHON && word in pythonKeywords -> SyntaxKind.KEYWORD
+                family == SyntaxFamily.SHELL && lowered in shellKeywords -> SyntaxKind.KEYWORD
+                family == SyntaxFamily.C_LIKE && lowered in cLikeKeywords -> SyntaxKind.KEYWORD
+                family == SyntaxFamily.SQL && lowered in sqlKeywords -> SyntaxKind.KEYWORD
+                lowered in setOf(
+)) maxLevel - level else level
+                val x = if (horizontal) 10 + visualLevel * (nodeW.value + gapX.value) else (width.value - ids.size * nodeW.value - (ids.size - 1) * gapX.value) / 2 + row * (nodeW.value + gapX.value)
+                val y = if (horizontal) (height.value - ids.size * nodeH.value - (ids.size - 1) * gapY.value) / 2 + row * (nodeH.value + gapY.value) else 10 + visualLevel * (nodeH.value + gapY.value)
+                map[id] = x to y
+            }
+        }
+        map
+    }
+    val density = LocalDensity.current
+    val primary = MaterialTheme.colorScheme.primary
+    val surface = MaterialTheme.colorScheme.surfaceContainerHighest
+    val text = MaterialTheme.colorScheme.onSurface
+    LowSensitivityHorizontalScroll(Modifier.fillMaxWidth()) {
+        Canvas(Modifier.width(width.coerceAtLeast(320.dp)).height(height.coerceAtLeast(150.dp))) {
+            val nw = with(density) { nodeW.toPx() }; val nh = with(density) { nodeH.toPx() }
+            diagram.edges.forEach { edge ->
+                val a = positions[edge.from] ?: return@forEach
+                val b = positions[edge.to] ?: return@forEach
+                val start = Offset(with(density) { a.first.dp.toPx() } + nw / 2, with(density) { a.second.dp.toPx() } + nh / 2)
+                val end = Offset(with(density) { b.first.dp.toPx() } + nw / 2, with(density) { b.second.dp.toPx() } + nh / 2)
+                val vector = end - start
+                val unit = vector / vector.getDistance().coerceAtLeast(1f)
+                val inset = if (kotlin.math.abs(unit.x) > kotlin.math.abs(unit.y)) nw / 2 + 5.dp.toPx() else nh / 2 + 5.dp.toPx()
+                drawArrow(start + unit * inset, end - unit * inset, primary, edge.dashed, clip = 0f)
+                if (edge.label.isNotBlank()) drawLabel(edge.label, Offset((start.x + end.x) / 2, (start.y + end.y) / 2 - 5.dp.toPx()), text, surface)
+            }
+            diagram.nodes.forEach { node ->
+                val p = positions[node.id] ?: return@forEach
+                val left = with(density) { p.first.dp.toPx() }; val top = with(density) { p.second.dp.toPx() }
+                drawRoundRect(surface, Offset(left, top), Size(nw, nh), CornerRadius(13.dp.toPx()), style = androidx.compose.ui.graphics.drawscope.Fill)
+                drawRoundRect(primary.copy(alpha = .75f), Offset(left, top), Size(nw, nh), CornerRadius(13.dp.toPx()), style = Stroke(1.2.dp.toPx()))
+                drawCenteredText(node.label, Rect(left, top, left + nw, top + nh), text)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SequenceCanvas(diagram: NativeDiagram, large: Boolean) {
+    val nodeW = if (large) 164.dp else 132.dp
+    val gap = if (large) 52.dp else 34.dp
+    val width = (diagram.nodes.size * (nodeW.value + gap.value) + 20).dp.coerceAtLeast(320.dp)
+    val height = (110 + diagram.edges.size * 62).dp.coerceAtMost(if (large) 1600.dp else 720.dp)
+    val primary = MaterialTheme.colorScheme.primary
+    val surface = MaterialTheme.colorScheme.surfaceContainerHighest
+    val text = MaterialTheme.colorScheme.onSurface
+    val density = LocalDensity.current
+    LowSensitivityHorizontalScroll(Modifier.fillMaxWidth()) {
+        Canvas(Modifier.width(width).height(height)) {
+            val nw = with(density) { nodeW.toPx() }; val gp = with(density) { gap.toPx() }
+            val centers = diagram.nodes.mapIndexed { index, node -> node.id to (10.dp.toPx() + nw / 2 + index * (nw + gp)) }.toMap()
+            diagram.nodes.forEach { node ->
+                val center = centers.getValue(node.id)
+                drawRoundRect(surface, Offset(center - nw / 2, 12.dp.toPx()), Size(nw, 54.dp.toPx()), CornerRadius(12.dp.toPx()))
+                drawRoundRect(primary.copy(alpha = .7f), Offset(center - nw / 2, 12.dp.toPx()), Size(nw, 54.dp.toPx()), CornerRadius(12.dp.toPx()), style = Stroke(1.2.dp.toPx()))
+                drawCenteredText(node.label, Rect(center - nw / 2, 12.dp.toPx(), center + nw / 2, 66.dp.toPx()), text)
+                drawLine(primary.copy(alpha = .35f), Offset(center, 66.dp.toPx()), Offset(center, height.toPx() - 12.dp.toPx()), strokeWidth = 1.dp.toPx())
+            }
+            diagram.edges.forEachIndexed { index, edge ->
+                val from = centers[edge.from] ?: return@forEachIndexed
+                val to = centers[edge.to] ?: return@forEachIndexed
+                val y = (96 + index * 62).dp.toPx()
+                drawArrow(Offset(from, y), Offset(to, y), primary, edge.dashed)
+                if (edge.label.isNotBlank()) drawLabel(edge.label, Offset((from + to) / 2, y - 7.dp.toPx()), text, surface)
+            }
+        }
+    }
+}
+
+private fun diagramLevels(diagram: NativeDiagram): Map<String, Int> {
+    val levels = diagram.nodes.associate { it.id to 0 }.toMutableMap()
+    repeat(diagram.nodes.size.coerceAtMost(20)) {
+        var changed = false
+        diagram.edges.forEach { edge ->
+            val candidate = (levels[edge.from] ?: 0) + 1
+            if (candidate > (levels[edge.to] ?: 0) && candidate < diagram.nodes.size) { levels[edge.to] = candidate; changed = true }
+        }
+        if (!changed) return levels
+    }
+    return levels.mapValues { it.value.coerceAtMost(12) }
+}
+
+private data class NativeChart(val type: String, val title: String, val series: List<NativeSeries>)
+private data class NativeSeries(val name: String, val points: List<Pair<String, Double>>)
+
+private fun parseChart(source: String): NativeChart {
+    runCatching {
+        val root = Json.parseToJsonElement(source).jsonObject
+        val type = root[
+), limit = 2)
+        if (split.size == 2) split[1].trim().toDoubleOrNull()?.let { split[0].trim() to it } else null
+    }.take(80).toList()
+    return NativeChart(
+), onExpand = { expanded = true }) {
+        if (chart.series.all { it.points.isEmpty() }) Text(
+).take(140)
+}
+
+@Composable
+fun NativeDiagramBlock(source: String) {
+    val diagram = remember(source) { NativeDiagramParser.parse(source) }
+    var expanded by remember(source) { mutableStateOf(false) }
+    VisualFrame(
+)}$credentialNote
+,
+            code = source,
+            style = MaterialTheme.typography.bodySmall,
+            softWrap = true,
+        )
+        else DiagramCanvas(diagram, large = false)
+    }
+    if (expanded) VisualDialog(
+, chart.title.takeIf(String::isNotBlank)).joinToString(
+, listOf(NativeSeries(
+, Offset(diameter + 46.dp.toPx(), y + 5.dp.toPx()), text, 12.dp.toPx())
+            }
+            if (chart.type ==
+, onDismiss = { expanded = false }) { DiagramCanvas(diagram, large = true) }
+}
+
+@Composable
+private fun DiagramCanvas(diagram: NativeDiagram, large: Boolean) {
+    if (diagram.sequence) SequenceCanvas(diagram, large) else FlowCanvas(diagram, large)
+}
+
+@Composable
+private fun FlowCanvas(diagram: NativeDiagram, large: Boolean) {
+    val levels = remember(diagram) { diagramLevels(diagram) }
+    val horizontal = diagram.direction in setOf(
+, onExpand = { expanded = true }) {
+        if (diagram.nodes.isEmpty()) HighlightedCodeText(
+            language =
+, RegexOption.IGNORE_CASE),
+, style = MaterialTheme.typography.bodySmall)
+        else ChartCanvas(chart, if (chart.type ==
+, values)))
+}
+
+@Composable
+fun NativeChartBlock(source: String) {
+    val chart = remember(source) { parseChart(source) }
+    var expanded by remember(source) { mutableStateOf(false) }
+    VisualFrame(listOfNotNull(
+. Provider credentials and OAuth sessions were excluded; reconnect them from Settings > Finish setup or Providers & models
+0% disables blur. Higher values increase the panel-local blur radius.
+0% is transparent. 100% is a fully opaque panel tint.
+1 configured provider
+1 s
+100% is fully opaque and hides background blur.
+1–600 seconds. Pure Python is interrupted at the deadline; a blocking native extension may return later.
+2 on
+2 s
+250 ms
+3 adımın ${it.groupValues[1]}. adımından devam et
+3–20 results per search call
+5-hour limit
+500 ms
+<(?:https?|mailto):[^>\n]+>
+<xylune-research-state>\s*([\s\S]*?)\s*</xylune-research-state>
+[$label](xylune-${kind.lowercase()}://reference?target=$target)
+\[([^\]
+]{1,240})]\((https?://[^)\s]+)\)
+\[[^\]
+]+]\(xylune-(?:source|file)://reference\?target=[^)]+\)
+\[\[([^|\]
+]{1,160})\|(https?://[^\]
+]{1,1500})]]
+\[\[([^|\]
+]{1,240})\|(https?://[^\]\s]+)]]
+\[\[(source|file)\|([^|\]]{1,160})\|([^\]]{1,1500})]]
+\[\[source\|([^|\]
+]{1,240})\|(https?://[^\]\s]+)]]
+]?.jsonArray?.mapIndexed { index, value ->
+            val item = value.jsonObject
+            val name = item[
+]?.jsonArray?.mapIndexedNotNull { pointIndex, point ->
+                runCatching {
+                    if (point is kotlinx.serialization.json.JsonObject) {
+                        val label = point[
+]?.jsonPrimitive?.contentOrNull ?:
+]?.jsonPrimitive?.contentOrNull ?: (pointIndex + 1).toString()
+                        val number = point[
+]?.jsonPrimitive?.contentOrNull.orEmpty()
+        val series = root[
+]?.jsonPrimitive?.contentOrNull.orEmpty().lowercase().ifBlank {
+]?.jsonPrimitive?.doubleOrNull ?: return@runCatching null
+                        label to number
+                    } else (pointIndex + 1).toString() to point.jsonPrimitive.doubleOrNull!!
+                }.getOrNull()
+            }.orEmpty()
+            NativeSeries(name, points.take(80))
+        }.orEmpty()
+        if (series.isNotEmpty()) return NativeChart(type, title, series.take(8))
+    }
+    val values = source.lineSequence().mapNotNull { line ->
+        val split = line.split(Regex(
+^([A-Za-z0-9_.-]+)\s*(-{1,2}>>?|--?[x)])\s*([A-Za-z0-9_.-]+)\s*:\s*(.+)$
+^\s*([A-Za-z0-9_.-]+)\s*\[([^\]]*)\]\s*$
+^\s*:?-{3,}:?\s*$
+A ChatGPT usage limit has been reached.
+A pair is one request plus its answer. Working history has its own budget inside the total context ceiling.
+A provider is needed only when you send a message. You may connect one now or continue and do it later.
+A separately selected model allows or denies the preflight plan
+About Xylune
+Access key ID
+Account connected
+Add a ChatGPT account or configure an API-compatible provider.
+Add a usable provider in the Providers tab.
+Add an image, then describe the edit…
+Add another
+Add API
+Add at least one reference image for ${currentModel.displayName}.
+Add ChatGPT
+Add ChatGPT provider
+Add direction…
+Add favorite
+Add image
+Add memory
+Add model
+Add provider
+Add reference image
+Add to chat
+Add your first API provider
+Added ${provider.displayName}
+Added ${saved.displayName}. Opening ChatGPT sign-in…
+Additional credits available
+Additional instructions
+Advanced compatibility
+Advanced headers
+Advanced limits and prompt behavior for this conversation. Thinking, effort, tools, files, and Deep Research live beside the message box.
+Advanced package sources
+AI rebuilt and compiled ${type.displayLabel} · ${current.attemptCount} attempt${if (current.attemptCount == 1)
+All categories
+All chats
+All providers
+Alloc ${snapshot.allocationMbPerSecond.f1()} MB/s  bGC ${snapshot.blockingGcPerSecond.f1()}  Screen ${snapshot.screenName}
+Allocation / blocking GC pressure
+Allow ${ubuntuStatus.distribution.packageManager.command} package changes?
+Allow and install
+Allow models to save stable, non-sensitive details; duplicate items are merged
+Allow package changes?
+Allow package installation?
+Allow page fetching
+Allow pip direct references and relaxed apt names; command-line options remain blocked
+Amazon S3, MinIO, Backblaze B2, or another compatible bucket
+AMOLED black
+AMOLED black only changes dark mode surfaces.
+AMOLED siyahı
+AMOLED siyahı yalnızca koyu mod yüzeylerini değiştirir.
+Anahtarı kaydet
+Android $version$suffix · API $apiLevel$suffix
+Android ${Build.VERSION.RELEASE} · API ${Build.VERSION.SDK_INT}
+Android grants Xylune persistent access only to the folder you select. Create or choose a dedicated Xylune folder; no account-wide permission is requested.
+Android themed icons can recolor Xylune's monochrome layer. Dynamic uses the live wallpaper-derived Material You palette when themed icons are off.
+Anthropic Messages
+API $apiLevel$suffix
+API anahtarı
+API anahtarı (isteğe bağlı)
+API anahtarı gerektir
+API base URL
+API ekle
+API key
+API key (optional)
+API key is required
+API key missing
+API key saved securely
+API keys are stored in Android encrypted preferences. Native-only mode never silently switches to a Xylune engine; Automatic mode does.
+API model ID
+API model kimliği
+API provider
+app settings
+App settings and configuration
+Appearance, backups, memory, and advanced behavior are grouped for later.
+Approval model
+Approved automatically • installing and verifying imports…
+Approved automatically • installing now…
+Approved automatically • repairing package state and installing…
+Approved automatically • starting installation…
+Approved automatically • waiting to start
+Arama ve web
+Arayüz panelleri
+Araç davranışı
+Araç tanılamaları
+Araç tanılamalarını göster
+Araç varsayılanları
+Araçlar
+Araçlar ve güvenlik
+Araçlar ve modlar
+Archive password
+ARCHIVED CHATS
+Archived chats will appear here.
+Arka plan görevi modelleri
+Arka plan görevleri
+as $it
+Asistan yanıtları
+Ask a question, attach a file, or choose Search and Tools beside the message box.
+Ask AI to retry
+Ask every time
+Assistant responses
+At least one model is required
+Attached ${imported.size} file${if (imported.size == 1)
+Attachment compatibility
+Attachments and tools
+Attachments are unavailable in image generation mode
+Attempt ${attempt.number} · ${if (attempt.repeatedCandidate)
+Attributes slow frames to Android frame stages, Xylune blur work, Compose recomposition pressure, allocations, and blocking GC. It adds some diagnostic overhead, so use it while reproducing an issue.
+Auto-approve only package names you list
+Automatic ${type.displayLabel} repair is unavailable.
+Automatic checks are unavailable because this build has no embedded GitHub repository origin.
+Automatic memory
+Automatic metadata refresh failed: ${it.message?.take(600).orEmpty()}
+Automatic repair attempts
+Automatically updated metadata for ${discovered.size} models
+Availability in new chats
+Available levels follow the selected model. Some models cannot fully disable reasoning.
+Avoid decorative emoji and use them only when they add meaning
+Ayrıntılı ölçümler
+Aç
+Açık
+Back to runtime manager
+Back to Settings
+Back to setup
+Back up now
+Background task models
+Background tasks
+Backup & transfer
+Backup downloaded. Opening preview…
+Backup failed
+Backup restored. Setup was paused; finish provider access later from Settings.
+Backup saved
+Backup saved to $folderLabel
+Backup saved to ${provider.displayName}
+Backup saved to Google Drive
+Base URL
+Bağlam sıkıştırma
+Bağlam token üst sınırı
+Bağlam token'ları
+Bağlam ve çıktı
+Bağlantı kesildi
+Bağlantıyı düzenle
+Bağlantıyı kaydet
+Bağlı
+Başa ekle
+Başlatıcı simgesini paletle eşleştir
+Before the first install
+bGC ${input.blockingGcPerSecond.f1()}/s, alloc ${input.allocationMbPerSecond.f1()} MB/s
+Blur boundary diagnostics
+Blur CPU recording / replay
+Blur source recording / extra draws
+BlurCPU ${snapshot.blurCpuMsPerFrame.f2()}  ${snapshot.blurFilteredMegapixelsPerSecond.f0()} MP/s  srcTrav×${snapshot.blurSourceDrawsPerFrame.f1()} replay×${snapshot.blurLayerReplaysPerFrame.f1()}
+Bottom left
+Bottom right
+Bring your own models
+Buffer swap
+Bugs, regressions, and feature requests
+Build information
+Build source
+Build variable: $setupVariable
+Bulanıklık
+Bulanıklık sınırı kılavuzlarını göster
+Bulanıklık sınırı tanılamaları
+Bulut yedekleri, yerel arşivler ve geri yükleme
+Bundled Python 3.12 · no Linux download required
+Bundled runtime · loading this chat's environment…
+Bundled suggestions
+Bytes ${current.start + 1}-${current.endExclusive} of ${current.totalBytes}
+c#
+Cached input
+Call ${index + 1} · round ${call.roundIndex + 1}
+camera/${UUID.randomUUID()}.jpg
+cap/s ${snapshot.blurCaptureUpdatesPerSecond.f1()} fx/s ${snapshot.blurEffectBuildsPerSecond.f1()}  levels D${snapshot.blurDownsampleLevels.f1()}/U${snapshot.blurUpsampleLevels.f1()}
+Cause ${profile.confidencePercent}% · ${profile.severity.displayName}: ${profile.primaryCause}
+Cause profiler
+Change folder
+Changed files
+Changing the launcher icon briefly restarts Xylune after saving the open page, chat drafts and files, and current scroll positions. Android themed icons can still override app-selected colors.
+Chat actions
+Chat behavior
+Chat configuration
+Chat naming
+Chat naming and context compression models
+Chat renamed to “$title”
+Chat · $chatModelCount
+ChatGPT account
+ChatGPT account ${existingCount + 1}
+ChatGPT ekle
+ChatGPT OAuth
+ChatGPT OAuth • Connected
+ChatGPT OAuth • Disconnected
+ChatGPT OAuth • Needs attention
+ChatGPT OAuth • Signing in
+ChatGPT sağlayıcısı ekle
+ChatGPT sağlayıcısını yeniden adlandır
+ChatGPT usage could not be refreshed
+Chats are imported as separate copies. Included app settings and organization are applied, but API keys, OAuth sessions, provider authorization headers, and cloud grants are never imported.
+Chats are kept and moved back to All chats.
+Chats, branches, app configuration, organization, metadata, and optional attachments. API keys and OAuth sessions are deliberately excluded.
+Chats, credentials, and tool workspaces stay on this device.
+Chats, credentials, and workspaces stay on your device. Xylune connects directly to providers you configure and has no application backend, ads, or telemetry.
+Check again
+Check automatically
+Check for updates
+Check the source repository once per day when Xylune starts
+Checking ${provider.displayName}…
+Checking ${sourceRepository ?:
+Checking Google Drive app storage…
+Checking installed packages and resolving dependencies…
+Checking the current Python environment…
+Checking the selected backup folder…
+Checking…
+Choose a backup
+Choose a backup folder
+Choose a chat model
+Choose a model
+Choose a provider, then manage its connection and models.
+Choose a restrained built-in palette or Android dynamic colors. Every swatch is rendered from that palette, not the currently selected one.
+Choose a rootless user-space distribution for broader third-party CLIs and libraries. Each distribution keeps its own packages, shares this chat's files at /workspace, and is a compatibility layer—not a security boundary.
+Choose a scoped Android folder, an OAuth app folder, WebDAV/Nextcloud, or an S3-compatible bucket prefix. Xylune avoids account-wide cloud access.
+Choose an image model
+Choose an image model to continue.
+Choose approval model
+Choose automation model
+Choose chat tools
+Choose folder
+Choose how Xylune names chats and compresses older context.
+Choose image model
+Choose model
+Choose one or more images
+Choose one or more reference images
+Choose search mode
+Choose thinking level
+Choose when Xylune may install Python or Linux packages and which sources are trusted.
+Choose where Xylune should look. Every option is limited to app-only storage or a folder you explicitly select.
+Choose whether $appName follows Android or stays light or dark.
+Cihaz ABI'si
+Cihazı takip et
+Clear a filter or try a model name, author, or capability.
+Clear run state
+Clear search
+Clear summary
+Clear terminal
+Close model picker
+Cloud & file backup
+Cloud account connection failed
+Cloud backup deleted
+Cloud backup failed
+Cloud backups, local archives, and restore
+cloud storage
+Cloud-folder backup failed
+Code execution
+Collapse complete plan
+Collapse package plan
+Collapse plan
+Collapse source
+Collapse step
+Collapse work details
+Color scheme
+Colors generated from your wallpaper on Android 12+
+Comma, space, or newline separated
+Compact mode shows FPS, average frame time, and jank percentage.
+Compile & use
+Compiled ${type.displayLabel}
+Compiled and tested ${type.displayLabel}
+Compiling and testing ${type.displayLabel}…
+Complete sign-in in your browser…
+Completed in $it
+Completed without output.
+Compose state churn / recomposition
+Composer defaults
+Compressed ${summary.sourceMessageCount} older messages
+Compressed context active
+Compressed context cleared
+Configure ${provider.displayName}
+Configure a usable provider to enable model-based automation.
+Configured as ${it.label} • tap to check backups
+Configured in USD per million tokens
+Confirm password
+Connect ${provider.displayName}
+Connect & fetch models
+Connect a model provider
+Connect a provider
+Connect folder
+Connect Google Drive
+Connect to Ollama, llama.cpp, or LM Studio.
+Connected ${config.label.ifBlank {
+Connected ${provider.displayName} • ${discovered.size} models available
+Connected ${session.provider.displayName}
+Connected to ${source.setupLabel()}, but no Xylune backups were found.
+Connected • $it
+Connected: $it
+Connecting…
+Connection details stay out of the way until you need them.
+Connection failed • tap to retry
+Context & output
+Context compression
+Context token ceiling
+Context tokens
+Continue from step ${setupStepIndex + 1} of 3
+Continue from step (\d+) of 3
+Continue without one
+Controls how Xylune handles AI-generated interactive UI.
+Controls whether reasoning and tool cards expand automatically; they remain saved either way.
+Controls whether this custom endpoint uses chat/completions or images/generations.
+Conversation deleted
+Cool teal and cyan accents
+Copy errors
+Copy setup details
+Copy source
+Cost unavailable
+cost unavailable
+Could not compile this ${type.displayLabel} after ${state.attemptCount} repair attempts.
+Could not connect the cloud folder
+Could not create the chat file
+Could not delete backup
+Could not download and inspect the cloud backup
+Could not download backup
+Could not fetch the model list
+Could not inspect archive
+Could not list backups
+Could not open ${provider.displayName} sign-in
+Could not open backup
+Could not open cloud sign-in
+Could not open the update link
+Could not read ${provider.displayName} backups
+Could not read Google Drive app storage
+Could not read the cloud folder
+Could not read the connected cloud folder
+Could not read the selected cloud folder
+Could not send: ${error.readableMessage()}
+Could not unlock archive
+CPU ${snapshot.cpuPercent.f1()}%  PSS ${snapshot.pssMb.f0()} MB  Heap ${snapshot.javaHeapMb.f0()} MB
+Create image
+Create new project
+Created by @omerfaruknehir
+Created by Xylune ${value.appVersion} • ${if (value.encrypted)
+Creating and uploading…
+Credentials are encrypted with Android Keystore and are never included in Xylune backups.
+Credentials are encrypted with Android Keystore and sent only to the provider you choose.
+Credentials were found and this step is complete.
+Credits balance: ${snapshot.creditsBalance}
+Credits: unlimited
+Cross-chat facts and preferences stored locally
+Current account quota windows
+Current generated image preview
+Custom headers JSON
+Custom instruction profiles
+Custom instructions
+Custom provider
+Custom system prompt
+Daha az emoji
+Dahili öneriler
+Daraltılmış
+Data deletion
+Deep purple with soft rose accents
+Deep Research
+Deep Research plans, searches iteratively, verifies sources, and produces a cited report. Enabling it also enables web search.
+DeepSeek Chat
+Dekoratif emojilerden kaçın ve yalnızca anlam kattıklarında kullan
+Delete $count disabled memor${if (count == 1)
+Delete ${ids.size} memories?
+Delete ${profile.name}
+Delete (\d+) memories\?
+Delete backup
+Delete cloud backup?
+Delete disabled
+Delete local data and provider-held copies
+Delete memory
+Delete memory?
+Delete permanently
+Delete project
+Delete project “${project.name}”?
+Delete “${item.conversation.title}”?
+Deleted system prompt
+Derin Araştırma
+Derleme bilgileri
+Derleme kaynağı
+Describe a new image, or add${if (maxReferences > 0)
+Describe an image to generate…
+Describe an image…
+Describe the changes…
+Describe the image you want to create.
+Describe the image you want. This model generates new images without reference-image editing.
+Describe what to create, or add up to ${capabilities.maxInputImages} reference images to edit.
+Detailed metrics
+Detailed mode shows Choreographer FPS, average/p95/p99 frame interval, jank against the current refresh budget, app CPU, PSS, Java heap, GPU duration when Android reports it, missed vsyncs per second, and total observed frames. Cause profiler ranks primary and secondary causes, reports confidence and severity, and shows the evidence used for attribution alongside FrameMetrics, blur, recomposition, allocation, and GC counters.
+Developer options
+Developer options · enabled
+Developer settings
+Development disclosure & disclaimer
+Device ABI
+Devre dışı
+Devre dışı bırak
+Devre dışı olanları sil
+Diagram renderer found no supported nodes
+Direct app storage
+Direct HTTPS WebDAV support for Nextcloud, ownCloud, NAS servers, and compatible hosts. Use an app password when available.
+Disable all
+Disable only for a trusted local or keyless endpoint
+Disable only for your own local/keyless endpoint
+Disabled memories are currently excluded from chats. This cleanup permanently removes them.
+Disconnected $name
+Disk: $it
+Disk: ${plan.diskSummary}
+Disk: ${review.plan.diskSummary}
+Dismiss error
+Display ${snapshot.displayRefreshRateHz.toDouble().f0()} Hz  Callback ${snapshot.choreographerCallbackRate.f0()}/s  Present ${snapshot.presentedFrameRate?.f0() ?:
+Display name
+Display-only Markdown cannot edit generated content
+Display-only Markdown cannot execute Linux tools
+Display-only Markdown cannot execute Python
+Display-only Markdown cannot install packages
+Display-only Markdown cannot repair generated content
+Display-only Markdown cannot review packages
+Display-only Markdown cannot run widgets
+Distribution selection, installation, packages, and removal are managed in one place.
+Documents, archives, code, audio, and other supported files
+Double-tap, pinch, or drag
+Download update
+Download: $it
+Download: ${plan.downloadSummary}
+Download: ${review.plan.downloadSummary}
+Downloading ${entry.name}…
+Draws explicit debug guides at the top and bottom panel boundaries. Normal UI no longer draws a boundary highlight.
+Dropbox Xylune App folder
+Duplicate content recording for blur
+Düz
+Düzenle
+Düşük
+Düşünme
+Düşünme düzeyi
+Each chat has a persistent bundled-Python session and isolated .packages directory. It works without installing Linux and remains confined by Android's app sandbox.
+Each provider keeps its OAuth session, models, usage limits, and refresh state separate. Xylune requests a fresh sign-in page so you can add a different ChatGPT account.
+Edge softness
+Edit ${profile.name}
+Edit ${type.displayLabel} source
+Edit connection
+Edit custom profile
+Edit image
+Edit images
+Edit memory
+Edit message
+Edit model
+Edit source
+Elapsed ${formatSetupDuration(elapsedMs)}
+Emoji kullanımı ve genel yanıt görünümü
+Emoji use and global answer presentation
+Enable all
+Enable Cause profiler to collect attribution data
+Enable developer settings
+Enabled by default. Technical symbols and emoji requested by the user are not blocked.
+Encryption password (optional)
+Enter a server folder and credentials
+Enter the exact HTTPS URL of a dedicated Xylune folder. For Nextcloud this normally ends with /remote.php/dav/files/USERNAME/Xylune/.
+Enter Xylune
+Enter Xylune now. You can return to Providers & models from Settings at any time.
+Environment ${info.environmentId}
+Etkinleştir
+Everything listed here is embedded in this build and available without a network connection.
+Everything requested is already installed.
+Evidence: ${profile.evidence}
+Exact provider counters where available, then local family and generic fallbacks.
+Execution completed
+Execution deadline (seconds)
+Execution exceeded its configured deadline.
+Execution failed
+Exit ${output.exitCode}
+exit ${result.exitCode} • ${result.elapsedMs} ms
+Expand step
+Expand work details
+Expose selected enabled memories to chats and allow memory tools
+Expose web_fetch so the model can read public HTTPS pages after searching.
+Extended reasoning
+Extra high
+Eşleşen model yok.
+Fallback search engine
+Fastest, light reasoning
+Fetch models again
+Fetched source
+Fetching OpenRouter capabilities, reasoning modes, limits, and pricing…
+File no longer exists
+FILE • ${event.label.ifBlank {
+Finish setup
+Finished with an error
+Fit image
+Fiyatlandırma
+Fiyatlandırma yapılandırıldı
+FM ${snapshot.frameMetricsTotalMs.f1()}  L ${snapshot.layoutMeasureMs.f1()}  D ${snapshot.drawMs.f1()}  Cmd ${snapshot.commandIssueMs.f1()}  Sw ${snapshot.swapBuffersMs.f1()}
+FM avg ${snapshot.frameMetricsTotalMs.f1()} ms  p95 ${snapshot.p95FrameMs.f1()}  p99 ${snapshot.p99FrameMs.f1()}
+Focused defaults
+Folder selection was cancelled.
+Follow device
+Found ${values.size} Xylune backup${if (values.size == 1)
+Frame pacing / scheduling stalls
+from pathlib import Path
+Gelişmiş başlıklar
+Gelişmiş uyumluluk
+Geliştirici ayarları
+Geliştirici ayarlarını etkinleştir
+Geliştirici seçenekleri
+Genellikle gerekli değildir
+Generate + edit
+Generate image
+Generate images
+Generated content
+generated content errors
+generated source
+Generated UI safety and local-data behavior
+Generated widgets are paused and shown as safe fallback content.
+Generated widgets may render, but Xylune still applies its capability checks and crash recovery.
+Generating image
+Genişletilmiş
+Geçerli filtrelerle eşleşen hafıza yok.
+Geçersiz kıl
+GitHub release workflows embed their own owner/repository. Fork builds therefore follow the fork they came from.
+Gizlilik politikası
+Gizlilik ve güvenlik
+Global answer preferences. Changes apply to existing chats and new chats on their next response.
+Go to latest message
+Google account selected
+Google Drive
+Google Drive app storage
+Google Drive authorization could not be opened
+Google Drive authorization could not be opened.
+Google Drive authorization expired
+Google Drive authorization failed
+Google Drive authorization returned no access token
+Google Drive authorization returned no result (code ${result.resultCode}).
+Google Drive backup failed
+Google Drive connection was canceled.
+Google Drive could not be disconnected
+Google Drive error
+Google Drive registration details copied
+Google Drive sign-in was cancelled.
+Google Drive, OneDrive, Nextcloud, USB, or local storage through Android
+Google Gemini
+Google returned no access token. Check that this app's package name and signing certificate are registered for its OAuth client.
+GPU ${snapshot.gpuAverageMs?.f1() ?:
+GPU rendering
+GPU rendering (blur active)
+Guide thickness
+Guides are bright red and diagnostic-only. They are never shown unless both Developer settings and this toggle are enabled.
+Görsel oluşturma
+Görünen ad
+Görüntü
+Görünüm
+Gösterilenleri seç
+Gün batımı
+Güncelleme aralığı
+Güncellemeler
+Güncellemeleri kontrol et
+Güvenli oluşturulan içerik işleme
+Haftalık
+Hafıza
+Hafıza ekle
+Hafıza silinsin mi?
+Hafızalarda ara
+Hafızayı kaydet
+Hafızayı kullan
+Hakkında
+Hedef Android
+Henüz kaydedilmiş hafıza yok.
+Henüz kaydedilmiş istem yok.
+Henüz sağlayıcı yok
+Herkese açık HTTPS temel URL'si
+Hibrit token sayımı
+Hidden by tint
+hidden from the inline preview
+Hide attempts
+Hide manual model entry
+Hide OCR overlay
+HTTPS endpoint
+https?://[^\s<>()\[\]]+
+Hybrid preflight counting
+Hybrid token counting
+Idle / no rendered frames
+Image billing
+Image generation
+Image generation and editing models are kept separate from chat models
+Image generation · describe the image you want to create
+Image requests cannot include ordinary files. Remove the non-image attachment${if (invalidAttachmentCount == 1)
+Images · $imageModelCount
+Import and continue
+Import backup
+Import creates separate local copies. It never replaces an existing chat and does not import API keys or OAuth sessions.
+Import failed
+Import verification passed.
+Import verification warning:
+Import verification warnings: ${result.importErrors.entries.joinToString {
+Import Xylune backup
+Imported ${parts.joinToString(
+Imports are non-destructive: every chat is created as a separate copy. Existing chats are never overwritten. Provider credentials are not imported, so reconnect the required provider before continuing an imported chat.
+in ${days}d
+in ${days}d ${hours}h
+in ${hours}h
+in ${hours}h ${minutes}m
+in ${minutes}m
+in ${minutes}m ${seconds}s
+in ${seconds}s
+In use
+Include app settings and configuration
+Include attachments
+Include custom system prompts
+Include installed Linux environments
+Include reasoning, tool traces, and request metadata
+Included content
+Included modules
+Includes theme, UI behavior, new-chat defaults, provider endpoints/models, projects, prompt profiles, and automation settings. Credentials, OAuth sessions, provider authorization headers, cloud grants, drafts, and navigation state stay excluded.
+input ${call.inputTokens} · cached ${call.cachedInputTokens} · output ${call.outputTokens}
+Input handling
+Input tokens
+Inspect environments, install packages, run a test, or add/remove the optional Linux distribution.
+Inspect repair
+Install ${ubuntuStatus.distribution.displayName}
+Install ${ubuntuStatus.distribution.displayName} packages
+Install a Linux workspace before enabling
+Install blocked
+Install every valid preflight plan without asking
+Install failed
+Install packages
+Install Ubuntu, Debian, or Alpine before Xylune can use Linux tools.
+Install${item.candidateVersion?.let {
+Installation and import verification completed.
+Installation blocked • ${packageReview?.reason.orEmpty()}
+Installation blocked • ${ubuntuReview?.reason.orEmpty()}
+Installation completed successfully.
+Installation denied • ${review?.reason.orEmpty()}
+Installation failed
+Installation failed. No success was recorded.
+Installation or import verification failed.
+Installation started
+Installed ${installed.packages.joinToString()}
+Installed ${result.packages.joinToString()}
+Installed and import-verified ${install.packages.joinToString()}
+Installed and import-verified: ${result.packages.joinToString()}
+Installed Linux environments
+Installed${item.installedVersion?.let {
+Installed, but import verification found a problem
+Installed: ${result.packages.joinToString()}
+Installing approved changes…
+Installing…
+Interface panels
+Interrupted response
+Invalid completed widgets, charts, and diagrams are repaired in place up to this limit.
+Invalid S3 configuration
+Invalid WebDAV configuration
+Its complete message history, attachments, and local code workspace records will be removed from Xylune.
+Its encrypted OAuth session and models will be disconnected. Chats and usage history are kept.
+Its saved API key will be erased and it will disappear from model selectors. Chats and usage history are kept.
+İlk API sağlayıcınızı ekleyin
+İptal
+İstek türü
+Kapalı
+Katman konumu
+Katman ölçeği
+Kaydedilmiş hafızalar
+Kaynak ${it.groupValues[1]}
+Kaynak commit'i
+Kaynak deposu
+Keep in background
+Keep the classic Xylune green icon regardless of the selected palette.
+Keep the partial answer
+Keep Xylune open
+Kenar yumuşaklığı
+Keyless endpoint
+Kişiselleştirme
+Known calculated cost
+Koşullar
+Koşullar ve sorumluluk reddi
+Kullanım ve sınırlar
+Kullanımda
+Kullanımı yenile
+Kurulum ve bağlantılar
+Kurulumu tamamla
+Kılavuz kalınlığı
+Last message pairs
+Last request/answer pairs
+Latest release: ${state.latestVersion} · checked ${DateFormat.getDateTimeInstance().format(Date(state.checkedAt))}
+Layout / measure
+Less emoji
+License catalog unavailable
+Licenses & notices
+Limit reached: ${humanizeUsageName(it)}
+Linux command
+Linux commands
+Linux data on disk: ${Formatter.formatShortFileSize(androidx.compose.ui.platform.LocalContext.current, ubuntuStatus.sizeBytes)}
+Linux execution
+Linux komutları
+Linux package request
+Linux terminal
+Linux workspace
+Linux workspace not installed
+Linux workspace not ready
+Linux · Not installed
+Lisanslar ve bildirimler
+Live output updates as the process prints.
+Live previews
+Loading preview…
+Loading usage…
+loading-${conversation?.id.orEmpty()}-$uiIndex
+Local Code Execution
+Local code execution
+Local description
+Local diagnostics for measuring Xylune's rendering and process performance. No metrics are uploaded or stored in chat history.
+Local execution
+Local execution is opt-in for fresh installs. Existing chats keep their own tool choices.
+Local execution starts off; enable Python or Linux only when a chat needs it.
+Local image description
+Local server
+Local • no API call
+Maksimum arama sonucu
+Maksimum çıktı
+Maksimum çıktı token'ı
+Manage Linux workspace
+Manage providers
+Managed by Xylune · revision
+Managed by Xylune · revision $XYLUNE_CORE_PROMPT_REVISION
+Manual memories are available immediately and use the same deduplication rules.
+Manual model will also be included
+Match launcher icon to palette
+Max output
+maxChars must be positive
+Maximum output tokens
+Maximum search results
+Maximum supported reasoning
+maxLines must be at least 3
+Menekşe
+Message actions
+Message Xylune…
+Messages, code, and reasoning are searched locally as you type.
+Metin opaklığı
+Minimum Android
+Mixed / unattributed frame work
+Model access
+Model access connected
+Model capabilities and request transport are selected automatically by this provider preset.
+Model display name
+Model ekle
+Model görünen adı
+Model mode considers newer messages whenever a name is regenerated.
+Model provider
+Model receives OCR fallback • original preview is unchanged
+Model refresh failed
+Model review is advisory and can be wrong. Xylune records the selected model's allow/deny reason, but this is not malware analysis or a security guarantee.
+Model seç
+Model tabanlı otomasyon için kullanılabilir bir sağlayıcı yapılandırın.
+Model, düşünme, bağlam ve çıktı sınırları
+Model, thinking, context, and output limits
+modelde ara
+Modeli düzenle
+Modellerde ara
+Modelleri yenile
+Models discovered for this ChatGPT account only.
+Models from provider
+More thorough reasoning
+Move chat
+Move to project
+My DeepSeek account
+Native Android BYOK model workspace.
+Native compatibility warning:
+Native routing, search engines, credentials, and page fetching
+Neden profilleyici
+New chat
+New chat defaults
+New conversations copy these values once. Existing chats keep their own persistent controls.
+New custom profile
+New project
+Next branch
+Next extracted-text page
+Next page
+Next text page
+Nextcloud / WebDAV
+No additional diagnostic text was returned by the provider.
+No backup file selected.
+No chat workspace is available
+No chats in this project yet.
+No context was compressed
+No conversation
+No GitHub source was embedded in this build
+No inline preview for this file type
+No matches
+No matching chat models
+No matching components
+No matching image models
+No matching models.
+No memories match the current filters.
+No memories saved yet.
+No output.
+No package transaction running.
+No password: backup remains readable to anyone who gets the file. This is allowed; choose a trusted destination.
+No password: the recipient can open the file immediately. This is allowed, but anyone with the file can read the included content.
+No per-call usage rows were recorded for this response. The aggregate values above are still available.
+No project
+No provider selected
+No providers yet
+No rendered FrameMetrics samples in this interval
+No result details
+No saved prompts yet.
+No search results were returned.
+No Xylune account, ads, analytics, or Xylune cloud. Chat history and API keys remain on this device; traffic goes to endpoints and web tools you explicitly enable.
+non-cached $nonCached · total ${call.inputTokens + call.outputTokens}
+Non-cached input
+Not connected yet
+Not embedded
+not found
+Not supported by this model
+Nothing is stored yet.
+OCR could not read ${attachment.displayName}; the original file is still attached
+OCR fallback enabled
+OCR fallback is ready for ${attachment.displayName}
+OCR on
+OCR on send
+OCR ready
+Off by default. Normal chats show only a concise failure summary and Retry.
+Offline dependency catalog and full license texts
+Older messages outside the active context window are merged into saved compact context.
+Oluşturulan arayüz güvenliği ve yerel veri davranışı
+Oluşturulan içerik
+On-device history • BYOK
+One package requirement per line. Xylune resolves Android-compatible Python 3.12 wheels before applying your approval policy.
+One searchable catalog is used everywhere in Xylune.
+One-tap native OAuth. Xylune opens the system browser, receives the localhost callback itself, encrypts the session on this device, and refreshes it automatically. No extension or local proxy is required.
+OneDrive Apps/Xylune
+Only missing or outdated packages will be changed. Packages and install scripts run with Xylune's app permissions.
+Only missing or outdated packages will change. Install scripts run with Xylune's app permissions.
+Only the essentials are shown. Pricing is optional.
+Only the selected provider models will be saved.
+Only this page is held in memory. Save or share the file for full-file processing.
+Open ${ubuntuStatus.distribution.displayName} terminal
+Open conversations
+Open navigation drawer
+Open OCR view
+Open provider setup guide
+Open release
+Open release page
+Open runtime manager
+Open setup guide
+Open shared Xylune chat
+Open the creator's GitHub profile
+Open Xylune archive
+openai-oauth-${UUID.randomUUID()}
+Opened by Xylune
+Opening ${provider.displayName} sign-in…
+Opening Android's folder picker…
+Opening backup preview…
+Opening file picker…
+Optional download for tools that cannot run in bundled Python
+Optional hybrid preflight counting. Provider count endpoints are preferred; local model-family estimates and the generic estimator are fallbacks.
+Optional tools stay optional
+Optional · cost will show as unavailable
+Optional. Preview a local or cloud backup before importing anything.
+Original image • model receives OCR fallback
+Original image • selected model cannot receive it
+Otomatik hafıza
+Otomatik kontrol et
+Otomatik onarım denemeleri
+Output / billed tokens
+Overlay position
+Overlay scale
+Override default tone/persona
+p95 ${input.frameDurationP95Ms.f1()} ms, jank ${input.jankPercent.f1()}%, largest measured stage ${dominantMs.f1()} ms
+Package approval
+Package installation failed
+Packages and their installers run with Xylune's app permissions. Ubuntu is for compatibility, not containment; these settings intentionally reduce confirmation barriers.
+Page ${page.pageIndex + 1} of ${page.pageCount}
+Page ${safeIndex + 1} of $pageCount
+Paket onayı
+Panel opacity
+Panel opaklığı
+Panel shape
+Panel shape is a choice. Blur, softness, and tint remain continuous controls.
+Panel şekli
+Password or app password
+Password — leave blank for none
+Passwords do not match
+PDF page ${page.pageIndex + 1}
+PDF preview unavailable: ${page.error}
+Per-response call breakdowns are available from each assistant message's ⋮ menu.
+Performance counter
+Performans katmanını göster
+Performans sayacı
+Plan ready for your confirmation.
+Portable cloud backups can include chats, app settings, organization, and optional Linux root filesystems. Passwordless backups are allowed after an explicit warning; API keys, OAuth sessions, provider authorization headers, cloud grants, and database encryption keys are excluded.
+Portable Xylune backup
+Preflight & review
+Preflight failed
+Prepare OCR
+Preparing another ${type.displayLabel} build…
+Preparing file
+Preparing package plan…
+Preparing query
+Preparing Xylune…
+Preset: ${it.displayName}
+Preset: Custom
+Preview and import a backup
+Preview unavailable: ${current.error}
+Previous branch
+Previous extracted-text page
+Previous page
+Previous setup step
+Previous text page
+Previously selected backup folder
+Pricing configured
+print('Hello from $appName bundled Python')
+print('Workspace:', Path.cwd())
+Privacy & safety
+Privacy policy
+Privacy, local data, providers, and KVKK/GDPR boundaries
+Private by design
+Private cloud targets
+Private Xylune app storage
+Profiler disabled
+PROJECT CHATS
+Project website
+Protocol: ${providerKindLabel(kind)}
+Provider calls
+Provider details unavailable
+Provider has no model list? Enter manually
+Provider is missing
+Provider name
+Provider name is required
+Provider native search
+Provider preview
+Provider search
+provider-${UUID.randomUUID()}
+Providers & models
+Public HTTPS base URL
+Python ${info.pythonVersion} • ${info.packages.size} packages • ${Formatter.formatShortFileSize(androidx.compose.ui.platform.LocalContext.current, info.sizeBytes)}
+Python ${it.pythonVersion} · ${it.packages.size} packages · ${Formatter.formatShortFileSize(androidx.compose.ui.platform.LocalContext.current, it.sizeBytes)}
+Python and Linux are managed later from Settings → Local execution.
+Python and Linux share this chat's private /workspace. Runtime setup, packages, health, tests, and removal have one owner here.
+PYTHON CODE
+Python execution
+Python is built in. Linux is an optional compatibility layer with a separate download. Pick a runtime only when you need to inspect or change it.
+Python is still running
+Python package request
+Python result
+Python script
+Python tool result
+Python workspace
+Python · Ready
+Python, Linux, packages, and approval policy
+Python, Linux, paketler ve onay ilkesi
+Query ready
+Query unavailable
+Queue image
+Queue this message
+Raw token totals recorded from provider calls. Use these with the provider's current pricing when you want to verify or calculate cost manually.
+Read license
+Reading source
+Reading source…
+Ready for your review
+Rebuilding ${type.displayLabel} from compiler feedback… attempt ${(state.attemptCount + 1).coerceAtMost(maxAttempts)} of $maxAttempts
+RECENT CHATS
+Recently created
+Recently updated
+Recomp/s app ${snapshot.appRecompositionsPerSecond.f1()} chat ${snapshot.chatRecompositionsPerSecond.f1()}
+Recorded cost
+recovery guard
+Redirect URI: $it
+Reference image
+Refresh backup list
+Refresh failed • ${state.message}
+Refresh models
+Refresh usage
+Refreshing…
+Regenerate chat name
+Release to snap to the nearest supported level
+Remove $name?
+Remove ${attachment.displayName}
+Remove ${pkg.name}
+Remove ${provider.displayName}?
+Remove ${ubuntuStatus.distribution.displayName}?
+Remove attachments first · image editing is not enabled yet
+Remove attachments to generate an image
+Remove favorite
+Remove Linux runtime
+Remove non-image attachments before creating an image.
+Remove provider
+Removed ${provider.displayName} credentials
+Rename chat
+Rename ChatGPT provider
+Rename project
+Rename provider
+Render ${snapshot.appRenderedFrameRate.f0()} fps  ${snapshot.averageFrameMs.f1()} ms  J ${snapshot.jankPercent.f1()}%
+Render command issue
+Render sync
+Rendering image
+Rendering PDF…
+Renk tonu opaklığı
+Renk şeması
+Replaced by an edited message
+Replaced by retry
+Report an issue
+Request error
+Request failed
+Request metadata
+Request snapshots and extracted attachment metadata
+Request type
+Requesting access to Google Drive app storage…
+requests==2.32.4
+numpy==1.26.2
+Require API key
+Requires a separate distribution download
+Research in progress
+Research request…
+Research roadmap
+Research state reported
+Reset advanced values to defaults
+resets ${usageResetCountdown(epochSeconds, nowEpochSeconds)} • $exact
+Response paused
+Response style
+Restore a backup
+Restore a backup if you have one, then connect the model provider you actually want to use. Everything optional stays out of your way.
+Restore an existing setup
+Restrained blue-gray palette
+Result exposed by the model provider's search response.
+Retry response
+Retry setup
+Reusable tone and workflow profiles
+Review and install changes
+ripgrep
+ffmpeg
+Root shell • ${status.distribution.displayName} ${status.release} • /workspace
+root@xylune-${status.distribution.id}:/workspace#
+Rounded panels use a hard, rounded boundary. Choose Flat to adjust softness.
+Run details
+Run failed
+Run failed with exit code ${result.exitCode}
+Run in workspace
+Run preflight again
+Run Python in this chat's persistent workspace
+Run with Linux tools
+Running in the background • ${(clock - (pythonRun?.startedAt ?: clock)) / 1_000}s • you can browse other chats
+Running on
+running…
+Running…
+Runtime manager
+S3-compatible storage
+Safe defaults share visible messages and attachments. Hidden reasoning, tool diagnostics, prompts, and request snapshots stay excluded until you enable them.
+Safe generated rendering
+Save & regenerate
+Save a copy
+Save and test
+Save backup
+Save connection
+Save key
+Save memory
+saved history
+Saved memories
+Saved system prompt “${profile.name}”
+Sayfa getirmeye izin ver
+Sağlayıcı adı
+Sağlayıcı ekle
+Sağlayıcı seçilmedi
+Sağlayıcıdaki modeller
+Sağlayıcılar
+Sağlayıcılar ve modeller
+Sağlayıcıyı kaldır
+script diagnostics
+Search ${discoveredModels.size} models
+Search & web
+Search across every chat
+Search chat models by name, ID, provider, or description
+Search chats and messages
+Search failed
+Search history
+Search image models
+Search libraries or licenses
+Search memories
+Search messages, code, and reasoning
+Search models
+Search off
+Search PyPI
+Searching…
+SearXNG endpoint
+SearXNG uç noktası
+Secondary: $secondary
+Secret access key
+Select all
+Select shown
+Selectable extracted content
+Selectable file preview
+Selectable OCR text
+Selected cloud folder
+Selected model cannot read the original attachment
+Send after the current response finishes
+Send now
+Send options
+Sent file
+Session token (optional)
+Set up a provider
+Set up a provider to start
+Set up provider
+Set up Xylune
+Settings stay optional
+Setup & connections
+Share ${attachment.displayName}
+Share message
+Share portable chat
+Share Xylune chat
+SHELL COMMAND
+Short reasoning
+Show backups
+Show blur boundary guides
+Show complete package plan
+Show OCR overlay
+Show package plan
+Show performance overlay
+Show source
+Show the full plan and wait for you
+Show tool diagnostics
+Showing ${displayedModels.size} of ${visibleModels.size}. Search or filter to narrow the catalog.
+Showing the first $MODEL_MANAGER_RENDER_LIMIT matches. Search to find a specific model; all selected models will still be saved.
+Shows live frame timing without forcing continuous animation. The monitor observes frames already rendered by Android.
+Shows raw tool inputs, outputs, source paths, and copyable failure diagnostics inside Working.
+Sign in again
+Sign in with ChatGPT
+Sign in without pasting an API key.
+Sign in; Xylune only uses its app folder
+Signing SHA-1
+Simulating ${ubuntuStatus.distribution.packageManager.command} transaction…
+Skip for now
+Softens the boundary where flat panels merge into the page.
+Sohbet adlandırma
+Sohbet adlandırma ve bağlam sıkıştırma modelleri
+Sohbet davranışı
+Sohbetler arası yerel olarak saklanan bilgiler ve tercihler
+Son mesaj çiftleri
+Sorun bildir
+Source (\d+)
+Source commit
+Source failed
+Source read
+Source read completed
+Source repository
+Source request ready
+Source: ${release.repository}
+Start a response
+Start setup
+Starting fresh? Ignore the restore card and tap Continue.
+Starting package installation
+Starting state for the controls beside the message box.
+Steer current response
+Steered by user
+Step $step of $total
+Step ${currentStepIndex + 1} of $stepCount
+step-${index + 1}
+Stop current response
+Stop image generation
+Stopped by user
+Streaming…
+Switch account
+Switched branch
+Switched to another branch
+Sürüm
+Sürüm, mimari ve gizlilik modeli
+Take a photo and attach it
+Take a photo to use as a reference
+Tap a result to add it to the install list
+Tap to zoom
+Target Android
+Tasarım gereği özel
+Tekrar kontrol et
+Tema modu
+Tema, renk paleti, başlatıcı simgesi ve AMOLED siyahı
+Temel URL
+Terminal, native CLI tools, and Linux packages
+Terms & disclaimer
+Text opacity
+The Android document picker can save directly to Google Drive, OneDrive, Dropbox, Nextcloud, a USB drive, or local storage. Xylune does not upload through a hidden server.
+The app is provided “AS IS”, without warranties. Use it at your own risk. To the maximum extent permitted by applicable law, the author and contributors are not responsible for data loss, device damage, account loss, charges, security incidents, or other consequences arising from its use, modification, or distribution. Review the source and keep backups before relying on it.
+The built-in provider catalog is delayed. Setup remains usable and Xylune will keep retrying in the background.
+The edited source is compiled, executed in the bounded runtime, and rendered before use.
+The embedded license document could not be opened.
+The exact prompt bundled with this app version is shown below. It is selectable for inspection and intentionally read-only.
+The instance must enable JSON search output.
+The overlay explicitly shares pointer input with the content underneath and never consumes it. Taps, scrolling, drawer gestures, and back navigation continue through the panel.
+The previous install failed. Review before retrying.
+The previous install was interrupted. Review before retrying.
+The provider exposed the query but did not return result metadata or citations.
+The provider returned no models
+The provider stream failed without returning additional diagnostic text.
+The response stopped before it completed.
+The reviewed plan is no longer available. Run preflight again.
+the selected backup folder
+The source and conversation are intact.
+The user approved and Xylune installed these Python packages in this conversation workspace: ${result.packages.joinToString()}. ${imports.ifBlank {
+The user removed these Python packages from this conversation environment: ${names.joinToString()}.
+The Xylune maintainer does not create, train, host, pre-review, or endorse individual model outputs. AI output can be wrong, unsafe, biased, or unsuitable; verify it before relying on it. Provider terms, fees, retention, and content rules apply independently.
+Theme mode
+Theme, palette, launcher icon, and AMOLED black
+These providers keep Xylune backups in an app-specific folder or prefix. OAuth tokens and storage credentials are encrypted on this device and excluded from exported backups.
+Thinking always on
+Thinking effort
+Third-party AI and services
+This attempt continued in the newer step below.
+This build has no GitHub source provenance
+This build is missing its generated offline notices.
+This file is encrypted. Enter its password to inspect it.
+This has taken $seconds seconds. It will keep running while you browse Xylune, up to its hard deadline. You can leave it in the background or stop it now. A blocking native Python extension may take a moment to return after Stop.
+This is a debug-signed development build.
+This is the complete ${ubuntuStatus.distribution.packageManager.command} simulation, including dependencies:
+This location is connected, but it does not contain a Xylune backup yet.
+This model cannot read the original attachment. OCR fallback will be prepared before sending.
+This model does not accept reference images.
+This model doesn't support tool calling. Web, Python, and Linux tools won't run.
+This model receives OCR text and coordinates; you still see the untouched original.
+This PDF could not be rendered
+This permanently removes the selected memory data from Xylune.
+This provider returns the final image when generation finishes.
+This removes the selected Linux root filesystem and its installed packages for all chats. Chat files in /workspace and bundled Python packages are kept.
+This saved package request already completed successfully.
+Timed out
+Tint is fully opaque and covers the blurred background. Lower Tint opacity to reveal blur.
+Tint opacity
+Token counting
+Token fields are stored from provider usage metadata when the provider reports them. Otherwise Xylune may fall back to its local counter/estimator. Use the raw token counts above with your provider's current pricing table for manual calculation.
+Token sayımı
+Tool behavior
+Tool completed
+Tool defaults
+Tool diagnostics
+Tool failed
+Tool output
+Tool traces
+Tool traces and working timeline
+Tools & safety
+Tools and modes
+Tools available to Xylune in this chat
+Top left
+Top right
+total ${input.frameTotalMs.f1()} ms, p95 ${input.frameDurationP95Ms.f1()} ms, budget ${budgetMs.f1()} ms, jank ${input.jankPercent.f1()}%
+Total tokens
+Trusted Linux packages (apt/apk)
+Trusted list
+Trusted pip packages
+Try a different word or a shorter phrase.
+Try a library name such as SQLCipher or a license such as Apache-2.0.
+Try another provider or clear the current filters.
+Try full rendering
+Type a message or attach a file first
+Tüm kategoriler
+Tümü
+Tümünü devre dışı bırak
+Tümünü etkinleştir
+Tümünü seç
+Ubuntu result
+Ubuntu tool result
+UI draw / recording
+Unavailable / calculate manually
+Unavailable in this build • tap for details
+uniform shader content;
+    uniform float2 uBlur;
+    uniform float2 uTopBounds;
+    uniform float2 uBottomBounds;
+    uniform float2 uSize;
+    uniform float2 uCorner;
+    uniform float2 uMerge;
+    uniform float2 uDirection;
+
+    float smoother(float value) {
+        float x = saturate(value);
+        return x * x * x * (x * (x * 6.0 - 15.0) + 10.0);
+    }
+
+    float roundedTopPanelMask(float2 coord, float start, float end, float radius) {
+        float vertical = smoothstep(start - 1.0, start + 1.0, coord.y) *
+            (1.0 - smoothstep(end - 1.0, end + 1.0, coord.y));
+        if (vertical <= 0.0) return 0.0;
+        float extent = end - start;
+        radius = clamp(radius, 0.0, min(uSize.x * 0.5, extent * 0.5));
+        if (radius < 0.5 || coord.y <= end - radius) return vertical;
+        if (coord.x < radius) {
+            float d = length(coord - float2(radius, end - radius));
+            return vertical * (1.0 - smoothstep(radius - 0.75, radius + 0.75, d));
+        }
+        if (coord.x > uSize.x - radius) {
+            float d = length(coord - float2(uSize.x - radius, end - radius));
+            return vertical * (1.0 - smoothstep(radius - 0.75, radius + 0.75, d));
+        }
+        return vertical;
+    }
+
+    float roundedBottomPanelMask(float2 coord, float start, float end, float radius) {
+        float vertical = smoothstep(start - 1.0, start + 1.0, coord.y) *
+            (1.0 - smoothstep(end - 1.0, end + 1.0, coord.y));
+        if (vertical <= 0.0) return 0.0;
+        float extent = end - start;
+        radius = clamp(radius, 0.0, min(uSize.x * 0.5, extent * 0.5));
+        if (radius < 0.5 || coord.y >= start + radius) return vertical;
+        if (coord.x < radius) {
+            float d = length(coord - float2(radius, start + radius));
+            return vertical * (1.0 - smoothstep(radius - 0.75, radius + 0.75, d));
+        }
+        if (coord.x > uSize.x - radius) {
+            float d = length(coord - float2(uSize.x - radius, start + radius));
+            return vertical * (1.0 - smoothstep(radius - 0.75, radius + 0.75, d));
+        }
+        return vertical;
+    }
+
+    float topPanelMix(float2 coord) {
+        if (uBlur.x < 0.35) return 0.0;
+        if (uMerge.x <= 0.5) {
+            return roundedTopPanelMask(coord, uTopBounds.x, uTopBounds.y, uCorner.x);
+        }
+        float halfSpan = uMerge.x * 0.5;
+        float feather = 1.0 - smoother(
+            (coord.y - (uTopBounds.y - halfSpan)) / max(uMerge.x, 1.0)
+        );
+        return saturate(feather * smoothstep(
+            uTopBounds.x - 1.0,
+            uTopBounds.x + 1.0,
+            coord.y
+        ));
+    }
+
+    float bottomPanelMix(float2 coord) {
+        if (uBlur.y < 0.35) return 0.0;
+        if (uMerge.y <= 0.5) {
+            return roundedBottomPanelMask(coord, uBottomBounds.x, uBottomBounds.y, uCorner.y);
+        }
+        float halfSpan = uMerge.y * 0.5;
+        float feather = smoother(
+            (coord.y - (uBottomBounds.x - halfSpan)) / max(uMerge.y, 1.0)
+        );
+        return saturate(feather * (
+            1.0 - smoothstep(
+                uBottomBounds.y - 1.0,
+                uBottomBounds.y + 1.0,
+                coord.y
+            )
+        ));
+    }
+
+    half4 main(float2 coord) {
+        float radius = max(
+            uBlur.x * topPanelMix(coord),
+            uBlur.y * bottomPanelMix(coord)
+        );
+        if (radius < 0.35) return content.eval(coord);
+
+        // Direct, evenly spaced taps keep the maximum sampling gap bounded.
+        // The former bilinear-paired offsets were cheaper, but at a 56 dp
+        // radius their wide gaps became visible as repeating bands/lattices.
+        float2 sampleStep = uDirection * (radius / 7.5);
+        half4 accum = half4(content.eval(coord)) * 0.117695797;
+        accum += half4(content.eval(coord + sampleStep * 1.0)) * 0.112988605;
+        accum += half4(content.eval(coord - sampleStep * 1.0)) * 0.112988605;
+        accum += half4(content.eval(coord + sampleStep * 2.0)) * 0.099966786;
+        accum += half4(content.eval(coord - sampleStep * 2.0)) * 0.099966786;
+        accum += half4(content.eval(coord + sampleStep * 3.0)) * 0.081512498;
+        accum += half4(content.eval(coord - sampleStep * 3.0)) * 0.081512498;
+        accum += half4(content.eval(coord + sampleStep * 4.0)) * 0.061254792;
+        accum += half4(content.eval(coord - sampleStep * 4.0)) * 0.061254792;
+        accum += half4(content.eval(coord + sampleStep * 5.0)) * 0.042423190;
+        accum += half4(content.eval(coord - sampleStep * 5.0)) * 0.042423190;
+        accum += half4(content.eval(coord + sampleStep * 6.0)) * 0.027077836;
+        accum += half4(content.eval(coord - sampleStep * 6.0)) * 0.027077836;
+        accum += half4(content.eval(coord + sampleStep * 7.0)) * 0.015928394;
+        accum += half4(content.eval(coord - sampleStep * 7.0)) * 0.015928394;
+        return accum;
+    }
+Unlock preview
+up to $max reference image${if (max == 1)
+Update ${item.installedVersion.orEmpty()} → ${item.candidateVersion ?:
+Update check failed
+Update interval
+Updated ${discovered.size} models
+Updated ${discovered.size} models for ${provider.displayName}
+Updated system prompt “${value.name}”
+Updates are checked against ${sourceRepository ?:
+Usage & limits
+Usage details
+Use a ChatGPT account, API provider, or local server.
+Use a key restricted to this bucket and prefix. Credentials remain encrypted on-device.
+Use connected folder
+Use custom instruction profiles for additional tone and workflow preferences.
+Use for new chats
+Use memory
+Use OpenAI, Anthropic, Gemini, DeepSeek, or another compatible endpoint.
+Use selected model
+Use terms, third-party AI limits, warranty, and liability
+Use the $linuxDistributionName tooling workspace
+Use Xylune default for new chats
+Use your ChatGPT plan without an API key
+Uses Dropbox App folder access and scoped file permissions. Xylune cannot browse the rest of Dropbox.
+Uses OneDrive's Apps/Xylune folder with Files.ReadWrite.AppFolder instead of access to the whole drive.
+Uses only Drive's hidden appDataFolder. Connect once, then create, browse, preview, and restore backups without repeating the consent flow.
+Usually unnecessary
+val points = item[
+Varsayılan
+Varsayılan olarak etkindir. Teknik semboller ve kullanıcının istediği emojiler engellenmez.
+Veri silme
+Version, architecture, and privacy model
+View attempts
+Waiting for ${provider.displayName} authorization…
+Waiting for ${provider.displayName} sign-in to finish…
+Waiting for Google Drive approval…
+Waiting for output…
+Waiting for search results…
+Waiting for sign-in to finish
+Waiting for the first provider-rendered preview…
+Warm orange, rose, and gold accents
+Web araması
+Web search
+WebDAV / Nextcloud
+WebDAV folder URL
+Weekly limit
+What are we creating?
+What are we working on?
+What this screen manages
+While working
+While Xylune is working
+Within frame budget
+Work ChatGPT
+Work complete
+Working display
+Working history token budget
+Working · ${pending.size} queued
+Working-history token budget
+Working…
+Works with AWS S3, Cloudflare R2, Backblaze B2, MinIO, and other Signature V4-compatible object stores.
+Works with Drive, OneDrive, Dropbox, Nextcloud, USB, local storage, and other Android document providers.
+Writing report
+Writing source request…
+Xylune ${release.versionName} is available
+Xylune ${release.versionName} is available from ${release.repository}
+Xylune adds request-specific date, enabled-tool, research, memory, attachment, and generated-content instructions at runtime. Those dynamic layers are not editable either and are not presented as one misleading static block.
+Xylune asks for the non-sensitive drive.appdata scope only. The backup files remain hidden from normal Drive browsing and from other apps.
+Xylune cannot send messages until ChatGPT, an API provider, or a local model server is connected.
+Xylune chat
+Xylune cloud folder connected
+Xylune core prompt
+Xylune detected ${providerCountLabel(configuredProviderCount)}. Continue or open the provider manager to make changes.
+Xylune Google Drive OAuth setup
+Xylune hakkında
+Xylune includes each installed root filesystem, packages, and configuration. Permissions, symbolic links, and hard links are preserved. This can make the backup several gigabytes.
+Xylune is a client, not an AI model host. Responses come from the provider or local server selected by the user.
+Xylune is ready
+Xylune is up to date
+Xylune stores memories in its encrypted local database and selects only relevant items under a strict context budget. Disabled memories remain stored but are not supplied to models.
+Xylune stream error
+Xylune tarafından yönetiliyor · revizyon
+Xylune was made with full vibe coding: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools. It may contain serious defects.
+Xylune çekirdek istemi
+Xylune's configured package approval policy allowed and installed these ${container.ubuntuRuntime.distribution.value.displayName} packages: ${result.packages.joinToString()}.
+Xylune's natural green Material palette
+Xylune's versioned core prompt is built into the app and updates with Xylune. Profiles can adjust tone or add preferences, but cannot replace the core capability, tool, research, date, privacy, or safety protocol.
+Xylune'un sohbetleri nasıl adlandıracağını ve eski bağlamı nasıl sıkıştıracağını seçin.
+Yanıt stili
+Yazma alanı varsayılanları
+Yedek arama motoru
+Yedekleme ve aktarım
+Yeni sohbet varsayılanları
+Yeni sohbetlerde kullan
+Yeni sohbetlerde kullanılabilirlik
+Yeni sohbetlerde Xylune varsayılanını kullan
+Yeni özel profil
+Yeniden dene
+Yeniden kullanılabilir üslup ve iş akışı profilleri
+Yenileniyor…
+Yerel yönlendirme, arama motorları, kimlik bilgileri ve sayfa getirme
+Yerel çalıştırma
+You can start chatting now. Appearance, local execution, backups, memory, and other optional features remain in clearly grouped Settings.
+Yuvarlatılmış
+Yönlendirme
+Yüksek
+Zekâ
+Zoom in
+Zoom out
+| $candidate
+|| chart.type ==
+}
+        val title = root[
+} configured
+} first.
+} in ${source.setupLabel()}.
+} ms  Miss/s ${snapshot.missedFramesPerSecond.f1()}  Reports ${snapshot.droppedMetricReports}
+} queued
+} reference images and describe the edit.
+} · ${DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(memory.updatedAt))}
+} · ${patch.sourceSha256}
+} · describe the changes you want.
+} • ${value.messageCount} messages • ${value.attachmentCount} attachments
+}${attempt.errors.size} error(s)
+}, onDismiss = { expanded = false }) { ChartCanvas(chart, 520.dp, large = true) }
+}
+
+@Composable
+private fun ChartCanvas(chart: NativeChart, height: Dp, large: Boolean) {
+    val primary = MaterialTheme.colorScheme.primary
+    val secondary = MaterialTheme.colorScheme.secondary
+    val tertiary = MaterialTheme.colorScheme.tertiary
+    val chartBackground = MaterialTheme.colorScheme.surfaceContainer
+    val text = MaterialTheme.colorScheme.onSurface
+    val grid = MaterialTheme.colorScheme.outlineVariant
+    val colors = listOf(primary, secondary, tertiary, Color(0xFFE69F00), Color(0xFF009E73), Color(0xFFCC79A7), Color(0xFF56B4E9), Color(0xFFD55E00))
+    Canvas(Modifier.fillMaxWidth().height(height)) {
+        val all = chart.series.flatMap { series -> series.points.map { it.second } }
+        if (all.isEmpty()) return@Canvas
+        if (chart.type ==
+}.orEmpty()}
+}.orEmpty()}${item.candidateVersion?.let {
+}.orEmpty()}${item.detail.takeIf(String::isNotBlank)?.let {
+}; ${memories.count { it.enabled }} enabled.
+· $it
+· ${usage.unknownCostCalls} call(s) unpriced
+· the final image may still change.
+Çalışma geçmişi token bütçesi
+Çalışma görünümü
+Çalışma zamanı yöneticisi
+Çalışma zamanı yöneticisini aç
+Çalıştığı sürüm
+Çalışırken
+Çok yüksek
+Çıktı
+Ön ayar:
+Önbelleğe alınmış girdi
+Özel başlıklar JSON
+Özel profili düzenle
+Özel sağlayıcı
+Özel talimat profilleri
+Özel talimatlar
+Üçüncü taraf yapay zekâ ve hizmetler
+• $it
+• $reset
+• $tokens tok
+• ${item.name}: ${item.action.name.lowercase()}${item.candidateVersion?.let {
+• ${message.status.name.lowercase()}
+• ${value.linuxEnvironmentCount} Linux environment${if (value.linuxEnvironmentCount == 1)
+• A failed or interrupted setup can be retried; /workspace chat files are not deleted.
+• cost unavailable
+• Linux installation, packages, terminal, and removal
+• No Android root access is used or requested.
+• partial cost
+• Requires a network download and app-private storage.
+• Runtime health and per-chat Python packages
+• tap to check backups
+• Test runs only; chat tool permissions are controlled per chat
+• Xylune verifies the archive before extraction and exposes progress for every stage.
+… earlier table content hidden from the inline preview …
+… omitted table rows from live preview …
