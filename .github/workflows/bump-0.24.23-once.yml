@@ -32,7 +32,7 @@ jobs:
           path.write_text(text.replace(old, new, 1))
           PY
           git diff --check
-          git rm .github/workflows/bump-0.24.23-once.yml
+          git rm .github/workflows/bump-0.24.23-once.yml docs/releases/.release-0.24.23-trigger
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add app/build.gradle.kts
