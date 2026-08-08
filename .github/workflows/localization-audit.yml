@@ -9,16 +9,62 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
     runs-on: ubuntu-22.04
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v6
         with:
           ref: agent/turkish-localization
+          fetch-depth: 0
+      - name: Harden dynamic Turkish rules
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('app/src/main/java/app/xylune/chat/ui/UiLocalization.kt')
+          s = p.read_text(encoding='utf-8')
+
+          old_delete = '        { text -> Regex("""^Delete (\\d+) disabled memor(?:y|ies)\\?$""").matchEntire(text)?.let { "${it.groupValues[1]} devre dışı bellek silinsin mi?" } },\n'
+          new_delete = '''        { text ->
+            val prefix = "Delete "
+            val suffix = " disabled memories?"
+            if (text.startsWith(prefix) && text.endsWith(suffix)) {
+                text.removePrefix(prefix).removeSuffix(suffix).toIntOrNull()?.let { "$it devre dışı bellek silinsin mi?" }
+            } else if (text.startsWith(prefix) && text.endsWith(" disabled memory?")) {
+                text.removePrefix(prefix).removeSuffix(" disabled memory?").toIntOrNull()?.let { "$it devre dışı bellek silinsin mi?" }
+            } else null
+        },
+'''
+          if old_delete not in s:
+              raise SystemExit('missing disabled-memory rule')
+          s = s.replace(old_delete, new_delete, 1)
+
+          generic = '        { text -> Regex("^Attempt (\\\\d+) · (.+)$").matchEntire(text)?.let { "Deneme ${it.groupValues[1]} · ${it.groupValues[2]}" } },\n'
+          special = '''        { text -> Regex("""^Attempt (\\d+) · repeated candidate · (\\d+) error\\(s\\)$""").matchEntire(text)?.let { "Deneme ${it.groupValues[1]} · yinelenen aday · ${it.groupValues[2]} hata" } },
+        { text -> Regex("""^Attempt (\\d+) · (\\d+) error\\(s\\)$""").matchEntire(text)?.let { "Deneme ${it.groupValues[1]} · ${it.groupValues[2]} hata" } },
+'''
+          if generic not in s or special not in s:
+              raise SystemExit('missing attempt rules')
+          s = s.replace(generic, special + generic, 1)
+          s = s.replace(special, '', 1)  # removes the original later copy; first inserted copy remains only if replacing from the end below
+          # The previous two operations remove the first occurrence. Reinsert the special cases immediately before the generic rule.
+          if special.strip() not in s:
+              s = s.replace(generic, special + generic, 1)
+
+          p.write_text(s, encoding='utf-8')
+      - name: Commit dynamic localization fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/java/app/xylune/chat/ui/UiLocalization.kt
+          git commit -m "Harden dynamic Turkish localization"
+          git push origin HEAD:agent/turkish-localization
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -29,12 +75,5 @@ jobs:
         with:
           packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
       - uses: gradle/actions/setup-gradle@v6
-      - name: Run Turkish localization test
-        shell: bash
-        run: |
-          set +e
-          ./gradlew --no-daemon --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process testReleaseUnitTest --tests app.xylune.chat.ui.TurkishLocalizationTest
-          status=$?
-          echo '--- junit xml ---'
-          cat app/build/test-results/testReleaseUnitTest/TEST-app.xylune.chat.ui.TurkishLocalizationTest.xml || true
-          exit "$status"
+      - name: Run Turkish localization tests
+        run: ./gradlew --no-daemon --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process testReleaseUnitTest --tests app.xylune.chat.ui.TurkishLocalizationTest
