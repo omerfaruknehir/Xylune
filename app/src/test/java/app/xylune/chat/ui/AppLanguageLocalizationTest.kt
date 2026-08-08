@@ -41,4 +41,44 @@ class AppLanguageLocalizationTest {
         assertTrue(action.contains("setAppLanguage(context, AppLanguage.TURKISH)"))
         assertTrue(action.contains("R.string.language_turkish"))
     }
+
+    @Test
+    fun `major Compose surfaces route owned String labels through localization`() {
+        listOf(
+            "SettingsScreen.kt",
+            "OnboardingScreen.kt",
+            "ConversationSidebar.kt",
+            "ChatScreen.kt",
+            "CloudBackupUi.kt",
+            "DirectCloudProvidersUi.kt",
+            "ImageGenerationScreen.kt",
+            "LinuxTerminalScreen.kt",
+            "SearchScreen.kt",
+        ).forEach { name ->
+            val source = repositoryFile("app/src/main/java/app/xylune/chat/ui/$name").readText()
+            assertTrue("$name must route String labels through the localized Text facade", source.contains("import androidx.compose.material3.Text as MaterialText"))
+        }
+    }
+
+    @Test
+    fun `Turkish catalogs translate representative app copy and preserve unknown text`() {
+        fun translate(value: String): String {
+            val primary = TurkishUiCopy.translate(value)
+            if (primary != value) return primary
+            val secondary = TurkishUiCopyExtra2.translate(value)
+            if (secondary != value) return secondary
+            return TurkishUiCopyExtra.translate(value)
+        }
+
+        assertEquals("Ayarlar", translate("Settings"))
+        assertEquals("Yeni sohbet", translate("New chat"))
+        assertEquals("Sağlayıcılar ve modeller", translate("Providers & models"))
+        assertEquals("Yedekleme ve aktarım", translate("Backup & transfer"))
+        assertEquals("Görsel oluşturma", translate("Image generation"))
+        assertEquals("Yerel çalıştırma", translate("Local execution"))
+        assertEquals("Arşivin kilidi açılamadı", translate("Could not unlock archive"))
+        assertEquals("Akıl yürütme ayrıntıları", translate("Reasoning details"))
+        assertEquals("3 adımın 2. adımı", translate("Step 2 of 3"))
+        assertEquals("My custom project title", translate("My custom project title"))
+    }
 }
