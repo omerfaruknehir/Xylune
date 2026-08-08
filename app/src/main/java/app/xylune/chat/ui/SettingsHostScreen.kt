@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -63,13 +62,14 @@ import app.xylune.chat.R
 import app.xylune.chat.settings.AppLanguage
 import app.xylune.chat.settings.currentAppLanguage
 import app.xylune.chat.settings.setAppLanguage
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 
 /**
- * Keeps the established Settings sub-pages intact while owning the Settings
- * home and the app-language page. This makes language a normal destination
- * instead of an Activity-level floating control.
+ * Adds app language to the normal Settings home without replacing the existing
+ * SettingsScreen navigation stack. The original SettingsScreen stays composed
+ * underneath this home surface so its existing page transitions remain live.
  */
 @Composable
 internal fun SettingsHostScreen(
@@ -77,28 +77,46 @@ internal fun SettingsHostScreen(
     openDrawer: (() -> Unit)?,
 ) {
     val settingsRoute by viewModel.settingsRoute.collectAsState()
-    if (settingsRoute != SettingsRoute.HOME) {
-        SettingsScreen(viewModel, openDrawer)
-        return
+    var languageOpen by rememberSaveable { mutableStateOf(false) }
+    var homeSurfaceVisible by rememberSaveable { mutableStateOf(settingsRoute == SettingsRoute.HOME) }
+
+    LaunchedEffect(settingsRoute) {
+        if (settingsRoute == SettingsRoute.HOME) {
+            // Button-driven Settings Back starts a 280 ms transition after the
+            // route changes. Reveal the augmented home after that transition so
+            // it never cuts the established animation short.
+            delay(300)
+            homeSurfaceVisible = true
+        } else {
+            languageOpen = false
+            // Give the already-composed SettingsScreen one frame of its forward
+            // transition before uncovering it. This prevents a hard page swap.
+            delay(90)
+            homeSurfaceVisible = false
+        }
     }
 
-    var languageOpen by rememberSaveable { mutableStateOf(false) }
-    PredictiveNavigationHost(
-        targetState = languageOpen,
-        backTarget = if (languageOpen) false else null,
-        onBack = { languageOpen = it },
-        depth = { if (it) 1 else 0 },
-        modifier = Modifier.fillMaxSize(),
-        label = "SettingsLanguageNavigation",
-    ) { showLanguage ->
-        if (showLanguage) {
-            LanguageSettingsPage(onBack = { languageOpen = false })
-        } else {
-            SettingsHomeWithLanguage(
-                viewModel = viewModel,
-                openDrawer = openDrawer,
-                onOpenLanguage = { languageOpen = true },
-            )
+    Box(Modifier.fillMaxSize()) {
+        SettingsScreen(viewModel, openDrawer)
+        if (homeSurfaceVisible) {
+            PredictiveNavigationHost(
+                targetState = languageOpen,
+                backTarget = if (languageOpen) false else null,
+                onBack = { languageOpen = it },
+                depth = { if (it) 1 else 0 },
+                modifier = Modifier.fillMaxSize(),
+                label = "SettingsLanguageNavigation",
+            ) { showLanguage ->
+                if (showLanguage) {
+                    LanguageSettingsPage(onBack = { languageOpen = false })
+                } else {
+                    SettingsHomeWithLanguage(
+                        viewModel = viewModel,
+                        openDrawer = openDrawer,
+                        onOpenLanguage = { languageOpen = true },
+                    )
+                }
+            }
         }
     }
 }
