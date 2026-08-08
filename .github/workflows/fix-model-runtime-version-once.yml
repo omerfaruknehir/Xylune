@@ -1,0 +1,70 @@
+name: Apply model runtime version fix once
+
+on:
+  pull_request:
+    branches: [main]
+    types: [synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.head_ref == 'agent/fix-runtime-version-provider-sheet'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/fix-runtime-version-provider-sheet
+          fetch-depth: 0
+      - name: Patch runtime context and self-clean
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new):
+              p = Path(path)
+              text = p.read_text()
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{path}: expected one match, found {count}: {old!r}')
+              p.write_text(text.replace(old, new, 1))
+
+          context = 'app/src/main/java/app/xylune/chat/chat/ContextAssembler.kt'
+          replace_once(
+              context,
+              'class ContextAssembler(private val attachmentDao: AttachmentDao) {\n',
+              'class ContextAssembler(\n    private val attachmentDao: AttachmentDao,\n    private val appVersion: String,\n) {\n',
+          )
+          replace_once(
+              context,
+              '            appendLine("Xylune runtime context (authoritative for this request):")\n            appendLine("- Xylune core prompt revision: $XYLUNE_CORE_PROMPT_REVISION (bundled with this app build; not user-editable)")\n',
+              '            appendLine("Xylune runtime context (authoritative for this request):")\n            appendLine("- Xylune app version: $appVersion (installed Android package version)")\n            appendLine("- Xylune core prompt revision: $XYLUNE_CORE_PROMPT_REVISION (prompt revision only; this is not the app version; not user-editable)")\n',
+          )
+
+          worker = 'app/src/main/java/app/xylune/chat/generation/GenerationWorker.kt'
+          replace_once(
+              worker,
+              'import app.xylune.chat.R\n',
+              'import app.xylune.chat.R\nimport app.xylune.chat.installedAppVersion\n',
+          )
+          replace_once(
+              worker,
+              '    private val continuation = inputData.getBoolean(KEY_CONTINUATION, false)\n',
+              '    private val continuation = inputData.getBoolean(KEY_CONTINUATION, false)\n    private val installedVersion = applicationContext.installedAppVersion()\n',
+          )
+          replace_once(
+              worker,
+              '        val messages = ContextAssembler(container.database.attachmentDao()).assemble(\n',
+              '        val messages = ContextAssembler(\n            attachmentDao = container.database.attachmentDao(),\n            appVersion = installedVersion.versionName,\n        ).assemble(\n',
+          )
+          PY
+          git diff --check
+          git rm .github/workflows/fix-model-runtime-version-once.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add app/src/main/java
+          git commit -m "Expose installed app version to model runtime context"
+          git push origin HEAD:agent/fix-runtime-version-provider-sheet
