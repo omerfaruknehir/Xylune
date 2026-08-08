@@ -33,6 +33,8 @@ class AppLanguageLocalizationTest {
         val controller = repositoryFile("app/src/main/java/app/xylune/chat/settings/AppLanguage.kt").readText()
         val app = repositoryFile("app/src/main/java/app/xylune/chat/ui/XyluneApp.kt").readText()
         val host = repositoryFile("app/src/main/java/app/xylune/chat/ui/SettingsHostScreen.kt").readText()
+        val routes = repositoryFile("app/src/main/java/app/xylune/chat/ui/SettingsRoute.kt").readText()
+        val topBar = repositoryFile("app/src/main/java/app/xylune/chat/ui/CollapsingTranslucentTopBar.kt").readText()
 
         assertTrue(main.contains("localizedAppContext(newBase)"))
         assertFalse(main.contains("AppLanguageMenuButton"))
@@ -52,6 +54,11 @@ class AppLanguageLocalizationTest {
         assertTrue(host.contains("setAppLanguage(context, AppLanguage.TURKISH)"))
         assertTrue(host.contains("PredictiveNavigationHost("))
         assertTrue(host.contains("delay(300)"))
+
+        assertFalse(routes.contains("Locale.getDefault"))
+        assertTrue(routes.contains("HOME(\"Settings\")"))
+        assertTrue(topBar.contains("import androidx.compose.material3.Text as MaterialText"))
+        assertTrue(topBar.contains("text = title"))
     }
 
     @Test
