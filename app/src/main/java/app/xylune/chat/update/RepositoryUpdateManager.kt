@@ -3,6 +3,7 @@ package app.xylune.chat.update
 import android.content.Context
 import androidx.core.content.edit
 import app.xylune.chat.BuildConfig
+import app.xylune.chat.installedAppVersion
 import app.xylune.chat.security.AppInstallIdentity
 import app.xylune.chat.security.currentAppInstallIdentity
 import app.xylune.chat.security.normalizeCertificateFingerprint
@@ -76,6 +77,7 @@ internal data class RepositoryReleaseManifest(
 class RepositoryUpdateManager(context: Context) {
     private val appContext = context.applicationContext
     private val preferences = appContext.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+    private val installedVersion = appContext.installedAppVersion()
     private val repository = normalizeGitHubRepository(BuildConfig.SOURCE_REPOSITORY)
     private val client = OkHttpClient.Builder()
         .connectTimeout(12, TimeUnit.SECONDS)
@@ -110,9 +112,9 @@ class RepositoryUpdateManager(context: Context) {
                 preferences.edit { putLong(KEY_LAST_SUCCESS, now) }
                 _state.value = if (isRepositoryVersionNewer(
                         candidateVersion = release.versionName,
-                        currentVersion = BuildConfig.VERSION_NAME,
+                        currentVersion = installedVersion.versionName,
                         candidateVersionCode = release.versionCode,
-                        currentVersionCode = BuildConfig.VERSION_CODE,
+                        currentVersionCode = installedVersion.versionCode,
                     )
                 ) {
                     RepositoryUpdateState.Available(release, now)
@@ -194,7 +196,7 @@ class RepositoryUpdateManager(context: Context) {
             .url(url)
             .header("Accept", "application/vnd.github+json")
             .header("X-GitHub-Api-Version", "2022-11-28")
-            .header("User-Agent", "Xylune/${BuildConfig.VERSION_NAME} (${BuildConfig.APPLICATION_ID})")
+            .header("User-Agent", "Xylune/${installedVersion.versionName} (${appContext.packageName})")
             .build(),
     ).execute().use { response ->
         val body = response.body?.string().orEmpty()
