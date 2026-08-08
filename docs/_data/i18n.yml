@@ -57,14 +57,14 @@ tr:
     releases: Sürümler
     github: GitHub
   ui:
-    primary_navigation: Birincil gezinme
+    primary_navigation: Ana gezinme
     xylune_home: Xylune ana sayfası
-    open_navigation: Gezinmeyi aç
-    appearance_controls: Görünüm denetimleri
+    open_navigation: Gezinme menüsünü aç
+    appearance_controls: Görünüm ayarları
     open_appearance: Görünüm ayarlarını aç
     close_appearance: Görünüm ayarlarını kapat
     appearance: Görünüm
-    customize_site: Bu siteyi özelleştirin.
+    customize_site: Site görünümünü özelleştir.
     theme: Tema
     app: Uygulama
     auto: Otomatik
@@ -73,28 +73,28 @@ tr:
     color_scheme: Renk şeması
     graphite: Grafit
     ocean: Okyanus
-    violet: Menekşe
+    violet: Mor
     sunset: Gün batımı
-    brand_icon: Marka simgesi
+    brand_icon: Xylune simgesi
     dynamic_icon: Dinamik simge
-    dynamic_icon_description: Seçilen renk şeması için Xylune ile aynı simge varyantını kullanın.
-    use_dynamic_icon: Dinamik Xylune simgesini kullan
+    dynamic_icon_description: Seçili renk şemasına uygun Xylune simgesini kullan.
+    use_dynamic_icon: Temaya uyumlu Xylune simgesini kullan
     language: Dil
-    language_controls: Dil seçici
-    choose_language: Dil seçin
-    english: English
+    language_controls: Dil seçimi
+    choose_language: Dil seç
+    english: İngilizce
     turkish: Türkçe
-    current_language: Geçerli dil
+    current_language: Seçili dil
     back_to_xylune: Xylune'a dön
   footer:
-    maintained_by: Bu proje şu kişi tarafından sürdürülmektedir
+    maintained_by: "Proje sorumlusu:"
     open_source: GitHub'da açık kaynak
   release:
-    latest: En yeni
+    latest: Son sürüm
     pre_release: Ön sürüm
     download_apk: APK'yı indir
-    open_github: GitHub'da aç
-    show_all: Tüm sürümleri göster
-    no_notes: Bu derleme için sürüm notu sunulmadı.
-    load_failed: Canlı sürüm listesi yüklenemedi.
-    open_releases: Sürümleri GitHub'da aç
+    open_github: GitHub'da görüntüle
+    show_all: Tüm sürümleri görüntüle
+    no_notes: Bu sürüm için sürüm notu paylaşılmadı.
+    load_failed: Sürüm listesi yüklenemedi.
+    open_releases: GitHub'daki sürümleri aç
