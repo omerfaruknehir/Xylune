@@ -9,7 +9,6 @@ permissions:
 
 jobs:
   patch:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -82,7 +81,6 @@ fun Context.installedAppVersion(): InstalledAppVersion {
                   raise SystemExit(f'{path}: expected exactly one match, found {count}: {old[:100]!r}')
               p.write_text(text.replace(old, new, 1))
 
-          # Update manager: use Android's installed package metadata as source of truth.
           path = 'app/src/main/java/app/xylune/chat/update/RepositoryUpdateManager.kt'
           replace_once(path,
               'import app.xylune.chat.BuildConfig\n',
@@ -97,7 +95,6 @@ fun Context.installedAppVersion(): InstalledAppVersion {
               '            .header("User-Agent", "Xylune/${BuildConfig.VERSION_NAME} (${BuildConfig.APPLICATION_ID})")\n',
               '            .header("User-Agent", "Xylune/${installedVersion.versionName} (${appContext.packageName})")\n')
 
-          # Portable archives also describe the actually installed app build.
           path = 'app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt'
           replace_once(path,
               'import app.xylune.chat.BuildConfig\n',
@@ -109,7 +106,6 @@ fun Context.installedAppVersion(): InstalledAppVersion {
               '                appVersion = BuildConfig.VERSION_NAME,\n',
               '                appVersion = installedVersion.versionName,\n')
 
-          # Settings: installed version metadata + adaptive Add Provider sheet.
           path = 'app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt'
           replace_once(path,
               'import androidx.compose.foundation.layout.Box\n',
@@ -145,12 +141,10 @@ fun Context.installedAppVersion(): InstalledAppVersion {
           new_tail = '''            }\n            Spacer(Modifier.height(12.dp))\n            HorizontalDivider()\n            BoxWithConstraints(\n                modifier = Modifier\n                    .fillMaxWidth()\n                    .navigationBarsPadding()\n                    .padding(horizontal = 20.dp, vertical = 14.dp),\n            ) {\n                if (maxWidth < 360.dp) {\n                    Column(\n                        modifier = Modifier.fillMaxWidth(),\n                        verticalArrangement = Arrangement.spacedBy(8.dp),\n                    ) {\n                        Button(\n                            enabled = valid,\n                            onClick = ::submitProvider,\n                            modifier = Modifier.fillMaxWidth(),\n                        ) { Text("Add provider") }\n                        OutlinedButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) { Text("Cancel") }\n                    }\n                } else {\n                    Row(\n                        modifier = Modifier.fillMaxWidth(),\n                        horizontalArrangement = Arrangement.spacedBy(10.dp),\n                    ) {\n                        OutlinedButton(onClick = onDismiss, modifier = Modifier.weight(1f)) { Text("Cancel") }\n                        Button(\n                            enabled = valid,\n                            onClick = ::submitProvider,\n                            modifier = Modifier.weight(1f),\n                        ) { Text("Add provider") }\n                    }\n                }\n            }\n        }\n    }\n}\n'''
           replace_once(path, old_tail, new_tail)
 
-          # AddProviderDialog now calls experimental Material3 bottom-sheet APIs directly.
           replace_once(path,
               '@Composable\nprivate fun AddProviderDialog(\n',
               '@OptIn(ExperimentalMaterial3Api::class)\n@Composable\nprivate fun AddProviderDialog(\n')
 
-          # Sanity checks: the old fixed-height alert implementation must be gone from this function.
           settings = (root / path).read_text()
           add_provider = settings.split('private fun AddProviderDialog(', 1)[1].split('private fun providerKindLabel(', 1)[0]
           required = [
