@@ -37,8 +37,23 @@ jobs:
           node --check docs/assets/js/logo-motion.js
           node --check docs/assets/js/popup-motion.js
           node --check docs/assets/js/releases.js
+          node --check docs/assets/js/releases-v2.js
           node --check docs/assets/js/banner-theme.js
           node --check docs/assets/js/i18n.js
+      - name: Validate bilingual release notes
+        shell: bash
+        run: |
+          set -euo pipefail
+          for version in 0.24.{12..21}; do
+            test -s "docs/releases/RELEASE_NOTES_${version}.md"
+            test -s "docs/releases/tr/RELEASE_NOTES_${version}.md"
+            notes="$(bash ci/resolve-release-notes.sh "$version")"
+            test -s "$notes"
+            grep -q '<!-- xylune-release-notes:en -->' "$notes"
+            grep -q '^## English$' "$notes"
+            grep -q '<!-- xylune-release-notes:tr -->' "$notes"
+            grep -q '^## Türkçe$' "$notes"
+          done
       - name: Validate source sitemap
         run: |
           python3 - <<'PY'
@@ -120,6 +135,9 @@ jobs:
 
           english = Path('_site/index.html').read_text(encoding='utf-8')
           turkish = Path('_site/tr/index.html').read_text(encoding='utf-8')
+          english_releases = Path('_site/releases/index.html').read_text(encoding='utf-8')
+          turkish_releases = Path('_site/tr/releases/index.html').read_text(encoding='utf-8')
+          release_js = Path('_site/assets/js/releases-v2.js').read_text(encoding='utf-8')
           banner_css = Path('_site/assets/css/banner.css').read_text(encoding='utf-8')
           banner_path = '/Xylune/assets/images/xylune-banner-background-2-1.webp'
           assert 'Your AI.' in english
@@ -128,6 +146,11 @@ jobs:
           assert banner_path in turkish
           assert 'data-themed-banner' in english
           assert 'data-themed-banner' in turkish
+          assert 'releases-v2.js?v=3' in english_releases
+          assert 'releases-v2.js?v=3' in turkish_releases
+          assert 'xylune-release-notes:en' in release_js
+          assert 'xylune-release-notes:tr' in release_js
+          assert 'localizedReleaseMarkdown' in release_js
           assert 'aspect-ratio: 2 / 1' in banner_css
           assert 'width: calc(100% + 48px)' in banner_css
           assert 'margin-inline: -24px' in banner_css
