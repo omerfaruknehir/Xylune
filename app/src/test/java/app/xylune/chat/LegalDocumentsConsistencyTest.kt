@@ -73,7 +73,7 @@ class LegalDocumentsConsistencyTest {
                 "",
             ),
         )
-        val turkishSource = normalize(sections[1])
+        val turkishSource = normalize(localizeTurkishInternalLinks(sections[1]))
 
         assertEquals(
             "$englishSitePath must mirror the English section of $sourcePath",
@@ -86,6 +86,12 @@ class LegalDocumentsConsistencyTest {
             siteBody(turkishSitePath),
         )
     }
+
+    private fun localizeTurkishInternalLinks(value: String): String =
+        value.replace(
+            "https://omerfaruknehir.github.io/Xylune/data-deletion/",
+            "https://omerfaruknehir.github.io/Xylune/tr/data-deletion/",
+        )
 
     private fun siteBody(sitePath: String): String {
         val site = normalize(repositoryRoot.resolve(sitePath).readText())
