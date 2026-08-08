@@ -23,10 +23,10 @@ class AppVersionAndProviderSheetRegressionTest {
         assertTrue(updates.contains("private val installedVersion = appContext.installedAppVersion()"))
         assertTrue(updates.contains("currentVersion = installedVersion.versionName"))
         assertTrue(updates.contains("currentVersionCode = installedVersion.versionCode"))
-        assertTrue(updates.contains("Xylune/${installedVersion.versionName}"))
+        assertTrue(updates.contains("Xylune/\${installedVersion.versionName}"))
         assertTrue(settings.contains("val installedVersion = remember(context) { context.installedAppVersion() }"))
         assertTrue(settings.contains("AboutInfoRow(\"Version\", installedVersion.versionName)"))
-        assertTrue(settings.contains("AboutInfoRow(\"Build\", \"${installedVersion.versionCode} · ${BuildConfig.BUILD_TYPE}\")"))
+        assertTrue(settings.contains("AboutInfoRow(\"Build\", \"\${installedVersion.versionCode} · \${BuildConfig.BUILD_TYPE}\")"))
         assertTrue(archive.contains("appVersion = installedVersion.versionName"))
     }
 
