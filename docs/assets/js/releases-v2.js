@@ -8,6 +8,7 @@
   const locale = window.XyluneLocale || {};
   const strings = locale.release || {};
   const pageLanguage = document.documentElement.lang || 'en';
+  const releaseLanguage = pageLanguage.toLowerCase().startsWith('tr') ? 'tr' : 'en';
 
   const labels = {
     latest: strings.latest || 'Latest',
@@ -19,6 +20,28 @@
     loadFailed: strings.load_failed || 'The live release list could not be loaded.',
     openReleases: strings.open_releases || 'Open releases on GitHub',
   };
+
+  function localizedReleaseMarkdown(value) {
+    const text = String(value || '').replace(/\r\n?/g, '\n');
+    const englishMarker = '<!-- xylune-release-notes:en -->';
+    const turkishMarker = '<!-- xylune-release-notes:tr -->';
+    const englishIndex = text.indexOf(englishMarker);
+    const turkishIndex = text.indexOf(turkishMarker);
+
+    if (englishIndex === -1 || turkishIndex === -1 || turkishIndex <= englishIndex) {
+      return text;
+    }
+
+    let section;
+    if (releaseLanguage === 'tr') {
+      section = text.slice(turkishIndex + turkishMarker.length);
+      section = section.replace(/^\s*##\s+Türkçe\s*\n+/i, '');
+    } else {
+      section = text.slice(englishIndex + englishMarker.length, turkishIndex);
+      section = section.replace(/^\s*##\s+English\s*\n+/i, '');
+    }
+    return section.trim();
+  }
 
   function parseSemanticVersion(value) {
     const match = String(value || '').trim().match(/^v?(\d+)\.(\d+)\.(\d+)(?:[-+]([^+]+))?$/i);
@@ -266,7 +289,7 @@
 
     const body = document.createElement('div');
     body.className = 'release-card__body';
-    body.append(renderReleaseNotes(release.body));
+    body.append(renderReleaseNotes(localizedReleaseMarkdown(release.body)));
 
     const actions = document.createElement('div');
     actions.className = 'release-card__actions';
