@@ -31,25 +31,27 @@ class AppLanguageLocalizationTest {
     fun `settings exposes application locale switching as a normal destination`() {
         val main = repositoryFile("app/src/main/java/app/xylune/chat/MainActivity.kt").readText()
         val controller = repositoryFile("app/src/main/java/app/xylune/chat/settings/AppLanguage.kt").readText()
-        val legacyOverlay = repositoryFile("app/src/main/java/app/xylune/chat/ui/AppLanguageMenuButton.kt").readText()
         val app = repositoryFile("app/src/main/java/app/xylune/chat/ui/XyluneApp.kt").readText()
         val host = repositoryFile("app/src/main/java/app/xylune/chat/ui/SettingsHostScreen.kt").readText()
 
         assertTrue(main.contains("localizedAppContext(newBase)"))
+        assertFalse(main.contains("AppLanguageMenuButton"))
+        assertFalse(main.contains("screen == Screen.SETTINGS"))
         assertTrue(controller.contains("LocaleManager::class.java"))
         assertTrue(controller.contains("applicationLocales"))
         assertTrue(controller.contains("AppLanguage.TURKISH"))
 
         assertTrue(app.contains("SettingsHostScreen(viewModel, compactOpenDrawer)"))
+        assertTrue(host.contains("SettingsScreen(viewModel, openDrawer)"))
+        assertTrue(host.contains("Icons.Outlined.Language"))
         assertTrue(host.contains("R.string.language_dialog_title"))
+        assertTrue(host.contains("selectedLanguageLabel"))
         assertTrue(host.contains("currentAppLanguage(context)"))
         assertTrue(host.contains("setAppLanguage(context, AppLanguage.SYSTEM)"))
         assertTrue(host.contains("setAppLanguage(context, AppLanguage.ENGLISH)"))
         assertTrue(host.contains("setAppLanguage(context, AppLanguage.TURKISH)"))
         assertTrue(host.contains("PredictiveNavigationHost("))
-
-        assertFalse(legacyOverlay.contains("IconButton("))
-        assertFalse(legacyOverlay.contains("XyluneAlertDialog("))
+        assertTrue(host.contains("delay(300)"))
     }
 
     @Test
