@@ -21,17 +21,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import app.xylune.chat.R
 import kotlin.math.roundToInt
 
 /**
- * Compact bottom-of-response source strip. The row never reflows when a source
- * is opened: a separate overlay starts at the pill's exact bounds and performs
- * the visual container transform above the message layout.
+ * Compact bottom-of-response source strip.
+ *
+ * Source previews deliberately use the same anchored, platform-dismissable
+ * Popup as ordinary links. The previous full-window focusable morph overlay
+ * could become invisible while still owning all input on some devices.
  */
 @Composable
 internal fun SourceReferenceBar(
@@ -40,13 +44,14 @@ internal fun SourceReferenceBar(
 ) {
     if (sources.isEmpty()) return
 
-    var pendingSource by remember { mutableStateOf<Pair<Int, LinkReferencePreview>?>(null) }
+    var pendingSource by remember { mutableStateOf<LinkReferencePreview?>(null) }
+    val sourceDescription = stringResource(R.string.source_description)
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(7.dp),
     ) {
         Text(
-            text = "Sources",
+            text = stringResource(R.string.sources),
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontWeight = FontWeight.SemiBold,
@@ -66,11 +71,11 @@ internal fun SourceReferenceBar(
                         index = displayIndex,
                         source = source,
                         onClick = { anchor ->
-                            pendingSource = displayIndex to LinkReferencePreview(
+                            pendingSource = LinkReferencePreview(
                                 kind = LinkReferenceKind.SOURCE,
                                 label = source.label,
                                 target = source.target,
-                                description = "A source used to support this response.",
+                                description = sourceDescription,
                                 anchorBoundsInWindow = anchor,
                             )
                         },
@@ -80,9 +85,8 @@ internal fun SourceReferenceBar(
         }
     }
 
-    pendingSource?.let { (index, reference) ->
-        MorphingSourcePreview(
-            index = index,
+    pendingSource?.let { reference ->
+        AnchoredLinkPreview(
             reference = reference,
             onDismiss = { pendingSource = null },
         )
@@ -102,7 +106,8 @@ private fun SourceReferencePill(
             .orEmpty()
             .removePrefix("www.")
     }
-    val label = source.label.ifBlank { host.ifBlank { "Source $index" } }
+    val fallbackLabel = stringResource(R.string.source_number, index)
+    val label = source.label.ifBlank { host.ifBlank { fallbackLabel } }
 
     Surface(
         modifier = Modifier
