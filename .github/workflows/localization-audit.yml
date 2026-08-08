@@ -1,4 +1,4 @@
-name: Localization validation
+name: Finalize localization release
 
 on:
   push:
@@ -12,57 +12,40 @@ permissions:
   contents: write
 
 jobs:
-  verify:
+  finalize:
     runs-on: ubuntu-22.04
-    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v6
         with:
           ref: agent/turkish-localization
           fetch-depth: 0
-      - name: Apply robust dynamic Turkish rules
-        shell: python
-        run: |
-          from pathlib import Path
-          p = Path('app/src/main/java/app/xylune/chat/ui/UiLocalization.kt')
-          s = p.read_text(encoding='utf-8')
-          old_delete = '        { text -> Regex("""^Delete (\\d+) disabled memor(?:y|ies)\\?$""").matchEntire(text)?.let { "${it.groupValues[1]} devre dışı bellek silinsin mi?" } },\n'
-          new_delete = (
-              '        { text -> Regex("^Delete (\\\\d+) disabled memories\\\\?$").matchEntire(text)?.let { "${it.groupValues[1]} devre dışı bellek silinsin mi?" } },\n'
-              '        { text -> Regex("^Delete (\\\\d+) disabled memory\\\\?$").matchEntire(text)?.let { "${it.groupValues[1]} devre dışı bellek silinsin mi?" } },\n'
-          )
-          if old_delete not in s:
-              raise SystemExit('missing disabled-memory rule')
-          s = s.replace(old_delete, new_delete, 1)
-
-          generic = '        { text -> Regex("^Attempt (\\\\d+) · (.+)$").matchEntire(text)?.let { "Deneme ${it.groupValues[1]} · ${it.groupValues[2]}" } },\n'
-          special1 = '        { text -> Regex("""^Attempt (\\d+) · repeated candidate · (\\d+) error\\(s\\)$""").matchEntire(text)?.let { "Deneme ${it.groupValues[1]} · yinelenen aday · ${it.groupValues[2]} hata" } },\n'
-          special2 = '        { text -> Regex("""^Attempt (\\d+) · (\\d+) error\\(s\\)$""").matchEntire(text)?.let { "Deneme ${it.groupValues[1]} · ${it.groupValues[2]} hata" } },\n'
-          block = special1 + special2
-          if generic not in s or block not in s:
-              raise SystemExit('missing attempt rules')
-          s = s.replace(block, '', 1)
-          s = s.replace(generic, block + generic, 1)
-          p.write_text(s, encoding='utf-8')
-      - name: Commit dynamic localization fixes
+      - name: Prepare 0.24.22 and remove temporary localization scaffolding
         shell: bash
         run: |
           set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('app/build.gradle.kts')
+          s = p.read_text(encoding='utf-8')
+          if 'versionCode = 210' not in s or 'versionName = "0.24.21"' not in s:
+              raise SystemExit('unexpected current app version')
+          s = s.replace('versionCode = 210', 'versionCode = 211', 1)
+          s = s.replace('versionName = "0.24.21"', 'versionName = "0.24.22"', 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+          cat > docs/releases/RELEASE_NOTES_0.24.22.md <<'EOF'
+          # Xylune 0.24.22
+
+          - Added an app-language setting with System default, English, and Türkçe.
+          - Added Turkish localization across chat, settings, tools, dialogs, setup and transfer flows, widgets, and background notifications.
+          - System default follows the device language, and Android's per-app language support can select Turkish independently.
+          - Language selection is included in portable settings backup and restore.
+          - Corrected stale UK-English branding so Xylune remains Xylune across English locales.
+          EOF
+          git rm -f .github/workflows/localization-audit.yml .ci/localization.patch.gz.b64 .ci/localization.patch.part.* .ci/localization.patch.rest.*
           git diff --check
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/src/main/java/app/xylune/chat/ui/UiLocalization.kt
-          git commit -m "Harden dynamic Turkish localization"
+          git add app/build.gradle.kts docs/releases/RELEASE_NOTES_0.24.22.md
+          git commit -m "Prepare Xylune 0.24.22"
           git push origin HEAD:agent/turkish-localization
-      - uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: '17'
-          cache: gradle
-      - name: Set up Android 16 SDK
-        uses: android-actions/setup-android@v4
-        with:
-          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
-      - uses: gradle/actions/setup-gradle@v6
-      - name: Run Turkish localization tests
-        run: ./gradlew --no-daemon --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process testReleaseUnitTest --tests app.xylune.chat.ui.TurkishLocalizationTest
