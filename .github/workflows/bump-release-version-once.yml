@@ -46,3 +46,5 @@ jobs:
           git add app/build.gradle.kts
           git commit -m "Bump version to 0.24.22"
           git push origin HEAD:agent/fix-source-preview-turkish-localization
+
+# Triggered after creation so GitHub registers the workflow before this push event.
