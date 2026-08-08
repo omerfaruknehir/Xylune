@@ -4,24 +4,42 @@ import java.util.Locale
 
 enum class SettingsRoute(
     private val englishTitle: String,
-    private val turkishTitle: String,
 ) {
-    HOME("Settings", "Ayarlar"),
-    DEFAULTS("New chat defaults", "Yeni sohbet varsayılanları"),
-    RESPONSE_STYLE("Response style", "Yanıt stili"),
-    SEARCH("Search & web", "Arama ve web"),
-    AUTOMATION("Background tasks", "Arka plan görevleri"),
-    MEMORY("Memory", "Hafıza"),
-    APPEARANCE("Appearance", "Görünüm"),
-    PRIVACY("Privacy & safety", "Gizlilik ve güvenlik"),
-    BACKUP("Backup & transfer", "Yedekleme ve aktarım"),
-    LOCAL_EXECUTION("Local execution", "Yerel çalıştırma"),
-    DEVELOPER("Developer settings", "Geliştirici ayarları"),
-    SYSTEM_PROMPTS("Custom instructions", "Özel talimatlar"),
-    PROVIDERS("Providers & models", "Sağlayıcılar ve modeller"),
-    ABOUT("About Xylune", "Xylune hakkında"),
-    LICENSES("Licenses & notices", "Lisanslar ve bildirimler"),
+    HOME("Settings"),
+    DEFAULTS("New chat defaults"),
+    RESPONSE_STYLE("Response style"),
+    SEARCH("Search & web"),
+    AUTOMATION("Background tasks"),
+    MEMORY("Memory"),
+    APPEARANCE("Appearance"),
+    PRIVACY("Privacy & safety"),
+    BACKUP("Backup & transfer"),
+    LOCAL_EXECUTION("Local execution"),
+    DEVELOPER("Developer settings"),
+    SYSTEM_PROMPTS("Custom instructions"),
+    PROVIDERS("Providers & models"),
+    ABOUT("About Xylune"),
+    LICENSES("Licenses & notices"),
     ;
+
+    private val turkishTitle: String
+        get() = when (this) {
+            HOME -> "Ayarlar"
+            DEFAULTS -> "Yeni sohbet varsayılanları"
+            RESPONSE_STYLE -> "Yanıt stili"
+            SEARCH -> "Arama ve web"
+            AUTOMATION -> "Arka plan görevleri"
+            MEMORY -> "Hafıza"
+            APPEARANCE -> "Görünüm"
+            PRIVACY -> "Gizlilik ve güvenlik"
+            BACKUP -> "Yedekleme ve aktarım"
+            LOCAL_EXECUTION -> "Yerel çalıştırma"
+            DEVELOPER -> "Geliştirici ayarları"
+            SYSTEM_PROMPTS -> "Özel talimatlar"
+            PROVIDERS -> "Sağlayıcılar ve modeller"
+            ABOUT -> "Xylune hakkında"
+            LICENSES -> "Lisanslar ve bildirimler"
+        }
 
     val title: String
         get() = if (Locale.getDefault().language.equals("tr", ignoreCase = true)) {
