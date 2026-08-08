@@ -11,9 +11,21 @@ class LegalDocumentsConsistencyTest {
 
     @Test
     fun `published legal pages mirror repository documents`() {
-        assertSiteMirror("PRIVACY.md", "docs/privacy/index.md")
-        assertSiteMirror("TERMS.md", "docs/terms/index.md")
-        assertSiteMirror("DATA_DELETION.md", "docs/data-deletion/index.md")
+        assertLocalizedSiteMirror(
+            sourcePath = "PRIVACY.md",
+            englishSitePath = "docs/privacy/index.md",
+            turkishSitePath = "docs/tr/privacy/index.md",
+        )
+        assertLocalizedSiteMirror(
+            sourcePath = "TERMS.md",
+            englishSitePath = "docs/terms/index.md",
+            turkishSitePath = "docs/tr/terms/index.md",
+        )
+        assertLocalizedSiteMirror(
+            sourcePath = "DATA_DELETION.md",
+            englishSitePath = "docs/data-deletion/index.md",
+            turkishSitePath = "docs/tr/data-deletion/index.md",
+        )
     }
 
     @Test
@@ -46,12 +58,42 @@ class LegalDocumentsConsistencyTest {
         assertTrue("Terms should stay concise", terms.lines().size <= 90)
     }
 
-    private fun assertSiteMirror(sourcePath: String, sitePath: String) {
-        val source = repositoryRoot.resolve(sourcePath).readText()
-        val site = repositoryRoot.resolve(sitePath).readText()
-        val siteBody = site.substringAfter("\n---\n\n", missingDelimiterValue = "")
+    private fun assertLocalizedSiteMirror(
+        sourcePath: String,
+        englishSitePath: String,
+        turkishSitePath: String,
+    ) {
+        val source = normalize(repositoryRoot.resolve(sourcePath).readText())
+        val sections = source.split("\n\n---\n\n", limit = 2)
+        assertEquals("$sourcePath must contain English and Turkish sections", 2, sections.size)
 
-        assertTrue("$sitePath must contain Jekyll front matter", siteBody.isNotEmpty())
-        assertEquals("$sitePath must mirror $sourcePath", source, siteBody)
+        val englishSource = normalize(
+            sections[0].replace(
+                Regex("(?m)^\\[Türkçe metin aşağıdadır\\.\\]\\([^\\n]+\\)\\n?"),
+                "",
+            ),
+        )
+        val turkishSource = normalize(sections[1])
+
+        assertEquals(
+            "$englishSitePath must mirror the English section of $sourcePath",
+            englishSource,
+            siteBody(englishSitePath),
+        )
+        assertEquals(
+            "$turkishSitePath must mirror the Turkish section of $sourcePath",
+            turkishSource,
+            siteBody(turkishSitePath),
+        )
     }
+
+    private fun siteBody(sitePath: String): String {
+        val site = normalize(repositoryRoot.resolve(sitePath).readText())
+        val body = site.substringAfter("\n---\n\n", missingDelimiterValue = "")
+        assertTrue("$sitePath must contain Jekyll front matter", body.isNotEmpty())
+        return normalize(body)
+    }
+
+    private fun normalize(value: String): String =
+        value.replace("\r\n", "\n").trim() + "\n"
 }
