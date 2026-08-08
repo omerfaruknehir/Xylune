@@ -69,7 +69,7 @@ class LegalDocumentsConsistencyTest {
 
         val englishSource = normalize(
             sections[0].replace(
-                Regex("(?m)^\\[Türkçe metin aşağıdadır\\.\\]\\([^\\n]+\\)\\n?"),
+                Regex("(?m)^\\[Türkçe metin aşağıdadır\\.\\]\\([^\\n]+\\)\\n+"),
                 "",
             ),
         )
