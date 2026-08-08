@@ -163,6 +163,50 @@
   font-size: 23px;
 }
 
+/* Keep the compact title unchanged, but make the expanded page titles larger
+   and place them lower in the expanded app bar. */
+.page-with-app-bar {
+  --xylune-title-shift: 68px;
+  --xylune-title-expanded-scale: 1.34;
+}
+
+.home-shell.page-with-app-bar {
+  --xylune-title-shift: 70px;
+  --xylune-title-expanded-scale: 2.08;
+}
+
+/* Main landing headings get a little more visual weight while their content
+   starts lower, leaving a clearer gap under the expanded app-bar title. */
+.home-page .home-hero {
+  padding-top: 34px;
+}
+
+.home-page .home-hero__title {
+  font-size: clamp(40px, 4.45vw, 64px);
+  line-height: 1.02;
+}
+
+html[lang='tr'] .home-page .home-hero__title {
+  font-size: clamp(38px, 4.15vw, 60px);
+}
+
+.home-page .home-section__title {
+  font-size: clamp(30px, 3vw, 42px);
+}
+
+html[lang='tr'] .home-page .home-section__title {
+  font-size: clamp(29px, 2.85vw, 40px);
+}
+
+/* Lower and enlarge the live branding inside the 2:1 banner too. */
+html .home-hero__brand-card {
+  inset: 55% 24px auto;
+}
+
+html .home-hero__brand-copy strong {
+  font-size: clamp(31px, 3.9vw, 48px);
+}
+
 @media (max-width: 820px) {
   .language-picker--app-bar {
     display: block;
@@ -179,6 +223,63 @@
 
   .document-app-bar__actions {
     margin-inline-end: 6px;
+  }
+
+  .page-with-app-bar {
+    --xylune-title-shift: 70px;
+    --xylune-title-expanded-scale: 1.36;
+  }
+
+  .home-shell.page-with-app-bar {
+    --xylune-title-shift: 74px;
+    --xylune-title-expanded-scale: 2.18;
+  }
+
+  .home-page .home-hero {
+    padding-top: 20px;
+  }
+
+  .home-page .home-hero__title {
+    font-size: clamp(37px, 9.4vw, 48px);
+  }
+
+  html[lang='tr'] .home-page .home-hero__title {
+    font-size: clamp(35px, 8.9vw, 45px);
+  }
+
+  .home-page .home-section__title,
+  html[lang='tr'] .home-page .home-section__title {
+    font-size: clamp(27px, 7vw, 35px);
+  }
+
+  html .home-hero__brand-card {
+    inset: 56% 16px auto;
+  }
+
+  html .home-hero__brand-copy strong {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 520px) {
+  .home-page .home-hero {
+    padding-top: 18px;
+  }
+
+  .home-page .home-hero__title {
+    font-size: clamp(35px, 9.6vw, 44px);
+  }
+
+  html[lang='tr'] .home-page .home-hero__title {
+    font-size: clamp(33px, 9vw, 42px);
+  }
+
+  html .home-hero__brand-card {
+    inset: 57% 16px auto;
+  }
+
+  html .home-hero__brand-copy strong {
+    font-size: 28px;
   }
 }
 
