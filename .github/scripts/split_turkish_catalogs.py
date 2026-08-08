@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+# One-shot branch migration. The follow-up push intentionally triggers the workflow.
 ROOT = Path(__file__).resolve().parents[2]
 FILES = [
     ROOT / "app/src/main/java/app/xylune/chat/ui/TurkishUiCopy.kt",
@@ -18,7 +19,6 @@ def split_catalog(path: Path) -> int:
     marker = "    private val exact = mapOf(\n"
     start = source.find(marker)
     if start < 0:
-        # Already transformed: make the script idempotent.
         if "private fun exactLookup(text: String): String?" in source:
             return 0
         raise RuntimeError(f"exact map marker not found in {path}")
@@ -28,7 +28,6 @@ def split_catalog(path: Path) -> int:
     if translate_at < 0:
         raise RuntimeError(f"translate function not found in {path}")
 
-    # The exact map is the final top-level declaration before translate().
     map_region = source[body_start:translate_at]
     close_at = map_region.rfind("    )")
     if close_at < 0:
@@ -58,11 +57,7 @@ def split_catalog(path: Path) -> int:
         lines.append("    }")
         functions.append("\n".join(lines) + "\n")
 
-    transformed = (
-        source[:start]
-        + "\n".join(functions)
-        + source[translate_at:]
-    )
+    transformed = source[:start] + "\n".join(functions) + source[translate_at:]
     transformed = transformed.replace(
         "        exact[text]?.let { return it }",
         "        exactLookup(text)?.let { return it }",
