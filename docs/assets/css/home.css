@@ -23,9 +23,10 @@
 .home-section__eyebrow {
   margin: 0 0 10px;
   color: var(--primary);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.085em;
+  line-height: 1.35;
   text-transform: uppercase;
 }
 
@@ -33,18 +34,24 @@
   max-width: 720px;
   margin: 0;
   color: var(--on-surface);
-  font-size: clamp(38px, 4.4vw, 62px);
+  font-size: clamp(36px, 4vw, 58px);
   font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.04;
+  letter-spacing: -0.034em;
+  line-height: 1.035;
+  text-wrap: balance;
+}
+
+html[lang='tr'] .home-hero__title {
+  font-size: clamp(34px, 3.7vw, 54px);
+  letter-spacing: -0.03em;
 }
 
 .home-hero__lede {
   max-width: 690px;
-  margin: 20px 0 0;
+  margin: 18px 0 0;
   color: var(--on-surface-variant);
-  font-size: clamp(17px, 1.5vw, 20px);
-  line-height: 1.58;
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.55;
 }
 
 .home-hero__lede strong {
@@ -56,29 +63,30 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 25px;
 }
 
 .home-hero__actions .button {
-  min-height: 52px;
-  border-radius: 18px;
+  min-height: 50px;
+  border-radius: 17px;
+  font-size: 16px;
 }
 
 .home-hero__actions .button-primary {
-  padding-inline: 22px;
+  padding-inline: 21px;
 }
 
 .home-hero__actions .button-text {
-  padding-inline: 18px;
+  padding-inline: 17px;
 }
 
 .home-hero__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 20px;
-  margin-top: 22px;
+  gap: 11px 18px;
+  margin-top: 20px;
   color: var(--on-surface-variant);
-  font-size: 14px;
+  font-size: 13.5px;
 }
 
 .home-hero__meta span {
@@ -89,76 +97,17 @@
 
 .home-hero__meta .material-symbols-rounded {
   color: var(--primary);
-  font-size: 19px;
+  font-size: 18px;
 }
 
+/* Banner composition and its responsive full-bleed behavior live in banner.css. */
 .home-hero__visual {
   position: relative;
-  min-height: 310px;
   overflow: hidden;
   border: 1px solid var(--outline-variant);
   border-radius: 28px;
   background: var(--surface-low);
   isolation: isolate;
-}
-
-.home-hero__visual::after {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, transparent 24%, color-mix(in srgb, var(--background) 82%, transparent) 100%);
-  content: "";
-  pointer-events: none;
-}
-
-.home-hero__backdrop {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.home-hero__brand-card {
-  position: absolute;
-  inset: auto 18px 18px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px;
-  border: 1px solid color-mix(in srgb, var(--outline-variant) 74%, transparent);
-  border-radius: 20px;
-  background: color-mix(in srgb, var(--surface) 88%, transparent);
-}
-
-.home-hero__brand-card img {
-  display: block;
-  width: 64px;
-  height: 64px;
-  flex: 0 0 auto;
-  border-radius: 16px;
-}
-
-.home-hero__brand-copy strong,
-.home-hero__brand-copy span {
-  display: block;
-}
-
-.home-hero__brand-copy strong {
-  color: var(--on-surface);
-  font-size: 21px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.home-hero__brand-copy span {
-  margin-top: 3px;
-  color: var(--on-surface-variant);
-  font-size: 13px;
-  line-height: 1.35;
 }
 
 .home-feature-grid {
@@ -193,9 +142,10 @@
 
 .home-feature h3 {
   margin: 0 0 8px;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.012em;
+  line-height: 1.24;
 }
 
 .home-feature p {
@@ -220,17 +170,22 @@
 .home-section__title {
   margin: 0;
   color: var(--on-surface);
-  font-size: clamp(28px, 3vw, 40px);
+  font-size: clamp(27px, 2.7vw, 38px);
   font-weight: 600;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.023em;
   line-height: 1.12;
+  text-wrap: balance;
+}
+
+html[lang='tr'] .home-section__title {
+  font-size: clamp(26px, 2.55vw, 36px);
 }
 
 .home-section__copy {
   margin: 14px 0 0;
   color: var(--on-surface-variant);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.58;
 }
 
 .home-byok__list {
@@ -296,7 +251,7 @@
 }
 
 .home-download-strip h2 {
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -304,6 +259,7 @@
   margin-top: 4px;
   color: var(--on-surface-variant);
   font-size: 14px;
+  line-height: 1.45;
 }
 
 .home-download-strip__links {
@@ -388,10 +344,6 @@
   .home-hero__copy {
     max-width: 780px;
   }
-
-  .home-hero__visual {
-    min-height: 230px;
-  }
 }
 
 @media (max-width: 980px) {
@@ -435,25 +387,34 @@
     padding-top: 8px;
   }
 
+  .home-hero__eyebrow,
+  .home-section__eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.075em;
+  }
+
   .home-hero__title {
-    font-size: clamp(36px, 10vw, 50px);
+    font-size: clamp(34px, 8.8vw, 44px);
+    line-height: 1.04;
   }
 
-  .home-hero__visual {
-    min-height: 190px;
-    border-radius: 20px;
+  html[lang='tr'] .home-hero__title {
+    font-size: clamp(32px, 8.2vw, 42px);
   }
 
-  .home-hero__brand-card {
-    inset: auto 12px 12px;
-    padding: 10px;
-    border-radius: 16px;
+  .home-hero__lede {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 1.52;
   }
 
-  .home-hero__brand-card img {
-    width: 52px;
-    height: 52px;
-    border-radius: 13px;
+  .home-hero__actions {
+    margin-top: 22px;
+  }
+
+  .home-hero__actions .button {
+    min-height: 48px;
+    font-size: 15.5px;
   }
 
   .home-feature,
@@ -467,6 +428,11 @@
     padding: 22px;
   }
 
+  .home-section__title,
+  html[lang='tr'] .home-section__title {
+    font-size: clamp(25px, 6.7vw, 32px);
+  }
+
   .home-legal {
     margin-top: 38px;
   }
@@ -475,6 +441,18 @@
 @media (max-width: 520px) {
   .home-body {
     padding-inline: 16px;
+  }
+
+  .home-hero__title {
+    font-size: clamp(32px, 9vw, 40px);
+  }
+
+  html[lang='tr'] .home-hero__title {
+    font-size: clamp(30px, 8.4vw, 38px);
+  }
+
+  .home-hero__lede {
+    font-size: 15.5px;
   }
 
   .home-hero__actions {
@@ -488,14 +466,7 @@
   .home-hero__meta {
     display: grid;
     gap: 8px;
-  }
-
-  .home-hero__visual {
-    min-height: 170px;
-  }
-
-  .home-hero__brand-copy span {
-    display: none;
+    font-size: 13px;
   }
 
   .home-feature {
@@ -506,6 +477,10 @@
   .home-feature__icon {
     width: 40px;
     height: 40px;
+  }
+
+  .home-feature h3 {
+    font-size: 18px;
   }
 
   .home-byok {
