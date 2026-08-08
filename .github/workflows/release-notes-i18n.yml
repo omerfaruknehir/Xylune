@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/release-notes-i18n.yml'
-      - '.github/scripts/compose-release-notes.sh'
+      - 'ci/resolve-release-notes.sh'
       - 'docs/releases/RELEASE_NOTES_*.md'
       - 'docs/releases/tr/**'
   workflow_dispatch:
@@ -48,7 +48,7 @@ jobs:
               exit 1
             fi
 
-            notes="$(bash .github/scripts/compose-release-notes.sh "$version")"
+            notes="$(bash ci/resolve-release-notes.sh "$version")"
             test -s "$notes"
             grep -q '<!-- xylune-release-notes:en -->' "$notes"
             grep -q '<!-- xylune-release-notes:tr -->' "$notes"
