@@ -1,0 +1,99 @@
+# Likely user-visible static English not covered
+AttachmentCard.kt:165: Attachment compatibility
+AttachmentCard.kt:181: Prepare OCR
+AttachmentCard.kt:313: Zoom in
+ChatConfigurationSheet.kt:156: Compressed context active
+ChatConfigurationSheet.kt:166: Clear summary
+ChatConfigurationSheet.kt:59: Chat configuration
+ChatConfigurationSheet.kt:61: Advanced limits and prompt behavior for this conversation. Thinking, effort, tools, files, and Deep Research live beside the message box.
+ChatScreen.kt:1110: Chat configuration
+ChatScreen.kt:1385: DETAILS
+ChatScreen.kt:1385: ERROR
+ChatScreen.kt:1465: Ask a question, attach a file, or choose Search and Tools beside the message box.
+ChatScreen.kt:1949: Collapse work details
+ChatScreen.kt:2288: Code execution
+ChatScreen.kt:2483: script diagnostics
+ChatScreen.kt:2515: SOURCE
+ChatScreen.kt:2528: Cancelled
+ChatScreen.kt:2617: QUERY
+ChatScreen.kt:3071: Add direction…
+ChatScreen.kt:3546: Choose search mode
+ChatScreen.kt:3584: 2 on
+ChatScreen.kt:3608: Choose chat tools
+CloudBackupUi.kt:297: Choose a scoped Android folder, an OAuth app folder, WebDAV/Nextcloud, or an S3-compatible bucket prefix. Xylune avoids account-wide cloud access.
+CloudBackupUi.kt:503: Xylune Google Drive OAuth setup
+CloudBackupUi.kt:513: Open setup guide
+CloudBackupUi.kt:615: %.1f GiB
+DirectCloudProvidersUi.kt:322: Open provider setup guide
+ExecutionCards.kt:54: Code execution
+GeneratedContentRepairUi.kt:164: Compile & use
+GeneratedContentRepairUi.kt:205: generated source
+GeneratedContentRepairUi.kt:207: View attempts
+GeneratedContentRepairUi.kt:213: generated content errors
+GeneratedContentRepairUi.kt:230: generated content errors
+ImageGenerationScreen.kt:202: Images
+ImageGenerationScreen.kt:348: } queued
+ImageGenerationScreen.kt:408: Photos
+ImageGenerationScreen.kt:409: Choose one or more reference images
+ImageGenerationScreen.kt:417: Camera
+ImageGenerationScreen.kt:473: } reference images and describe the edit.
+ImageGenerationUi.kt:103: } first.
+ImageGenerationUi.kt:168: Current generated image preview
+ImageGenerationUi.kt:181: · the final image may still change.
+ImageGenerationUi.kt:94: } · describe the changes you want.
+LicenseCatalogScreen.kt:197: Xylune was made with full vibe coding: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools. It may contain serious defects.
+LicenseCatalogScreen.kt:202: The app is provided “AS IS”, without warranties. Use it at your own risk. To the maximum extent permitted by applicable law, the author and contributors are not responsible for data loss, device damage, account loss, charges, security incidents, or other consequences arising from its use, modification, or distribution. Review the source and keep backups before relying on it.
+ModelPickerSheet.kt:229: Choose a chat model
+ModelPickerSheet.kt:229: Choose an image model
+ModelPickerSheet.kt:408: Clear a filter or try a model name, author, or capability.
+NativeVisuals.kt:311: ]?.jsonPrimitive?.contentOrNull ?:
+OnboardingScreen.kt:505: You can start chatting now. Appearance, local execution, backups, memory, and other optional features remain in clearly grouped Settings.
+PerformanceOverlay.kt:318: Blur source recording / extra draws
+RichMessage.kt:453: Collapse source
+RichMessage.kt:530: Checking installed packages and resolving dependencies…
+RichMessage.kt:531: Approved automatically • installing now…
+RichMessage.kt:581: Collapse package plan
+RichMessage.kt:591: }.orEmpty()}
+RichMessage.kt:610: }.orEmpty()}
+RichMessage.kt:987: maxChars must be positive
+RichMessage.kt:988: maxLines must be at least 3
+SandboxScreen.kt:300: • Runtime health and per-chat Python packages
+SandboxScreen.kt:301: • Linux installation, packages, terminal, and removal
+SandboxScreen.kt:302: • Test runs only; chat tool permissions are controlled per chat
+SandboxScreen.kt:332: Clear run state
+SandboxScreen.kt:368: requests==2.32.4 ↩ numpy==1.26.2
+SandboxScreen.kt:397: Approved automatically • installing and verifying imports…
+SandboxScreen.kt:398: Checking the current Python environment…
+SandboxScreen.kt:416: Collapse plan
+SandboxScreen.kt:418: }.orEmpty()}
+SandboxScreen.kt:476: Choose a rootless user-space distribution for broader third-party CLIs and libraries. Each distribution keeps its own packages, shares this chat's files at /workspace, and is a compatibility layer—not a security boundary.
+SandboxScreen.kt:481: • Requires a network download and app-private storage.
+SandboxScreen.kt:482: • Xylune verifies the archive before extraction and exposes progress for every stage.
+SandboxScreen.kt:483: • A failed or interrupted setup can be retried; /workspace chat files are not deleted.
+SandboxScreen.kt:484: • No Android root access is used or requested.
+SandboxScreen.kt:631: ripgrep ↩ ffmpeg
+SandboxScreen.kt:658: Approved automatically • repairing package state and installing…
+SandboxScreen.kt:707: Collapse complete plan
+SandboxScreen.kt:708: }.orEmpty()}
+SandboxScreen.kt:728: }.orEmpty()}
+SandboxScreen.kt:747: }.orEmpty()}
+SettingsScreen.kt:1077: Changing the launcher icon briefly restarts Xylune after saving the open page, chat drafts and files, and current scroll positions. Android themed icons can still override app-selected colors.
+SettingsScreen.kt:1466: Attributes slow frames to Android frame stages, Xylune blur work, Compose recomposition pressure, allocations, and blocking GC. It adds some diagnostic overhead, so use it while reproducing an issue.
+SettingsScreen.kt:1510: 250 ms
+SettingsScreen.kt:1510: 500 ms
+SettingsScreen.kt:1556: Detailed mode shows Choreographer FPS, average/p95/p99 frame interval, jank against the current refresh budget, app CPU, PSS, Java heap, GPU duration when Android reports it, missed vsyncs per second, and total observed frames. Cause profiler ranks primary and secondary causes, reports confidence and severity, and shows the evidence used for attribution alongside FrameMetrics, blur, recomposition, allocation, and GC counters.
+SettingsScreen.kt:1708: Automatic checks are unavailable because this build has no embedded GitHub repository origin.
+SettingsScreen.kt:2556: Work ChatGPT
+SettingsScreen.kt:3006: Choose a preset or connect a custom API endpoint.
+SettingsScreen.kt:3190: DeepSeek Chat
+SettingsScreen.kt:3236: Anthropic Messages
+SettingsScreen.kt:3237: Google Gemini
+SettingsScreen.kt:369: } configured
+SetupRestoreUi.kt:377: Choose a backup
+SetupRestoreUi.kt:386: Choose where Xylune should look. Every option is limited to app-only storage or a folder you explicitly select.
+SetupRestoreUi.kt:399: Choose a backup folder
+SetupRestoreUi.kt:707: • tap to check backups
+TransferUi.kt:106: Cloud & file backup
+TransferUi.kt:121: Chats, branches, app configuration, organization, metadata, and optional attachments. API keys and OAuth sessions are deliberately excluded.
+TransferUi.kt:322: Open shared Xylune chat
+TransferUi.kt:392: Chats are imported as separate copies. Included app settings and organization are applied, but API keys, OAuth sessions, provider authorization headers, and cloud grants are never imported.
