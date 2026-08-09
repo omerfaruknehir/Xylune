@@ -220,6 +220,37 @@ internal object TurkishDynamicUiCopy {
         Regex("""Recomp/s app (.+) chat (.+)""").matchEntire(text)?.let { return "Yeniden oluşturma/sn uygulama ${it.groupValues[1]} sohbet ${it.groupValues[2]}" }
         Regex("""Alloc (.+) MB/s  bGC (.+)  Screen (.+)""").matchEntire(text)?.let { return "Ayırma ${it.groupValues[1]} MB/sn  bGC ${it.groupValues[2]}  Ekran ${it.groupValues[3]}" }
 
+        Regex("""Describe what to create, or add up to (\d+) reference images to edit\.""").matchEntire(text)?.let {
+            return "Ne oluşturmak istediğinizi açıklayın veya düzenlemek için en fazla ${it.groupValues[1]} referans görsel ekleyin."
+        }
+        Regex("""Describe a new image, or add (\d+) reference images? and describe the edit\.""").matchEntire(text)?.let {
+            return "Yeni bir görseli açıklayın veya ${it.groupValues[1]} referans görsel ekleyip düzenlemeyi tarif edin."
+        }
+        Regex("""Provider preview (\d+)(?: of (\d+))? · the final image may still change\.""").matchEntire(text)?.let {
+            val total = it.groupValues[2].takeIf(String::isNotBlank)?.let { count -> " / $count" }.orEmpty()
+            return "Sağlayıcı önizlemesi ${it.groupValues[1]}$total · son görsel hâlâ değişebilir."
+        }
+
+        when (text) {
+            "Thinking" -> return "Düşünme"
+            "Tools" -> return "Araçlar"
+            "Vision" -> return "Görsel"
+            "Files" -> return "Dosyalar"
+            "Free" -> return "Ücretsiz"
+            "Generate images" -> return "Görsel oluştur"
+            "Generate + edit" -> return "Oluştur + düzenle"
+            "Edit images" -> return "Görselleri düzenle"
+        }
+
+        // Technical summaries are assembled from independently localizable UI segments.
+        // Split only Xylune's middle-dot separator; provider/model names remain untouched
+        // because unknown segments are returned verbatim.
+        if (" · " in text) {
+            val parts = text.split(" · ")
+            val translated = parts.map(::translate)
+            if (translated != parts) return translated.joinToString(" · ")
+        }
+
         return text
     }
 }
