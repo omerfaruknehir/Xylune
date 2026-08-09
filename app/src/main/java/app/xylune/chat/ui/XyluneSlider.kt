@@ -26,6 +26,7 @@ import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
 /**
@@ -37,6 +38,8 @@ import kotlin.math.roundToInt
  *
  * Continuous settings remain continuous. A bounded named scale may opt into
  * continuous tracking plus visible release snap points with [snapOnRelease].
+ * [magneticSnapPoints] adds a continuous attraction curve around those points
+ * while dragging; it never hard-snaps the thumb before release.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,6 +51,7 @@ fun XyluneSlider(
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     steps: Int = 0,
     snapOnRelease: Boolean = false,
+    magneticSnapPoints: Boolean = false,
     onValueChangeFinished: (() -> Unit)? = null,
     colors: SliderColors = SliderDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -90,7 +94,16 @@ fun XyluneSlider(
                     lastStepIndex = nextIndex
                 }
             }
-            currentOnValueChange(normalized)
+            val displayedValue = if (snapOnRelease && magneticSnapPoints && steps > 0) {
+                magneticSliderValue(
+                    value = normalized,
+                    valueRange = valueRange,
+                    anchorCount = steps + 2,
+                )
+            } else {
+                normalized
+            }
+            currentOnValueChange(displayedValue)
         },
         modifier = modifier
             .fillMaxWidth()
@@ -144,6 +157,40 @@ fun XyluneSlider(
             )
         },
     )
+}
+
+/**
+ * Applies a smooth, symmetric attraction toward the nearest anchor without
+ * ever forcing a value onto it. Outside the influence radius the value is
+ * untouched, so crossing from one detent to the next stays predictable.
+ */
+internal fun magneticSliderValue(
+    value: Float,
+    valueRange: ClosedFloatingPointRange<Float>,
+    anchorCount: Int,
+    influenceFraction: Float = 0.42f,
+    maxPull: Float = 0.72f,
+): Float {
+    val start = valueRange.start
+    val end = valueRange.endInclusive
+    val clamped = value.coerceIn(start, end)
+    if (anchorCount <= 1) return clamped
+    val span = end - start
+    if (span <= 0f) return start
+
+    val intervals = anchorCount - 1
+    val spacing = span / intervals.toFloat()
+    if (spacing <= 0f) return clamped
+    val nearestIndex = (((clamped - start) / spacing).roundToInt()).coerceIn(0, intervals)
+    val anchor = start + spacing * nearestIndex.toFloat()
+    val radius = spacing * influenceFraction.coerceIn(0f, 0.5f)
+    val distance = abs(clamped - anchor)
+    if (radius <= 0f || distance >= radius) return clamped
+
+    val proximity = (1f - distance / radius).coerceIn(0f, 1f)
+    val smoothAttraction = proximity * proximity * (3f - 2f * proximity)
+    val pull = maxPull.coerceIn(0f, 0.95f) * smoothAttraction
+    return clamped + (anchor - clamped) * pull
 }
 
 internal fun sliderSnapIndex(
