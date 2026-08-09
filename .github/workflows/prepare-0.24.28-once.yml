@@ -1,4 +1,4 @@
-# Trigger after workflow registration
+# Trigger release preparation on an unprotected staging branch
 name: Prepare Xylune 0.24.28 once
 
 on:
@@ -59,4 +59,4 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           git commit -m 'Release Xylune 0.24.28'
-          git push origin HEAD:main
+          git push --force origin HEAD:agent/release-0.24.28
