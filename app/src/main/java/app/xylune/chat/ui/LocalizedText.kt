@@ -46,26 +46,41 @@ internal fun Text(
     style: TextStyle = LocalTextStyle.current,
 ) {
     val language = LocalConfiguration.current.locales[0]?.language
-    val staticResource = xyluneUiStringResource(text)
-    val localized = if (staticResource != null) {
+
+    // Some button labels intentionally include a leading space after an icon.
+    // Localize the semantic core and then restore the layout whitespace so
+    // " Check for updates" does not miss the same resource as its unpadded form.
+    val leadingWhitespace = text.takeWhile(Char::isWhitespace)
+    val trailingWhitespace = text.takeLastWhile(Char::isWhitespace)
+    val coreEnd = (text.length - trailingWhitespace.length).coerceAtLeast(leadingWhitespace.length)
+    val core = text.substring(leadingWhitespace.length, coreEnd)
+
+    val staticResource = xyluneUiStringResource(core) ?: xyluneTurkishCompletionResource(core)
+    val localizedCore = if (staticResource != null) {
         stringResource(staticResource)
     } else if (language == "tr") {
-        // Only dynamic/interpolated compatibility rules reach this fallback.
-        val primary = TurkishUiCopy.translate(text)
-        if (primary != text) {
+        val primary = TurkishUiCopy.translate(core)
+        if (primary != core) {
             primary
         } else {
-            val secondary = TurkishUiCopyExtra2.translate(text)
-            if (secondary != text) {
+            val secondary = TurkishUiCopyExtra2.translate(core)
+            if (secondary != core) {
                 secondary
             } else {
-                val tertiary = TurkishUiCopyExtra.translate(text)
-                if (tertiary != text) tertiary else TurkishUiCopyExtra3.translate(text)
+                val tertiary = TurkishUiCopyExtra.translate(core)
+                if (tertiary != core) {
+                    tertiary
+                } else {
+                    val quaternary = TurkishUiCopyExtra3.translate(core)
+                    if (quaternary != core) quaternary else TurkishDynamicUiCopy.translate(core)
+                }
             }
         }
     } else {
-        text
+        core
     }
+    val localized = leadingWhitespace + localizedCore + trailingWhitespace
+
     MaterialText(
         text = localized,
         modifier = modifier,
