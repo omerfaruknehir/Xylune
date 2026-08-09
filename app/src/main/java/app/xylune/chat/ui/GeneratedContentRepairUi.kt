@@ -112,7 +112,7 @@ internal fun RepairableGeneratedContent(
                     )
                     IconButton(onClick = {
                         workingCardViewport.applyMutation(WorkingCardMutation.AUTO_EXPAND, { cardBounds }) { details = !details }
-                    }) { Icon(Icons.Outlined.Edit, "Inspect repair") }
+                    }) { Icon(Icons.Outlined.Edit, localizedXyluneUiText("Inspect repair")) }
                 }
             }
             AnimatedVisibility(details) { RepairDetails(current) }

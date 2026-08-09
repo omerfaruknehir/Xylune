@@ -18,6 +18,42 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 
+/** Localizes Xylune-owned plain UI copy while preserving surrounding layout whitespace. */
+@Composable
+internal fun localizedXyluneUiText(text: String): String {
+    val language = LocalConfiguration.current.locales[0]?.language
+    val leadingWhitespace = text.takeWhile(Char::isWhitespace)
+    val trailingWhitespace = text.takeLastWhile(Char::isWhitespace)
+    val coreEnd = (text.length - trailingWhitespace.length).coerceAtLeast(leadingWhitespace.length)
+    val core = text.substring(leadingWhitespace.length, coreEnd)
+
+    val staticResource = xyluneUiStringResource(core) ?: xyluneTurkishCompletionResource(core)
+    val localizedCore = if (staticResource != null) {
+        stringResource(staticResource)
+    } else if (language == "tr") {
+        val primary = TurkishUiCopy.translate(core)
+        if (primary != core) {
+            primary
+        } else {
+            val secondary = TurkishUiCopyExtra2.translate(core)
+            if (secondary != core) {
+                secondary
+            } else {
+                val tertiary = TurkishUiCopyExtra.translate(core)
+                if (tertiary != core) {
+                    tertiary
+                } else {
+                    val quaternary = TurkishUiCopyExtra3.translate(core)
+                    if (quaternary != core) quaternary else TurkishDynamicUiCopy.translate(core)
+                }
+            }
+        }
+    } else {
+        core
+    }
+    return leadingWhitespace + localizedCore + trailingWhitespace
+}
+
 /**
  * Localized Material Text facade for Xylune-owned UI copy.
  *
@@ -45,29 +81,8 @@ internal fun Text(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = LocalTextStyle.current,
 ) {
-    val language = LocalConfiguration.current.locales[0]?.language
-    val staticResource = xyluneUiStringResource(text)
-    val localized = if (staticResource != null) {
-        stringResource(staticResource)
-    } else if (language == "tr") {
-        // Only dynamic/interpolated compatibility rules reach this fallback.
-        val primary = TurkishUiCopy.translate(text)
-        if (primary != text) {
-            primary
-        } else {
-            val secondary = TurkishUiCopyExtra2.translate(text)
-            if (secondary != text) {
-                secondary
-            } else {
-                val tertiary = TurkishUiCopyExtra.translate(text)
-                if (tertiary != text) tertiary else TurkishUiCopyExtra3.translate(text)
-            }
-        }
-    } else {
-        text
-    }
     MaterialText(
-        text = localized,
+        text = localizedXyluneUiText(text),
         modifier = modifier,
         color = color,
         fontSize = fontSize,

@@ -240,7 +240,7 @@ internal fun ModelPickerSheet(
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
-                    IconButton(onClick = ::dismissSheet) { Icon(Icons.Outlined.Close, "Close model picker") }
+                    IconButton(onClick = ::dismissSheet) { Icon(Icons.Outlined.Close, localizedXyluneUiText("Close model picker")) }
                 }
 
                 Row(
@@ -374,7 +374,7 @@ internal fun ModelPickerSheet(
                                 IconButton(onClick = { onToggleFavorite(choice.provider.id, choice.model.modelId) }) {
                                     Icon(
                                         if (key in favoriteKeys) Icons.Filled.Star else Icons.Outlined.StarBorder,
-                                        if (key in favoriteKeys) "Remove favorite" else "Add favorite",
+                                        localizedXyluneUiText(if (key in favoriteKeys) "Remove favorite" else "Add favorite"),
                                         tint = if (key in favoriteKeys) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
                                 }
