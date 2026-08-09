@@ -1,22 +1,25 @@
 package app.xylune.chat.ui
 
+import app.xylune.chat.R
+
 enum class SettingsRoute(
-    val title: String,
+    val titleRes: Int,
 ) {
-    HOME("Settings"),
-    DEFAULTS("New chat defaults"),
-    RESPONSE_STYLE("Response style"),
-    SEARCH("Search & web"),
-    AUTOMATION("Background tasks"),
-    MEMORY("Memory"),
-    APPEARANCE("Appearance"),
-    PRIVACY("Privacy & safety"),
-    BACKUP("Backup & transfer"),
-    LOCAL_EXECUTION("Local execution"),
-    DEVELOPER("Developer settings"),
-    SYSTEM_PROMPTS("Custom instructions"),
-    PROVIDERS("Providers & models"),
-    ABOUT("About Xylune"),
-    LICENSES("Licenses & notices"),
+    HOME(R.string.settings_title),
+    DEFAULTS(R.string.settings_new_chat_defaults),
+    RESPONSE_STYLE(R.string.settings_response_style),
+    SEARCH(R.string.settings_search_web),
+    AUTOMATION(R.string.settings_background_tasks),
+    MEMORY(R.string.settings_memory),
+    LANGUAGE(R.string.language_dialog_title),
+    APPEARANCE(R.string.settings_appearance),
+    PRIVACY(R.string.settings_privacy_safety),
+    BACKUP(R.string.settings_backup_transfer),
+    LOCAL_EXECUTION(R.string.settings_local_execution),
+    DEVELOPER(R.string.settings_developer),
+    SYSTEM_PROMPTS(R.string.settings_custom_instructions),
+    PROVIDERS(R.string.settings_providers_models),
+    ABOUT(R.string.settings_about_xylune),
+    LICENSES(R.string.settings_licenses_notices),
     ;
 }

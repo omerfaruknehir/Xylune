@@ -36,6 +36,7 @@ import androidx.compose.material.icons.outlined.SmartToy
 import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.Terminal
 import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.PrivacyTip
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Cloud
@@ -148,6 +149,9 @@ import app.xylune.chat.settings.NewChatDefaults
 import app.xylune.chat.settings.DEFAULT_XYLUNE_SYSTEM_PROMPT
 import app.xylune.chat.settings.XYLUNE_CORE_PROMPT_REVISION
 import app.xylune.chat.settings.ThemeMode
+import app.xylune.chat.settings.AppLanguage
+import app.xylune.chat.settings.currentAppLanguage
+import app.xylune.chat.settings.setAppLanguage
 import app.xylune.chat.settings.chromeEdgeControlPositionForSoftness
 import app.xylune.chat.settings.displayedChromeEdgeSoftness
 import app.xylune.chat.ui.theme.palettePreviewColors
@@ -240,7 +244,7 @@ fun SettingsScreen(viewModel: ChatViewModel, openDrawer: (() -> Unit)?) {
             contentWindowInsets = WindowInsets(0),
             topBar = {
                 CollapsingTranslucentTopBar(
-                    title = currentRoute.title,
+                    title = stringResource(currentRoute.titleRes),
                     scrollBehavior = scrollBehavior,
                     blurState = blurState,
                     blurStrength = chromeBlurStrength,
@@ -289,6 +293,7 @@ fun SettingsScreen(viewModel: ChatViewModel, openDrawer: (() -> Unit)?) {
                         SettingsRoute.SEARCH -> SearchSettingsPage()
                         SettingsRoute.AUTOMATION -> AutomationSettingsPage(automation, configuredProviders, viewModel)
                         SettingsRoute.MEMORY -> MemorySettingsPage(automation, memories, viewModel)
+                        SettingsRoute.LANGUAGE -> LanguageSettingsPage()
                         SettingsRoute.APPEARANCE -> AppearanceSettingsPage(
                             themeMode = themeMode,
                             amoled = amoled,
@@ -341,6 +346,12 @@ private fun SettingsHome(
     onFinishSetup: () -> Unit,
     onOpen: (SettingsRoute) -> Unit,
 ) = SettingsPage {
+    val context = LocalContext.current
+    val selectedLanguageLabel = when (currentAppLanguage(context)) {
+        AppLanguage.SYSTEM -> stringResource(R.string.language_system)
+        AppLanguage.ENGLISH -> stringResource(R.string.language_english)
+        AppLanguage.TURKISH -> stringResource(R.string.language_turkish)
+    }
     if (setupDeferred) {
         SettingsGroup("Setup") {
             SettingsDestination(
@@ -421,6 +432,12 @@ private fun SettingsHome(
     }
     SettingsGroup("Personalization") {
         SettingsDestination(
+            icon = Icons.Outlined.Language,
+            title = stringResource(R.string.language_dialog_title),
+            subtitle = selectedLanguageLabel,
+            onClick = { onOpen(SettingsRoute.LANGUAGE) },
+        )
+        SettingsDestination(
             icon = Icons.Outlined.Palette,
             title = "Appearance",
             subtitle = "Theme, palette, launcher icon, and AMOLED black",
@@ -436,6 +453,57 @@ private fun SettingsHome(
         )
     }
     Spacer(Modifier.padding(bottom = 24.dp))
+}
+
+
+@Composable
+private fun LanguageSettingsPage() = SettingsPage {
+    val context = LocalContext.current
+    val selected = currentAppLanguage(context)
+    SectionTitle(
+        stringResource(R.string.language_dialog_title),
+        stringResource(R.string.language_description),
+    )
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceContainer,
+        shape = MaterialTheme.shapes.extraLarge,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column {
+            LanguageChoice(
+                title = stringResource(R.string.language_system),
+                selected = selected == AppLanguage.SYSTEM,
+                onClick = { setAppLanguage(context, AppLanguage.SYSTEM) },
+            )
+            HorizontalDivider(Modifier.padding(horizontal = 16.dp))
+            LanguageChoice(
+                title = stringResource(R.string.language_english),
+                selected = selected == AppLanguage.ENGLISH,
+                onClick = { setAppLanguage(context, AppLanguage.ENGLISH) },
+            )
+            HorizontalDivider(Modifier.padding(horizontal = 16.dp))
+            LanguageChoice(
+                title = stringResource(R.string.language_turkish),
+                selected = selected == AppLanguage.TURKISH,
+                onClick = { setAppLanguage(context, AppLanguage.TURKISH) },
+            )
+        }
+    }
+    Spacer(Modifier.padding(bottom = 24.dp))
+}
+
+@Composable
+private fun LanguageChoice(
+    title: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
+    ListItem(
+        headlineContent = { Text(title, fontWeight = FontWeight.SemiBold) },
+        leadingContent = { RadioButton(selected = selected, onClick = null) },
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick),
+        colors = androidx.compose.material3.ListItemDefaults.colors(containerColor = Color.Transparent),
+    )
 }
 
 @Composable

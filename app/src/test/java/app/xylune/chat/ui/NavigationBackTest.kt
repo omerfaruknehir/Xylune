@@ -23,11 +23,10 @@ class NavigationBackTest {
         assertFalse(drawerSwipeEnabled(Screen.TERMINAL))
     }
 
-    @Test fun settingsReservesOnlyTheRealLeftBackEdge() {
-        val root = java.io.File("src/main/java/app/xylune/chat/ui/XyluneApp.kt").readText()
-        assertTrue(root.contains("SettingsLeftBackEdgeGuard"))
-        assertTrue(root.contains(".width(48.dp)"))
-        assertTrue(root.contains(".horizontalGesturePriority()"))
+    @Test fun closedDrawerLeavesAndroidBackEdgesUnclaimed() {
+        assertTrue(shouldIgnoreClosedDrawerDown(x = 0f, width = 1080f, leftBackEdgePx = 44, rightBackEdgePx = 52))
+        assertTrue(shouldIgnoreClosedDrawerDown(x = 1070f, width = 1080f, leftBackEdgePx = 44, rightBackEdgePx = 52))
+        assertFalse(shouldIgnoreClosedDrawerDown(x = 100f, width = 1080f, leftBackEdgePx = 44, rightBackEdgePx = 52))
     }
 
     @Test fun pageBackTakesOverAsSoonAsTheDrawerIsNoLongerVisible() {

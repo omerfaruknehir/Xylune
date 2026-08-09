@@ -46,6 +46,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+
+enum class CatalogInitializationState { LOADING, READY, FAILED }
 
 class XyluneApplication : Application() {
     private var launcherIconProcess = false
@@ -60,6 +65,7 @@ class XyluneApplication : Application() {
         val crashReporter = CrashReporter(this).also(CrashReporter::install)
         container = AppContainer(this, crashReporter)
         CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+            try {
             // Generated/returned assistant images are already known to the agent which created them.
             // Keep old installs visually clean instead of retaining an unnecessary OCR overlay.
             container.database.attachmentDao().clearAssistantImageAnalysis()
@@ -99,6 +105,10 @@ class XyluneApplication : Application() {
             container.database.automationSettingsDao().upsert(
                 container.database.automationSettingsDao().get() ?: app.xylune.chat.data.AutomationSettingsEntity(),
             )
+            container.markCatalogReady()
+            } catch (error: Throwable) {
+                container.markCatalogFailed()
+            }
         }
     }
 
@@ -120,6 +130,12 @@ class XyluneApplication : Application() {
 }
 
 class AppContainer(val application: Application, val crashReporter: CrashReporter) {
+    private val _catalogInitializationState = MutableStateFlow(CatalogInitializationState.LOADING)
+    val catalogInitializationState: StateFlow<CatalogInitializationState> = _catalogInitializationState.asStateFlow()
+
+    internal fun markCatalogReady() { _catalogInitializationState.value = CatalogInitializationState.READY }
+    internal fun markCatalogFailed() { _catalogInitializationState.value = CatalogInitializationState.FAILED }
+
     val appPreferences = AppPreferences(application)
     val composerDrafts = ComposerDraftStore(application)
     val persistentUiState = PersistentUiStateStore(application)

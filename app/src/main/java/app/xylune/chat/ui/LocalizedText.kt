@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
@@ -45,7 +46,11 @@ internal fun Text(
     style: TextStyle = LocalTextStyle.current,
 ) {
     val language = LocalConfiguration.current.locales[0]?.language
-    val localized = if (language == "tr") {
+    val staticResource = xyluneUiStringResource(text)
+    val localized = if (staticResource != null) {
+        stringResource(staticResource)
+    } else if (language == "tr") {
+        // Only dynamic/interpolated compatibility rules reach this fallback.
         val primary = TurkishUiCopy.translate(text)
         if (primary != text) {
             primary
