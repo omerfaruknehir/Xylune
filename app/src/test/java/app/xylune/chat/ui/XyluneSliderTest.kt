@@ -58,8 +58,9 @@ class XyluneSliderTest {
 
         assertTrue(thinkingBlock.contains("XyluneSlider("))
         assertTrue(thinkingBlock.contains("snapOnRelease = true"))
+        assertTrue(thinkingBlock.contains("magneticSnapPoints = true"))
         assertTrue(thinkingBlock.contains("spring(dampingRatio = .72f, stiffness = 430f)"))
-        assertTrue(thinkingBlock.contains("Release to snap to the nearest supported level"))
+        assertFalse(thinkingBlock.contains("Release to snap to the nearest supported level"))
         assertTrue(thinkingBlock.contains("preview?.description"))
         assertTrue(thinkingBlock.contains("dismissOnClickOutside = true"))
         assertFalse(thinkingBlock.contains("options.forEachIndexed"))
