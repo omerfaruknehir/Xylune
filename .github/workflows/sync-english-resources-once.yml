@@ -1,0 +1,30 @@
+name: One-shot English resource sync
+
+on:
+  push:
+    branches: [agent/cleanup-architecture-release]
+    paths: ['.github/workflows/sync-english-resources-once.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/cleanup-architecture-release
+      - name: Mirror default English catalog
+        run: cp app/src/main/res/values/strings.xml app/src/main/res/values-en/strings.xml
+      - name: Remove one-shot workflow and commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/sync-english-resources-once.yml
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Sync explicit English localization catalog'
+          git push origin HEAD:agent/cleanup-architecture-release
