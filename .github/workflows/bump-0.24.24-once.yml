@@ -1,0 +1,40 @@
+name: Apply Xylune 0.24.24 version bump once
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    if: github.head_ref == 'release/0.24.24'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: release/0.24.24
+          fetch-depth: 0
+      - name: Bump version and self-clean
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('app/build.gradle.kts')
+          text = path.read_text()
+          old = '        versionCode = 212\n        versionName = "0.24.23"'
+          new = '        versionCode = 213\n        versionName = "0.24.24"'
+          if text.count(old) != 1:
+              raise SystemExit('Expected exactly one 0.24.23/212 version block')
+          path.write_text(text.replace(old, new, 1))
+          PY
+          git diff --check
+          git rm .github/workflows/bump-0.24.24-once.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add app/build.gradle.kts
+          git commit -m "Release Xylune 0.24.24"
+          git push origin HEAD:release/0.24.24
