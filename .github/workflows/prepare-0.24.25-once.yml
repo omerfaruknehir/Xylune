@@ -1,0 +1,41 @@
+name: Prepare 0.24.25 once
+
+on:
+  push:
+    branches:
+      - release/0.24.25
+    paths:
+      - .github/workflows/prepare-0.24.25-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Bump app version
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('app/build.gradle.kts')
+          text = path.read_text()
+          old = '        versionCode = 213\n        versionName = "0.24.24"'
+          new = '        versionCode = 214\n        versionName = "0.24.25"'
+          if text.count(old) != 1:
+              raise SystemExit(f'Expected one current version block, found {text.count(old)}')
+          path.write_text(text.replace(old, new, 1))
+          PY
+      - name: Remove one-shot workflow
+        run: rm .github/workflows/prepare-0.24.25-once.yml
+      - name: Commit release metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/build.gradle.kts .github/workflows/prepare-0.24.25-once.yml
+          git commit -m "Bump Xylune to 0.24.25"
+          git push
