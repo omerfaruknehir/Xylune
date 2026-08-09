@@ -25,4 +25,10 @@ class ArchitectureTimingRegressionTest {
         assertFalse(settings.contains("delay(300)"))
         assertFalse(settings.contains("delay(90)"))
     }
+
+    @Test
+    fun `platform specific launcher recovery stays isolated from normal app startup`() {
+        assertFalse(source("LauncherActivity.kt").contains("Thread.sleep"))
+        assertTrue(source("settings/LauncherIconSwitchReceiver.kt").contains("RELAUNCH_FALLBACK_DELAY_MS"))
+    }
 }
