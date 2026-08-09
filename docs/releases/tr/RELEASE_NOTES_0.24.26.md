@@ -11,5 +11,5 @@
 ## Yerelleştirme ve regresyon kapsamı
 
 - Sabit Türkçe arayüz metinlerini Android yerel ayar kaynaklarına taşır; uyumluluk biçimlendiricisi artık yalnızca dinamik/değişken metinler için kullanılır.
-- Uygulama dili dahil Ayarlar sayfa başlıklarını kaynak kimlikleri üzerinden yerelleştirir.
-- Eski zamanlama geçici çözümlerini açıkça zorunlu tutan regresyon testlerini davranış ve mimari değişmez kapsamıyla değiştirir.
+- Uygulama dili dahil Ayarlar sayfa başlıklarını kaynak kimlikleri üzerinden yerelleştirir ve yinelenen Türkçe çeviri dallarını kaldırır.
+- Eski zamanlama geçici çözümlerini veya tam kaynak kodu yazımını zorunlu tutan regresyon testlerini davranış ve mimari değişmez kapsamıyla değiştirir.
