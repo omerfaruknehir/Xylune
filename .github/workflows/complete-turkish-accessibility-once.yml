@@ -1,0 +1,67 @@
+name: Complete Turkish accessibility once
+on:
+  push:
+    branches: [agent/complete-turkish-localization]
+    paths: ['.github/workflows/complete-turkish-accessibility-once.yml']
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/complete-turkish-localization
+      - name: Localize Xylune-owned accessibility descriptions
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+            'app/src/main/java/app/xylune/chat/ui/ModelPickerSheet.kt': [
+              ('Icon(Icons.Outlined.Close, "Close model picker")', 'Icon(Icons.Outlined.Close, localizedXyluneUiText("Close model picker"))'),
+              ('if (key in favoriteKeys) "Remove favorite" else "Add favorite",', 'localizedXyluneUiText(if (key in favoriteKeys) "Remove favorite" else "Add favorite"),'),
+            ],
+            'app/src/main/java/app/xylune/chat/ui/ImageGenerationUi.kt': [
+              ('Icon(Icons.Filled.Stop, "Stop image generation")', 'Icon(Icons.Filled.Stop, localizedXyluneUiText("Stop image generation"))'),
+              ('contentDescription = "Current generated image preview",', 'contentDescription = localizedXyluneUiText("Current generated image preview"),'),
+            ],
+            'app/src/main/java/app/xylune/chat/ui/SearchScreen.kt': [
+              ('contentDescription = "Clear search"', 'contentDescription = localizedXyluneUiText("Clear search")'),
+            ],
+            'app/src/main/java/app/xylune/chat/ui/GeneratedContentRepairUi.kt': [
+              ('contentDescription = "Inspect repair"', 'contentDescription = localizedXyluneUiText("Inspect repair")'),
+            ],
+          }
+          for file, pairs in replacements.items():
+            p=Path(file); s=p.read_text()
+            for old,new in pairs:
+              if old not in s:
+                raise SystemExit(f'anchor not found in {file}: {old}')
+              s=s.replace(old,new)
+            p.write_text(s)
+
+          p=Path('app/src/main/java/app/xylune/chat/ui/TurkishDynamicUiCopy.kt')
+          s=p.read_text()
+          anchor='''        when (text) {\n            "Thinking" -> return "Düşünme"\n'''
+          replacement='''        when (text) {\n            "Close model picker" -> return "Model seçiciyi kapat"\n            "Stop image generation" -> return "Görsel oluşturmayı durdur"\n            "Inspect repair" -> return "Onarımı incele"\n            "Clear search" -> return "Aramayı temizle"\n            "• cost unavailable" -> return "• maliyet kullanılamıyor"\n            "• partial cost" -> return "• kısmi maliyet"\n            "2 on" -> return "2 etkin"\n            "Thinking" -> return "Düşünme"\n'''
+          if anchor not in s:
+            raise SystemExit('dynamic exact-string anchor not found')
+          s=s.replace(anchor,replacement,1)
+          marker='''        Regex("""(\\d+) starred""").matchEntire(text)?.let { return "${it.groupValues[1]} favori" }\n'''
+          if marker not in s:
+            raise SystemExit('configured-provider rule anchor not found')
+          s=s.replace(marker, marker + '''        Regex("""(\\d+) configured providers?""").matchEntire(text)?.let { return "${it.groupValues[1]} yapılandırılmış sağlayıcı" }\n''', 1)
+          p.write_text(s)
+          PY
+          git diff --check
+      - name: Commit and remove workflow
+        shell: bash
+        run: |
+          rm .github/workflows/complete-turkish-accessibility-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Localize Turkish accessibility semantics'
+          git push origin HEAD:agent/complete-turkish-localization
