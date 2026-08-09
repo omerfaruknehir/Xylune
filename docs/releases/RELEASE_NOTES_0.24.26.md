@@ -11,5 +11,5 @@
 ## Localization and regression coverage
 
 - Moves exact Turkish interface copy into Android locale resources; the compatibility formatter is now used only for dynamic/interpolated text.
-- Localizes Settings page titles through resource IDs, including App language.
-- Replaces regression tests that explicitly required the old timing hacks with behavior and architectural-invariant coverage.
+- Localizes Settings page titles through resource IDs, including App language, and removes duplicate Turkish translation branches.
+- Replaces regression tests that explicitly required the old timing hacks or exact source spelling with behavior and architectural-invariant coverage.
