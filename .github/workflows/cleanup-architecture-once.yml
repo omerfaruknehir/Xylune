@@ -6,12 +6,16 @@ on:
     paths:
       - '.github/workflows/cleanup-architecture-once.yml'
       - 'ci/cleanup_architecture_once.py'
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
 
 jobs:
   apply:
+    if: github.event_name == 'push' || github.head_ref == 'agent/cleanup-architecture-release'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
