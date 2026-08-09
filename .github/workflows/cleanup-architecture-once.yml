@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/cleanup-architecture-once.yml'
       - 'ci/cleanup_architecture_once.py'
+      - 'ci/fix_cleanup_anchor.py'
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
@@ -22,13 +23,15 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: agent/cleanup-architecture-release
+      - name: Normalize cleanup anchors
+        run: python3 ci/fix_cleanup_anchor.py
       - name: Apply structural cleanup
         run: python3 ci/cleanup_architecture_once.py
       - name: Remove one-shot workflow and validate patch
         shell: bash
         run: |
           set -euo pipefail
-          rm .github/workflows/cleanup-architecture-once.yml
+          rm .github/workflows/cleanup-architecture-once.yml ci/fix_cleanup_anchor.py
           git diff --check
           test ! -e ci/cleanup_architecture_once.py
           test ! -e app/src/main/java/app/xylune/chat/ui/SettingsHostScreen.kt
