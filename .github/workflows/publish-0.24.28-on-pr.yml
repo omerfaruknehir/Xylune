@@ -17,15 +17,15 @@ jobs:
     env:
       XYLUNE_VERSION: '0.24.28'
       XYLUNE_TAG: 'v0.24.28'
-      RELEASE_COMMIT: '3a8856c61c05e8ce49c99a310283049a6c3af2f0'
+      RELEASE_COMMIT: 'd3ad5a638ffcc6a3b33726b6edf5c64fa2813cc8'
       XYLUNE_SOURCE_REPOSITORY: ${{ github.repository }}
-      XYLUNE_SOURCE_COMMIT: '3a8856c61c05e8ce49c99a310283049a6c3af2f0'
+      XYLUNE_SOURCE_COMMIT: 'd3ad5a638ffcc6a3b33726b6edf5c64fa2813cc8'
       XYLUNE_MICROSOFT_CLIENT_ID: ${{ vars.XYLUNE_MICROSOFT_CLIENT_ID }}
       XYLUNE_DROPBOX_APP_KEY: ${{ vars.XYLUNE_DROPBOX_APP_KEY }}
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: 3a8856c61c05e8ce49c99a310283049a6c3af2f0
+          ref: d3ad5a638ffcc6a3b33726b6edf5c64fa2813cc8
           fetch-depth: 0
       - uses: actions/setup-java@v5
         with:
@@ -46,6 +46,7 @@ jobs:
           grep -F 'versionCode = 217' app/build.gradle.kts
           grep -F 'versionName = "0.24.28"' app/build.gradle.kts
           test -s docs/releases/RELEASE_NOTES_0.24.28.md
+          test -s docs/releases/tr/RELEASE_NOTES_0.24.28.md
           ./ci/verify-third-party-licenses.sh
           ./gradlew --no-daemon --stacktrace --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process :app:generateOfflineLicenseCatalog
 
