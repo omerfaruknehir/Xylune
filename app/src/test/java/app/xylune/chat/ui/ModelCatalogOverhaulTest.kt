@@ -121,14 +121,16 @@ class ModelCatalogOverhaulTest {
     }
 
     @Test
-    fun `large model catalog uses a stable full screen surface`() {
+    fun `large model catalog uses a stable animated bottom sheet surface`() {
         val source = java.io.File("src/main/java/app/xylune/chat/ui/ModelPickerSheet.kt").readText()
 
-        assertTrue(source.contains("Dialog("))
-        assertTrue(source.contains("Modifier.fillMaxSize()"))
-        assertTrue(source.contains("decorFitsSystemWindows = false"))
+        assertTrue(source.contains("ModalBottomSheet("))
+        assertTrue(source.contains("rememberModalBottomSheetState(skipPartiallyExpanded = true)"))
+        assertTrue(source.contains(".fillMaxHeight(0.94f)"))
+        assertTrue(source.contains("sheetState.hide()"))
         assertTrue(source.contains("ModelPickerMode.IMAGE"))
-        assertTrue(!source.contains("ModalBottomSheet"))
+        assertTrue(!source.contains("Dialog("))
+        assertTrue(!source.contains("DialogProperties"))
     }
 
     private fun model(
