@@ -5,6 +5,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+// Regression coverage for Xylune's continuous sliders and magnetic thinking detents.
 class XyluneSliderTest {
     @Test
     fun steppedValuesMapToStableMaterialIntervals() {
