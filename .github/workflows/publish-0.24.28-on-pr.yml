@@ -1,0 +1,145 @@
+name: Publish Xylune 0.24.28 once
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - '.github/workflows/publish-0.24.28-on-pr.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 75
+    env:
+      XYLUNE_VERSION: '0.24.28'
+      XYLUNE_TAG: 'v0.24.28'
+      RELEASE_COMMIT: '3a8856c61c05e8ce49c99a310283049a6c3af2f0'
+      XYLUNE_SOURCE_REPOSITORY: ${{ github.repository }}
+      XYLUNE_SOURCE_COMMIT: '3a8856c61c05e8ce49c99a310283049a6c3af2f0'
+      XYLUNE_MICROSOFT_CLIENT_ID: ${{ vars.XYLUNE_MICROSOFT_CLIENT_ID }}
+      XYLUNE_DROPBOX_APP_KEY: ${{ vars.XYLUNE_DROPBOX_APP_KEY }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: 3a8856c61c05e8ce49c99a310283049a6c3af2f0
+          fetch-depth: 0
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - name: Set up Android 16 SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Verify release source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$RELEASE_COMMIT"
+          grep -F 'versionCode = 217' app/build.gradle.kts
+          grep -F 'versionName = "0.24.28"' app/build.gradle.kts
+          test -s docs/releases/RELEASE_NOTES_0.24.28.md
+          ./ci/verify-third-party-licenses.sh
+          ./gradlew --no-daemon --stacktrace --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process :app:generateOfflineLicenseCatalog
+
+      - name: Test, lint, and build public release
+        run: ./gradlew --no-daemon --stacktrace --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process testReleaseUnitTest lintRelease assembleRelease bundleRelease
+
+      - name: Prepare fixed six-asset release
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf release
+          mkdir release
+
+          apk="Xylune-${XYLUNE_VERSION}-release.apk"
+          aab="Xylune-${XYLUNE_VERSION}-release.aab"
+          source_zip="Xylune-${XYLUNE_VERSION}-source.zip"
+          source_tar="Xylune-${XYLUNE_VERSION}-source.tar.gz"
+          manifest="Xylune-${XYLUNE_VERSION}-release.json"
+          checksums="Xylune-${XYLUNE_VERSION}-SHA256.txt"
+
+          cp app/build/outputs/apk/release/app-release.apk "release/$apk"
+          cp app/build/outputs/bundle/release/app-release.aab "release/$aab"
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs "release/$apk"
+          git archive --format=zip --prefix="Xylune-${XYLUNE_VERSION}/" -o "release/$source_zip" "$RELEASE_COMMIT"
+          git archive --format=tar --prefix="Xylune-${XYLUNE_VERSION}/" "$RELEASE_COMMIT" | gzip -n > "release/$source_tar"
+
+          apk_sha256="$(sha256sum "release/$apk" | awk '{print $1}')"
+          cert_sha256="$("$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs "release/$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' | head -n1)"
+          package_name="$("$ANDROID_HOME/build-tools/36.0.0/aapt" dump badging "release/$apk" | sed -n "s/^package: name='\([^']*\)'.*/\1/p" | head -n1)"
+          version_code="$(sed -n 's/.*versionCode = \([0-9][0-9]*\).*/\1/p' app/build.gradle.kts | head -n1)"
+          export apk apk_sha256 cert_sha256 package_name version_code manifest
+
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          data = {
+              "schemaVersion": 1,
+              "repository": os.environ["GITHUB_REPOSITORY"],
+              "tag": os.environ["XYLUNE_TAG"],
+              "versionName": os.environ["XYLUNE_VERSION"],
+              "versionCode": int(os.environ["version_code"]),
+              "packageName": os.environ["package_name"],
+              "apkAsset": os.environ["apk"],
+              "apkSha256": os.environ["apk_sha256"],
+              "signingCertificateSha256": os.environ["cert_sha256"],
+              "sourceCommit": os.environ["RELEASE_COMMIT"],
+          }
+          Path("release", os.environ["manifest"]).write_text(
+              json.dumps(data, indent=2, sort_keys=True) + "\n"
+          )
+          PY
+
+          (cd release && sha256sum "$apk" "$aab" "$source_zip" "$source_tar" "$manifest" > "$checksums")
+          mapfile -t actual < <(find release -maxdepth 1 -type f -printf '%f\n' | sort)
+          expected=("$apk" "$aab" "$source_zip" "$source_tar" "$manifest" "$checksums")
+          mapfile -t expected_sorted < <(printf '%s\n' "${expected[@]}" | sort)
+          [[ ${#actual[@]} -eq 6 ]]
+          diff -u <(printf '%s\n' "${expected_sorted[@]}") <(printf '%s\n' "${actual[@]}")
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          notes="docs/releases/RELEASE_NOTES_${XYLUNE_VERSION}.md"
+          test -s "$notes"
+
+          published="$(gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" --jq ".[] | select(.tag_name == \"${XYLUNE_TAG}\" and .draft == false) | .id" | head -n1)"
+          if [[ -n "$published" ]]; then
+            echo "$XYLUNE_TAG is already published."
+            exit 0
+          fi
+
+          mapfile -t draft_ids < <(
+            gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" --jq ".[] | select(.tag_name == \"${XYLUNE_TAG}\" and .draft == true) | .id"
+          )
+          for id in "${draft_ids[@]}"; do
+            gh api --method DELETE "repos/${GITHUB_REPOSITORY}/releases/$id"
+          done
+          if git ls-remote --exit-code --tags origin "refs/tags/${XYLUNE_TAG}" >/dev/null 2>&1; then
+            git push origin ":refs/tags/${XYLUNE_TAG}"
+          fi
+
+          gh release create "$XYLUNE_TAG" \
+            "release/Xylune-${XYLUNE_VERSION}-release.apk" \
+            "release/Xylune-${XYLUNE_VERSION}-release.aab" \
+            "release/Xylune-${XYLUNE_VERSION}-source.zip" \
+            "release/Xylune-${XYLUNE_VERSION}-source.tar.gz" \
+            "release/Xylune-${XYLUNE_VERSION}-release.json" \
+            "release/Xylune-${XYLUNE_VERSION}-SHA256.txt" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$RELEASE_COMMIT" \
+            --title "Xylune ${XYLUNE_VERSION}" \
+            --notes-file "$notes"
