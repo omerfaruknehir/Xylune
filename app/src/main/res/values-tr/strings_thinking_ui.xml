@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tr_complete_new_conversation">Yeni sohbet</string>
+    <string name="tr_complete_thinking_off_description">Model API\'si izin veriyorsa bilinçli akıl yürütme yapılmaz</string>
+    <string name="tr_complete_thinking_on_description">Modelin sağlayıcı tarafından yönetilen düşünme modunu kullan</string>
+    <string name="tr_complete_thinking_minimal_description">Kullanılabilen en hızlı akıl yürütme</string>
+    <string name="tr_complete_thinking_low_description">Daha düşük gecikmeyle kısa akıl yürütme</string>
+    <string name="tr_complete_thinking_medium_description">Dengeli akıl yürütme</string>
+    <string name="tr_complete_thinking_high_description">Kapsamlı akıl yürütme</string>
+    <string name="tr_complete_thinking_xhigh_description">Zorlu ajan görevleri için genişletilmiş akıl yürütme</string>
+    <string name="tr_complete_thinking_max_description">Desteklenen en yüksek akıl yürütme düzeyi</string>
+</resources>
