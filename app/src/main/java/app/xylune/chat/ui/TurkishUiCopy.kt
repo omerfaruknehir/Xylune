@@ -466,7 +466,6 @@ internal object TurkishUiCopy {
         "Save connection" -> "Bağlantıyı kaydet"
         "Add provider" -> "Sağlayıcı ekle"
         "Custom provider" -> "Özel sağlayıcı"
-        "Provider name" -> "Sağlayıcı adı"
         "API base URL" -> "API temel URL'si"
         "Base URL" -> "Temel URL"
         "API key" -> "API anahtarı"
@@ -536,7 +535,6 @@ internal object TurkishUiCopy {
         "A file referenced by this answer." -> "Bu yanıtta başvurulan bir dosya."
         "A source used to support the surrounding claim." -> "İlgili ifadeyi desteklemek için kullanılan bir kaynak."
         "An external page linked from this answer." -> "Bu yanıttan bağlantı verilen harici bir sayfa."
-        "Image generation" -> "Görsel oluşturma"
         "Generate image" -> "Görsel oluştur"
         "Edit image" -> "Görseli düzenle"
         else -> null
