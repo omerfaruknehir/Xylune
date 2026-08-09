@@ -1,0 +1,42 @@
+name: Turkish localization audit summary once
+on:
+  push:
+    branches: [agent/complete-turkish-localization]
+    paths: ['.github/workflows/turkish-audit-summary-once.yml']
+permissions:
+  contents: write
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/complete-turkish-localization
+      - name: Summarize
+        run: |
+          python3 - <<'PY'
+          from collections import Counter
+          from pathlib import Path
+          lines = Path('translation-audit.txt').read_text().splitlines()
+          section = False
+          c = Counter()
+          for line in lines:
+              if line.startswith('## Literal/template'):
+                  section = True
+                  continue
+              if line.startswith('## All Kotlin'):
+                  break
+              if section and '.kt:' in line:
+                  c[line.split(':',1)[0]] += 1
+          out = ['# Missing Turkish UI literal counts']
+          out += [f'{name}: {count}' for name, count in c.most_common()]
+          Path('translation-audit-summary.txt').write_text('\n'.join(out)+'\n')
+          PY
+      - name: Commit summary and remove workflow
+        run: |
+          rm .github/workflows/turkish-audit-summary-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Summarize Turkish localization gaps'
+          git push origin HEAD:agent/complete-turkish-localization
