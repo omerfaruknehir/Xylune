@@ -1,0 +1,216 @@
+# Likely user-visible dynamic English templates
+AttachmentCard.kt:131: ${attachment.mimeType.substringAfter('/').uppercase()}  •  ${Formatter.formatShortFileSize(context, attachment.sizeBytes)}
+AttachmentCard.kt:312: ${(scale * 100).toInt()}%
+AttachmentCard.kt:462: PDF preview unavailable: ${page.error}
+AttachmentCard.kt:466: PDF page ${page.pageIndex + 1}
+AttachmentCard.kt:472: Page ${page.pageIndex + 1} of ${page.pageCount}
+ChatConfigurationSheet.kt:126: $appName core prompt only
+ChatConfigurationSheet.kt:126: ${it.name} · ${it.mode.name.lowercase()}
+ChatConfigurationSheet.kt:130: $appName core prompt only
+ChatConfigurationSheet.kt:135: ${profile.name} · ${profile.mode.name.lowercase()}
+ChatConfigurationSheet.kt:147: $appName's built-in core prompt is versioned with the app and cannot be edited. Create reusable custom profiles in Settings.
+ChatConfigurationSheet.kt:158: ${summary.sourceMessageCount} older messages • about ${summary.tokenEstimate} tokens
+ChatScreen.kt:1676: • $tokens tok
+ChatScreen.kt:1761: ${activeIndex + 1} / ${options.size}
+ChatScreen.kt:1847: FILE • ${event.label.ifBlank {
+ChatScreen.kt:2030: ${index + 1}. ${workEventTitle(event)}
+ChatScreen.kt:2190: ${traces.size + if (text.isNotBlank()) 1 else 0} steps
+ChatScreen.kt:2219: ${event.label} • ${event.status}
+ChatScreen.kt:2452: ${latest.runtime.name.lowercase()} · attempt ${latest.attempt} · revision ${latest.revision}
+ChatScreen.kt:2533: Completed in $it
+ChatScreen.kt:2602: ${results.size} results
+ChatScreen.kt:2648: ${index + 1}. ${result.title.ifBlank { host.ifBlank { result.url } }}
+ChatScreen.kt:2914: Working · ${pending.size} queued
+ChatScreen.kt:2916: ${pending.size} queued
+ChatScreen.kt:3157: Use the $linuxDistributionName tooling workspace
+ChatScreen.kt:3633: Use the $linuxDistributionName tooling workspace
+ChatViewModel.kt:1430: Chat renamed to “$title”
+CloudBackupUi.kt:311: Connected: $it
+CloudBackupUi.kt:530: ${entry.name} will be permanently removed from its cloud provider.
+CloudBackupUi.kt:539: folder-delete-${entry.id}
+ConversationSidebar.kt:177: project:${it.id}
+ConversationSidebar.kt:197: chat:${it.conversation.id}
+DirectCloudProvidersUi.kt:270: ${entry.name} will be permanently deleted from ${provider.displayName}.
+DirectCloudProvidersUi.kt:276: delete-${provider.name}-${entry.id}
+DirectCloudProvidersUi.kt:316: Build variable: $setupVariable
+DirectCloudProvidersUi.kt:318: Redirect URI: $it
+DirectCloudProvidersUi.kt:328: Connect ${provider.displayName}
+DirectCloudProvidersUi.kt:334: Waiting for ${provider.displayName} authorization…
+DirectCloudProvidersUi.kt:378: Configure ${provider.displayName}
+DirectCloudProvidersUi.kt:611: https://github.com/$repository/blob/main/docs/CLOUD_PROVIDERS_SETUP.md
+GeneratedContentRepairUi.kt:109: AI rebuilt and compiled ${type.displayLabel} · ${current.attemptCount} attempt${if (current.attemptCount == 1)
+GeneratedContentRepairUi.kt:109: Compiled and tested ${type.displayLabel}
+GeneratedContentRepairUi.kt:139: Edit ${type.displayLabel} source
+GeneratedContentRepairUi.kt:188: Compiling and testing ${type.displayLabel}…
+GeneratedContentRepairUi.kt:189: Rebuilding ${type.displayLabel} from compiler feedback… attempt ${(state.attemptCount + 1).coerceAtMost(maxAttempts)} of $maxAttempts
+GeneratedContentRepairUi.kt:190: Preparing another ${type.displayLabel} build…
+GeneratedContentRepairUi.kt:191: Could not compile this ${type.displayLabel} after ${state.attemptCount} repair attempts.
+GeneratedContentRepairUi.kt:211: ${it.phase} ${it.path}: ${it.message}
+GeneratedContentRepairUi.kt:225: Attempt ${attempt.number} · ${if (attempt.repeatedCandidate)
+GeneratedContentRepairUi.kt:225: }${attempt.errors.size} error(s)
+GeneratedContentRepairUi.kt:226: ${it.path}: ${it.message}
+GeneratedContentRepairUi.kt:229: ${it.phase} ${it.path}: ${it.message}
+ImageGenerationScreen.kt:348: ${pending.size} image request${if (pending.size == 1)
+ImageGenerationScreen.kt:427: ${currentModel?.displayName.orEmpty()} accepts up to ${caps.maxInputImages} reference images.
+ImageGenerationScreen.kt:473: Describe a new image, or add${if (maxReferences > 0)
+ImageGenerationUi.kt:103: Image requests cannot include ordinary files. Remove the non-image attachment${if (invalidAttachmentCount == 1)
+ImageGenerationUi.kt:153: $providerName · $modelName
+ImageGenerationUi.kt:92: $modelName requires at least one reference image.
+ImageGenerationUi.kt:94: $referenceImageCount reference image${if (referenceImageCount == 1)
+LicenseCatalogScreen.kt:146: ${filtered.size} of ${catalog.components.size} components
+LicenseCatalogScreen.kt:234: ${component.category} · ${component.version}
+LicenseCatalogScreen.kt:263: $LICENSE_ASSET_ROOT/${component.icon}
+LinuxTerminalScreen.kt:131: Root shell • ${status.distribution.displayName} ${status.release} • /workspace
+LinuxTerminalScreen.kt:132: ${status.distribution.displayName}: ${status.detail.ifBlank { status.stage.name.lowercase() }}
+LinuxTerminalScreen.kt:172: $appName ${status.distribution.displayName} root terminal ↩ Commands run as uid 0 inside the selected PRoot distribution.
+LinuxTerminalScreen.kt:180: root@xylune-${status.distribution.id}:/workspace#
+LinuxTerminalScreen.kt:197: exit ${result.exitCode} • ${result.elapsedMs} ms
+LinuxTerminalScreen.kt:209: root@xylune-${status.distribution.id}:/workspace#
+ModelPickerSheet.kt:256: Chat · $chatModelCount
+ModelPickerSheet.kt:267: Images · $imageModelCount
+ModelPickerSheet.kt:330: ${favoriteKeys.size} starred
+ModelPickerSheet.kt:354: ${choice.provider.displayName} · ${choice.model.modelId}
+OnboardingScreen.kt:354: Step ${currentStepIndex + 1} of $stepCount
+OnboardingScreen.kt:453: ${providerCountLabel(configuredProviderCount)} ready
+PagedTextPreview.kt:122: Page ${safeIndex + 1} of $pageCount
+PagedTextPreview.kt:58: Preview unavailable: ${current.error}
+PagedTextPreview.kt:77: Bytes ${current.start + 1}-${current.endExclusive} of ${current.totalBytes}
+PerformanceOverlay.kt:324: ${durationMs.f1()} ms of ${budgetMs.f1()} ms frame budget
+PerformanceOverlay.kt:773: Render ${snapshot.appRenderedFrameRate.f0()} fps  ${snapshot.averageFrameMs.f1()} ms  J ${snapshot.jankPercent.f1()}%
+PerformanceOverlay.kt:780: Display ${snapshot.displayRefreshRateHz.toDouble().f0()} Hz  Callback ${snapshot.choreographerCallbackRate.f0()}/s  Present ${snapshot.presentedFrameRate?.f0() ?:
+PerformanceOverlay.kt:787: FM avg ${snapshot.frameMetricsTotalMs.f1()} ms  p95 ${snapshot.p95FrameMs.f1()}  p99 ${snapshot.p99FrameMs.f1()}
+PerformanceOverlay.kt:794: CPU ${snapshot.cpuPercent.f1()}%  PSS ${snapshot.pssMb.f0()} MB  Heap ${snapshot.javaHeapMb.f0()} MB
+PerformanceOverlay.kt:801: GPU ${snapshot.gpuAverageMs?.f1() ?:
+PerformanceOverlay.kt:801: } ms  Miss/s ${snapshot.missedFramesPerSecond.f1()}  Reports ${snapshot.droppedMetricReports}
+PerformanceOverlay.kt:810: Cause ${profile.confidencePercent}% · ${profile.severity.displayName}: ${profile.primaryCause}
+PerformanceOverlay.kt:817: Evidence: ${profile.evidence}
+PerformanceOverlay.kt:825: Secondary: $secondary
+PerformanceOverlay.kt:833: FM ${snapshot.frameMetricsTotalMs.f1()}  L ${snapshot.layoutMeasureMs.f1()}  D ${snapshot.drawMs.f1()}  Cmd ${snapshot.commandIssueMs.f1()}  Sw ${snapshot.swapBuffersMs.f1()}
+PerformanceOverlay.kt:840: BlurCPU ${snapshot.blurCpuMsPerFrame.f2()}  ${snapshot.blurFilteredMegapixelsPerSecond.f0()} MP/s  srcTrav×${snapshot.blurSourceDrawsPerFrame.f1()} replay×${snapshot.blurLayerReplaysPerFrame.f1()}
+PerformanceOverlay.kt:847: cap/s ${snapshot.blurCaptureUpdatesPerSecond.f1()} fx/s ${snapshot.blurEffectBuildsPerSecond.f1()}  levels D${snapshot.blurDownsampleLevels.f1()}/U${snapshot.blurUpsampleLevels.f1()}
+PerformanceOverlay.kt:854: Recomp/s app ${snapshot.appRecompositionsPerSecond.f1()} chat ${snapshot.chatRecompositionsPerSecond.f1()}
+PerformanceOverlay.kt:861: Alloc ${snapshot.allocationMbPerSecond.f1()} MB/s  bGC ${snapshot.blockingGcPerSecond.f1()}  Screen ${snapshot.screenName}
+ResearchStateProtocol.kt:96: step-${index + 1}
+RichMessage.kt:450: $label paused for crash recovery
+RichMessage.kt:558: ${(it.coerceIn(0f, 1f) * 100).toInt()}%
+RichMessage.kt:576: ${current.plan.items.size} packages resolved • $changed changes${if (dependencies > 0)
+RichMessage.kt:580: ${current.decidedBy}: ${current.reason}
+RichMessage.kt:586: Installed${item.installedVersion?.let {
+RichMessage.kt:591: ${item.name} • $status${item.detail.takeIf(String::isNotBlank)?.let {
+RichMessage.kt:610: • ${item.name}: ${item.action.name.lowercase()}${item.candidateVersion?.let {
+RichMessage.kt:612: Download: ${plan.downloadSummary}
+RichMessage.kt:613: Disk: ${plan.diskSummary}
+RichMessage.kt:652: [$label](xylune-${kind.lowercase()}://reference?target=$target)
+SandboxScreen.kt:263: Python ${it.pythonVersion} · ${it.packages.size} packages · ${Formatter.formatShortFileSize(androidx.compose.ui.platform.LocalContext.current, it.sizeBytes)}
+SandboxScreen.kt:281: ${ubuntuStatus.distribution.displayName} ${ubuntuStatus.release} · Ready
+SandboxScreen.kt:311: Environment ${info.environmentId}
+SandboxScreen.kt:312: Python ${info.pythonVersion} • ${info.packages.size} packages • ${Formatter.formatShortFileSize(androidx.compose.ui.platform.LocalContext.current, info.sizeBytes)}
+SandboxScreen.kt:314: ${it.key}: ${it.value}
+SandboxScreen.kt:320: ${pkg.name} ${pkg.version}
+SandboxScreen.kt:321: Remove ${pkg.name}
+SandboxScreen.kt:361: ${result.name} ${result.version}
+SandboxScreen.kt:414: ${review.plan.items.size} packages resolved • $changes changes
+SandboxScreen.kt:415: ${review.decidedBy}: ${review.reason}
+SandboxScreen.kt:418: ${item.name} • ${item.action.name.lowercase().replace('_', ' ')}${item.installedVersion?.let {
+SandboxScreen.kt:418: }.orEmpty()}${item.candidateVersion?.let {
+SandboxScreen.kt:423: Installed and import-verified ${install.packages.joinToString()}
+SandboxScreen.kt:429: $distribution → import ${names.joinToString().ifBlank {
+SandboxScreen.kt:434: ${it.key}: ${it.value}
+SandboxScreen.kt:464: Running in the background • ${(clock - (pythonRun?.startedAt ?: clock)) / 1_000}s • you can browse other chats
+SandboxScreen.kt:504: ${ubuntuStatus.distribution.description} • ${ubuntuStatus.distribution.release} • ${ubuntuStatus.distribution.packageManager.command}
+SandboxScreen.kt:507: ${ubuntuStatus.distribution.displayName} • ${ubuntuStatus.stage.name.lowercase().replace('_', ' ')} • ${ubuntuStatus.architecture}
+SandboxScreen.kt:513: Linux data on disk: ${Formatter.formatShortFileSize(androidx.compose.ui.platform.LocalContext.current, ubuntuStatus.sizeBytes)}
+SandboxScreen.kt:542: Step $step of $total
+SandboxScreen.kt:547: ${(it * 100).toInt()}%
+SandboxScreen.kt:596: Elapsed ${formatSetupDuration(elapsedMs)}
+SandboxScreen.kt:613: Install ${ubuntuStatus.distribution.displayName}
+SandboxScreen.kt:625: Open ${ubuntuStatus.distribution.displayName} terminal
+SandboxScreen.kt:629: Install ${ubuntuStatus.distribution.displayName} packages
+SandboxScreen.kt:630: ${ubuntuStatus.distribution.packageManager.command} simulates the complete transaction first and checks what is already installed before approval.
+SandboxScreen.kt:659: Simulating ${ubuntuStatus.distribution.packageManager.command} transaction…
+SandboxScreen.kt:685: ${(it.coerceIn(0f, 1f) * 100).toInt()}%
+SandboxScreen.kt:703: ${review.plan.items.size} packages resolved • $changes changes • $dependencies dependencies
+SandboxScreen.kt:704: Download: ${review.plan.downloadSummary}
+SandboxScreen.kt:705: Disk: ${review.plan.diskSummary}
+SandboxScreen.kt:706: ${review.decidedBy}: ${review.reason}
+SandboxScreen.kt:708: ${item.name} • ${item.action.name.lowercase().replace('_', ' ')}${item.candidateVersion?.let {
+SandboxScreen.kt:708: }.orEmpty()}${item.detail.takeIf(String::isNotBlank)?.let {
+SandboxScreen.kt:711: ${ubuntuStatus.distribution.packageManager.command} install failed
+SandboxScreen.kt:711: Installed ${installed.packages.joinToString()}
+SandboxScreen.kt:728: • ${item.name}: ${item.action.name.lowercase()}${item.candidateVersion?.let {
+SandboxScreen.kt:742: Allow ${ubuntuStatus.distribution.packageManager.command} package changes?
+SandboxScreen.kt:745: This is the complete ${ubuntuStatus.distribution.packageManager.command} simulation, including dependencies:
+SandboxScreen.kt:747: }.orEmpty()}${item.detail.takeIf(String::isNotBlank)?.let {
+SandboxScreen.kt:747: • ${item.name}: ${item.action.name.lowercase()}${item.candidateVersion?.let {
+SandboxScreen.kt:749: Download: $it
+SandboxScreen.kt:750: Disk: $it
+SandboxScreen.kt:764: Remove $name?
+SandboxScreen.kt:765: $appName will remove this Python package from the current chat environment. Other packages and the optional Linux runtime are kept.
+SandboxScreen.kt:778: Remove ${ubuntuStatus.distribution.displayName}?
+SandboxScreen.kt:801: This has taken $seconds seconds. It will keep running while you browse Xylune, up to its hard deadline. You can leave it in the background or stop it now. A blocking native Python extension may take a moment to return after Stop.
+SearchScreen.kt:125: ${it.conversationId}:${it.nodeId}:${it.rank}:${it.snippet.hashCode()}
+SettingsScreen.kt:1000: Delete $count disabled memor${if (count == 1)
+SettingsScreen.kt:1051: $appNamePossessive green Material palette
+SettingsScreen.kt:1105: ${(chromeBlurStrength * 100).roundToInt()}%
+SettingsScreen.kt:1142: ${(displayedSoftness * 100).roundToInt()}%
+SettingsScreen.kt:1158: ${(chromeOverlayOpacity * 100).roundToInt()}%
+SettingsScreen.kt:1279: Edit ${profile.name}
+SettingsScreen.kt:1280: Delete ${profile.name}
+SettingsScreen.kt:1364: ${linuxStatus.distribution.displayName} ${linuxStatus.release} installed
+SettingsScreen.kt:1479: ${(settings.performanceOverlayBackgroundOpacity * 100).roundToInt()}%
+SettingsScreen.kt:1487: ${(settings.performanceOverlayTextOpacity * 100).roundToInt()}%
+SettingsScreen.kt:1495: ${(settings.performanceOverlayScale * 100).roundToInt()}%
+SettingsScreen.kt:1577: ${settings.blurBoundaryDebugThicknessDp.roundToInt()} dp
+SettingsScreen.kt:1716: Updates are checked against ${sourceRepository ?:
+SettingsScreen.kt:1725: Checking ${sourceRepository ?:
+SettingsScreen.kt:1731: Latest release: ${state.latestVersion} · checked ${DateFormat.getDateTimeInstance().format(Date(state.checkedAt))}
+SettingsScreen.kt:1742: Xylune ${release.versionName} is available
+SettingsScreen.kt:1744: Source: ${release.repository}
+SettingsScreen.kt:1744: · $it
+SettingsScreen.kt:1782: ${installedVersion.versionCode} · ${BuildConfig.BUILD_TYPE}
+SettingsScreen.kt:2004: Managed by Xylune · revision $XYLUNE_CORE_PROMPT_REVISION
+SettingsScreen.kt:2065: ${effectiveEffort.displayName} effort
+SettingsScreen.kt:2329: ${provider.displayName} connection
+SettingsScreen.kt:2444: Remove ${provider.displayName}?
+SettingsScreen.kt:2626: Connected • $it
+SettingsScreen.kt:2697: ${humanizeUsageName(it)} plan • reported by ChatGPT
+SettingsScreen.kt:2742: Limit reached: ${humanizeUsageName(it)}
+SettingsScreen.kt:2751: Refresh failed • ${state.message}
+SettingsScreen.kt:2772: ${left.roundToInt()}% left
+SettingsScreen.kt:2794: ${used.roundToInt()}% used
+SettingsScreen.kt:2795: • $reset
+SettingsScreen.kt:2834: resets ${usageResetCountdown(epochSeconds, nowEpochSeconds)} • $exact
+SettingsScreen.kt:3021: Preset: ${it.displayName}
+SettingsScreen.kt:3049: Protocol: ${providerKindLabel(kind)}
+SettingsScreen.kt:3129: Search ${discoveredModels.size} models
+SettingsScreen.kt:3135: ${selectedModelIds.size} of ${discoveredModels.size} selected
+SettingsScreen.kt:3143: Showing the first $MODEL_MANAGER_RENDER_LIMIT matches. Search to find a specific model; all selected models will still be saved.
+SettingsScreen.kt:3164: ${it / 1_000}K context
+SettingsScreen.kt:3520: ${models.size} available for ${provider.displayName} · metadata refreshes with the catalog
+SettingsScreen.kt:3555: Showing ${displayedModels.size} of ${visibleModels.size}. Search or filter to narrow the catalog.
+SettingsScreen.kt:3604: ${contextWindow / 1_000}K context
+SettingsScreen.kt:3605: ${maxOutputTokens / 1_000}K output
+SettingsScreen.kt:360: Continue from step ${setupStepIndex + 1} of 3
+SettingsScreen.kt:369: $providerCount provider${if (providerCount == 1)
+SettingsScreen.kt:3797: ${settings.engine.title} credential
+SettingsScreen.kt:811: ${memories.size} saved item${if (memories.size == 1)
+SettingsScreen.kt:811: }; ${memories.count { it.enabled }} enabled.
+SettingsScreen.kt:863: ${selectedIds.size} selected
+SettingsScreen.kt:957: ${if (memory.sourceConversationId == null)
+SettingsScreen.kt:957: } · ${DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(memory.updatedAt))}
+SettingsScreen.kt:984: Delete ${ids.size} memories?
+SetupRestoreUi.kt:421: Configured as ${it.label} • tap to check backups
+SetupRestoreUi.kt:436: Configured as ${it.label} • tap to check backups
+SetupRestoreUi.kt:706: as $it
+StreamingTokenPulse.kt:48: streaming-dot-$index
+TransferUi.kt:364: ${value.conversationCount} chat${if (value.conversationCount == 1)
+TransferUi.kt:364: } • ${value.messageCount} messages • ${value.attachmentCount} attachments
+TransferUi.kt:366: • ${value.linuxEnvironmentCount} Linux environment${if (value.linuxEnvironmentCount == 1)
+TransferUi.kt:371: Created by Xylune ${value.appVersion} • ${if (value.encrypted)
+TransferUi.kt:494: $label excluded
+TransferUi.kt:494: $label included
+UsageDetailsUi.kt:151: Call ${index + 1} · round ${call.roundIndex + 1}
+UsageDetailsUi.kt:156: input ${call.inputTokens} · cached ${call.cachedInputTokens} · output ${call.outputTokens}
+UsageDetailsUi.kt:162: non-cached $nonCached · total ${call.inputTokens + call.outputTokens}
+XyluneApp.kt:160: Xylune ${release.versionName} is available from ${release.repository}
+XyluneApp.kt:177: $label is running in the background • ${deadline}s deadline
