@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tr_complete_new_conversation">New conversation</string>
+    <string name="tr_complete_thinking_off_description">No deliberate reasoning where the model API allows it</string>
+    <string name="tr_complete_thinking_on_description">Use the model\'s provider-managed thinking mode</string>
+    <string name="tr_complete_thinking_minimal_description">Fastest available reasoning</string>
+    <string name="tr_complete_thinking_low_description">Short reasoning with lower latency</string>
+    <string name="tr_complete_thinking_medium_description">Balanced reasoning</string>
+    <string name="tr_complete_thinking_high_description">Thorough reasoning</string>
+    <string name="tr_complete_thinking_xhigh_description">Extended reasoning for difficult agentic work</string>
+    <string name="tr_complete_thinking_max_description">Maximum supported reasoning effort</string>
+</resources>
