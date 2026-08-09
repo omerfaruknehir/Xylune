@@ -67,7 +67,7 @@
     <string name="tr_complete_auto_approved_verifying">Approved automatically • installing and verifying imports…</string>
     <string name="tr_complete_checking_python_environment">Checking the current Python environment…</string>
     <string name="tr_complete_collapse_plan">Collapse plan</string>
-    <string name="tr_complete_linux_distribution_explanation">Choose a rootless user-space distribution for broader third-party CLIs and libraries. Each distribution keeps its own packages, shares this chat's files at /workspace, and is a compatibility layer—not a security boundary.</string>
+    <string name="tr_complete_linux_distribution_explanation">Choose a rootless user-space distribution for broader third-party CLIs and libraries. Each distribution keeps its own packages, shares this chat\'s files at /workspace, and is a compatibility layer—not a security boundary.</string>
     <string name="tr_complete_linux_network_bullet">• Requires a network download and app-private storage.</string>
     <string name="tr_complete_linux_verify_bullet">• Xylune verifies the archive before extraction and exposes progress for every stage.</string>
     <string name="tr_complete_linux_retry_bullet">• A failed or interrupted setup can be retried; /workspace chat files are not deleted.</string>
@@ -79,9 +79,9 @@
     <string name="tr_complete_detailed_metrics_explanation">Detailed mode shows Choreographer FPS, average/p95/p99 frame interval, jank against the current refresh budget, app CPU, PSS, Java heap, GPU duration when Android reports it, missed vsyncs per second, and total observed frames. Cause profiler ranks primary and secondary causes, reports confidence and severity, and shows the evidence used for attribution alongside FrameMetrics, blur, recomposition, allocation, and GC counters.</string>
     <string name="tr_complete_compact_metrics_explanation">Compact mode shows FPS, average frame time, and jank percentage.</string>
     <string name="tr_complete_no_repository_origin">Automatic checks are unavailable because this build has no embedded GitHub repository origin.</string>
-    <string name="tr_complete_natural_green_palette">Xylune's natural green Material palette</string>
+    <string name="tr_complete_natural_green_palette">Xylune\'s natural green Material palette</string>
     <string name="tr_complete_wallpaper_colors">Colors generated from your wallpaper on Android 12+</string>
-    <string name="tr_complete_versioned_core_prompt">Xylune's versioned core prompt is built into the app and updates with Xylune. Profiles can adjust tone or add preferences, but cannot replace the core capability, tool, research, date, privacy, or safety protocol.</string>
+    <string name="tr_complete_versioned_core_prompt">Xylune\'s versioned core prompt is built into the app and updates with Xylune. Profiles can adjust tone or add preferences, but cannot replace the core capability, tool, research, date, privacy, or safety protocol.</string>
     <string name="tr_complete_choose_provider_preset">Choose a preset or connect a custom API endpoint.</string>
     <string name="tr_complete_choose_backup">Choose a backup</string>
     <string name="tr_complete_choose_backup_source">Choose where Xylune should look. Every option is limited to app-only storage or a folder you explicitly select.</string>
