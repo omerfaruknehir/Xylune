@@ -220,7 +220,6 @@ fun ConversationSidebar(
                 selected = false,
                 onClick = { haptics.selection(); onScreen(Screen.SETTINGS) },
             )
-            Text("On-device history • BYOK", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(12.dp, 4.dp, 12.dp, 0.dp))
         }
     }
 

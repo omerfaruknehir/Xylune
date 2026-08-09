@@ -137,7 +137,6 @@ internal object TurkishUiCopy {
         "PROJECT CHATS" -> "PROJE SOHBETLERİ"
         "Archived chats will appear here." -> "Arşivlenmiş sohbetler burada görünür."
         "No chats in this project yet." -> "Bu projede henüz sohbet yok."
-        "On-device history • BYOK" -> "Cihazdaki geçmiş • BYOK"
         "No project" -> "Proje yok"
         "Unpin" -> "Sabitlemeyi kaldır"
         "Pin" -> "Sabitle"

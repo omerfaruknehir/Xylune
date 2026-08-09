@@ -1,6 +1,7 @@
 package app.xylune.chat.ui
 
 import android.os.Build
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -2146,6 +2147,8 @@ private fun ProviderSettings(
         selected?.id?.let(viewModel::modelsFor) ?: flowOf<List<ModelEntity>>(emptyList())
     }
     val selectedModels by selectedModelFlow.collectAsStateWithLifecycle(initialValue = emptyList())
+    val editConnectionSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val editConnectionScrollState = rememberSaveable(selected?.id, saver = ScrollState.Saver) { ScrollState(0) }
 
     LaunchedEffect(selected?.id) {
         selected?.let {
@@ -2322,30 +2325,47 @@ private fun ProviderSettings(
     }
 
     if (editingConnection) {
-        ModalBottomSheet(onDismissRequest = { editingConnection = false }) {
-            Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp).verticalScroll(rememberScrollState())) {
-                Text("Edit connection", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
-                Text(selected?.displayName.orEmpty(), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Spacer(Modifier.size(16.dp))
-                selected?.let { provider ->
-                    ProviderEditor(
-                        provider = provider,
-                        name = providerName,
-                        onName = { providerName = it },
-                        baseUrl = baseUrl,
-                        onBaseUrl = { baseUrl = it },
-                        key = apiKey,
-                        onKey = { apiKey = it },
-                        headers = headers,
-                        onHeaders = { headers = it },
-                        apiKeyRequired = apiKeyRequired,
-                        onApiKeyRequired = { apiKeyRequired = it },
-                    ) {
-                        viewModel.saveProvider(provider.copy(displayName = providerName.trim(), baseUrl = baseUrl.trimEnd('/'), customHeadersJson = headers, apiKeyRequired = apiKeyRequired), apiKey)
-                        editingConnection = false
-                    }
+        ModalBottomSheet(
+            onDismissRequest = { editingConnection = false },
+            sheetState = editConnectionSheetState,
+        ) {
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.94f)
+                    .heightIn(max = 760.dp)
+                    .imePadding(),
+            ) {
+                Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp)) {
+                    Text("Edit connection", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
+                    Text(selected?.displayName.orEmpty(), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                Spacer(Modifier.size(28.dp))
+                Column(
+                    Modifier
+                        .weight(1f)
+                        .verticalScroll(editConnectionScrollState)
+                        .padding(horizontal = 20.dp, vertical = 8.dp),
+                ) {
+                    selected?.let { provider ->
+                        ProviderEditor(
+                            provider = provider,
+                            name = providerName,
+                            onName = { providerName = it },
+                            baseUrl = baseUrl,
+                            onBaseUrl = { baseUrl = it },
+                            key = apiKey,
+                            onKey = { apiKey = it },
+                            headers = headers,
+                            onHeaders = { headers = it },
+                            apiKeyRequired = apiKeyRequired,
+                            onApiKeyRequired = { apiKeyRequired = it },
+                        ) {
+                            viewModel.saveProvider(provider.copy(displayName = providerName.trim(), baseUrl = baseUrl.trimEnd('/'), customHeadersJson = headers, apiKeyRequired = apiKeyRequired), apiKey)
+                            editingConnection = false
+                        }
+                    }
+                    Spacer(Modifier.size(28.dp))
+                }
             }
         }
     }
@@ -2763,7 +2783,7 @@ private fun ProviderEditor(
     apiKeyRequired: Boolean, onApiKeyRequired: (Boolean) -> Unit,
     onSave: () -> Unit,
 ) {
-    var advanced by remember { mutableStateOf(false) }
+    var advanced by rememberSaveable(provider.id) { mutableStateOf(false) }
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(providerKindLabel(provider.kind), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
         OutlinedTextField(name, onName, label = { Text("Provider name") }, singleLine = true, modifier = Modifier.fillMaxWidth())
@@ -2851,7 +2871,7 @@ private fun AddProviderDialog(
     var discoveryAttempted by remember { mutableStateOf(false) }
     var discoveryError by remember { mutableStateOf<String?>(null) }
     var modelSearch by remember { mutableStateOf("") }
-    var showManualModel by remember { mutableStateOf(false) }
+    var showManualModel by rememberSaveable { mutableStateOf(false) }
     val connectionReady = baseUrl.isNotBlank() && (!apiKeyRequired || apiKey.isNotBlank())
     val manualModelReady = showManualModel && manualModelId.isNotBlank() && manualModelName.isNotBlank()
     val valid = name.isNotBlank() && connectionReady && (selectedModelIds.isNotEmpty() || manualModelReady)
@@ -2872,7 +2892,8 @@ private fun AddProviderDialog(
     }
 
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val formScrollState = rememberScrollState()
+    val formScrollState = rememberSaveable(saver = ScrollState.Saver) { ScrollState(0) }
+    val modelListScrollState = rememberSaveable(saver = ScrollState.Saver) { ScrollState(0) }
 
     fun submitProvider() {
         val selected = discoveredModels.filter { it.id in selectedModelIds }
@@ -3056,7 +3077,7 @@ private fun AddProviderDialog(
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
-                    Column(Modifier.fillMaxWidth().heightIn(max = 240.dp).verticalScroll(rememberScrollState())) {
+                    Column(Modifier.fillMaxWidth().heightIn(max = 240.dp).verticalScroll(modelListScrollState)) {
                         visibleModels.take(MODEL_MANAGER_RENDER_LIMIT).forEach { model ->
                             val checked = model.id in selectedModelIds
                             val toggle = {

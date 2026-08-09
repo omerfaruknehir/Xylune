@@ -7,12 +7,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -30,28 +29,31 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.Text as MaterialText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import app.xylune.chat.data.ModelEntity
 import app.xylune.chat.data.ProviderEntity
 import app.xylune.chat.provider.ImageInputMode
 import app.xylune.chat.provider.imageModelCapabilities
 import app.xylune.chat.settings.modelPreferenceKey
 import java.util.Locale
+import kotlinx.coroutines.launch
 
 internal enum class ModelPickerMode(val label: String) {
     CHAT("Chat"),
@@ -139,6 +141,7 @@ internal fun filteredModelChoices(
         .toList()
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ModelPickerSheet(
     providers: List<ProviderEntity>,
@@ -184,23 +187,42 @@ internal fun ModelPickerSheet(
         )
     }
 
-    Dialog(
-        onDismissRequest = onDismiss,
-        properties = DialogProperties(
-            usePlatformDefaultWidth = false,
-            decorFitsSystemWindows = false,
-        ),
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val scope = rememberCoroutineScope()
+    var dismissing by remember { mutableStateOf(false) }
+
+    fun dismissSheet() {
+        if (dismissing) return
+        dismissing = true
+        scope.launch {
+            runCatching { sheetState.hide() }
+            onDismiss()
+        }
+    }
+
+    fun selectAndDismiss(providerId: String, modelId: String) {
+        if (dismissing) return
+        dismissing = true
+        scope.launch {
+            runCatching { sheetState.hide() }
+            onSelect(providerId, modelId)
+            onDismiss()
+        }
+    }
+
+    ModalBottomSheet(
+        onDismissRequest = ::dismissSheet,
+        sheetState = sheetState,
     ) {
-        Surface(color = MaterialTheme.colorScheme.surface, modifier = Modifier.fillMaxSize()) {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .statusBarsPadding()
-                    .navigationBarsPadding()
-                    .imePadding()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.94f)
+                .navigationBarsPadding()
+                .imePadding()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text(
@@ -218,7 +240,7 @@ internal fun ModelPickerSheet(
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
-                    IconButton(onClick = onDismiss) { Icon(Icons.Outlined.Close, "Close model picker") }
+                    IconButton(onClick = ::dismissSheet) { Icon(Icons.Outlined.Close, "Close model picker") }
                 }
 
                 Row(
@@ -358,8 +380,7 @@ internal fun ModelPickerSheet(
                                 }
                             },
                             modifier = Modifier.clickable {
-                                onSelect(choice.provider.id, choice.model.modelId)
-                                onDismiss()
+                                selectAndDismiss(choice.provider.id, choice.model.modelId)
                             },
                             colors = ListItemDefaults.colors(
                                 containerColor = if (selected) MaterialTheme.colorScheme.secondaryContainer.copy(alpha = .55f)
@@ -394,7 +415,6 @@ internal fun ModelPickerSheet(
                         }
                     }
                 }
-            }
         }
     }
 }
