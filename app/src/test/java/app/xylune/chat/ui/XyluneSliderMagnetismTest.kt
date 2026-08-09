@@ -5,6 +5,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.math.abs
 
+/** Regression coverage for the magnetic thinking-level detents shipped in Xylune 0.24.28. */
 class XyluneSliderMagnetismTest {
     private val range = 0f..6f
 
