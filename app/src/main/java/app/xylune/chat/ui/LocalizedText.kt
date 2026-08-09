@@ -18,38 +18,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 
-/**
- * Localized Material Text facade for Xylune-owned UI copy.
- *
- * Direct files in app.xylune.chat.ui alias Material3's Text import, so their
- * ordinary String labels pass through this facade. AnnotatedString content is
- * deliberately left untouched because it can contain user or model output.
- */
+/** Localizes Xylune-owned plain UI copy while preserving surrounding layout whitespace. */
 @Composable
-internal fun Text(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontSize: TextUnit = TextUnit.Unspecified,
-    fontStyle: FontStyle? = null,
-    fontWeight: FontWeight? = null,
-    fontFamily: FontFamily? = null,
-    letterSpacing: TextUnit = TextUnit.Unspecified,
-    textDecoration: TextDecoration? = null,
-    textAlign: TextAlign? = null,
-    lineHeight: TextUnit = TextUnit.Unspecified,
-    overflow: TextOverflow = TextOverflow.Clip,
-    softWrap: Boolean = true,
-    maxLines: Int = Int.MAX_VALUE,
-    minLines: Int = 1,
-    onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = LocalTextStyle.current,
-) {
+internal fun localizedXyluneUiText(text: String): String {
     val language = LocalConfiguration.current.locales[0]?.language
-
-    // Some button labels intentionally include a leading space after an icon.
-    // Localize the semantic core and then restore the layout whitespace so
-    // " Check for updates" does not miss the same resource as its unpadded form.
     val leadingWhitespace = text.takeWhile(Char::isWhitespace)
     val trailingWhitespace = text.takeLastWhile(Char::isWhitespace)
     val coreEnd = (text.length - trailingWhitespace.length).coerceAtLeast(leadingWhitespace.length)
@@ -79,10 +51,38 @@ internal fun Text(
     } else {
         core
     }
-    val localized = leadingWhitespace + localizedCore + trailingWhitespace
+    return leadingWhitespace + localizedCore + trailingWhitespace
+}
 
+/**
+ * Localized Material Text facade for Xylune-owned UI copy.
+ *
+ * Direct files in app.xylune.chat.ui alias Material3's Text import, so their
+ * ordinary String labels pass through this facade. AnnotatedString content is
+ * deliberately left untouched because it can contain user or model output.
+ */
+@Composable
+internal fun Text(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    fontStyle: FontStyle? = null,
+    fontWeight: FontWeight? = null,
+    fontFamily: FontFamily? = null,
+    letterSpacing: TextUnit = TextUnit.Unspecified,
+    textDecoration: TextDecoration? = null,
+    textAlign: TextAlign? = null,
+    lineHeight: TextUnit = TextUnit.Unspecified,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
+    onTextLayout: (TextLayoutResult) -> Unit = {},
+    style: TextStyle = LocalTextStyle.current,
+) {
     MaterialText(
-        text = localized,
+        text = localizedXyluneUiText(text),
         modifier = modifier,
         color = color,
         fontSize = fontSize,
