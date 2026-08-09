@@ -156,7 +156,7 @@ internal fun ImageGenerationProgressCard(
                     )
                 }
                 IconButton(onClick = onStop) {
-                    Icon(Icons.Filled.Stop, "Stop image generation")
+                    Icon(Icons.Filled.Stop, localizedXyluneUiText("Stop image generation"))
                 }
             }
 
@@ -165,7 +165,7 @@ internal fun ImageGenerationProgressCard(
                 Crossfade(targetState = decoded, label = "ImagePreviewCrossfade") { frame ->
                     Image(
                         bitmap = frame,
-                        contentDescription = "Current generated image preview",
+                        contentDescription = localizedXyluneUiText("Current generated image preview"),
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(1f)

@@ -11,6 +11,7 @@ internal object TurkishDynamicUiCopy {
         Regex("""Chat · (\d+)""").matchEntire(text)?.let { return "Sohbet · ${it.groupValues[1]}" }
         Regex("""Images · (\d+)""").matchEntire(text)?.let { return "Görseller · ${it.groupValues[1]}" }
         Regex("""(\d+) starred""").matchEntire(text)?.let { return "${it.groupValues[1]} favori" }
+        Regex("""(\d+) configured providers?""").matchEntire(text)?.let { return "${it.groupValues[1]} yapılandırılmış sağlayıcı" }
         Regex("""(\d+) results?(?: · (\d+) filters?)?""").matchEntire(text)?.let {
             val filters = it.groupValues[2].takeIf(String::isNotBlank)?.let { count -> " · $count filtre" }.orEmpty()
             return "${it.groupValues[1]} sonuç$filters"
@@ -235,6 +236,13 @@ internal object TurkishDynamicUiCopy {
         }
 
         when (text) {
+            "Close model picker" -> return "Model seçiciyi kapat"
+            "Stop image generation" -> return "Görsel oluşturmayı durdur"
+            "Inspect repair" -> return "Onarımı incele"
+            "Clear search" -> return "Aramayı temizle"
+            "• cost unavailable" -> return "• maliyet kullanılamıyor"
+            "• partial cost" -> return "• kısmi maliyet"
+            "2 on" -> return "2 etkin"
             "Thinking" -> return "Düşünme"
             "Tools" -> return "Araçlar"
             "Vision" -> return "Görsel"
@@ -245,6 +253,42 @@ internal object TurkishDynamicUiCopy {
             "Edit images" -> return "Görselleri düzenle"
         }
 
+        Regex("""Configured as (.+) • tap to check backups""").matchEntire(text)?.let {
+  return "${it.groupValues[1]} olarak yapılandırıldı • yedekleri kontrol etmek için dokunun"
+        }
+        Regex("""(\d+) chats? • (\d+) messages • (\d+) attachments?(?: • (\d+) Linux environments?)?""").matchEntire(text)?.let {
+  val linux = it.groupValues[4].takeIf(String::isNotBlank)?.let { count -> " • $count Linux ortamı" }.orEmpty()
+  return "${it.groupValues[1]} sohbet • ${it.groupValues[2]} mesaj • ${it.groupValues[3]} ek$linux"
+        }
+        Regex("""Created by Xylune (.+) • (encrypted|not encrypted)""").matchEntire(text)?.let {
+  val state = if (it.groupValues[2] == "encrypted") "şifreli" else "şifrelenmemiş"
+  return "Xylune ${it.groupValues[1]} tarafından oluşturuldu • $state"
+        }
+        Regex("""Call (\d+) · round (\d+)""").matchEntire(text)?.let { return "Çağrı ${it.groupValues[1]} · tur ${it.groupValues[2]}" }
+        Regex("""input (\d+) · cached (\d+) · output (\d+)""").matchEntire(text)?.let {
+  return "girdi ${it.groupValues[1]} · önbellek ${it.groupValues[2]} · çıktı ${it.groupValues[3]}"
+        }
+        Regex("""non-cached (\d+) · total (\d+)""").matchEntire(text)?.let { return "önbelleksiz ${it.groupValues[1]} · toplam ${it.groupValues[2]}" }
+        Regex("""(.+) is running in the background • (\d+)s deadline""").matchEntire(text)?.let {
+  return "${it.groupValues[1]} arka planda çalışıyor • ${it.groupValues[2]} sn süre sınırı"
+        }
+        Regex("""(.+) simulates the complete transaction first and checks what is already installed before approval\.""").matchEntire(text)?.let {
+  return "${it.groupValues[1]} önce işlemin tamamını simüle eder ve onaydan önce nelerin zaten yüklü olduğunu kontrol eder."
+        }
+        Regex("""Installed and import-verified (.+)""").matchEntire(text)?.let { return "Yüklendi ve içe aktarım doğrulandı: ${it.groupValues[1]}" }
+        Regex("""(.+) → import (.+)""").matchEntire(text)?.let { return "${it.groupValues[1]} → içe aktarım ${it.groupValues[2]}" }
+        Regex("""GPU (.+) ms  Miss/s (.+)  Reports (.+)""").matchEntire(text)?.let {
+  return "GPU ${it.groupValues[1]} ms  Kaçırma/sn ${it.groupValues[2]}  Rapor ${it.groupValues[3]}"
+        }
+        Regex("""FM (.+)  L (.+)  D (.+)  Cmd (.+)  Sw (.+)""").matchEntire(text)?.let {
+  return "FM ${it.groupValues[1]}  Yerleşim ${it.groupValues[2]}  Çizim ${it.groupValues[3]}  Komut ${it.groupValues[4]}  Takas ${it.groupValues[5]}"
+        }
+        Regex("""BlurCPU (.+)  (.+) MP/s  srcTrav×(.+) replay×(.+)""").matchEntire(text)?.let {
+  return "BulanıklıkCPU ${it.groupValues[1]}  ${it.groupValues[2]} MP/sn  kaynakGez×${it.groupValues[3]} tekrar×${it.groupValues[4]}"
+        }
+        Regex("""cap/s (.+) fx/s (.+)  levels D(.+)/U(.+)""").matchEntire(text)?.let {
+  return "yakalama/sn ${it.groupValues[1]} efekt/sn ${it.groupValues[2]}  düzeyler A${it.groupValues[3]}/Y${it.groupValues[4]}"
+        }
         // Technical summaries are assembled from independently localizable UI segments.
         // Split only Xylune's middle-dot separator; provider/model names remain untouched
         // because unknown segments are returned verbatim.

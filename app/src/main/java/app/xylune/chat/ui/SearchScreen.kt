@@ -92,7 +92,7 @@ fun SearchScreen(viewModel: ChatViewModel, openDrawer: (() -> Unit)?) {
                 trailingIcon = if (query.isNotEmpty()) {
                     {
                         IconButton(onClick = { viewModel.searchQuery.value = "" }) {
-                            Icon(Icons.Outlined.Clear, "Clear search")
+                            Icon(Icons.Outlined.Clear, localizedXyluneUiText("Clear search"))
                         }
                     }
                 } else null,
