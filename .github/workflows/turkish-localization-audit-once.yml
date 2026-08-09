@@ -22,6 +22,13 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           source = Path('.github/workflows/finalize-turkish-release-once.yml').read_text()
+          source = source.replace(
+              "              ('contentDescription = \\\"Clear search\\\"', 'contentDescription = localizedXyluneUiText(\\\"Clear search\\\")'),",
+              "              ('Icon(Icons.Outlined.Clear, \\\"Clear search\\\")', 'Icon(Icons.Outlined.Clear, localizedXyluneUiText(\\\"Clear search\\\"))'),",
+          ).replace(
+              "              ('contentDescription = \\\"Inspect repair\\\"', 'contentDescription = localizedXyluneUiText(\\\"Inspect repair\\\")'),",
+              "              ('Icon(Icons.Outlined.Edit, \\\"Inspect repair\\\")', 'Icon(Icons.Outlined.Edit, localizedXyluneUiText(\\\"Inspect repair\\\"))'),",
+          )
           marker = '      - name: Finalize Turkish UI coverage and release metadata\n        shell: bash\n        run: |\n'
           start = source.index(marker) + len(marker)
           end = source.index('      - name: Commit finalized release branch\n', start)
