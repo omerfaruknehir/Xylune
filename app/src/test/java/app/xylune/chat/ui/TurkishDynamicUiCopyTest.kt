@@ -53,6 +53,20 @@ class TurkishDynamicUiCopyTest {
     }
 
     @Test
+    fun `accessibility and diagnostic labels are translated`() {
+        assertEquals("Model seçiciyi kapat", TurkishDynamicUiCopy.translate("Close model picker"))
+        assertEquals("Görsel oluşturmayı durdur", TurkishDynamicUiCopy.translate("Stop image generation"))
+        assertEquals("Onarımı incele", TurkishDynamicUiCopy.translate("Inspect repair"))
+        assertEquals("Aramayı temizle", TurkishDynamicUiCopy.translate("Clear search"))
+        assertEquals("• maliyet kullanılamıyor", TurkishDynamicUiCopy.translate("• cost unavailable"))
+        assertEquals("• kısmi maliyet", TurkishDynamicUiCopy.translate("• partial cost"))
+        assertEquals(
+            "Google Drive olarak yapılandırıldı • yedekleri kontrol etmek için dokunun",
+            TurkishDynamicUiCopy.translate("Configured as Google Drive • tap to check backups"),
+        )
+    }
+
+    @Test
     fun `unknown content is never guessed or machine translated`() {
         val providerOrUserText = "Acme Experimental Model"
         assertEquals(providerOrUserText, TurkishDynamicUiCopy.translate(providerOrUserText))
