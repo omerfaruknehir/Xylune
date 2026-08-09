@@ -222,7 +222,7 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
                     }
                     Screen.SEARCH -> SearchScreen(viewModel, compactOpenDrawer)
                     Screen.SETTINGS -> Box(Modifier.fillMaxSize()) {
-                        SettingsScreen(viewModel, compactOpenDrawer)
+                        SettingsHostScreen(viewModel, compactOpenDrawer)
                         SettingsLeftBackEdgeGuard()
                     }
                     Screen.SANDBOX -> SandboxScreen(viewModel)

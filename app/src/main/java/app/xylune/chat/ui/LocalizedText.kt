@@ -51,7 +51,12 @@ internal fun Text(
             primary
         } else {
             val secondary = TurkishUiCopyExtra2.translate(text)
-            if (secondary != text) secondary else TurkishUiCopyExtra.translate(text)
+            if (secondary != text) {
+                secondary
+            } else {
+                val tertiary = TurkishUiCopyExtra.translate(text)
+                if (tertiary != text) tertiary else TurkishUiCopyExtra3.translate(text)
+            }
         }
     } else {
         text
