@@ -1,0 +1,60 @@
+name: Apply thinking slider fix once
+
+on:
+  push:
+    branches:
+      - agent/fix-thinking-slider-localization
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch thinking control
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("app/src/main/java/app/xylune/chat/ui/ChatScreen.kt")
+          text = path.read_text()
+
+          old = """                        snapOnRelease = true,\n                        onValueChangeFinished = {"""
+          new = """                        snapOnRelease = true,\n                        magneticSnapPoints = true,\n                        onValueChangeFinished = {"""
+          if text.count(old) != 1:
+              raise SystemExit(f"expected one thinking slider snap call, found {text.count(old)}")
+          text = text.replace(old, new, 1)
+
+          helper = """                    Text(\n                        \"Release to snap to the nearest supported level\",\n                        style = MaterialTheme.typography.labelSmall,\n                        color = MaterialTheme.colorScheme.onSurfaceVariant,\n                    )\n"""
+          if text.count(helper) != 1:
+              raise SystemExit(f"expected one slider helper block, found {text.count(helper)}")
+          text = text.replace(helper, "", 1)
+          path.write_text(text)
+          PY
+
+          rm -f .xylune-slider-source.txt
+          rm -f .github/workflows/apply-thinking-slider-fix-once.yml
+          git diff --check
+
+      - name: Verify focused unit tests
+        run: ./gradlew :app:testReleaseUnitTest --tests 'app.xylune.chat.ui.XyluneSliderMagnetismTest' --tests 'app.xylune.chat.ui.AppLanguageLocalizationTest'
+
+      - name: Compile release Kotlin
+        run: ./gradlew :app:compileReleaseKotlin
+
+      - name: Commit verified fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "xylune-ui-patch[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix thinking slider localization and magnetic detents"
+          git push origin HEAD:agent/fix-thinking-slider-localization
