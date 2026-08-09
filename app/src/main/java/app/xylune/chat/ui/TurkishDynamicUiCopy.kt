@@ -159,7 +159,6 @@ internal object TurkishDynamicUiCopy {
         Regex("""Automatic metadata refresh failed: (.+)""").matchEntire(text)?.let { return "Otomatik üst veri yenileme başarısız: ${it.groupValues[1]}" }
         Regex("""Updated (\d+) models""").matchEntire(text)?.let { return "${it.groupValues[1]} model güncellendi" }
         Regex("""(.+) connection""").matchEntire(text)?.let { return "${it.groupValues[1]} bağlantısı" }
-        Regex("""(.+) models""").matchEntire(text)?.let { return "${it.groupValues[1]} modelleri" }
         Regex("""ChatGPT account (\d+)""").matchEntire(text)?.let { return "ChatGPT hesabı ${it.groupValues[1]}" }
         Regex("""Connected • (.+)""").matchEntire(text)?.let { return "Bağlı • ${it.groupValues[1]}" }
         Regex("""(.+) plan • reported by ChatGPT""").matchEntire(text)?.let { return "${it.groupValues[1]} planı • ChatGPT tarafından bildirildi" }
@@ -186,6 +185,10 @@ internal object TurkishDynamicUiCopy {
         Regex("""Preset: (.+)""").matchEntire(text)?.let { return "Ön ayar: ${it.groupValues[1]}" }
         Regex("""Protocol: (.+)""").matchEntire(text)?.let { return "Protokol: ${it.groupValues[1]}" }
         Regex("""Search (\d+) models""").matchEntire(text)?.let { return "${it.groupValues[1]} modelde ara" }
+        Regex("""(.+) models""").matchEntire(text)?.let {
+            val prefix = it.groupValues[1]
+            if (prefix != "Search" && prefix.toIntOrNull() == null) return "$prefix modelleri"
+        }
         Regex("""(\d+) of (\d+) selected""").matchEntire(text)?.let { return "${it.groupValues[2]} modelden ${it.groupValues[1]} seçili" }
         Regex("""Showing the first (\d+) matches\. Search to find a specific model; all selected models will still be saved\.""").matchEntire(text)?.let {
             return "İlk ${it.groupValues[1]} eşleşme gösteriliyor. Belirli bir modeli bulmak için arayın; seçilen tüm modeller yine kaydedilecektir."
