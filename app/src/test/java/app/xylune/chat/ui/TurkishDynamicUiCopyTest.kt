@@ -1,7 +1,6 @@
 package app.xylune.chat.ui
 
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertSame
 import org.junit.Test
 
 class TurkishDynamicUiCopyTest {
@@ -13,6 +12,14 @@ class TurkishDynamicUiCopyTest {
         assertEquals("3 favori", TurkishDynamicUiCopy.translate("3 starred"))
         assertEquals("1M bağlam", TurkishDynamicUiCopy.translate("1M context"))
         assertEquals("131K çıktı", TurkishDynamicUiCopy.translate("131K output"))
+        assertEquals(
+            "1M bağlam · 131K çıktı · Düşünme · Araçlar",
+            TurkishDynamicUiCopy.translate("1M context · 131K output · Thinking · Tools"),
+        )
+        assertEquals(
+            "Qwen Cloud · glm-5.2",
+            TurkishDynamicUiCopy.translate("Qwen Cloud · glm-5.2"),
+        )
     }
 
     @Test
