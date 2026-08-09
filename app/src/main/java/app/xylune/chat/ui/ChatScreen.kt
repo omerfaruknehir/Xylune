@@ -3450,6 +3450,7 @@ private fun ThinkingComposerChip(
                         valueRange = 0f..options.lastIndex.toFloat(),
                         steps = (options.size - 2).coerceAtLeast(0),
                         snapOnRelease = true,
+                        magneticSnapPoints = true,
                         onValueChangeFinished = {
                             val index = sliderTarget.roundToInt().coerceIn(options.indices)
                             if (abs(sliderTarget - index.toFloat()) < .001f) {
@@ -3467,11 +3468,6 @@ private fun ThinkingComposerChip(
                         Text(options.first().label, style = MaterialTheme.typography.labelSmall)
                         Text(options.last().label, style = MaterialTheme.typography.labelSmall)
                     }
-                    Text(
-                        "Release to snap to the nearest supported level",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
                 }
             }
         }
