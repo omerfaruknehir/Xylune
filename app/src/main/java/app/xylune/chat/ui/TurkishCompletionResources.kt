@@ -16,6 +16,7 @@ internal fun xyluneTurkishCompletionResource(text: String): Int? = when (text) {
     "Conversations" -> R.string.tr_complete_conversations
     "Chat actions" -> R.string.tr_complete_chat_actions
     "Choose model" -> R.string.tr_complete_choose_model
+    "New conversation" -> R.string.tr_complete_new_conversation
     "DETAILS" -> R.string.tr_complete_details
     "ERROR" -> R.string.tr_complete_error
     "Ask a question, attach a file, or choose Search and Tools beside the message box." -> R.string.tr_complete_empty_chat_hint
@@ -38,6 +39,14 @@ internal fun xyluneTurkishCompletionResource(text: String): Int? = when (text) {
     "Photos" -> R.string.tr_complete_photos
     "Camera" -> R.string.tr_complete_camera
     "Choose thinking level" -> R.string.tr_complete_choose_thinking_level
+    "No deliberate reasoning where the model API allows it" -> R.string.tr_complete_thinking_off_description
+    "Use the model's provider-managed thinking mode" -> R.string.tr_complete_thinking_on_description
+    "Fastest available reasoning" -> R.string.tr_complete_thinking_minimal_description
+    "Short reasoning with lower latency" -> R.string.tr_complete_thinking_low_description
+    "Balanced reasoning" -> R.string.tr_complete_thinking_medium_description
+    "Thorough reasoning" -> R.string.tr_complete_thinking_high_description
+    "Extended reasoning for difficult agentic work" -> R.string.tr_complete_thinking_xhigh_description
+    "Maximum supported reasoning effort" -> R.string.tr_complete_thinking_max_description
     "Balanced" -> R.string.tr_complete_balanced
     "Choose search mode" -> R.string.tr_complete_choose_search_mode
     "Choose chat tools" -> R.string.tr_complete_choose_chat_tools
