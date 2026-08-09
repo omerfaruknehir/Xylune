@@ -1,0 +1,40 @@
+name: One-shot architecture cleanup
+
+on:
+  push:
+    branches: [agent/cleanup-architecture-release]
+    paths:
+      - '.github/workflows/cleanup-architecture-once.yml'
+      - 'ci/cleanup_architecture_once.py'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/cleanup-architecture-release
+      - name: Apply structural cleanup
+        run: python3 ci/cleanup_architecture_once.py
+      - name: Remove one-shot workflow and validate patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/cleanup-architecture-once.yml
+          git diff --check
+          test ! -e ci/cleanup_architecture_once.py
+          test ! -e app/src/main/java/app/xylune/chat/ui/SettingsHostScreen.kt
+      - name: Commit cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git status --short
+          git commit -m 'Fix structural UI timing and prepare 0.24.26'
+          git push origin HEAD:agent/cleanup-architecture-release
