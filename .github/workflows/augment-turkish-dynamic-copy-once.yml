@@ -1,0 +1,35 @@
+name: Augment Turkish dynamic copy once
+on:
+  push:
+    branches: [agent/complete-turkish-localization]
+    paths: ['.github/workflows/augment-turkish-dynamic-copy-once.yml']
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/complete-turkish-localization
+      - name: Add composite and image preview translation rules
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('app/src/main/java/app/xylune/chat/ui/TurkishDynamicUiCopy.kt')
+          text=p.read_text()
+          needle='''        return text\n    }\n}\n'''
+          block='''        Regex("""Describe what to create, or add up to (\\d+) reference images to edit\\.""").matchEntire(text)?.let {\n            return "Ne oluşturmak istediğinizi açıklayın veya düzenlemek için en fazla ${it.groupValues[1]} referans görsel ekleyin."\n        }\n        Regex("""Describe a new image, or add (\\d+) reference images? and describe the edit\\.""").matchEntire(text)?.let {\n            return "Yeni bir görseli açıklayın veya ${it.groupValues[1]} referans görsel ekleyip düzenlemeyi tarif edin."\n        }\n        Regex("""Provider preview (\\d+)(?: of (\\d+))? · the final image may still change\\.""").matchEntire(text)?.let {\n            val total = it.groupValues[2].takeIf(String::isNotBlank)?.let { count -> " / $count" }.orEmpty()\n            return "Sağlayıcı önizlemesi ${it.groupValues[1]}$total · son görsel hâlâ değişebilir."\n        }\n\n        when (text) {\n            "Thinking" -> return "Düşünme"\n            "Tools" -> return "Araçlar"\n            "Vision" -> return "Görsel"\n            "Files" -> return "Dosyalar"\n            "Free" -> return "Ücretsiz"\n            "Generate images" -> return "Görsel oluştur"\n            "Generate + edit" -> return "Oluştur + düzenle"\n            "Edit images" -> return "Görselleri düzenle"\n        }\n\n        // Technical summaries are assembled from independently localizable UI segments.\n        // Split only Xylune's middle-dot separator; provider/model names remain untouched\n        // because unknown segments are returned verbatim.\n        if (" · " in text) {\n            val parts = text.split(" · ")\n            val translated = parts.map(::translate)\n            if (translated != parts) return translated.joinToString(" · ")\n        }\n\n        return text\n    }\n}\n'''
+          if needle not in text:
+              raise SystemExit('final translator anchor not found')
+          p.write_text(text.replace(needle, block, 1))
+          PY
+          git diff --check
+      - name: Commit and remove workflow
+        run: |
+          rm .github/workflows/augment-turkish-dynamic-copy-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Complete composite Turkish runtime summaries'
+          git push origin HEAD:agent/complete-turkish-localization
