@@ -12,8 +12,9 @@ class AppLanguageLocalizationTest {
         ?: error("Could not locate repository file: $path")
 
     @Test
-    fun `Turkish locale is advertised and covers every Android string resource`() {
+    fun `explicit locales cover every Android string resource`() {
         val base = repositoryFile("app/src/main/res/values/strings.xml").readText()
+        val english = repositoryFile("app/src/main/res/values-en/strings.xml").readText()
         val turkish = repositoryFile("app/src/main/res/values-tr/strings.xml").readText()
         val localeConfig = repositoryFile("app/src/main/res/xml/locales_config.xml").readText()
 
@@ -22,9 +23,12 @@ class AppLanguageLocalizationTest {
             .map { it.groupValues[1] }
             .toSet()
 
+        assertEquals(names(base), names(english))
         assertEquals(names(base), names(turkish))
+        assertTrue(localeConfig.contains("android:name=\"en\""))
         assertTrue(localeConfig.contains("android:name=\"tr\""))
         assertTrue(localeConfig.contains("android:name=\"tr-TR\""))
+        assertTrue(english.contains(">Settings<"))
         assertTrue(turkish.contains(">Ayarlar<"))
         assertTrue(turkish.contains(">Uygulama dili<"))
     }
