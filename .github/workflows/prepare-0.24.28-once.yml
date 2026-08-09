@@ -1,3 +1,4 @@
+# Trigger after workflow registration
 name: Prepare Xylune 0.24.28 once
 
 on:
