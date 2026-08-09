@@ -56,7 +56,6 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.core.net.toUri
 import app.xylune.chat.R
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -97,11 +96,10 @@ internal fun AnchoredLinkPreview(
     val requestDismiss: () -> Unit = { dismissRequested = true }
 
     LaunchedEffect(dismissRequested) {
-        if (dismissRequested) {
-            visibility.targetState = false
-            delay(170)
-            onDismiss()
-        }
+        if (dismissRequested) visibility.targetState = false
+    }
+    LaunchedEffect(dismissRequested, visibility.isIdle, visibility.currentState) {
+        if (dismissRequested && visibility.isIdle && !visibility.currentState) onDismiss()
     }
 
     Popup(

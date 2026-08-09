@@ -10,6 +10,8 @@ import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.systemGestures
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -31,10 +33,19 @@ import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+
+internal fun shouldIgnoreClosedDrawerDown(
+    x: Float,
+    width: Float,
+    leftBackEdgePx: Int,
+    rightBackEdgePx: Int,
+): Boolean = x <= leftBackEdgePx.coerceAtLeast(0) ||
+    x >= width - rightBackEdgePx.coerceAtLeast(0)
 
 /** One physical drawer offset shared by touch, fling, buttons, scrim and Back. */
 @Stable
@@ -178,6 +189,9 @@ internal fun InteractiveNavigationDrawer(
 ) {
     val density = LocalDensity.current
     val focusManager = LocalFocusManager.current
+    val layoutDirection = LocalLayoutDirection.current
+    val leftBackEdgePx = WindowInsets.systemGestures.getLeft(density, layoutDirection)
+    val rightBackEdgePx = WindowInsets.systemGestures.getRight(density, layoutDirection)
     val haptics = rememberXyluneHaptics()
     val activationPx = with(density) { 6.dp.toPx() }
     val velocityThresholdPx = with(density) { 850.dp.toPx() }
@@ -196,15 +210,22 @@ internal fun InteractiveNavigationDrawer(
                 activationPx,
                 velocityThresholdPx,
                 drawerOriginInRoot,
+                leftBackEdgePx,
+                rightBackEdgePx,
             ) {
                 awaitEachGesture {
                     val down = awaitFirstDown(requireUnconsumed = false)
                     val startOffset = state.offsetPx
-                    if (
-                        startOffset <= .5f &&
-                        horizontalPriority.owns(down.position + drawerOriginInRoot)
-                    ) {
-                        return@awaitEachGesture
+                    if (startOffset <= .5f) {
+                        if (shouldIgnoreClosedDrawerDown(
+                                x = down.position.x,
+                                width = size.width.toFloat(),
+                                leftBackEdgePx = leftBackEdgePx,
+                                rightBackEdgePx = rightBackEdgePx,
+                            ) || horizontalPriority.owns(down.position + drawerOriginInRoot)
+                        ) {
+                            return@awaitEachGesture
+                        }
                     }
                     val velocity = VelocityTracker().apply { addPosition(down.uptimeMillis, down.position) }
                     var totalX = 0f

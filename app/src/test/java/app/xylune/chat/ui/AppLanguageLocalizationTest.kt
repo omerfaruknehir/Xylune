@@ -12,8 +12,9 @@ class AppLanguageLocalizationTest {
         ?: error("Could not locate repository file: $path")
 
     @Test
-    fun `Turkish locale is advertised and covers every Android string resource`() {
+    fun `explicit locales cover every Android string resource`() {
         val base = repositoryFile("app/src/main/res/values/strings.xml").readText()
+        val english = repositoryFile("app/src/main/res/values-en/strings.xml").readText()
         val turkish = repositoryFile("app/src/main/res/values-tr/strings.xml").readText()
         val localeConfig = repositoryFile("app/src/main/res/xml/locales_config.xml").readText()
 
@@ -22,95 +23,41 @@ class AppLanguageLocalizationTest {
             .map { it.groupValues[1] }
             .toSet()
 
+        assertEquals(names(base), names(english))
         assertEquals(names(base), names(turkish))
+        assertTrue(localeConfig.contains("android:name=\"en\""))
         assertTrue(localeConfig.contains("android:name=\"tr\""))
         assertTrue(localeConfig.contains("android:name=\"tr-TR\""))
+        assertTrue(english.contains(">Settings<"))
+        assertTrue(turkish.contains(">Ayarlar<"))
+        assertTrue(turkish.contains(">Uygulama dili<"))
     }
 
     @Test
-    fun `settings exposes application locale switching as a normal destination`() {
-        val main = repositoryFile("app/src/main/java/app/xylune/chat/MainActivity.kt").readText()
-        val controller = repositoryFile("app/src/main/java/app/xylune/chat/settings/AppLanguage.kt").readText()
-        val app = repositoryFile("app/src/main/java/app/xylune/chat/ui/XyluneApp.kt").readText()
-        val host = repositoryFile("app/src/main/java/app/xylune/chat/ui/SettingsHostScreen.kt").readText()
+    fun `language is a real settings route without a delayed overlay host`() {
+        val settings = repositoryFile("app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt").readText()
         val routes = repositoryFile("app/src/main/java/app/xylune/chat/ui/SettingsRoute.kt").readText()
-        val topBar = repositoryFile("app/src/main/java/app/xylune/chat/ui/CollapsingTranslucentTopBar.kt").readText()
+        val host = sequenceOf(
+            File("app/src/main/java/app/xylune/chat/ui/SettingsHostScreen.kt"),
+            File("..", "app/src/main/java/app/xylune/chat/ui/SettingsHostScreen.kt"),
+        ).firstOrNull(File::isFile)
 
-        assertTrue(main.contains("localizedAppContext(newBase)"))
-        assertFalse(main.contains("AppLanguageMenuButton"))
-        assertFalse(main.contains("screen == Screen.SETTINGS"))
-        assertTrue(controller.contains("LocaleManager::class.java"))
-        assertTrue(controller.contains("applicationLocales"))
-        assertTrue(controller.contains("AppLanguage.TURKISH"))
-
-        assertTrue(app.contains("SettingsHostScreen(viewModel, compactOpenDrawer)"))
-        assertTrue(host.contains("SettingsScreen(viewModel, openDrawer)"))
-        assertTrue(host.contains("Icons.Outlined.Language"))
-        assertTrue(host.contains("R.string.language_dialog_title"))
-        assertTrue(host.contains("selectedLanguageLabel"))
-        assertTrue(host.contains("currentAppLanguage(context)"))
-        assertTrue(host.contains("setAppLanguage(context, AppLanguage.SYSTEM)"))
-        assertTrue(host.contains("setAppLanguage(context, AppLanguage.ENGLISH)"))
-        assertTrue(host.contains("setAppLanguage(context, AppLanguage.TURKISH)"))
-        assertTrue(host.contains("PredictiveNavigationHost("))
-        assertTrue(host.contains("delay(300)"))
-
-        assertFalse(routes.contains("Locale.getDefault"))
-        assertTrue(routes.contains("HOME(\"Settings\")"))
-        assertTrue(topBar.contains("import androidx.compose.material3.Text as MaterialText"))
-        assertTrue(topBar.contains("text = title"))
+        assertTrue(routes.contains("LANGUAGE(R.string.language_dialog_title)"))
+        assertTrue(settings.contains("SettingsRoute.LANGUAGE -> LanguageSettingsPage()"))
+        assertTrue(settings.contains("onOpen(SettingsRoute.LANGUAGE)"))
+        assertTrue(settings.contains("title = stringResource(currentRoute.titleRes)"))
+        assertFalse(settings.contains("delay(300)"))
+        assertFalse(settings.contains("delay(90)"))
+        assertTrue(host == null)
     }
 
     @Test
-    fun `major Compose surfaces route owned String labels through localization`() {
-        listOf(
-            "SettingsScreen.kt",
-            "SettingsHostScreen.kt",
-            "OnboardingScreen.kt",
-            "ConversationSidebar.kt",
-            "ChatScreen.kt",
-            "CloudBackupUi.kt",
-            "DirectCloudProvidersUi.kt",
-            "ImageGenerationScreen.kt",
-            "LinuxTerminalScreen.kt",
-            "SearchScreen.kt",
-        ).forEach { name ->
-            val source = repositoryFile("app/src/main/java/app/xylune/chat/ui/$name").readText()
-            assertTrue("$name must route String labels through the localized Text facade", source.contains("import androidx.compose.material3.Text as MaterialText"))
-        }
-    }
-
-    @Test
-    fun `Turkish catalogs translate representative app copy and preserve unknown text`() {
-        fun translate(value: String): String {
-            val primary = TurkishUiCopy.translate(value)
-            if (primary != value) return primary
-            val secondary = TurkishUiCopyExtra2.translate(value)
-            if (secondary != value) return secondary
-            val tertiary = TurkishUiCopyExtra.translate(value)
-            if (tertiary != value) return tertiary
-            return TurkishUiCopyExtra3.translate(value)
-        }
-
-        assertEquals("Ayarlar", translate("Settings"))
-        assertEquals("Yeni sohbet", translate("New chat"))
-        assertEquals("Sağlayıcılar ve modeller", translate("Providers & models"))
-        assertEquals("Yedekleme ve aktarım", translate("Backup & transfer"))
-        assertEquals("Görsel oluşturma", translate("Image generation"))
-        assertEquals("Yerel çalıştırma", translate("Local execution"))
-        assertEquals("Arşivin kilidi açılamadı", translate("Could not unlock archive"))
-        assertEquals("Akıl yürütme ayrıntıları", translate("Reasoning details"))
-        assertEquals("3 adımın 2. adımı", translate("Step 2 of 3"))
-
-        assertEquals("Yalnızca sağlayıcının yerel araması", translate("Provider native only"))
-        assertEquals("Xylune arama motoru", translate("Xylune search engine"))
-        assertEquals("Brave Search kimlik bilgisi", translate("Brave Search credential"))
-        assertEquals("Otomatik · DuckDuckGo yedeği", translate("Auto · DuckDuckGo fallback"))
-        assertEquals(
-            "API anahtarları Android'in şifreli tercihlerinde saklanır. Yalnızca sağlayıcının yerel araması modu hiçbir zaman sessizce bir Xylune motoruna geçmez; Otomatik mod gerektiğinde geçer.",
-            translate("API keys are stored in Android encrypted preferences. Native-only mode never silently switches to a Xylune engine; Automatic mode does."),
-        )
-
-        assertEquals("My custom project title", translate("My custom project title"))
+    fun `static localized copy resolves through android resources before compatibility formatters`() {
+        val localized = repositoryFile("app/src/main/java/app/xylune/chat/ui/LocalizedText.kt").readText()
+        val mapping = repositoryFile("app/src/main/java/app/xylune/chat/ui/UiStringResources.kt").readText()
+        assertTrue(localized.contains("xyluneUiStringResource(text)"))
+        assertTrue(localized.contains("stringResource(staticResource)"))
+        assertTrue(mapping.contains("R.string.ui_copy_"))
+        assertTrue(mapping.contains("\"Settings\" -> R.string."))
     }
 }

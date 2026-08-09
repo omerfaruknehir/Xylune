@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
+import androidx.core.view.doOnPreDraw
 import app.xylune.chat.settings.AppPreferences
 import app.xylune.chat.settings.LauncherIconManager
 import app.xylune.chat.ui.theme.resolvedXyluneColorScheme
@@ -62,7 +63,7 @@ open class LauncherActivity : Activity() {
             ),
         )
 
-        root.postDelayed({
+        root.doOnPreDraw {
             startActivity(
                 Intent(this, MainActivity::class.java).apply {
                     action = Intent.ACTION_MAIN
@@ -77,7 +78,7 @@ open class LauncherActivity : Activity() {
             finish()
             @Suppress("DEPRECATION")
             overridePendingTransition(0, 0)
-        }, 110L)
+        }
     }
 }
 

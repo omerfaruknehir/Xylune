@@ -33,4 +33,1146 @@
     <string name="dismiss">Dismiss</string>
     <string name="copy_report">Copy report</string>
     <string name="crash_report_clip_label">%1$s crash report</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_new_chat_defaults">New chat defaults</string>
+    <string name="settings_response_style">Response style</string>
+    <string name="settings_search_web">Search &amp; web</string>
+    <string name="settings_background_tasks">Background tasks</string>
+    <string name="settings_memory">Memory</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_privacy_safety">Privacy &amp; safety</string>
+    <string name="settings_backup_transfer">Backup &amp; transfer</string>
+    <string name="settings_local_execution">Local execution</string>
+    <string name="settings_developer">Developer settings</string>
+    <string name="settings_custom_instructions">Custom instructions</string>
+    <string name="settings_providers_models">Providers &amp; models</string>
+    <string name="settings_about_xylune">About Xylune</string>
+    <string name="settings_licenses_notices">Licenses &amp; notices</string>
+    <string name="provider_catalog_initialization_failed">The built-in provider catalog could not be initialized. Setup remains usable; you can add a custom provider manually.</string>
+
+    <!-- generated-ui-copy:start -->
+    <string name="ui_copy_0_disables_blur_higher_values_increase_the_fa65bb87" formatted="false">0% disables blur. Higher values increase the panel-local blur radius.</string>
+    <string name="ui_copy_0_is_transparent_100_is_a_fully_opaque_pan_f33fa680" formatted="false">0% is transparent. 100% is a fully opaque panel tint.</string>
+    <string name="ui_copy_100_is_fully_opaque_and_hides_background_b_1ed78039" formatted="false">100% is fully opaque and hides background blur.</string>
+    <string name="ui_copy_1_600_seconds_pure_python_is_interrupted_a_68f99b1b" formatted="false">1–600 seconds. Pure Python is interrupted at the deadline; a blocking native extension may return later.</string>
+    <string name="ui_copy_3_20_results_per_search_call_384a6497" formatted="false">3–20 results per search call</string>
+    <string name="ui_copy_a_chatgpt_usage_limit_has_been_reached_77e6f623" formatted="false">A ChatGPT usage limit has been reached.</string>
+    <string name="ui_copy_a_file_referenced_by_this_answer_b8ddc412" formatted="false">A file referenced by this answer.</string>
+    <string name="ui_copy_a_pair_is_one_request_plus_its_answer_work_6e74e5ec" formatted="false">A pair is one request plus its answer. Working history has its own budget inside the total context ceiling.</string>
+    <string name="ui_copy_a_provider_is_needed_only_when_you_send_a__fda9803f" formatted="false">A provider is needed only when you send a message. You may connect one now or continue and do it later.</string>
+    <string name="ui_copy_a_separately_selected_model_allows_or_deni_e473e04c" formatted="false">A separately selected model allows or denies the preflight plan</string>
+    <string name="ui_copy_a_source_used_to_support_the_surrounding_c_e0c44159" formatted="false">A source used to support the surrounding claim.</string>
+    <string name="ui_copy_amoled_black_39b130d7" formatted="false">AMOLED black</string>
+    <string name="ui_copy_amoled_black_only_changes_dark_mode_surfac_378525c5" formatted="false">AMOLED black only changes dark mode surfaces.</string>
+    <string name="ui_copy_api_base_url_1358fba4" formatted="false">API base URL</string>
+    <string name="ui_copy_api_key_cf678cab" formatted="false">API key</string>
+    <string name="ui_copy_api_key_optional_ad9807cb" formatted="false">API key (optional)</string>
+    <string name="ui_copy_api_key_is_required_f36e208b" formatted="false">API key is required</string>
+    <string name="ui_copy_api_key_missing_55dd8fbe" formatted="false">API key missing</string>
+    <string name="ui_copy_api_key_saved_securely_279b6719" formatted="false">API key saved securely</string>
+    <string name="ui_copy_api_model_id_d4e4b444" formatted="false">API model ID</string>
+    <string name="ui_copy_archived_chats_f8b0180b" formatted="false">ARCHIVED CHATS</string>
+    <string name="ui_copy_about_6b21fb79" formatted="false">About</string>
+    <string name="ui_copy_about_xylune_be7ca9fe" formatted="false">About Xylune</string>
+    <string name="ui_copy_access_key_id_2ea1eee1" formatted="false">Access key ID</string>
+    <string name="ui_copy_account_connected_4d04eece" formatted="false">Account connected</string>
+    <string name="ui_copy_add_61cc55aa" formatted="false">Add</string>
+    <string name="ui_copy_add_api_0968d619" formatted="false">Add API</string>
+    <string name="ui_copy_add_chatgpt_6b5fbad1" formatted="false">Add ChatGPT</string>
+    <string name="ui_copy_add_chatgpt_provider_857271ac" formatted="false">Add ChatGPT provider</string>
+    <string name="ui_copy_add_a_chatgpt_account_or_configure_an_api__fd220cdb" formatted="false">Add a ChatGPT account or configure an API-compatible provider.</string>
+    <string name="ui_copy_add_a_usable_provider_in_the_providers_tab_71a7c134" formatted="false">Add a usable provider in the Providers tab.</string>
+    <string name="ui_copy_add_an_image_then_describe_the_edit_28fdc0b6" formatted="false">Add an image, then describe the edit…</string>
+    <string name="ui_copy_add_another_e9e7205b" formatted="false">Add another</string>
+    <string name="ui_copy_add_at_least_one_reference_image_a2601038" formatted="false">Add at least one reference image.</string>
+    <string name="ui_copy_add_favorite_4914d44e" formatted="false">Add favorite</string>
+    <string name="ui_copy_add_image_5375634e" formatted="false">Add image</string>
+    <string name="ui_copy_add_memory_095fb8b0" formatted="false">Add memory</string>
+    <string name="ui_copy_add_model_b6a86ca1" formatted="false">Add model</string>
+    <string name="ui_copy_add_provider_51922162" formatted="false">Add provider</string>
+    <string name="ui_copy_add_reference_image_51ffa371" formatted="false">Add reference image</string>
+    <string name="ui_copy_add_to_chat_44d6fb37" formatted="false">Add to chat</string>
+    <string name="ui_copy_add_your_first_api_provider_99b89dbf" formatted="false">Add your first API provider</string>
+    <string name="ui_copy_additional_credits_available_f088a3d0" formatted="false">Additional credits available</string>
+    <string name="ui_copy_additional_instructions_6ad18129" formatted="false">Additional instructions</string>
+    <string name="ui_copy_advanced_4d064726" formatted="false">Advanced</string>
+    <string name="ui_copy_advanced_compatibility_34b18d92" formatted="false">Advanced compatibility</string>
+    <string name="ui_copy_advanced_headers_6939bef8" formatted="false">Advanced headers</string>
+    <string name="ui_copy_advanced_package_sources_ced8149e" formatted="false">Advanced package sources</string>
+    <string name="ui_copy_all_6a720856" formatted="false">All</string>
+    <string name="ui_copy_all_categories_060be00f" formatted="false">All categories</string>
+    <string name="ui_copy_all_chats_398e5b9e" formatted="false">All chats</string>
+    <string name="ui_copy_all_providers_352b5847" formatted="false">All providers</string>
+    <string name="ui_copy_allocation_blocking_gc_pressure_981e4d64" formatted="false">Allocation / blocking GC pressure</string>
+    <string name="ui_copy_allow_3ad0e369" formatted="false">Allow</string>
+    <string name="ui_copy_allow_and_install_54bbf8d7" formatted="false">Allow and install</string>
+    <string name="ui_copy_allow_models_to_save_stable_non_sensitive__56f7f457" formatted="false">Allow models to save stable, non-sensitive details; duplicate items are merged</string>
+    <string name="ui_copy_allow_package_changes_db149919" formatted="false">Allow package changes?</string>
+    <string name="ui_copy_allow_package_installation_f80b8c4b" formatted="false">Allow package installation?</string>
+    <string name="ui_copy_allow_page_fetching_d42ed0a5" formatted="false">Allow page fetching</string>
+    <string name="ui_copy_allow_pip_direct_references_and_relaxed_ap_bfca3617" formatted="false">Allow pip direct references and relaxed apt names; command-line options remain blocked</string>
+    <string name="ui_copy_amazon_s3_minio_backblaze_b2_or_another_co_7a850576" formatted="false">Amazon S3, MinIO, Backblaze B2, or another compatible bucket</string>
+    <string name="ui_copy_an_external_page_linked_from_this_answer_c8d5d675" formatted="false">An external page linked from this answer.</string>
+    <string name="ui_copy_android_grants_xylune_persistent_access_on_34c55edf" formatted="false">Android grants Xylune persistent access only to the folder you select. Create or choose a dedicated Xylune folder; no account-wide permission is requested.</string>
+    <string name="ui_copy_android_themed_icons_can_recolor_xylune_s__f7184987" formatted="false">Android themed icons can recolor Xylune\'s monochrome layer. Dynamic uses the live wallpaper-derived Material You palette when themed icons are off.</string>
+    <string name="ui_copy_app_settings_and_configuration_54efc74b" formatted="false">App settings and configuration</string>
+    <string name="ui_copy_appearance_41def7a0" formatted="false">Appearance</string>
+    <string name="ui_copy_appearance_backups_memory_and_advanced_beh_5e5344ce" formatted="false">Appearance, backups, memory, and advanced behavior are grouped for later.</string>
+    <string name="ui_copy_apply_cfea419c" formatted="false">Apply</string>
+    <string name="ui_copy_approval_model_b981e10d" formatted="false">Approval model</string>
+    <string name="ui_copy_approval_required_b8d012c2" formatted="false">Approval required</string>
+    <string name="ui_copy_archive_2621c6fd" formatted="false">Archive</string>
+    <string name="ui_copy_archive_password_afd11d6f" formatted="false">Archive password</string>
+    <string name="ui_copy_archived_eddc813f" formatted="false">Archived</string>
+    <string name="ui_copy_archived_chats_will_appear_here_c94c149a" formatted="false">Archived chats will appear here.</string>
+    <string name="ui_copy_ask_ai_to_retry_0f716158" formatted="false">Ask AI to retry</string>
+    <string name="ui_copy_ask_every_time_c9296e65" formatted="false">Ask every time</string>
+    <string name="ui_copy_assistant_responses_5c707a00" formatted="false">Assistant responses</string>
+    <string name="ui_copy_attachments_are_unavailable_in_image_gener_9c4dc302" formatted="false">Attachments are unavailable in image generation mode</string>
+    <string name="ui_copy_auto_approve_b9ab9fe7" formatted="false">Auto-approve</string>
+    <string name="ui_copy_auto_approve_only_package_names_you_list_c5d8eddd" formatted="false">Auto-approve only package names you list</string>
+    <string name="ui_copy_automatic_ac9041e7" formatted="false">Automatic</string>
+    <string name="ui_copy_automatic_memory_d8913794" formatted="false">Automatic memory</string>
+    <string name="ui_copy_automatic_repair_attempts_c33ea5b8" formatted="false">Automatic repair attempts</string>
+    <string name="ui_copy_automatic_repair_unavailable_de47b795" formatted="false">Automatic repair unavailable</string>
+    <string name="ui_copy_availability_in_new_chats_8ce2f36c" formatted="false">Availability in new chats</string>
+    <string name="ui_copy_available_levels_follow_the_selected_model_66af3032" formatted="false">Available levels follow the selected model. Some models cannot fully disable reasoning.</string>
+    <string name="ui_copy_avoid_decorative_emoji_and_use_them_only_w_e772bb3f" formatted="false">Avoid decorative emoji and use them only when they add meaning</string>
+    <string name="ui_copy_back_b52b36b7" formatted="false">Back</string>
+    <string name="ui_copy_back_to_settings_a8c1255a" formatted="false">Back to Settings</string>
+    <string name="ui_copy_back_to_runtime_manager_c1fe861f" formatted="false">Back to runtime manager</string>
+    <string name="ui_copy_back_to_setup_97e95eff" formatted="false">Back to setup</string>
+    <string name="ui_copy_back_up_now_527bf1aa" formatted="false">Back up now</string>
+    <string name="ui_copy_background_task_models_ff23eed1" formatted="false">Background task models</string>
+    <string name="ui_copy_background_tasks_3a783601" formatted="false">Background tasks</string>
+    <string name="ui_copy_backup_dd96994d" formatted="false">Backup</string>
+    <string name="ui_copy_backup_transfer_84bb295b" formatted="false">Backup &amp; transfer</string>
+    <string name="ui_copy_backup_downloaded_opening_preview_b365dfae" formatted="false">Backup downloaded. Opening preview…</string>
+    <string name="ui_copy_backup_failed_7e1a41f8" formatted="false">Backup failed</string>
+    <string name="ui_copy_backup_restored_setup_was_paused_finish_pr_5b8e9941" formatted="false">Backup restored. Setup was paused; finish provider access later from Settings.</string>
+    <string name="ui_copy_backup_saved_66cbc149" formatted="false">Backup saved</string>
+    <string name="ui_copy_backups_530cc25b" formatted="false">Backups</string>
+    <string name="ui_copy_base_url_1dbd61f5" formatted="false">Base URL</string>
+    <string name="ui_copy_before_the_first_install_450436fa" formatted="false">Before the first install</string>
+    <string name="ui_copy_blur_900aa998" formatted="false">Blur</string>
+    <string name="ui_copy_blur_boundary_diagnostics_0cdf5b67" formatted="false">Blur boundary diagnostics</string>
+    <string name="ui_copy_bottom_left_1a7ce96f" formatted="false">Bottom left</string>
+    <string name="ui_copy_bottom_right_c2fc5768" formatted="false">Bottom right</string>
+    <string name="ui_copy_bring_your_own_models_b312a997" formatted="false">Bring your own models</string>
+    <string name="ui_copy_bucket_40dafe4c" formatted="false">Bucket</string>
+    <string name="ui_copy_buffer_swap_b7717fd1" formatted="false">Buffer swap</string>
+    <string name="ui_copy_bugs_regressions_and_feature_requests_bdbada43" formatted="false">Bugs, regressions, and feature requests</string>
+    <string name="ui_copy_build_bbd80cf7" formatted="false">Build</string>
+    <string name="ui_copy_build_information_ddc79597" formatted="false">Build information</string>
+    <string name="ui_copy_build_source_27f4fe69" formatted="false">Build source</string>
+    <string name="ui_copy_bundled_python_3_12_no_linux_download_requ_9b30e286" formatted="false">Bundled Python 3.12 · no Linux download required</string>
+    <string name="ui_copy_bundled_runtime_loading_this_chat_s_enviro_2d613676" formatted="false">Bundled runtime · loading this chat\'s environment…</string>
+    <string name="ui_copy_bundled_suggestions_b7b1ca8f" formatted="false">Bundled suggestions</string>
+    <string name="ui_copy_cached_input_36e191c9" formatted="false">Cached input</string>
+    <string name="ui_copy_cancel_77dfd213" formatted="false">Cancel</string>
+    <string name="ui_copy_category_a3c686e7" formatted="false">Category</string>
+    <string name="ui_copy_cause_profiler_5b1920f7" formatted="false">Cause profiler</string>
+    <string name="ui_copy_change_folder_2de7d622" formatted="false">Change folder</string>
+    <string name="ui_copy_changed_files_fe25abc0" formatted="false">Changed files</string>
+    <string name="ui_copy_chat_2ced57f1" formatted="false">Chat</string>
+    <string name="ui_copy_chat_behavior_bc3ca2c7" formatted="false">Chat behavior</string>
+    <string name="ui_copy_chat_naming_1451295a" formatted="false">Chat naming</string>
+    <string name="ui_copy_chat_naming_and_context_compression_models_33617241" formatted="false">Chat naming and context compression models</string>
+    <string name="ui_copy_chatgpt_oauth_connected_cddd12b6" formatted="false">ChatGPT OAuth • Connected</string>
+    <string name="ui_copy_chatgpt_oauth_disconnected_542cca40" formatted="false">ChatGPT OAuth • Disconnected</string>
+    <string name="ui_copy_chatgpt_oauth_needs_attention_b6ddfac0" formatted="false">ChatGPT OAuth • Needs attention</string>
+    <string name="ui_copy_chatgpt_oauth_signing_in_9a70e7b4" formatted="false">ChatGPT OAuth • Signing in</string>
+    <string name="ui_copy_chats_are_kept_and_moved_back_to_all_chats_2d13eaa4" formatted="false">Chats are kept and moved back to All chats.</string>
+    <string name="ui_copy_chats_credentials_and_tool_workspaces_stay_38633b64" formatted="false">Chats, credentials, and tool workspaces stay on this device.</string>
+    <string name="ui_copy_chats_credentials_and_workspaces_stay_on_y_1ee4fc0c" formatted="false">Chats, credentials, and workspaces stay on your device. Xylune connects directly to providers you configure and has no application backend, ads, or telemetry.</string>
+    <string name="ui_copy_check_again_e185048c" formatted="false">Check again</string>
+    <string name="ui_copy_check_automatically_7cd229d2" formatted="false">Check automatically</string>
+    <string name="ui_copy_check_for_updates_736b9062" formatted="false">Check for updates</string>
+    <string name="ui_copy_check_the_source_repository_once_per_day_w_7fdea90f" formatted="false">Check the source repository once per day when Xylune starts</string>
+    <string name="ui_copy_checking_820d6004" formatted="false">Checking…</string>
+    <string name="ui_copy_choose_a_model_fefb3326" formatted="false">Choose a model</string>
+    <string name="ui_copy_choose_a_provider_then_manage_its_connecti_b661d571" formatted="false">Choose a provider, then manage its connection and models.</string>
+    <string name="ui_copy_choose_a_restrained_built_in_palette_or_an_9629ebc4" formatted="false">Choose a restrained built-in palette or Android dynamic colors. Every swatch is rendered from that palette, not the currently selected one.</string>
+    <string name="ui_copy_choose_approval_model_411af022" formatted="false">Choose approval model</string>
+    <string name="ui_copy_choose_automation_model_91c89c6f" formatted="false">Choose automation model</string>
+    <string name="ui_copy_choose_folder_1838a415" formatted="false">Choose folder</string>
+    <string name="ui_copy_choose_how_xylune_names_chats_and_compress_0c947c25" formatted="false">Choose how Xylune names chats and compresses older context.</string>
+    <string name="ui_copy_choose_image_model_fc20b463" formatted="false">Choose image model</string>
+    <string name="ui_copy_choose_when_xylune_may_install_python_or_l_0e6027fb" formatted="false">Choose when Xylune may install Python or Linux packages and which sources are trusted.</string>
+    <string name="ui_copy_clear_719ea396" formatted="false">Clear</string>
+    <string name="ui_copy_clear_terminal_b754d96c" formatted="false">Clear terminal</string>
+    <string name="ui_copy_close_bbfa773e" formatted="false">Close</string>
+    <string name="ui_copy_cloud_backup_b92fde93" formatted="false">Cloud backup</string>
+    <string name="ui_copy_cloud_backups_local_archives_and_restore_96cd6161" formatted="false">Cloud backups, local archives, and restore</string>
+    <string name="ui_copy_collapsed_0084e8fa" formatted="false">Collapsed</string>
+    <string name="ui_copy_color_scheme_9407f901" formatted="false">Color scheme</string>
+    <string name="ui_copy_comma_space_or_newline_separated_863eb052" formatted="false">Comma, space, or newline separated</string>
+    <string name="ui_copy_command_8901895f" formatted="false">Command</string>
+    <string name="ui_copy_commands_run_as_uid_0_inside_the_selected__e5bf6bf8" formatted="false">Commands run as uid 0 inside the selected PRoot distribution.</string>
+    <string name="ui_copy_complete_sign_in_in_your_browser_c7362bbd" formatted="false">Complete sign-in in your browser…</string>
+    <string name="ui_copy_completed_1798b3ba" formatted="false">Completed</string>
+    <string name="ui_copy_composer_defaults_f24a4c75" formatted="false">Composer defaults</string>
+    <string name="ui_copy_configure_a_usable_provider_to_enable_mode_e379478d" formatted="false">Configure a usable provider to enable model-based automation.</string>
+    <string name="ui_copy_configured_in_usd_per_million_tokens_a713ef80" formatted="false">Configured in USD per million tokens</string>
+    <string name="ui_copy_confirm_password_4a7c565d" formatted="false">Confirm password</string>
+    <string name="ui_copy_connect_fetch_models_50cf8512" formatted="false">Connect &amp; fetch models</string>
+    <string name="ui_copy_connect_google_drive_4a12c0a3" formatted="false">Connect Google Drive</string>
+    <string name="ui_copy_connect_a_model_provider_3447ed6f" formatted="false">Connect a model provider</string>
+    <string name="ui_copy_connect_a_provider_6967f288" formatted="false">Connect a provider</string>
+    <string name="ui_copy_connect_account_8ff19dc8" formatted="false">Connect account</string>
+    <string name="ui_copy_connect_folder_a423804a" formatted="false">Connect folder</string>
+    <string name="ui_copy_connect_to_ollama_llama_cpp_or_lm_studio_ac14c5fe" formatted="false">Connect to Ollama, llama.cpp, or LM Studio.</string>
+    <string name="ui_copy_connected_c2f9b7b4" formatted="false">Connected</string>
+    <string name="ui_copy_connecting_fd3e7969" formatted="false">Connecting…</string>
+    <string name="ui_copy_connection_details_stay_out_of_the_way_unt_1060adf3" formatted="false">Connection details stay out of the way until you need them.</string>
+    <string name="ui_copy_connection_failed_tap_to_retry_58696557" formatted="false">Connection failed • tap to retry</string>
+    <string name="ui_copy_context_cc11b3a2" formatted="false">Context</string>
+    <string name="ui_copy_context_output_1a6d3860" formatted="false">Context &amp; output</string>
+    <string name="ui_copy_context_compression_28788cf9" formatted="false">Context compression</string>
+    <string name="ui_copy_context_token_ceiling_06a47c81" formatted="false">Context token ceiling</string>
+    <string name="ui_copy_context_tokens_4d6993db" formatted="false">Context tokens</string>
+    <string name="ui_copy_continue_2e026239" formatted="false">Continue</string>
+    <string name="ui_copy_continue_without_one_f9f05eb4" formatted="false">Continue without one</string>
+    <string name="ui_copy_controls_how_xylune_handles_ai_generated_i_48acf2ef" formatted="false">Controls how Xylune handles AI-generated interactive UI.</string>
+    <string name="ui_copy_controls_whether_reasoning_and_tool_cards__21e3df21" formatted="false">Controls whether reasoning and tool cards expand automatically; they remain saved either way.</string>
+    <string name="ui_copy_controls_whether_this_custom_endpoint_uses_284b17b7" formatted="false">Controls whether this custom endpoint uses chat/completions or images/generations.</string>
+    <string name="ui_copy_conversation_deleted_798eb3c2" formatted="false">Conversation deleted</string>
+    <string name="ui_copy_cool_teal_and_cyan_accents_62328729" formatted="false">Cool teal and cyan accents</string>
+    <string name="ui_copy_copied_8e3df45a" formatted="false">Copied</string>
+    <string name="ui_copy_copy_af74f7c5" formatted="false">Copy</string>
+    <string name="ui_copy_copy_errors_404ef8c8" formatted="false">Copy errors</string>
+    <string name="ui_copy_copy_output_944a2cd1" formatted="false">Copy output</string>
+    <string name="ui_copy_copy_setup_details_aa78ee1e" formatted="false">Copy setup details</string>
+    <string name="ui_copy_copy_source_3dd78600" formatted="false">Copy source</string>
+    <string name="ui_copy_cost_64ae43e8" formatted="false">Cost</string>
+    <string name="ui_copy_cost_unavailable_194b13a4" formatted="false">Cost unavailable</string>
+    <string name="ui_copy_could_not_connect_the_cloud_folder_1504bc6a" formatted="false">Could not connect the cloud folder</string>
+    <string name="ui_copy_could_not_create_the_chat_file_6e2e9b13" formatted="false">Could not create the chat file</string>
+    <string name="ui_copy_could_not_delete_backup_e58b4033" formatted="false">Could not delete backup</string>
+    <string name="ui_copy_could_not_download_and_inspect_the_cloud_b_371f41c9" formatted="false">Could not download and inspect the cloud backup</string>
+    <string name="ui_copy_could_not_download_backup_b7894d83" formatted="false">Could not download backup</string>
+    <string name="ui_copy_could_not_fetch_the_model_list_9f107d0a" formatted="false">Could not fetch the model list</string>
+    <string name="ui_copy_could_not_inspect_archive_ba34f9f2" formatted="false">Could not inspect archive</string>
+    <string name="ui_copy_could_not_list_backups_406f0469" formatted="false">Could not list backups</string>
+    <string name="ui_copy_could_not_open_backup_7cee936c" formatted="false">Could not open backup</string>
+    <string name="ui_copy_could_not_open_cloud_sign_in_b6cc6d9e" formatted="false">Could not open cloud sign-in</string>
+    <string name="ui_copy_could_not_open_the_update_link_954b53f6" formatted="false">Could not open the update link</string>
+    <string name="ui_copy_could_not_read_google_drive_app_storage_c11ea250" formatted="false">Could not read Google Drive app storage</string>
+    <string name="ui_copy_could_not_read_the_cloud_folder_cfea9b4c" formatted="false">Could not read the cloud folder</string>
+    <string name="ui_copy_could_not_read_the_connected_cloud_folder_086bff90" formatted="false">Could not read the connected cloud folder</string>
+    <string name="ui_copy_could_not_read_the_selected_cloud_folder_02907068" formatted="false">Could not read the selected cloud folder</string>
+    <string name="ui_copy_could_not_unlock_archive_41801e70" formatted="false">Could not unlock archive</string>
+    <string name="ui_copy_create_6e157c5d" formatted="false">Create</string>
+    <string name="ui_copy_create_image_8ea312d6" formatted="false">Create image</string>
+    <string name="ui_copy_create_new_project_dcd5a8d5" formatted="false">Create new project</string>
+    <string name="ui_copy_created_by_omerfaruknehir_f66bf993" formatted="false">Created by @omerfaruknehir</string>
+    <string name="ui_copy_creating_and_uploading_6059a4cb" formatted="false">Creating and uploading…</string>
+    <string name="ui_copy_credentials_are_encrypted_with_android_key_8b5ed846" formatted="false">Credentials are encrypted with Android Keystore and are never included in Xylune backups.</string>
+    <string name="ui_copy_credentials_are_encrypted_with_android_key_51e96499" formatted="false">Credentials are encrypted with Android Keystore and sent only to the provider you choose.</string>
+    <string name="ui_copy_credentials_were_found_and_this_step_is_co_ae35eccc" formatted="false">Credentials were found and this step is complete.</string>
+    <string name="ui_copy_credits_unlimited_a3b91acc" formatted="false">Credits: unlimited</string>
+    <string name="ui_copy_cross_chat_facts_and_preferences_stored_lo_c9095e5c" formatted="false">Cross-chat facts and preferences stored locally</string>
+    <string name="ui_copy_current_account_quota_windows_a4789434" formatted="false">Current account quota windows</string>
+    <string name="ui_copy_custom_headers_json_09006e39" formatted="false">Custom headers JSON</string>
+    <string name="ui_copy_custom_instruction_profiles_026ede6b" formatted="false">Custom instruction profiles</string>
+    <string name="ui_copy_custom_instructions_fd7e5206" formatted="false">Custom instructions</string>
+    <string name="ui_copy_custom_provider_fd020661" formatted="false">Custom provider</string>
+    <string name="ui_copy_custom_system_prompt_c6dd0cc6" formatted="false">Custom system prompt</string>
+    <string name="ui_copy_diagram_native_598faf2d" formatted="false">DIAGRAM • native</string>
+    <string name="ui_copy_dark_ae1ef014" formatted="false">Dark</string>
+    <string name="ui_copy_data_deletion_a19c4cb5" formatted="false">Data deletion</string>
+    <string name="ui_copy_deep_research_8bcb0868" formatted="false">Deep Research</string>
+    <string name="ui_copy_deep_research_plans_searches_iteratively_v_87244f15" formatted="false">Deep Research plans, searches iteratively, verifies sources, and produces a cited report. Enabling it also enables web search.</string>
+    <string name="ui_copy_deep_purple_with_soft_rose_accents_5389832c" formatted="false">Deep purple with soft rose accents</string>
+    <string name="ui_copy_default_808d7dca" formatted="false">Default</string>
+    <string name="ui_copy_delete_f6fdbe48" formatted="false">Delete</string>
+    <string name="ui_copy_delete_backup_4fcb0270" formatted="false">Delete backup</string>
+    <string name="ui_copy_delete_cloud_backup_55d4064d" formatted="false">Delete cloud backup?</string>
+    <string name="ui_copy_delete_disabled_fcc7cb3b" formatted="false">Delete disabled</string>
+    <string name="ui_copy_delete_local_data_and_provider_held_copies_ea5dd121" formatted="false">Delete local data and provider-held copies</string>
+    <string name="ui_copy_delete_memory_bcef2182" formatted="false">Delete memory</string>
+    <string name="ui_copy_delete_memory_c84844d4" formatted="false">Delete memory?</string>
+    <string name="ui_copy_delete_permanently_e63b5153" formatted="false">Delete permanently</string>
+    <string name="ui_copy_delete_project_af1456f2" formatted="false">Delete project</string>
+    <string name="ui_copy_deleted_system_prompt_06c8a0bb" formatted="false">Deleted system prompt</string>
+    <string name="ui_copy_deny_53577bb5" formatted="false">Deny</string>
+    <string name="ui_copy_dependencies_0562f32d" formatted="false">Dependencies</string>
+    <string name="ui_copy_dependency_ce311abe" formatted="false">Dependency</string>
+    <string name="ui_copy_describe_an_image_to_generate_6cf98862" formatted="false">Describe an image to generate…</string>
+    <string name="ui_copy_describe_an_image_4f20cc05" formatted="false">Describe an image…</string>
+    <string name="ui_copy_describe_the_changes_cbc25316" formatted="false">Describe the changes…</string>
+    <string name="ui_copy_describe_the_image_you_want_to_create_adbeecb1" formatted="false">Describe the image you want to create.</string>
+    <string name="ui_copy_describe_the_image_you_want_this_model_gen_c188561d" formatted="false">Describe the image you want. This model generates new images without reference-image editing.</string>
+    <string name="ui_copy_describe_the_image_you_want_1d608b3f" formatted="false">Describe the image you want…</string>
+    <string name="ui_copy_detailed_metrics_651ab820" formatted="false">Detailed metrics</string>
+    <string name="ui_copy_details_dc3decbb" formatted="false">Details</string>
+    <string name="ui_copy_developer_options_7ea27f6f" formatted="false">Developer options</string>
+    <string name="ui_copy_developer_options_enabled_1ce8c70e" formatted="false">Developer options · enabled</string>
+    <string name="ui_copy_developer_settings_10c12c96" formatted="false">Developer settings</string>
+    <string name="ui_copy_development_disclosure_disclaimer_51bf9f99" formatted="false">Development disclosure &amp; disclaimer</string>
+    <string name="ui_copy_device_abi_08110147" formatted="false">Device ABI</string>
+    <string name="ui_copy_diagram_renderer_found_no_supported_nodes_13e8fcbc" formatted="false">Diagram renderer found no supported nodes</string>
+    <string name="ui_copy_direct_https_webdav_support_for_nextcloud__7ef97b4e" formatted="false">Direct HTTPS WebDAV support for Nextcloud, ownCloud, NAS servers, and compatible hosts. Use an app password when available.</string>
+    <string name="ui_copy_direct_app_storage_566d9e69" formatted="false">Direct app storage</string>
+    <string name="ui_copy_disable_9a7d4e06" formatted="false">Disable</string>
+    <string name="ui_copy_disable_all_485c590b" formatted="false">Disable all</string>
+    <string name="ui_copy_disable_only_for_a_trusted_local_or_keyles_aa836bd5" formatted="false">Disable only for a trusted local or keyless endpoint</string>
+    <string name="ui_copy_disable_only_for_your_own_local_keyless_en_79ff86af" formatted="false">Disable only for your own local/keyless endpoint</string>
+    <string name="ui_copy_disabled_f4f4473d" formatted="false">Disabled</string>
+    <string name="ui_copy_disabled_memories_are_currently_excluded_f_beba57c8" formatted="false">Disabled memories are currently excluded from chats. This cleanup permanently removes them.</string>
+    <string name="ui_copy_disconnect_ed28e068" formatted="false">Disconnect</string>
+    <string name="ui_copy_disconnect_account_37546bdc" formatted="false">Disconnect account</string>
+    <string name="ui_copy_disconnected_771e05f2" formatted="false">Disconnected</string>
+    <string name="ui_copy_dismiss_error_347aaa77" formatted="false">Dismiss error</string>
+    <string name="ui_copy_display_name_c7874aaa" formatted="false">Display name</string>
+    <string name="ui_copy_display_only_markdown_cannot_edit_generate_d95a9581" formatted="false">Display-only Markdown cannot edit generated content</string>
+    <string name="ui_copy_display_only_markdown_cannot_execute_linux_7846f40e" formatted="false">Display-only Markdown cannot execute Linux tools</string>
+    <string name="ui_copy_display_only_markdown_cannot_execute_pytho_17174215" formatted="false">Display-only Markdown cannot execute Python</string>
+    <string name="ui_copy_display_only_markdown_cannot_install_packa_8c322f5c" formatted="false">Display-only Markdown cannot install packages</string>
+    <string name="ui_copy_display_only_markdown_cannot_repair_genera_beeef88e" formatted="false">Display-only Markdown cannot repair generated content</string>
+    <string name="ui_copy_display_only_markdown_cannot_review_packag_cbb98ac1" formatted="false">Display-only Markdown cannot review packages</string>
+    <string name="ui_copy_display_only_markdown_cannot_run_widgets_54d21ddb" formatted="false">Display-only Markdown cannot run widgets</string>
+    <string name="ui_copy_distribution_selection_installation_packag_e2045a42" formatted="false">Distribution selection, installation, packages, and removal are managed in one place.</string>
+    <string name="ui_copy_documents_archives_code_audio_and_other_su_c14d4dd9" formatted="false">Documents, archives, code, audio, and other supported files</string>
+    <string name="ui_copy_done_e9b450d1" formatted="false">Done</string>
+    <string name="ui_copy_double_tap_pinch_or_drag_3802518b" formatted="false">Double-tap, pinch, or drag</string>
+    <string name="ui_copy_download_a479c9c3" formatted="false">Download</string>
+    <string name="ui_copy_download_image_d6f34a97" formatted="false">Download image</string>
+    <string name="ui_copy_download_update_870d57b0" formatted="false">Download update</string>
+    <string name="ui_copy_draws_explicit_debug_guides_at_the_top_and_5be7ef59" formatted="false">Draws explicit debug guides at the top and bottom panel boundaries. Normal UI no longer draws a boundary highlight.</string>
+    <string name="ui_copy_dropbox_ac88abd7" formatted="false">Dropbox</string>
+    <string name="ui_copy_dropbox_xylune_app_folder_eb60f8b3" formatted="false">Dropbox Xylune App folder</string>
+    <string name="ui_copy_duplicate_content_recording_for_blur_abb2e364" formatted="false">Duplicate content recording for blur</string>
+    <string name="ui_copy_dynamic_ceb739df" formatted="false">Dynamic</string>
+    <string name="ui_copy_each_chat_has_a_persistent_bundled_python__0645477c" formatted="false">Each chat has a persistent bundled-Python session and isolated .packages directory. It works without installing Linux and remains confined by Android\'s app sandbox.</string>
+    <string name="ui_copy_each_provider_keeps_its_oauth_session_mode_92069f27" formatted="false">Each provider keeps its OAuth session, models, usage limits, and refresh state separate. Xylune requests a fresh sign-in page so you can add a different ChatGPT account.</string>
+    <string name="ui_copy_edge_softness_535764f7" formatted="false">Edge softness</string>
+    <string name="ui_copy_edit_5301648d" formatted="false">Edit</string>
+    <string name="ui_copy_edit_connection_b3171b22" formatted="false">Edit connection</string>
+    <string name="ui_copy_edit_custom_profile_731c56b7" formatted="false">Edit custom profile</string>
+    <string name="ui_copy_edit_image_2b4c1f49" formatted="false">Edit image</string>
+    <string name="ui_copy_edit_images_b368ef68" formatted="false">Edit images</string>
+    <string name="ui_copy_edit_memory_67cbb906" formatted="false">Edit memory</string>
+    <string name="ui_copy_edit_message_96116a52" formatted="false">Edit message</string>
+    <string name="ui_copy_edit_model_3e5f6c0b" formatted="false">Edit model</string>
+    <string name="ui_copy_edit_source_93da9166" formatted="false">Edit source</string>
+    <string name="ui_copy_editing_image_7b5e4124" formatted="false">Editing image…</string>
+    <string name="ui_copy_emoji_use_and_global_answer_presentation_0d034f89" formatted="false">Emoji use and global answer presentation</string>
+    <string name="ui_copy_enable_20063ad9" formatted="false">Enable</string>
+    <string name="ui_copy_enable_all_1734db95" formatted="false">Enable all</string>
+    <string name="ui_copy_enable_developer_settings_73835d35" formatted="false">Enable developer settings</string>
+    <string name="ui_copy_enabled_df174a3f" formatted="false">Enabled</string>
+    <string name="ui_copy_enabled_by_default_technical_symbols_and_e_053fa2a9" formatted="false">Enabled by default. Technical symbols and emoji requested by the user are not blocked.</string>
+    <string name="ui_copy_encryption_password_optional_d7003844" formatted="false">Encryption password (optional)</string>
+    <string name="ui_copy_endpoint_92ec6350" formatted="false">Endpoint</string>
+    <string name="ui_copy_enter_xylune_7e429cf0" formatted="false">Enter Xylune</string>
+    <string name="ui_copy_enter_xylune_now_you_can_return_to_provide_a37af7f9" formatted="false">Enter Xylune now. You can return to Providers &amp; models from Settings at any time.</string>
+    <string name="ui_copy_enter_a_server_folder_and_credentials_ac04ef74" formatted="false">Enter a server folder and credentials</string>
+    <string name="ui_copy_enter_the_exact_https_url_of_a_dedicated_x_91f38cfa" formatted="false">Enter the exact HTTPS URL of a dedicated Xylune folder. For Nextcloud this normally ends with /remote.php/dav/files/USERNAME/Xylune/.</string>
+    <string name="ui_copy_everything_listed_here_is_embedded_in_this_6cdf576d" formatted="false">Everything listed here is embedded in this build and available without a network connection.</string>
+    <string name="ui_copy_everything_requested_is_already_installed_65a85f67" formatted="false">Everything requested is already installed.</string>
+    <string name="ui_copy_exact_provider_counters_where_available_th_0741822f" formatted="false">Exact provider counters where available, then local family and generic fallbacks.</string>
+    <string name="ui_copy_execution_completed_0fd90c4b" formatted="false">Execution completed</string>
+    <string name="ui_copy_execution_deadline_seconds_6b512627" formatted="false">Execution deadline (seconds)</string>
+    <string name="ui_copy_execution_exceeded_its_configured_deadline_53cf3584" formatted="false">Execution exceeded its configured deadline.</string>
+    <string name="ui_copy_execution_failed_cd20d9a5" formatted="false">Execution failed</string>
+    <string name="ui_copy_expand_step_589a7b3c" formatted="false">Expand step</string>
+    <string name="ui_copy_expand_work_details_49048b51" formatted="false">Expand work details</string>
+    <string name="ui_copy_expanded_6d170474" formatted="false">Expanded</string>
+    <string name="ui_copy_export_f3e4fadb" formatted="false">Export</string>
+    <string name="ui_copy_export_backup_6043b4bd" formatted="false">Export backup</string>
+    <string name="ui_copy_export_to_file_b277e65c" formatted="false">Export to file</string>
+    <string name="ui_copy_expose_selected_enabled_memories_to_chats__75fb8ea4" formatted="false">Expose selected enabled memories to chats and allow memory tools</string>
+    <string name="ui_copy_expose_web_fetch_so_the_model_can_read_pub_9e8b0c30" formatted="false">Expose web_fetch so the model can read public HTTPS pages after searching.</string>
+    <string name="ui_copy_extended_reasoning_9ce457a6" formatted="false">Extended reasoning</string>
+    <string name="ui_copy_external_link_66305476" formatted="false">External link</string>
+    <string name="ui_copy_extra_high_e8d45012" formatted="false">Extra high</string>
+    <string name="ui_copy_failed_09fef5d8" formatted="false">Failed</string>
+    <string name="ui_copy_fallback_search_engine_d73e34cd" formatted="false">Fallback search engine</string>
+    <string name="ui_copy_fastest_light_reasoning_35172b49" formatted="false">Fastest, light reasoning</string>
+    <string name="ui_copy_favorites_07b3e447" formatted="false">Favorites</string>
+    <string name="ui_copy_fetch_models_again_74312e71" formatted="false">Fetch models again</string>
+    <string name="ui_copy_fetched_source_abeb9df8" formatted="false">Fetched source</string>
+    <string name="ui_copy_fetching_openrouter_capabilities_reasoning_cf8061d2" formatted="false">Fetching OpenRouter capabilities, reasoning modes, limits, and pricing…</string>
+    <string name="ui_copy_file_no_longer_exists_e4b7144f" formatted="false">File no longer exists</string>
+    <string name="ui_copy_files_6ce6c512" formatted="false">Files</string>
+    <string name="ui_copy_finish_b74bdee9" formatted="false">Finish</string>
+    <string name="ui_copy_finish_setup_c516d2df" formatted="false">Finish setup</string>
+    <string name="ui_copy_finished_with_an_error_f44e1f9f" formatted="false">Finished with an error</string>
+    <string name="ui_copy_fit_image_5fbe15d2" formatted="false">Fit image</string>
+    <string name="ui_copy_flat_79c9e13a" formatted="false">Flat</string>
+    <string name="ui_copy_focused_defaults_55bb4714" formatted="false">Focused defaults</string>
+    <string name="ui_copy_folder_selection_was_cancelled_ede5fd73" formatted="false">Folder selection was cancelled.</string>
+    <string name="ui_copy_follow_device_368f3844" formatted="false">Follow device</string>
+    <string name="ui_copy_frame_pacing_scheduling_stalls_b1f9d374" formatted="false">Frame pacing / scheduling stalls</string>
+    <string name="ui_copy_free_75f52718" formatted="false">Free</string>
+    <string name="ui_copy_from_chat_6f39019a" formatted="false">From chat</string>
+    <string name="ui_copy_gpu_rendering_5e0fb926" formatted="false">GPU rendering</string>
+    <string name="ui_copy_gpu_rendering_blur_active_6e0bee33" formatted="false">GPU rendering (blur active)</string>
+    <string name="ui_copy_generate_edit_09558a5e" formatted="false">Generate + edit</string>
+    <string name="ui_copy_generate_image_ecfa4a83" formatted="false">Generate image</string>
+    <string name="ui_copy_generate_images_c96a6e96" formatted="false">Generate images</string>
+    <string name="ui_copy_generated_ui_safety_and_local_data_behavio_07e16dad" formatted="false">Generated UI safety and local-data behavior</string>
+    <string name="ui_copy_generated_content_265611d8" formatted="false">Generated content</string>
+    <string name="ui_copy_generated_widgets_are_paused_and_shown_as__7189218f" formatted="false">Generated widgets are paused and shown as safe fallback content.</string>
+    <string name="ui_copy_generated_widgets_may_render_but_xylune_st_9a434e3e" formatted="false">Generated widgets may render, but Xylune still applies its capability checks and crash recovery.</string>
+    <string name="ui_copy_generating_image_6adaae43" formatted="false">Generating image</string>
+    <string name="ui_copy_generating_image_2ff63fd3" formatted="false">Generating image…</string>
+    <string name="ui_copy_github_release_workflows_embed_their_own_o_777dfc18" formatted="false">GitHub release workflows embed their own owner/repository. Fork builds therefore follow the fork they came from.</string>
+    <string name="ui_copy_global_answer_preferences_changes_apply_to_8f1f460c" formatted="false">Global answer preferences. Changes apply to existing chats and new chats on their next response.</string>
+    <string name="ui_copy_go_to_latest_message_5d5b7490" formatted="false">Go to latest message</string>
+    <string name="ui_copy_google_drive_07c2964c" formatted="false">Google Drive</string>
+    <string name="ui_copy_google_drive_app_storage_e270d4d4" formatted="false">Google Drive app storage</string>
+    <string name="ui_copy_google_drive_authorization_could_not_be_op_5d66920e" formatted="false">Google Drive authorization could not be opened</string>
+    <string name="ui_copy_google_drive_authorization_could_not_be_op_ff074ee2" formatted="false">Google Drive authorization could not be opened.</string>
+    <string name="ui_copy_google_drive_authorization_expired_9d586208" formatted="false">Google Drive authorization expired</string>
+    <string name="ui_copy_google_drive_authorization_failed_4bcf374d" formatted="false">Google Drive authorization failed</string>
+    <string name="ui_copy_google_drive_authorization_returned_no_acc_dafecfb6" formatted="false">Google Drive authorization returned no access token</string>
+    <string name="ui_copy_google_drive_backup_failed_fea439ba" formatted="false">Google Drive backup failed</string>
+    <string name="ui_copy_google_drive_connection_was_canceled_50affc01" formatted="false">Google Drive connection was canceled.</string>
+    <string name="ui_copy_google_drive_could_not_be_disconnected_924c637c" formatted="false">Google Drive could not be disconnected</string>
+    <string name="ui_copy_google_drive_error_7b00a536" formatted="false">Google Drive error</string>
+    <string name="ui_copy_google_drive_registration_details_copied_640918d3" formatted="false">Google Drive registration details copied</string>
+    <string name="ui_copy_google_drive_sign_in_was_cancelled_fe06a3e7" formatted="false">Google Drive sign-in was cancelled.</string>
+    <string name="ui_copy_google_drive_onedrive_nextcloud_usb_or_loc_be9ac574" formatted="false">Google Drive, OneDrive, Nextcloud, USB, or local storage through Android</string>
+    <string name="ui_copy_google_account_selected_4da38c66" formatted="false">Google account selected</string>
+    <string name="ui_copy_google_returned_no_access_token_check_that_7a54ada7" formatted="false">Google returned no access token. Check that this app\'s package name and signing certificate are registered for its OAuth client.</string>
+    <string name="ui_copy_graphite_220c98de" formatted="false">Graphite</string>
+    <string name="ui_copy_guide_thickness_900ac19c" formatted="false">Guide thickness</string>
+    <string name="ui_copy_guides_are_bright_red_and_diagnostic_only__9d5d4df1" formatted="false">Guides are bright red and diagnostic-only. They are never shown unless both Developer settings and this toggle are enabled.</string>
+    <string name="ui_copy_https_endpoint_90787557" formatted="false">HTTPS endpoint</string>
+    <string name="ui_copy_hard_20a89915" formatted="false">Hard</string>
+    <string name="ui_copy_hidden_by_tint_2277c4cd" formatted="false">Hidden by tint</string>
+    <string name="ui_copy_hide_ocr_overlay_8b977e00" formatted="false">Hide OCR overlay</string>
+    <string name="ui_copy_hide_attempts_fc111181" formatted="false">Hide attempts</string>
+    <string name="ui_copy_hide_manual_model_entry_4e453621" formatted="false">Hide manual model entry</string>
+    <string name="ui_copy_high_b1a5954a" formatted="false">High</string>
+    <string name="ui_copy_hybrid_preflight_counting_a5a65d41" formatted="false">Hybrid preflight counting</string>
+    <string name="ui_copy_hybrid_token_counting_cfb44fd8" formatted="false">Hybrid token counting</string>
+    <string name="ui_copy_idle_no_rendered_frames_5f84c7e4" formatted="false">Idle / no rendered frames</string>
+    <string name="ui_copy_image_billing_e900e283" formatted="false">Image billing</string>
+    <string name="ui_copy_image_editing_2904f6c6" formatted="false">Image editing</string>
+    <string name="ui_copy_image_generation_eef91184" formatted="false">Image generation</string>
+    <string name="ui_copy_image_generation_and_editing_models_are_ke_dd25f3c1" formatted="false">Image generation and editing models are kept separate from chat models</string>
+    <string name="ui_copy_image_generation_describe_the_image_you_wa_2b0a9f11" formatted="false">Image generation · describe the image you want to create</string>
+    <string name="ui_copy_image_model_ec9bc150" formatted="false">Image model</string>
+    <string name="ui_copy_image_request_ce977f3c" formatted="false">Image request</string>
+    <string name="ui_copy_import_d6fbc9d2" formatted="false">Import</string>
+    <string name="ui_copy_import_xylune_backup_32a86156" formatted="false">Import Xylune backup</string>
+    <string name="ui_copy_import_and_continue_2d344c5b" formatted="false">Import and continue</string>
+    <string name="ui_copy_import_backup_1b40a3ad" formatted="false">Import backup</string>
+    <string name="ui_copy_import_creates_separate_local_copies_it_ne_68b9d377" formatted="false">Import creates separate local copies. It never replaces an existing chat and does not import API keys or OAuth sessions.</string>
+    <string name="ui_copy_import_failed_fbae8929" formatted="false">Import failed</string>
+    <string name="ui_copy_import_verification_passed_8fcc4196" formatted="false">Import verification passed.</string>
+    <string name="ui_copy_import_verification_warning_184fb69c" formatted="false">Import verification warning:</string>
+    <string name="ui_copy_imports_are_non_destructive_every_chat_is__a020f13d" formatted="false">Imports are non-destructive: every chat is created as a separate copy. Existing chats are never overwritten. Provider credentials are not imported, so reconnect the required provider before continuing an imported chat.</string>
+    <string name="ui_copy_in_use_20716e92" formatted="false">In use</string>
+    <string name="ui_copy_include_app_settings_and_configuration_c8732e79" formatted="false">Include app settings and configuration</string>
+    <string name="ui_copy_include_attachments_75c1ce31" formatted="false">Include attachments</string>
+    <string name="ui_copy_include_custom_system_prompts_93674a85" formatted="false">Include custom system prompts</string>
+    <string name="ui_copy_include_installed_linux_environments_ba43ca74" formatted="false">Include installed Linux environments</string>
+    <string name="ui_copy_include_reasoning_tool_traces_and_request__27d3f602" formatted="false">Include reasoning, tool traces, and request metadata</string>
+    <string name="ui_copy_included_content_19f75423" formatted="false">Included content</string>
+    <string name="ui_copy_included_modules_5a882ced" formatted="false">Included modules</string>
+    <string name="ui_copy_includes_theme_ui_behavior_new_chat_defaul_8fd6ca72" formatted="false">Includes theme, UI behavior, new-chat defaults, provider endpoints/models, projects, prompt profiles, and automation settings. Credentials, OAuth sessions, provider authorization headers, cloud grants, drafts, and navigation state stay excluded.</string>
+    <string name="ui_copy_input_b568d47f" formatted="false">Input</string>
+    <string name="ui_copy_input_handling_8cf15d8f" formatted="false">Input handling</string>
+    <string name="ui_copy_input_tokens_92f7d222" formatted="false">Input tokens</string>
+    <string name="ui_copy_inspect_environments_install_packages_run__d21d8fff" formatted="false">Inspect environments, install packages, run a test, or add/remove the optional Linux distribution.</string>
+    <string name="ui_copy_install_fd6c3ebf" formatted="false">Install</string>
+    <string name="ui_copy_install_linux_f477b4b7" formatted="false">Install Linux</string>
+    <string name="ui_copy_install_ubuntu_debian_or_alpine_before_xyl_cfa5e8a8" formatted="false">Install Ubuntu, Debian, or Alpine before Xylune can use Linux tools.</string>
+    <string name="ui_copy_install_a_linux_workspace_before_enabling_2029a1e6" formatted="false">Install a Linux workspace before enabling</string>
+    <string name="ui_copy_install_blocked_65cb6dde" formatted="false">Install blocked</string>
+    <string name="ui_copy_install_every_valid_preflight_plan_without_fb125aee" formatted="false">Install every valid preflight plan without asking</string>
+    <string name="ui_copy_install_failed_50c51c74" formatted="false">Install failed</string>
+    <string name="ui_copy_install_package_cb1fe356" formatted="false">Install package</string>
+    <string name="ui_copy_install_packages_72c740dd" formatted="false">Install packages</string>
+    <string name="ui_copy_installation_and_import_verification_compl_3ced88e7" formatted="false">Installation and import verification completed.</string>
+    <string name="ui_copy_installation_completed_successfully_390836a3" formatted="false">Installation completed successfully.</string>
+    <string name="ui_copy_installation_failed_346500a9" formatted="false">Installation failed</string>
+    <string name="ui_copy_installation_failed_no_success_was_recorde_3e818a77" formatted="false">Installation failed. No success was recorded.</string>
+    <string name="ui_copy_installation_or_import_verification_failed_8448d350" formatted="false">Installation or import verification failed.</string>
+    <string name="ui_copy_installation_started_3217fdbf" formatted="false">Installation started</string>
+    <string name="ui_copy_installed_linux_environments_e16d8317" formatted="false">Installed Linux environments</string>
+    <string name="ui_copy_installed_packages_1c9814b3" formatted="false">Installed packages</string>
+    <string name="ui_copy_installed_but_import_verification_found_a__7ea653e6" formatted="false">Installed, but import verification found a problem</string>
+    <string name="ui_copy_installing_approved_changes_faeccffa" formatted="false">Installing approved changes…</string>
+    <string name="ui_copy_installing_8d278823" formatted="false">Installing…</string>
+    <string name="ui_copy_instructions_ed58f297" formatted="false">Instructions</string>
+    <string name="ui_copy_intelligence_c698f940" formatted="false">Intelligence</string>
+    <string name="ui_copy_interface_panels_84c17fa8" formatted="false">Interface panels</string>
+    <string name="ui_copy_interrupted_response_4fca3cbd" formatted="false">Interrupted response</string>
+    <string name="ui_copy_invalid_completed_widgets_charts_and_diagr_81c17c7f" formatted="false">Invalid completed widgets, charts, and diagrams are repaired in place up to this limit.</string>
+    <string name="ui_copy_its_complete_message_history_attachments_a_2bc529c4" formatted="false">Its complete message history, attachments, and local code workspace records will be removed from Xylune.</string>
+    <string name="ui_copy_its_encrypted_oauth_session_and_models_wil_ce3a7c79" formatted="false">Its encrypted OAuth session and models will be disconnected. Chats and usage history are kept.</string>
+    <string name="ui_copy_its_saved_api_key_will_be_erased_and_it_wi_6ee2c51a" formatted="false">Its saved API key will be erased and it will disappear from model selectors. Chats and usage history are kept.</string>
+    <string name="ui_copy_keep_xylune_open_ba99f421" formatted="false">Keep Xylune open</string>
+    <string name="ui_copy_keep_in_background_eef84cf4" formatted="false">Keep in background</string>
+    <string name="ui_copy_keep_the_classic_xylune_green_icon_regardl_a53d36aa" formatted="false">Keep the classic Xylune green icon regardless of the selected palette.</string>
+    <string name="ui_copy_keep_the_partial_answer_4335f8b2" formatted="false">Keep the partial answer</string>
+    <string name="ui_copy_keyless_endpoint_c68df92f" formatted="false">Keyless endpoint</string>
+    <string name="ui_copy_known_calculated_cost_5822cfd8" formatted="false">Known calculated cost</string>
+    <string name="ui_copy_last_message_pairs_e97c6325" formatted="false">Last message pairs</string>
+    <string name="ui_copy_last_request_answer_pairs_69da861f" formatted="false">Last request/answer pairs</string>
+    <string name="ui_copy_layout_measure_5aa5d886" formatted="false">Layout / measure</string>
+    <string name="ui_copy_legal_902c91d9" formatted="false">Legal</string>
+    <string name="ui_copy_less_526cb742" formatted="false">Less</string>
+    <string name="ui_copy_less_emoji_7a1a0743" formatted="false">Less emoji</string>
+    <string name="ui_copy_license_catalog_unavailable_b7e30cb7" formatted="false">License catalog unavailable</string>
+    <string name="ui_copy_license_text_a991ca44" formatted="false">License text</string>
+    <string name="ui_copy_licenses_ee92c8a4" formatted="false">Licenses</string>
+    <string name="ui_copy_licenses_notices_017fc334" formatted="false">Licenses &amp; notices</string>
+    <string name="ui_copy_light_a36ef8ab" formatted="false">Light</string>
+    <string name="ui_copy_linux_command_fc0366c1" formatted="false">Linux command</string>
+    <string name="ui_copy_linux_commands_3d1af73f" formatted="false">Linux commands</string>
+    <string name="ui_copy_linux_distribution_a7b16608" formatted="false">Linux distribution</string>
+    <string name="ui_copy_linux_environment_f430f5c4" formatted="false">Linux environment</string>
+    <string name="ui_copy_linux_execution_3c4f9e92" formatted="false">Linux execution</string>
+    <string name="ui_copy_linux_package_request_643ee6b9" formatted="false">Linux package request</string>
+    <string name="ui_copy_linux_terminal_44a5aa10" formatted="false">Linux terminal</string>
+    <string name="ui_copy_linux_workspace_235562e0" formatted="false">Linux workspace</string>
+    <string name="ui_copy_linux_workspace_not_installed_eed9c748" formatted="false">Linux workspace not installed</string>
+    <string name="ui_copy_linux_workspace_not_ready_cac52e8c" formatted="false">Linux workspace not ready</string>
+    <string name="ui_copy_linux_not_installed_e6b9395a" formatted="false">Linux · Not installed</string>
+    <string name="ui_copy_live_output_updates_as_the_process_prints_2130a011" formatted="false">Live output updates as the process prints.</string>
+    <string name="ui_copy_live_previews_6a5ddb0b" formatted="false">Live previews</string>
+    <string name="ui_copy_loading_preview_1b6d8c99" formatted="false">Loading preview…</string>
+    <string name="ui_copy_loading_usage_6346c797" formatted="false">Loading usage…</string>
+    <string name="ui_copy_loading_33ce4174" formatted="false">Loading…</string>
+    <string name="ui_copy_local_code_execution_03e5ad9d" formatted="false">Local Code Execution</string>
+    <string name="ui_copy_local_backup_14278997" formatted="false">Local backup</string>
+    <string name="ui_copy_local_code_execution_dba7a428" formatted="false">Local code execution</string>
+    <string name="ui_copy_local_description_a14ecdef" formatted="false">Local description</string>
+    <string name="ui_copy_local_diagnostics_for_measuring_xylune_s_r_7859cb0b" formatted="false">Local diagnostics for measuring Xylune\'s rendering and process performance. No metrics are uploaded or stored in chat history.</string>
+    <string name="ui_copy_local_execution_f3ca65f0" formatted="false">Local execution</string>
+    <string name="ui_copy_local_execution_is_opt_in_for_fresh_instal_bd33adc8" formatted="false">Local execution is opt-in for fresh installs. Existing chats keep their own tool choices.</string>
+    <string name="ui_copy_local_execution_starts_off_enable_python_o_fc0fc181" formatted="false">Local execution starts off; enable Python or Linux only when a chat needs it.</string>
+    <string name="ui_copy_local_image_description_b56e4b46" formatted="false">Local image description</string>
+    <string name="ui_copy_local_server_444ff973" formatted="false">Local server</string>
+    <string name="ui_copy_local_no_api_call_b50a29f9" formatted="false">Local • no API call</string>
+    <string name="ui_copy_low_a124947c" formatted="false">Low</string>
+    <string name="ui_copy_manage_linux_workspace_a1b97808" formatted="false">Manage Linux workspace</string>
+    <string name="ui_copy_manage_providers_dcb194f5" formatted="false">Manage providers</string>
+    <string name="ui_copy_manual_4e836fdc" formatted="false">Manual</string>
+    <string name="ui_copy_manual_memories_are_available_immediately__90724a6f" formatted="false">Manual memories are available immediately and use the same deduplication rules.</string>
+    <string name="ui_copy_manual_model_will_also_be_included_d635d003" formatted="false">Manual model will also be included</string>
+    <string name="ui_copy_match_launcher_icon_to_palette_d26f874d" formatted="false">Match launcher icon to palette</string>
+    <string name="ui_copy_max_a95e85ae" formatted="false">Max</string>
+    <string name="ui_copy_max_output_86685691" formatted="false">Max output</string>
+    <string name="ui_copy_maximum_output_tokens_dc95e9b0" formatted="false">Maximum output tokens</string>
+    <string name="ui_copy_maximum_search_results_e61513a8" formatted="false">Maximum search results</string>
+    <string name="ui_copy_maximum_supported_reasoning_72f61320" formatted="false">Maximum supported reasoning</string>
+    <string name="ui_copy_medium_d404968e" formatted="false">Medium</string>
+    <string name="ui_copy_memory_89c8a285" formatted="false">Memory</string>
+    <string name="ui_copy_message_xylune_5bdb2e7f" formatted="false">Message Xylune…</string>
+    <string name="ui_copy_message_actions_949184b0" formatted="false">Message actions</string>
+    <string name="ui_copy_messages_code_and_reasoning_are_searched_l_e9813ab2" formatted="false">Messages, code, and reasoning are searched locally as you type.</string>
+    <string name="ui_copy_minimal_a711cca9" formatted="false">Minimal</string>
+    <string name="ui_copy_minimum_android_b09a62b8" formatted="false">Minimum Android</string>
+    <string name="ui_copy_mixed_unattributed_frame_work_75867d1d" formatted="false">Mixed / unattributed frame work</string>
+    <string name="ui_copy_model_68c2cc7f" formatted="false">Model</string>
+    <string name="ui_copy_model_access_a261fa70" formatted="false">Model access</string>
+    <string name="ui_copy_model_access_connected_7278bf38" formatted="false">Model access connected</string>
+    <string name="ui_copy_model_capabilities_and_request_transport_a_e8afbbc0" formatted="false">Model capabilities and request transport are selected automatically by this provider preset.</string>
+    <string name="ui_copy_model_display_name_4a1c8150" formatted="false">Model display name</string>
+    <string name="ui_copy_model_mode_considers_newer_messages_whenev_77e6cf3d" formatted="false">Model mode considers newer messages whenever a name is regenerated.</string>
+    <string name="ui_copy_model_provider_a98fe960" formatted="false">Model provider</string>
+    <string name="ui_copy_model_receives_ocr_fallback_original_previ_720c2fa1" formatted="false">Model receives OCR fallback • original preview is unchanged</string>
+    <string name="ui_copy_model_refresh_failed_66a368ae" formatted="false">Model refresh failed</string>
+    <string name="ui_copy_model_review_is_advisory_and_can_be_wrong__5aa84b0e" formatted="false">Model review is advisory and can be wrong. Xylune records the selected model\'s allow/deny reason, but this is not malware analysis or a security guarantee.</string>
+    <string name="ui_copy_model_thinking_context_and_output_limits_a300db3e" formatted="false">Model, thinking, context, and output limits</string>
+    <string name="ui_copy_models_f3798f81" formatted="false">Models</string>
+    <string name="ui_copy_models_discovered_for_this_chatgpt_account_d0054503" formatted="false">Models discovered for this ChatGPT account only.</string>
+    <string name="ui_copy_models_from_provider_8d5cb90d" formatted="false">Models from provider</string>
+    <string name="ui_copy_more_4bab2d8f" formatted="false">More</string>
+    <string name="ui_copy_more_thorough_reasoning_13dc0c45" formatted="false">More thorough reasoning</string>
+    <string name="ui_copy_move_chat_77b920ba" formatted="false">Move chat</string>
+    <string name="ui_copy_move_to_project_ce1b439b" formatted="false">Move to project</string>
+    <string name="ui_copy_my_deepseek_account_9470faf9" formatted="false">My DeepSeek account</string>
+    <string name="ui_copy_name_709a2322" formatted="false">Name</string>
+    <string name="ui_copy_native_android_byok_model_workspace_1424a951" formatted="false">Native Android BYOK model workspace.</string>
+    <string name="ui_copy_native_compatibility_warning_6d5b6b5d" formatted="false">Native compatibility warning:</string>
+    <string name="ui_copy_native_routing_search_engines_credentials__02119a58" formatted="false">Native routing, search engines, credentials, and page fetching</string>
+    <string name="ui_copy_new_chat_009bf6b9" formatted="false">New chat</string>
+    <string name="ui_copy_new_chat_defaults_701b0334" formatted="false">New chat defaults</string>
+    <string name="ui_copy_new_custom_profile_c3ac50e4" formatted="false">New custom profile</string>
+    <string name="ui_copy_new_project_e5bcbe24" formatted="false">New project</string>
+    <string name="ui_copy_next_bc981983" formatted="false">Next</string>
+    <string name="ui_copy_next_branch_df6b5482" formatted="false">Next branch</string>
+    <string name="ui_copy_next_extracted_text_page_ee3812a2" formatted="false">Next extracted-text page</string>
+    <string name="ui_copy_next_page_4bfc194b" formatted="false">Next page</string>
+    <string name="ui_copy_next_text_page_83390592" formatted="false">Next text page</string>
+    <string name="ui_copy_nextcloud_aab73a3d" formatted="false">Nextcloud</string>
+    <string name="ui_copy_nextcloud_webdav_0869236b" formatted="false">Nextcloud / WebDAV</string>
+    <string name="ui_copy_no_github_source_was_embedded_in_this_buil_ca48df2c" formatted="false">No GitHub source was embedded in this build</string>
+    <string name="ui_copy_no_xylune_account_ads_analytics_or_xylune__58797359" formatted="false">No Xylune account, ads, analytics, or Xylune cloud. Chat history and API keys remain on this device; traffic goes to endpoints and web tools you explicitly enable.</string>
+    <string name="ui_copy_no_additional_diagnostic_text_was_returned_04b2ab87" formatted="false">No additional diagnostic text was returned by the provider.</string>
+    <string name="ui_copy_no_backup_file_selected_11ac152a" formatted="false">No backup file selected.</string>
+    <string name="ui_copy_no_chat_workspace_is_available_4a5eaecf" formatted="false">No chat workspace is available</string>
+    <string name="ui_copy_no_chats_in_this_project_yet_e5f6eaab" formatted="false">No chats in this project yet.</string>
+    <string name="ui_copy_no_context_was_compressed_ca27a63f" formatted="false">No context was compressed</string>
+    <string name="ui_copy_no_conversation_b809a663" formatted="false">No conversation</string>
+    <string name="ui_copy_no_image_models_available_8b362ea7" formatted="false">No image models available</string>
+    <string name="ui_copy_no_inline_preview_for_this_file_type_b944275b" formatted="false">No inline preview for this file type</string>
+    <string name="ui_copy_no_matches_cd0af6cf" formatted="false">No matches</string>
+    <string name="ui_copy_no_matching_chat_models_9f9e1f23" formatted="false">No matching chat models</string>
+    <string name="ui_copy_no_matching_chats_or_messages_5f0fbeb7" formatted="false">No matching chats or messages.</string>
+    <string name="ui_copy_no_matching_components_2db7cc05" formatted="false">No matching components</string>
+    <string name="ui_copy_no_matching_image_models_912a73d8" formatted="false">No matching image models</string>
+    <string name="ui_copy_no_matching_models_7913af03" formatted="false">No matching models.</string>
+    <string name="ui_copy_no_memories_match_the_current_filters_f5ace8ee" formatted="false">No memories match the current filters.</string>
+    <string name="ui_copy_no_memories_saved_yet_91f7ce7c" formatted="false">No memories saved yet.</string>
+    <string name="ui_copy_no_output_64bbb2d2" formatted="false">No output.</string>
+    <string name="ui_copy_no_package_transaction_running_b70454ca" formatted="false">No package transaction running.</string>
+    <string name="ui_copy_no_password_backup_remains_readable_to_any_b96d0c4e" formatted="false">No password: backup remains readable to anyone who gets the file. This is allowed; choose a trusted destination.</string>
+    <string name="ui_copy_no_password_the_recipient_can_open_the_fil_af2eebe0" formatted="false">No password: the recipient can open the file immediately. This is allowed, but anyone with the file can read the included content.</string>
+    <string name="ui_copy_no_per_call_usage_rows_were_recorded_for_t_c03cc627" formatted="false">No per-call usage rows were recorded for this response. The aggregate values above are still available.</string>
+    <string name="ui_copy_no_project_c326b757" formatted="false">No project</string>
+    <string name="ui_copy_no_provider_selected_461348e5" formatted="false">No provider selected</string>
+    <string name="ui_copy_no_providers_yet_819a57da" formatted="false">No providers yet</string>
+    <string name="ui_copy_no_result_details_e49ecfd2" formatted="false">No result details</string>
+    <string name="ui_copy_no_results_b993b0c5" formatted="false">No results</string>
+    <string name="ui_copy_no_saved_prompts_yet_b63aec70" formatted="false">No saved prompts yet.</string>
+    <string name="ui_copy_no_search_results_were_returned_b2c034b3" formatted="false">No search results were returned.</string>
+    <string name="ui_copy_non_cached_input_bd695a67" formatted="false">Non-cached input</string>
+    <string name="ui_copy_none_6eef6648" formatted="false">None</string>
+    <string name="ui_copy_not_connected_yet_d98c2e33" formatted="false">Not connected yet</string>
+    <string name="ui_copy_not_embedded_de9782a4" formatted="false">Not embedded</string>
+    <string name="ui_copy_not_supported_by_this_model_4fe32d8b" formatted="false">Not supported by this model</string>
+    <string name="ui_copy_nothing_is_stored_yet_ffb95486" formatted="false">Nothing is stored yet.</string>
+    <string name="ui_copy_notices_e94865d4" formatted="false">Notices</string>
+    <string name="ui_copy_ocr_fallback_enabled_70d43930" formatted="false">OCR fallback enabled</string>
+    <string name="ui_copy_ocr_on_1c6e6a86" formatted="false">OCR on</string>
+    <string name="ui_copy_ocr_on_send_57d8f20e" formatted="false">OCR on send</string>
+    <string name="ui_copy_ocr_ready_aaaa70a0" formatted="false">OCR ready</string>
+    <string name="ui_copy_ocean_76022a00" formatted="false">Ocean</string>
+    <string name="ui_copy_off_e3de5ab0" formatted="false">Off</string>
+    <string name="ui_copy_off_by_default_normal_chats_show_only_a_co_d4fbcc0f" formatted="false">Off by default. Normal chats show only a concise failure summary and Retry.</string>
+    <string name="ui_copy_offline_dependency_catalog_and_full_licens_7fff5d96" formatted="false">Offline dependency catalog and full license texts</string>
+    <string name="ui_copy_older_messages_outside_the_active_context__8f176d19" formatted="false">Older messages outside the active context window are merged into saved compact context.</string>
+    <string name="ui_copy_on_e0049a66" formatted="false">On</string>
+    <string name="ui_copy_one_package_requirement_per_line_xylune_re_2cdc609b" formatted="false">One package requirement per line. Xylune resolves Android-compatible Python 3.12 wheels before applying your approval policy.</string>
+    <string name="ui_copy_one_searchable_catalog_is_used_everywhere__3b52403e" formatted="false">One searchable catalog is used everywhere in Xylune.</string>
+    <string name="ui_copy_one_tap_native_oauth_xylune_opens_the_syst_028265ea" formatted="false">One-tap native OAuth. Xylune opens the system browser, receives the localhost callback itself, encrypts the session on this device, and refreshes it automatically. No extension or local proxy is required.</string>
+    <string name="ui_copy_onedrive_80753c98" formatted="false">OneDrive</string>
+    <string name="ui_copy_onedrive_apps_xylune_65f8fd13" formatted="false">OneDrive Apps/Xylune</string>
+    <string name="ui_copy_only_missing_or_outdated_packages_will_be__36387bb4" formatted="false">Only missing or outdated packages will be changed. Packages and install scripts run with Xylune\'s app permissions.</string>
+    <string name="ui_copy_only_missing_or_outdated_packages_will_cha_0024de76" formatted="false">Only missing or outdated packages will change. Install scripts run with Xylune\'s app permissions.</string>
+    <string name="ui_copy_only_the_essentials_are_shown_pricing_is_o_ec6a64b1" formatted="false">Only the essentials are shown. Pricing is optional.</string>
+    <string name="ui_copy_only_the_selected_provider_models_will_be__d8bf05dd" formatted="false">Only the selected provider models will be saved.</string>
+    <string name="ui_copy_only_this_page_is_held_in_memory_save_or_s_f543dcb1" formatted="false">Only this page is held in memory. Save or share the file for full-file processing.</string>
+    <string name="ui_copy_open_cf9b7706" formatted="false">Open</string>
+    <string name="ui_copy_open_ocr_view_94133154" formatted="false">Open OCR view</string>
+    <string name="ui_copy_open_xylune_archive_925f05d2" formatted="false">Open Xylune archive</string>
+    <string name="ui_copy_open_conversations_65aafc8c" formatted="false">Open conversations</string>
+    <string name="ui_copy_open_full_screen_preview_54e1aea4" formatted="false">Open full-screen preview</string>
+    <string name="ui_copy_open_navigation_drawer_73502976" formatted="false">Open navigation drawer</string>
+    <string name="ui_copy_open_release_page_f45461ef" formatted="false">Open release page</string>
+    <string name="ui_copy_open_runtime_manager_8cabaae0" formatted="false">Open runtime manager</string>
+    <string name="ui_copy_open_settings_fd7108f8" formatted="false">Open settings</string>
+    <string name="ui_copy_open_terminal_b4ae7862" formatted="false">Open terminal</string>
+    <string name="ui_copy_open_the_creator_s_github_profile_1882d59e" formatted="false">Open the creator\'s GitHub profile</string>
+    <string name="ui_copy_open_source_licenses_30dced67" formatted="false">Open-source licenses</string>
+    <string name="ui_copy_opened_by_xylune_809ef254" formatted="false">Opened by Xylune</string>
+    <string name="ui_copy_opening_android_s_folder_picker_e7e6b80d" formatted="false">Opening Android\'s folder picker…</string>
+    <string name="ui_copy_opening_backup_preview_9e9080e2" formatted="false">Opening backup preview…</string>
+    <string name="ui_copy_opening_file_picker_a46eeb43" formatted="false">Opening file picker…</string>
+    <string name="ui_copy_optional_0c6c4102" formatted="false">Optional</string>
+    <string name="ui_copy_optional_download_for_tools_that_cannot_ru_424205bd" formatted="false">Optional download for tools that cannot run in bundled Python</string>
+    <string name="ui_copy_optional_hybrid_preflight_counting_provide_5014ff78" formatted="false">Optional hybrid preflight counting. Provider count endpoints are preferred; local model-family estimates and the generic estimator are fallbacks.</string>
+    <string name="ui_copy_optional_tools_stay_optional_211fceae" formatted="false">Optional tools stay optional</string>
+    <string name="ui_copy_optional_cost_will_show_as_unavailable_e5007e46" formatted="false">Optional · cost will show as unavailable</string>
+    <string name="ui_copy_optional_preview_a_local_or_cloud_backup_b_4e44eb02" formatted="false">Optional. Preview a local or cloud backup before importing anything.</string>
+    <string name="ui_copy_original_image_model_receives_ocr_fallback_dcc91201" formatted="false">Original image • model receives OCR fallback</string>
+    <string name="ui_copy_original_image_selected_model_cannot_recei_70046764" formatted="false">Original image • selected model cannot receive it</string>
+    <string name="ui_copy_output_4bed3361" formatted="false">Output</string>
+    <string name="ui_copy_output_billed_tokens_c9b801d8" formatted="false">Output / billed tokens</string>
+    <string name="ui_copy_output_limit_63e1b0a1" formatted="false">Output limit</string>
+    <string name="ui_copy_output_tokens_b879f52d" formatted="false">Output tokens</string>
+    <string name="ui_copy_overlay_position_a0a2016e" formatted="false">Overlay position</string>
+    <string name="ui_copy_overlay_scale_63c16ba8" formatted="false">Overlay scale</string>
+    <string name="ui_copy_override_84219262" formatted="false">Override</string>
+    <string name="ui_copy_override_default_tone_persona_1c38309c" formatted="false">Override default tone/persona</string>
+    <string name="ui_copy_project_chats_a3ee1035" formatted="false">PROJECT CHATS</string>
+    <string name="ui_copy_projects_1742f5d5" formatted="false">PROJECTS</string>
+    <string name="ui_copy_python_code_6cb24884" formatted="false">PYTHON CODE</string>
+    <string name="ui_copy_package_7431e3df" formatted="false">Package</string>
+    <string name="ui_copy_package_approval_a1572fcf" formatted="false">Package approval</string>
+    <string name="ui_copy_package_changes_6ba20f47" formatted="false">Package changes</string>
+    <string name="ui_copy_package_installation_77ca8471" formatted="false">Package installation</string>
+    <string name="ui_copy_package_installation_failed_fa582e56" formatted="false">Package installation failed</string>
+    <string name="ui_copy_package_manager_a069a02e" formatted="false">Package manager</string>
+    <string name="ui_copy_package_review_d72d29e6" formatted="false">Package review</string>
+    <string name="ui_copy_packages_0a999012" formatted="false">Packages</string>
+    <string name="ui_copy_packages_and_their_installers_run_with_xyl_fbb64874" formatted="false">Packages and their installers run with Xylune\'s app permissions. Ubuntu is for compatibility, not containment; these settings intentionally reduce confirmation barriers.</string>
+    <string name="ui_copy_panel_opacity_e2eed655" formatted="false">Panel opacity</string>
+    <string name="ui_copy_panel_shape_504daac7" formatted="false">Panel shape</string>
+    <string name="ui_copy_panel_shape_is_a_choice_blur_softness_and__7e45858a" formatted="false">Panel shape is a choice. Blur, softness, and tint remain continuous controls.</string>
+    <string name="ui_copy_password_8be3c943" formatted="false">Password</string>
+    <string name="ui_copy_password_optional_408255ed" formatted="false">Password (optional)</string>
+    <string name="ui_copy_password_or_app_password_e9577bc0" formatted="false">Password or app password</string>
+    <string name="ui_copy_password_leave_blank_for_none_3fcb8176" formatted="false">Password — leave blank for none</string>
+    <string name="ui_copy_passwords_do_not_match_d69c3b1a" formatted="false">Passwords do not match</string>
+    <string name="ui_copy_pause_781961bc" formatted="false">Pause</string>
+    <string name="ui_copy_paused_c7dfb6f1" formatted="false">Paused</string>
+    <string name="ui_copy_pending_image_requests_91ac1b3c" formatted="false">Pending image requests</string>
+    <string name="ui_copy_per_response_call_breakdowns_are_available_da1e5296" formatted="false">Per-response call breakdowns are available from each assistant message\'s ⋮ menu.</string>
+    <string name="ui_copy_performance_counter_867144eb" formatted="false">Performance counter</string>
+    <string name="ui_copy_personalization_f203458e" formatted="false">Personalization</string>
+    <string name="ui_copy_pin_9c918414" formatted="false">Pin</string>
+    <string name="ui_copy_plan_ready_for_your_confirmation_7f5831cb" formatted="false">Plan ready for your confirmation.</string>
+    <string name="ui_copy_portable_xylune_backup_27aec9c6" formatted="false">Portable Xylune backup</string>
+    <string name="ui_copy_portable_cloud_backups_can_include_chats_a_4e7a5c3f" formatted="false">Portable cloud backups can include chats, app settings, organization, and optional Linux root filesystems. Passwordless backups are allowed after an explicit warning; API keys, OAuth sessions, provider authorization headers, cloud grants, and database encryption keys are excluded.</string>
+    <string name="ui_copy_preflight_review_25740cd2" formatted="false">Preflight &amp; review</string>
+    <string name="ui_copy_preflight_failed_10168b8c" formatted="false">Preflight failed</string>
+    <string name="ui_copy_preparing_xylune_25621d30" formatted="false">Preparing Xylune…</string>
+    <string name="ui_copy_preparing_file_17b2d5d2" formatted="false">Preparing file</string>
+    <string name="ui_copy_preparing_package_plan_a7d922a2" formatted="false">Preparing package plan…</string>
+    <string name="ui_copy_preparing_query_03c56532" formatted="false">Preparing query</string>
+    <string name="ui_copy_preparing_0b1d6c0b" formatted="false">Preparing…</string>
+    <string name="ui_copy_prepend_9d1c9745" formatted="false">Prepend</string>
+    <string name="ui_copy_preset_custom_2d5c0a86" formatted="false">Preset: Custom</string>
+    <string name="ui_copy_preview_f1fbb2b4" formatted="false">Preview</string>
+    <string name="ui_copy_preview_and_import_a_backup_bbae34ab" formatted="false">Preview and import a backup</string>
+    <string name="ui_copy_previous_50f94286" formatted="false">Previous</string>
+    <string name="ui_copy_previous_branch_4855c3fe" formatted="false">Previous branch</string>
+    <string name="ui_copy_previous_extracted_text_page_52a768b0" formatted="false">Previous extracted-text page</string>
+    <string name="ui_copy_previous_page_81f54719" formatted="false">Previous page</string>
+    <string name="ui_copy_previous_setup_step_d27486e7" formatted="false">Previous setup step</string>
+    <string name="ui_copy_previous_text_page_ec053f3a" formatted="false">Previous text page</string>
+    <string name="ui_copy_previously_selected_backup_folder_44c73e1b" formatted="false">Previously selected backup folder</string>
+    <string name="ui_copy_pricing_a0d9bbad" formatted="false">Pricing</string>
+    <string name="ui_copy_pricing_configured_71531171" formatted="false">Pricing configured</string>
+    <string name="ui_copy_privacy_cf01481f" formatted="false">Privacy</string>
+    <string name="ui_copy_privacy_safety_3c5b980b" formatted="false">Privacy &amp; safety</string>
+    <string name="ui_copy_privacy_policy_7ceacdca" formatted="false">Privacy policy</string>
+    <string name="ui_copy_privacy_local_data_providers_and_kvkk_gdpr_fb4f9a28" formatted="false">Privacy, local data, providers, and KVKK/GDPR boundaries</string>
+    <string name="ui_copy_private_xylune_app_storage_d537b698" formatted="false">Private Xylune app storage</string>
+    <string name="ui_copy_private_by_design_3aaa9fd1" formatted="false">Private by design</string>
+    <string name="ui_copy_private_cloud_targets_d3ad80b3" formatted="false">Private cloud targets</string>
+    <string name="ui_copy_profiler_disabled_26604127" formatted="false">Profiler disabled</string>
+    <string name="ui_copy_project_f6f4da8d" formatted="false">Project</string>
+    <string name="ui_copy_project_website_21cd5ee2" formatted="false">Project website</string>
+    <string name="ui_copy_provider_calls_d9cbf2c7" formatted="false">Provider calls</string>
+    <string name="ui_copy_provider_credentials_6f604704" formatted="false">Provider credentials</string>
+    <string name="ui_copy_provider_details_unavailable_b5b239d7" formatted="false">Provider details unavailable</string>
+    <string name="ui_copy_provider_has_no_model_list_enter_manually_7a67fcd7" formatted="false">Provider has no model list? Enter manually</string>
+    <string name="ui_copy_provider_is_missing_ccc7875a" formatted="false">Provider is missing</string>
+    <string name="ui_copy_provider_name_34ea99e9" formatted="false">Provider name</string>
+    <string name="ui_copy_provider_name_is_required_1603ad44" formatted="false">Provider name is required</string>
+    <string name="ui_copy_provider_native_search_3568016c" formatted="false">Provider native search</string>
+    <string name="ui_copy_provider_preview_ce3ddaf8" formatted="false">Provider preview</string>
+    <string name="ui_copy_provider_search_162a2dea" formatted="false">Provider search</string>
+    <string name="ui_copy_provider_settings_afda9c2e" formatted="false">Provider settings</string>
+    <string name="ui_copy_providers_87b7c08b" formatted="false">Providers</string>
+    <string name="ui_copy_providers_models_f3a00666" formatted="false">Providers &amp; models</string>
+    <string name="ui_copy_public_https_base_url_2ade831c" formatted="false">Public HTTPS base URL</string>
+    <string name="ui_copy_python_6e360488" formatted="false">Python</string>
+    <string name="ui_copy_python_and_linux_are_managed_later_from_se_f5a239d2" formatted="false">Python and Linux are managed later from Settings → Local execution.</string>
+    <string name="ui_copy_python_and_linux_share_this_chat_s_private_c2628367" formatted="false">Python and Linux share this chat\'s private /workspace. Runtime setup, packages, health, tests, and removal have one owner here.</string>
+    <string name="ui_copy_python_environment_f513aa68" formatted="false">Python environment</string>
+    <string name="ui_copy_python_execution_41df7903" formatted="false">Python execution</string>
+    <string name="ui_copy_python_is_built_in_linux_is_an_optional_co_e902c5f4" formatted="false">Python is built in. Linux is an optional compatibility layer with a separate download. Pick a runtime only when you need to inspect or change it.</string>
+    <string name="ui_copy_python_is_still_running_be5dc2dc" formatted="false">Python is still running</string>
+    <string name="ui_copy_python_package_request_638ae108" formatted="false">Python package request</string>
+    <string name="ui_copy_python_result_52b6f346" formatted="false">Python result</string>
+    <string name="ui_copy_python_script_2d49b511" formatted="false">Python script</string>
+    <string name="ui_copy_python_tool_result_510f1a82" formatted="false">Python tool result</string>
+    <string name="ui_copy_python_workspace_8cbf4c4e" formatted="false">Python workspace</string>
+    <string name="ui_copy_python_ready_a22ad463" formatted="false">Python · Ready</string>
+    <string name="ui_copy_python_linux_packages_and_approval_policy_2d76c5d1" formatted="false">Python, Linux, packages, and approval policy</string>
+    <string name="ui_copy_query_ready_b3c19922" formatted="false">Query ready</string>
+    <string name="ui_copy_query_unavailable_8effdfee" formatted="false">Query unavailable</string>
+    <string name="ui_copy_queue_image_83648a73" formatted="false">Queue image</string>
+    <string name="ui_copy_queue_this_message_98929445" formatted="false">Queue this message</string>
+    <string name="ui_copy_queued_6a599877" formatted="false">Queued</string>
+    <string name="ui_copy_recent_chats_1a3f6f06" formatted="false">RECENT CHATS</string>
+    <string name="ui_copy_raw_token_totals_recorded_from_provider_ca_21e8e343" formatted="false">Raw token totals recorded from provider calls. Use these with the provider\'s current pricing when you want to verify or calculate cost manually.</string>
+    <string name="ui_copy_read_license_346f9049" formatted="false">Read license</string>
+    <string name="ui_copy_reading_source_e22a34c2" formatted="false">Reading source</string>
+    <string name="ui_copy_reading_source_124aaf17" formatted="false">Reading source…</string>
+    <string name="ui_copy_ready_20c7c552" formatted="false">Ready</string>
+    <string name="ui_copy_ready_for_your_review_034acd78" formatted="false">Ready for your review</string>
+    <string name="ui_copy_reasoning_e272c597" formatted="false">Reasoning</string>
+    <string name="ui_copy_reasoning_details_2c5f9ae8" formatted="false">Reasoning details</string>
+    <string name="ui_copy_recent_76eec760" formatted="false">Recent</string>
+    <string name="ui_copy_recently_created_89bd0512" formatted="false">Recently created</string>
+    <string name="ui_copy_recently_updated_5f0500cc" formatted="false">Recently updated</string>
+    <string name="ui_copy_reconnect_6988b16a" formatted="false">Reconnect</string>
+    <string name="ui_copy_reference_image_d30a01d6" formatted="false">Reference image</string>
+    <string name="ui_copy_reference_images_409986b9" formatted="false">Reference images</string>
+    <string name="ui_copy_referenced_file_51954abd" formatted="false">Referenced file</string>
+    <string name="ui_copy_refresh_56e3badc" formatted="false">Refresh</string>
+    <string name="ui_copy_refresh_backup_list_d981b77d" formatted="false">Refresh backup list</string>
+    <string name="ui_copy_refresh_models_ba6da3f2" formatted="false">Refresh models</string>
+    <string name="ui_copy_refresh_usage_a4a94d04" formatted="false">Refresh usage</string>
+    <string name="ui_copy_refreshing_96141178" formatted="false">Refreshing…</string>
+    <string name="ui_copy_regenerate_chat_name_c0f73ee5" formatted="false">Regenerate chat name</string>
+    <string name="ui_copy_region_0f217179" formatted="false">Region</string>
+    <string name="ui_copy_reinstall_b08a8859" formatted="false">Reinstall</string>
+    <string name="ui_copy_release_to_snap_to_the_nearest_supported_l_6f40c155" formatted="false">Release to snap to the nearest supported level</string>
+    <string name="ui_copy_remove_e963907d" formatted="false">Remove</string>
+    <string name="ui_copy_remove_linux_336f826b" formatted="false">Remove Linux</string>
+    <string name="ui_copy_remove_linux_runtime_5da548c5" formatted="false">Remove Linux runtime</string>
+    <string name="ui_copy_remove_attachments_first_image_editing_is__bbda72fc" formatted="false">Remove attachments first · image editing is not enabled yet</string>
+    <string name="ui_copy_remove_attachments_to_generate_an_image_be70d1ad" formatted="false">Remove attachments to generate an image</string>
+    <string name="ui_copy_remove_favorite_8b9da771" formatted="false">Remove favorite</string>
+    <string name="ui_copy_remove_image_5f94b03c" formatted="false">Remove image</string>
+    <string name="ui_copy_remove_non_image_attachments_before_creati_3345f034" formatted="false">Remove non-image attachments before creating an image.</string>
+    <string name="ui_copy_remove_package_cdf7f6e3" formatted="false">Remove package</string>
+    <string name="ui_copy_remove_provider_d90c83fd" formatted="false">Remove provider</string>
+    <string name="ui_copy_remove_provider_6c067d90" formatted="false">Remove provider?</string>
+    <string name="ui_copy_rename_d3f4cb89" formatted="false">Rename</string>
+    <string name="ui_copy_rename_chatgpt_provider_c475f053" formatted="false">Rename ChatGPT provider</string>
+    <string name="ui_copy_rename_chat_3c1a5c62" formatted="false">Rename chat</string>
+    <string name="ui_copy_rename_project_633018f5" formatted="false">Rename project</string>
+    <string name="ui_copy_rename_provider_d2136648" formatted="false">Rename provider</string>
+    <string name="ui_copy_render_command_issue_0a3df05e" formatted="false">Render command issue</string>
+    <string name="ui_copy_render_sync_5f5c4913" formatted="false">Render sync</string>
+    <string name="ui_copy_rendering_pdf_be45bf92" formatted="false">Rendering PDF…</string>
+    <string name="ui_copy_rendering_image_027b8970" formatted="false">Rendering image</string>
+    <string name="ui_copy_repair_5f60b1c2" formatted="false">Repair</string>
+    <string name="ui_copy_repair_failed_1e8cfc05" formatted="false">Repair failed</string>
+    <string name="ui_copy_repairing_0c43c38d" formatted="false">Repairing…</string>
+    <string name="ui_copy_replaced_by_an_edited_message_cdd51fbc" formatted="false">Replaced by an edited message</string>
+    <string name="ui_copy_replaced_by_retry_98216aa4" formatted="false">Replaced by retry</string>
+    <string name="ui_copy_report_an_issue_bd7b4f00" formatted="false">Report an issue</string>
+    <string name="ui_copy_request_error_463914ac" formatted="false">Request error</string>
+    <string name="ui_copy_request_failed_9fcda32c" formatted="false">Request failed</string>
+    <string name="ui_copy_request_metadata_8eb15663" formatted="false">Request metadata</string>
+    <string name="ui_copy_request_snapshots_and_extracted_attachment_3dcde9e3" formatted="false">Request snapshots and extracted attachment metadata</string>
+    <string name="ui_copy_request_type_b6933e01" formatted="false">Request type</string>
+    <string name="ui_copy_requesting_access_to_google_drive_app_stor_9913552a" formatted="false">Requesting access to Google Drive app storage…</string>
+    <string name="ui_copy_require_api_key_7d4d5afd" formatted="false">Require API key</string>
+    <string name="ui_copy_required_eed6bfb4" formatted="false">Required</string>
+    <string name="ui_copy_requires_a_separate_distribution_download_b9a68b9d" formatted="false">Requires a separate distribution download</string>
+    <string name="ui_copy_research_in_progress_57847cb3" formatted="false">Research in progress</string>
+    <string name="ui_copy_research_request_32906815" formatted="false">Research request…</string>
+    <string name="ui_copy_research_roadmap_33257df1" formatted="false">Research roadmap</string>
+    <string name="ui_copy_research_state_reported_c8951128" formatted="false">Research state reported</string>
+    <string name="ui_copy_reset_44c57abd" formatted="false">Reset</string>
+    <string name="ui_copy_reset_advanced_values_to_defaults_cb8c861c" formatted="false">Reset advanced values to defaults</string>
+    <string name="ui_copy_response_paused_40403cac" formatted="false">Response paused</string>
+    <string name="ui_copy_response_style_fe235e09" formatted="false">Response style</string>
+    <string name="ui_copy_restore_3cbe6d6b" formatted="false">Restore</string>
+    <string name="ui_copy_restore_a_backup_8c6bdaa6" formatted="false">Restore a backup</string>
+    <string name="ui_copy_restore_a_backup_if_you_have_one_then_conn_466e33b9" formatted="false">Restore a backup if you have one, then connect the model provider you actually want to use. Everything optional stays out of your way.</string>
+    <string name="ui_copy_restore_an_existing_setup_29069d47" formatted="false">Restore an existing setup</string>
+    <string name="ui_copy_restore_backup_a65eaa88" formatted="false">Restore backup</string>
+    <string name="ui_copy_restore_complete_6e584d57" formatted="false">Restore complete</string>
+    <string name="ui_copy_restore_failed_c848a612" formatted="false">Restore failed</string>
+    <string name="ui_copy_restore_from_cloud_52b66631" formatted="false">Restore from cloud</string>
+    <string name="ui_copy_restore_from_file_0279820c" formatted="false">Restore from file</string>
+    <string name="ui_copy_restore_preview_49a9358b" formatted="false">Restore preview</string>
+    <string name="ui_copy_restrained_blue_gray_palette_09290612" formatted="false">Restrained blue-gray palette</string>
+    <string name="ui_copy_result_exposed_by_the_model_provider_s_sea_150c2ff1" formatted="false">Result exposed by the model provider\'s search response.</string>
+    <string name="ui_copy_results_612e12d2" formatted="false">Results</string>
+    <string name="ui_copy_retry_9f5cd8a2" formatted="false">Retry</string>
+    <string name="ui_copy_retry_response_0fb7919f" formatted="false">Retry response</string>
+    <string name="ui_copy_retry_setup_f1ed135c" formatted="false">Retry setup</string>
+    <string name="ui_copy_reusable_tone_and_workflow_profiles_50d55ba1" formatted="false">Reusable tone and workflow profiles</string>
+    <string name="ui_copy_review_and_install_changes_9f25ee02" formatted="false">Review and install changes</string>
+    <string name="ui_copy_root_terminal_5dd56a2a" formatted="false">Root terminal</string>
+    <string name="ui_copy_rounded_c5aa340f" formatted="false">Rounded</string>
+    <string name="ui_copy_rounded_panels_use_a_hard_rounded_boundary_ab865b53" formatted="false">Rounded panels use a hard, rounded boundary. Choose Flat to adjust softness.</string>
+    <string name="ui_copy_routing_7d15dd1b" formatted="false">Routing</string>
+    <string name="ui_copy_run_b1b39260" formatted="false">Run</string>
+    <string name="ui_copy_run_python_d24665bd" formatted="false">Run Python</string>
+    <string name="ui_copy_run_python_in_this_chat_s_persistent_works_8b930a92" formatted="false">Run Python in this chat\'s persistent workspace</string>
+    <string name="ui_copy_run_again_ee1d36fe" formatted="false">Run again</string>
+    <string name="ui_copy_run_command_1a58851c" formatted="false">Run command</string>
+    <string name="ui_copy_run_details_e6487ca7" formatted="false">Run details</string>
+    <string name="ui_copy_run_failed_9a731f3d" formatted="false">Run failed</string>
+    <string name="ui_copy_run_in_workspace_8ba20353" formatted="false">Run in workspace</string>
+    <string name="ui_copy_run_preflight_again_835684a8" formatted="false">Run preflight again</string>
+    <string name="ui_copy_run_test_6ecaed96" formatted="false">Run test</string>
+    <string name="ui_copy_run_with_linux_tools_31de9bc5" formatted="false">Run with Linux tools</string>
+    <string name="ui_copy_running_73989d9c" formatted="false">Running</string>
+    <string name="ui_copy_running_on_68f7347e" formatted="false">Running on</string>
+    <string name="ui_copy_running_7ef25a76" formatted="false">Running…</string>
+    <string name="ui_copy_runtime_c4740e4c" formatted="false">Runtime</string>
+    <string name="ui_copy_runtime_manager_8dcd309d" formatted="false">Runtime manager</string>
+    <string name="ui_copy_runtime_status_e712f6e9" formatted="false">Runtime status</string>
+    <string name="ui_copy_s3_compatible_storage_3a892b1a" formatted="false">S3-compatible storage</string>
+    <string name="ui_copy_shell_command_ba6145d8" formatted="false">SHELL COMMAND</string>
+    <string name="ui_copy_safe_defaults_share_visible_messages_and_a_d7b0a5f4" formatted="false">Safe defaults share visible messages and attachments. Hidden reasoning, tool diagnostics, prompts, and request snapshots stay excluded until you enable them.</string>
+    <string name="ui_copy_safe_generated_rendering_884dcfe0" formatted="false">Safe generated rendering</string>
+    <string name="ui_copy_safe_mode_c730d398" formatted="false">Safe mode</string>
+    <string name="ui_copy_save_efc007a3" formatted="false">Save</string>
+    <string name="ui_copy_save_regenerate_47306967" formatted="false">Save &amp; regenerate</string>
+    <string name="ui_copy_save_a_copy_9056f96b" formatted="false">Save a copy</string>
+    <string name="ui_copy_save_and_test_d9c41ad4" formatted="false">Save and test</string>
+    <string name="ui_copy_save_backup_b93fe3b0" formatted="false">Save backup</string>
+    <string name="ui_copy_save_connection_07796d38" formatted="false">Save connection</string>
+    <string name="ui_copy_save_key_f5216b3a" formatted="false">Save key</string>
+    <string name="ui_copy_save_memory_d739576e" formatted="false">Save memory</string>
+    <string name="ui_copy_saved_c0ae8f6e" formatted="false">Saved</string>
+    <string name="ui_copy_saved_memories_85b44d2e" formatted="false">Saved memories</string>
+    <string name="ui_copy_searxng_endpoint_e8df7cac" formatted="false">SearXNG endpoint</string>
+    <string name="ui_copy_search_bce06414" formatted="false">Search</string>
+    <string name="ui_copy_search_web_faa075e7" formatted="false">Search &amp; web</string>
+    <string name="ui_copy_search_pypi_a41ba176" formatted="false">Search PyPI</string>
+    <string name="ui_copy_search_across_every_chat_011ad424" formatted="false">Search across every chat</string>
+    <string name="ui_copy_search_chat_models_by_name_id_provider_or__3f63b483" formatted="false">Search chat models by name, ID, provider, or description</string>
+    <string name="ui_copy_search_chats_9ad51dea" formatted="false">Search chats</string>
+    <string name="ui_copy_search_chats_and_messages_5fa72b1a" formatted="false">Search chats and messages</string>
+    <string name="ui_copy_search_chats_and_messages_d5ea9c16" formatted="false">Search chats and messages…</string>
+    <string name="ui_copy_search_failed_e2e904ac" formatted="false">Search failed</string>
+    <string name="ui_copy_search_history_620fcadd" formatted="false">Search history</string>
+    <string name="ui_copy_search_image_models_1c67b8c0" formatted="false">Search image models</string>
+    <string name="ui_copy_search_libraries_or_licenses_09d1d9af" formatted="false">Search libraries or licenses</string>
+    <string name="ui_copy_search_licenses_a38f138b" formatted="false">Search licenses</string>
+    <string name="ui_copy_search_memories_7948125c" formatted="false">Search memories</string>
+    <string name="ui_copy_search_messages_abea65ae" formatted="false">Search messages</string>
+    <string name="ui_copy_search_messages_code_and_reasoning_72ccbd1c" formatted="false">Search messages, code, and reasoning</string>
+    <string name="ui_copy_search_models_5f018fe0" formatted="false">Search models</string>
+    <string name="ui_copy_search_off_bd9e4b47" formatted="false">Search off</string>
+    <string name="ui_copy_search_results_0144dae8" formatted="false">Search results</string>
+    <string name="ui_copy_searching_1a6a5ba8" formatted="false">Searching…</string>
+    <string name="ui_copy_secret_access_key_3dddfad4" formatted="false">Secret access key</string>
+    <string name="ui_copy_select_all_913afff1" formatted="false">Select all</string>
+    <string name="ui_copy_select_folder_20e97c98" formatted="false">Select folder</string>
+    <string name="ui_copy_select_shown_a5dea35d" formatted="false">Select shown</string>
+    <string name="ui_copy_selectable_ocr_text_3b00a9e8" formatted="false">Selectable OCR text</string>
+    <string name="ui_copy_selectable_extracted_content_7a290103" formatted="false">Selectable extracted content</string>
+    <string name="ui_copy_selectable_file_preview_cec997a3" formatted="false">Selectable file preview</string>
+    <string name="ui_copy_selected_9a976fc2" formatted="false">Selected</string>
+    <string name="ui_copy_selected_cloud_folder_3b837d26" formatted="false">Selected cloud folder</string>
+    <string name="ui_copy_selected_model_cannot_read_the_original_at_df95d8a3" formatted="false">Selected model cannot read the original attachment</string>
+    <string name="ui_copy_send_9bc2575c" formatted="false">Send</string>
+    <string name="ui_copy_send_after_the_current_response_finishes_938ad55c" formatted="false">Send after the current response finishes</string>
+    <string name="ui_copy_send_now_dae33010" formatted="false">Send now</string>
+    <string name="ui_copy_send_options_0ef0ada8" formatted="false">Send options</string>
+    <string name="ui_copy_sending_cf765512" formatted="false">Sending…</string>
+    <string name="ui_copy_sent_file_f49a0823" formatted="false">Sent file</string>
+    <string name="ui_copy_server_folder_fb1c1bc5" formatted="false">Server folder</string>
+    <string name="ui_copy_session_f7f1997c" formatted="false">Session</string>
+    <string name="ui_copy_session_token_optional_2a8a2056" formatted="false">Session token (optional)</string>
+    <string name="ui_copy_set_up_xylune_f554f170" formatted="false">Set up Xylune</string>
+    <string name="ui_copy_set_up_a_provider_a3a52a95" formatted="false">Set up a provider</string>
+    <string name="ui_copy_set_up_a_provider_to_start_0994c6b5" formatted="false">Set up a provider to start</string>
+    <string name="ui_copy_set_up_provider_f899c153" formatted="false">Set up provider</string>
+    <string name="ui_copy_settings_c7f73bb5" formatted="false">Settings</string>
+    <string name="ui_copy_settings_stay_optional_5801a33a" formatted="false">Settings stay optional</string>
+    <string name="ui_copy_setup_cdd7bb28" formatted="false">Setup</string>
+    <string name="ui_copy_setup_connections_85bdfce5" formatted="false">Setup &amp; connections</string>
+    <string name="ui_copy_setup_details_97269512" formatted="false">Setup details</string>
+    <string name="ui_copy_share_09ca55ca" formatted="false">Share</string>
+    <string name="ui_copy_share_xylune_chat_2c99756b" formatted="false">Share Xylune chat</string>
+    <string name="ui_copy_share_image_ecb8ec64" formatted="false">Share image</string>
+    <string name="ui_copy_share_message_c1c0e65f" formatted="false">Share message</string>
+    <string name="ui_copy_share_portable_chat_a106eb58" formatted="false">Share portable chat</string>
+    <string name="ui_copy_short_reasoning_feefea5a" formatted="false">Short reasoning</string>
+    <string name="ui_copy_show_ocr_overlay_977f1ec9" formatted="false">Show OCR overlay</string>
+    <string name="ui_copy_show_attempts_b64a5456" formatted="false">Show attempts</string>
+    <string name="ui_copy_show_backups_9f5fa28a" formatted="false">Show backups</string>
+    <string name="ui_copy_show_blur_boundary_guides_f77a0583" formatted="false">Show blur boundary guides</string>
+    <string name="ui_copy_show_complete_package_plan_0184aedb" formatted="false">Show complete package plan</string>
+    <string name="ui_copy_show_package_plan_41d0358c" formatted="false">Show package plan</string>
+    <string name="ui_copy_show_performance_overlay_fde38582" formatted="false">Show performance overlay</string>
+    <string name="ui_copy_show_source_b470a520" formatted="false">Show source</string>
+    <string name="ui_copy_show_the_full_plan_and_wait_for_you_245c9516" formatted="false">Show the full plan and wait for you</string>
+    <string name="ui_copy_show_tool_diagnostics_94a36edd" formatted="false">Show tool diagnostics</string>
+    <string name="ui_copy_shows_live_frame_timing_without_forcing_co_0b2fd382" formatted="false">Shows live frame timing without forcing continuous animation. The monitor observes frames already rendered by Android.</string>
+    <string name="ui_copy_shows_raw_tool_inputs_outputs_source_paths_34892969" formatted="false">Shows raw tool inputs, outputs, source paths, and copyable failure diagnostics inside Working.</string>
+    <string name="ui_copy_sign_in_ada2e9e9" formatted="false">Sign in</string>
+    <string name="ui_copy_sign_in_again_7842ff56" formatted="false">Sign in again</string>
+    <string name="ui_copy_sign_in_with_chatgpt_fe0b3b61" formatted="false">Sign in with ChatGPT</string>
+    <string name="ui_copy_sign_in_without_pasting_an_api_key_6acc0e4c" formatted="false">Sign in without pasting an API key.</string>
+    <string name="ui_copy_sign_in_xylune_only_uses_its_app_folder_1177a8cd" formatted="false">Sign in; Xylune only uses its app folder</string>
+    <string name="ui_copy_sign_out_dc1649a1" formatted="false">Sign out</string>
+    <string name="ui_copy_signing_sha_1_c7a274c3" formatted="false">Signing SHA-1</string>
+    <string name="ui_copy_skip_for_now_6fc09607" formatted="false">Skip for now</string>
+    <string name="ui_copy_softens_the_boundary_where_flat_panels_mer_1f3c2110" formatted="false">Softens the boundary where flat panels merge into the page.</string>
+    <string name="ui_copy_source_6da13add" formatted="false">Source</string>
+    <string name="ui_copy_source_commit_0771cbb2" formatted="false">Source commit</string>
+    <string name="ui_copy_source_failed_057918be" formatted="false">Source failed</string>
+    <string name="ui_copy_source_read_e6a01b31" formatted="false">Source read</string>
+    <string name="ui_copy_source_read_completed_54656ea1" formatted="false">Source read completed</string>
+    <string name="ui_copy_source_repository_9110973f" formatted="false">Source repository</string>
+    <string name="ui_copy_source_request_ready_373a3588" formatted="false">Source request ready</string>
+    <string name="ui_copy_sources_2eb56be3" formatted="false">Sources</string>
+    <string name="ui_copy_start_a_response_ba37e236" formatted="false">Start a response</string>
+    <string name="ui_copy_start_setup_ecde253f" formatted="false">Start setup</string>
+    <string name="ui_copy_starting_fresh_ignore_the_restore_card_and_353907b8" formatted="false">Starting fresh? Ignore the restore card and tap Continue.</string>
+    <string name="ui_copy_starting_package_installation_2ed2a891" formatted="false">Starting package installation</string>
+    <string name="ui_copy_starting_state_for_the_controls_beside_the_c302c89a" formatted="false">Starting state for the controls beside the message box.</string>
+    <string name="ui_copy_steer_current_response_cfe79dea" formatted="false">Steer current response</string>
+    <string name="ui_copy_steered_by_user_ba08107d" formatted="false">Steered by user</string>
+    <string name="ui_copy_stop_9e253470" formatted="false">Stop</string>
+    <string name="ui_copy_stop_current_response_4b9a664e" formatted="false">Stop current response</string>
+    <string name="ui_copy_stop_image_generation_c29d03dd" formatted="false">Stop image generation</string>
+    <string name="ui_copy_stopped_51e9111b" formatted="false">Stopped</string>
+    <string name="ui_copy_stopped_by_user_a585e479" formatted="false">Stopped by user</string>
+    <string name="ui_copy_streaming_a37cc13b" formatted="false">Streaming…</string>
+    <string name="ui_copy_sunset_181bcd57" formatted="false">Sunset</string>
+    <string name="ui_copy_switch_account_a28b0233" formatted="false">Switch account</string>
+    <string name="ui_copy_switched_branch_dea3f0d5" formatted="false">Switched branch</string>
+    <string name="ui_copy_switched_to_another_branch_d2a3d3cd" formatted="false">Switched to another branch</string>
+    <string name="ui_copy_system_prompt_1e8970b6" formatted="false">System prompt</string>
+    <string name="ui_copy_take_a_photo_and_attach_it_2d7917b6" formatted="false">Take a photo and attach it</string>
+    <string name="ui_copy_take_a_photo_to_use_as_a_reference_cbcac553" formatted="false">Take a photo to use as a reference</string>
+    <string name="ui_copy_tap_a_result_to_add_it_to_the_install_list_63a0ffcb" formatted="false">Tap a result to add it to the install list</string>
+    <string name="ui_copy_tap_to_zoom_46043b71" formatted="false">Tap to zoom</string>
+    <string name="ui_copy_target_android_b5826359" formatted="false">Target Android</string>
+    <string name="ui_copy_terminal_a1f52cdc" formatted="false">Terminal</string>
+    <string name="ui_copy_terminal_native_cli_tools_and_linux_packag_187201a0" formatted="false">Terminal, native CLI tools, and Linux packages</string>
+    <string name="ui_copy_terms_a55a275a" formatted="false">Terms</string>
+    <string name="ui_copy_terms_disclaimer_7add8494" formatted="false">Terms &amp; disclaimer</string>
+    <string name="ui_copy_text_opacity_83e09703" formatted="false">Text opacity</string>
+    <string name="ui_copy_the_android_document_picker_can_save_direc_92e0305e" formatted="false">The Android document picker can save directly to Google Drive, OneDrive, Dropbox, Nextcloud, a USB drive, or local storage. Xylune does not upload through a hidden server.</string>
+    <string name="ui_copy_the_xylune_maintainer_does_not_create_trai_448f39da" formatted="false">The Xylune maintainer does not create, train, host, pre-review, or endorse individual model outputs. AI output can be wrong, unsafe, biased, or unsuitable; verify it before relying on it. Provider terms, fees, retention, and content rules apply independently.</string>
+    <string name="ui_copy_the_built_in_provider_catalog_is_delayed_s_ce0dd5b5" formatted="false">The built-in provider catalog is delayed. Setup remains usable and Xylune will keep retrying in the background.</string>
+    <string name="ui_copy_the_edited_source_is_compiled_executed_in__476436cf" formatted="false">The edited source is compiled, executed in the bounded runtime, and rendered before use.</string>
+    <string name="ui_copy_the_embedded_license_document_could_not_be_74bfeeea" formatted="false">The embedded license document could not be opened.</string>
+    <string name="ui_copy_the_exact_prompt_bundled_with_this_app_ver_f8633265" formatted="false">The exact prompt bundled with this app version is shown below. It is selectable for inspection and intentionally read-only.</string>
+    <string name="ui_copy_the_instance_must_enable_json_search_outpu_f0ac141c" formatted="false">The instance must enable JSON search output.</string>
+    <string name="ui_copy_the_overlay_explicitly_shares_pointer_inpu_361c70b9" formatted="false">The overlay explicitly shares pointer input with the content underneath and never consumes it. Taps, scrolling, drawer gestures, and back navigation continue through the panel.</string>
+    <string name="ui_copy_the_previous_install_failed_review_before__8358b9cf" formatted="false">The previous install failed. Review before retrying.</string>
+    <string name="ui_copy_the_previous_install_was_interrupted_revie_2a736282" formatted="false">The previous install was interrupted. Review before retrying.</string>
+    <string name="ui_copy_the_provider_exposed_the_query_but_did_not_a3c03ab1" formatted="false">The provider exposed the query but did not return result metadata or citations.</string>
+    <string name="ui_copy_the_provider_returned_no_models_6006d7a4" formatted="false">The provider returned no models</string>
+    <string name="ui_copy_the_provider_stream_failed_without_returni_b8fc8331" formatted="false">The provider stream failed without returning additional diagnostic text.</string>
+    <string name="ui_copy_the_response_stopped_before_it_completed_7faf04cb" formatted="false">The response stopped before it completed.</string>
+    <string name="ui_copy_the_reviewed_plan_is_no_longer_available_r_dd501c04" formatted="false">The reviewed plan is no longer available. Run preflight again.</string>
+    <string name="ui_copy_the_source_and_conversation_are_intact_e8bc1257" formatted="false">The source and conversation are intact.</string>
+    <string name="ui_copy_theme_mode_a4085941" formatted="false">Theme mode</string>
+    <string name="ui_copy_theme_palette_launcher_icon_and_amoled_bla_d2a156c2" formatted="false">Theme, palette, launcher icon, and AMOLED black</string>
+    <string name="ui_copy_these_providers_keep_xylune_backups_in_an__1d48776c" formatted="false">These providers keep Xylune backups in an app-specific folder or prefix. OAuth tokens and storage credentials are encrypted on this device and excluded from exported backups.</string>
+    <string name="ui_copy_thinking_d08d8da0" formatted="false">Thinking</string>
+    <string name="ui_copy_thinking_always_on_cfd10cca" formatted="false">Thinking always on</string>
+    <string name="ui_copy_thinking_effort_ffa4386d" formatted="false">Thinking effort</string>
+    <string name="ui_copy_third_party_ai_and_services_2efc45f4" formatted="false">Third-party AI and services</string>
+    <string name="ui_copy_this_pdf_could_not_be_rendered_02eed081" formatted="false">This PDF could not be rendered</string>
+    <string name="ui_copy_this_attempt_continued_in_the_newer_step_b_be3455d4" formatted="false">This attempt continued in the newer step below.</string>
+    <string name="ui_copy_this_build_has_no_github_source_provenance_5c6bd0b4" formatted="false">This build has no GitHub source provenance</string>
+    <string name="ui_copy_this_build_is_missing_its_generated_offlin_04e7a509" formatted="false">This build is missing its generated offline notices.</string>
+    <string name="ui_copy_this_file_is_encrypted_enter_its_password__a264ac25" formatted="false">This file is encrypted. Enter its password to inspect it.</string>
+    <string name="ui_copy_this_is_a_debug_signed_development_build_a41215a2" formatted="false">This is a debug-signed development build.</string>
+    <string name="ui_copy_this_location_is_connected_but_it_does_not_43aa5057" formatted="false">This location is connected, but it does not contain a Xylune backup yet.</string>
+    <string name="ui_copy_this_model_cannot_read_the_original_attach_207f386d" formatted="false">This model cannot read the original attachment. OCR fallback will be prepared before sending.</string>
+    <string name="ui_copy_this_model_does_not_accept_reference_image_4ea7de09" formatted="false">This model does not accept reference images.</string>
+    <string name="ui_copy_this_model_doesn_t_support_tool_calling_we_1b99daec" formatted="false">This model doesn\'t support tool calling. Web, Python, and Linux tools won\'t run.</string>
+    <string name="ui_copy_this_model_receives_ocr_text_and_coordinat_9c63ece0" formatted="false">This model receives OCR text and coordinates; you still see the untouched original.</string>
+    <string name="ui_copy_this_permanently_removes_the_selected_memo_014d9f87" formatted="false">This permanently removes the selected memory data from Xylune.</string>
+    <string name="ui_copy_this_provider_returns_the_final_image_when_bb8b2c86" formatted="false">This provider returns the final image when generation finishes.</string>
+    <string name="ui_copy_this_removes_the_selected_linux_root_files_1834b47d" formatted="false">This removes the selected Linux root filesystem and its installed packages for all chats. Chat files in /workspace and bundled Python packages are kept.</string>
+    <string name="ui_copy_this_saved_package_request_already_complet_dcaa5d0f" formatted="false">This saved package request already completed successfully.</string>
+    <string name="ui_copy_timed_out_edcd3630" formatted="false">Timed out</string>
+    <string name="ui_copy_tint_is_fully_opaque_and_covers_the_blurre_b79c4db7" formatted="false">Tint is fully opaque and covers the blurred background. Lower Tint opacity to reveal blur.</string>
+    <string name="ui_copy_tint_opacity_96fb97b9" formatted="false">Tint opacity</string>
+    <string name="ui_copy_token_counting_a4f106cd" formatted="false">Token counting</string>
+    <string name="ui_copy_token_fields_are_stored_from_provider_usag_cd3b8407" formatted="false">Token fields are stored from provider usage metadata when the provider reports them. Otherwise Xylune may fall back to its local counter/estimator. Use the raw token counts above with your provider\'s current pricing table for manual calculation.</string>
+    <string name="ui_copy_tool_behavior_e85448db" formatted="false">Tool behavior</string>
+    <string name="ui_copy_tool_call_e313188e" formatted="false">Tool call</string>
+    <string name="ui_copy_tool_completed_3ac043d2" formatted="false">Tool completed</string>
+    <string name="ui_copy_tool_defaults_ec2f1d87" formatted="false">Tool defaults</string>
+    <string name="ui_copy_tool_diagnostics_983e902f" formatted="false">Tool diagnostics</string>
+    <string name="ui_copy_tool_failed_34ded43e" formatted="false">Tool failed</string>
+    <string name="ui_copy_tool_output_363f4fd0" formatted="false">Tool output</string>
+    <string name="ui_copy_tool_result_c6a723b9" formatted="false">Tool result</string>
+    <string name="ui_copy_tool_traces_604ae021" formatted="false">Tool traces</string>
+    <string name="ui_copy_tool_traces_and_working_timeline_e020966a" formatted="false">Tool traces and working timeline</string>
+    <string name="ui_copy_tools_4fa8cc86" formatted="false">Tools</string>
+    <string name="ui_copy_tools_safety_b9da3713" formatted="false">Tools &amp; safety</string>
+    <string name="ui_copy_tools_and_modes_128b5854" formatted="false">Tools and modes</string>
+    <string name="ui_copy_tools_available_to_xylune_in_this_chat_3fc79d3d" formatted="false">Tools available to Xylune in this chat</string>
+    <string name="ui_copy_top_left_04b38cf9" formatted="false">Top left</string>
+    <string name="ui_copy_top_right_c1cc898f" formatted="false">Top right</string>
+    <string name="ui_copy_total_tokens_e6dad16e" formatted="false">Total tokens</string>
+    <string name="ui_copy_trusted_linux_packages_apt_apk_3997a99f" formatted="false">Trusted Linux packages (apt/apk)</string>
+    <string name="ui_copy_trusted_list_beb86078" formatted="false">Trusted list</string>
+    <string name="ui_copy_trusted_pip_packages_3746e779" formatted="false">Trusted pip packages</string>
+    <string name="ui_copy_try_a_different_word_or_a_shorter_phrase_fd120b75" formatted="false">Try a different word or a shorter phrase.</string>
+    <string name="ui_copy_try_a_library_name_such_as_sqlcipher_or_a__42aa42fd" formatted="false">Try a library name such as SQLCipher or a license such as Apache-2.0.</string>
+    <string name="ui_copy_try_again_042c862e" formatted="false">Try again</string>
+    <string name="ui_copy_try_another_provider_or_clear_the_current__19f68da0" formatted="false">Try another provider or clear the current filters.</string>
+    <string name="ui_copy_try_full_rendering_80679aa3" formatted="false">Try full rendering</string>
+    <string name="ui_copy_type_a_message_or_attach_a_file_first_112be641" formatted="false">Type a message or attach a file first</string>
+    <string name="ui_copy_ui_draw_recording_7d905e40" formatted="false">UI draw / recording</string>
+    <string name="ui_copy_ubuntu_result_cecb1775" formatted="false">Ubuntu result</string>
+    <string name="ui_copy_ubuntu_tool_result_c84c0cbf" formatted="false">Ubuntu tool result</string>
+    <string name="ui_copy_unarchive_35e71c29" formatted="false">Unarchive</string>
+    <string name="ui_copy_unavailable_calculate_manually_8a46a938" formatted="false">Unavailable / calculate manually</string>
+    <string name="ui_copy_unavailable_in_this_build_tap_for_details_3f046a0d" formatted="false">Unavailable in this build • tap for details</string>
+    <string name="ui_copy_uninstall_a735da1d" formatted="false">Uninstall</string>
+    <string name="ui_copy_unknown_bc7819b3" formatted="false">Unknown</string>
+    <string name="ui_copy_unlock_preview_5e1981a6" formatted="false">Unlock preview</string>
+    <string name="ui_copy_unpin_2eba6a03" formatted="false">Unpin</string>
+    <string name="ui_copy_update_check_failed_1baabb78" formatted="false">Update check failed</string>
+    <string name="ui_copy_update_interval_7c0e8a38" formatted="false">Update interval</string>
+    <string name="ui_copy_updates_c76d1807" formatted="false">Updates</string>
+    <string name="ui_copy_usage_0bb18642" formatted="false">Usage</string>
+    <string name="ui_copy_usage_limits_199e5478" formatted="false">Usage &amp; limits</string>
+    <string name="ui_copy_usage_details_e3d72694" formatted="false">Usage details</string>
+    <string name="ui_copy_use_openai_anthropic_gemini_deepseek_or_an_dbc45081" formatted="false">Use OpenAI, Anthropic, Gemini, DeepSeek, or another compatible endpoint.</string>
+    <string name="ui_copy_use_xylune_default_for_new_chats_7d65475a" formatted="false">Use Xylune default for new chats</string>
+    <string name="ui_copy_use_a_chatgpt_account_api_provider_or_loca_453052ab" formatted="false">Use a ChatGPT account, API provider, or local server.</string>
+    <string name="ui_copy_use_a_key_restricted_to_this_bucket_and_pr_2fe03688" formatted="false">Use a key restricted to this bucket and prefix. Credentials remain encrypted on-device.</string>
+    <string name="ui_copy_use_chart_json_or_label_value_lines_f2a909d0" formatted="false">Use chart JSON or `label: value` lines.</string>
+    <string name="ui_copy_use_connected_folder_90486d5d" formatted="false">Use connected folder</string>
+    <string name="ui_copy_use_custom_instruction_profiles_for_additi_5ce55af1" formatted="false">Use custom instruction profiles for additional tone and workflow preferences.</string>
+    <string name="ui_copy_use_for_new_chats_2e661cc8" formatted="false">Use for new chats</string>
+    <string name="ui_copy_use_memory_1bd1aeeb" formatted="false">Use memory</string>
+    <string name="ui_copy_use_selected_model_0c8ec874" formatted="false">Use selected model</string>
+    <string name="ui_copy_use_terms_third_party_ai_limits_warranty_a_5b45ab19" formatted="false">Use terms, third-party AI limits, warranty, and liability</string>
+    <string name="ui_copy_use_your_chatgpt_plan_without_an_api_key_bee8ee5d" formatted="false">Use your ChatGPT plan without an API key</string>
+    <string name="ui_copy_uses_dropbox_app_folder_access_and_scoped__e108dc0b" formatted="false">Uses Dropbox App folder access and scoped file permissions. Xylune cannot browse the rest of Dropbox.</string>
+    <string name="ui_copy_uses_onedrive_s_apps_xylune_folder_with_fi_86f5b49b" formatted="false">Uses OneDrive\'s Apps/Xylune folder with Files.ReadWrite.AppFolder instead of access to the whole drive.</string>
+    <string name="ui_copy_uses_only_drive_s_hidden_appdatafolder_con_119f5820" formatted="false">Uses only Drive\'s hidden appDataFolder. Connect once, then create, browse, preview, and restore backups without repeating the consent flow.</string>
+    <string name="ui_copy_usually_unnecessary_71831aa8" formatted="false">Usually unnecessary</string>
+    <string name="ui_copy_verify_dda6ac27" formatted="false">Verify</string>
+    <string name="ui_copy_version_2da600bf" formatted="false">Version</string>
+    <string name="ui_copy_version_architecture_and_privacy_model_5a32ad48" formatted="false">Version, architecture, and privacy model</string>
+    <string name="ui_copy_violet_ddcd2f2e" formatted="false">Violet</string>
+    <string name="ui_copy_vision_40b0906c" formatted="false">Vision</string>
+    <string name="ui_copy_waiting_for_google_drive_approval_6ede8f2c" formatted="false">Waiting for Google Drive approval…</string>
+    <string name="ui_copy_waiting_for_output_c0bc6805" formatted="false">Waiting for output…</string>
+    <string name="ui_copy_waiting_for_search_results_c3fcd815" formatted="false">Waiting for search results…</string>
+    <string name="ui_copy_waiting_for_sign_in_to_finish_c6fa0ae2" formatted="false">Waiting for sign-in to finish</string>
+    <string name="ui_copy_waiting_for_the_first_provider_rendered_pr_b9f66ed7" formatted="false">Waiting for the first provider-rendered preview…</string>
+    <string name="ui_copy_warm_orange_rose_and_gold_accents_202bf19b" formatted="false">Warm orange, rose, and gold accents</string>
+    <string name="ui_copy_web_page_154cf598" formatted="false">Web page</string>
+    <string name="ui_copy_web_search_381ceddd" formatted="false">Web search</string>
+    <string name="ui_copy_webdav_nextcloud_61e55664" formatted="false">WebDAV / Nextcloud</string>
+    <string name="ui_copy_webdav_folder_url_046e80a2" formatted="false">WebDAV folder URL</string>
+    <string name="ui_copy_weekly_158f3da5" formatted="false">Weekly</string>
+    <string name="ui_copy_weekly_limit_7aaf676b" formatted="false">Weekly limit</string>
+    <string name="ui_copy_welcome_ca4f9dcf" formatted="false">Welcome</string>
+    <string name="ui_copy_what_are_we_creating_20d7e61f" formatted="false">What are we creating?</string>
+    <string name="ui_copy_what_are_we_working_on_81ac7f3a" formatted="false">What are we working on?</string>
+    <string name="ui_copy_what_this_screen_manages_542d8dc3" formatted="false">What this screen manages</string>
+    <string name="ui_copy_while_xylune_is_working_34273e03" formatted="false">While Xylune is working</string>
+    <string name="ui_copy_while_working_3cf6d7a9" formatted="false">While working</string>
+    <string name="ui_copy_within_frame_budget_b9f948c7" formatted="false">Within frame budget</string>
+    <string name="ui_copy_work_complete_272c4c9f" formatted="false">Work complete</string>
+    <string name="ui_copy_working_3b4dfc97" formatted="false">Working</string>
+    <string name="ui_copy_working_display_eb79a380" formatted="false">Working display</string>
+    <string name="ui_copy_working_history_token_budget_4f0829dc" formatted="false">Working history token budget</string>
+    <string name="ui_copy_working_history_token_budget_98c02156" formatted="false">Working-history token budget</string>
+    <string name="ui_copy_working_13b7bfca" formatted="false">Working…</string>
+    <string name="ui_copy_works_with_aws_s3_cloudflare_r2_backblaze__21bac943" formatted="false">Works with AWS S3, Cloudflare R2, Backblaze B2, MinIO, and other Signature V4-compatible object stores.</string>
+    <string name="ui_copy_works_with_drive_onedrive_dropbox_nextclou_b4545839" formatted="false">Works with Drive, OneDrive, Dropbox, Nextcloud, USB, local storage, and other Android document providers.</string>
+    <string name="ui_copy_workspace_4ca0a75c" formatted="false">Workspace</string>
+    <string name="ui_copy_writing_report_37d1a667" formatted="false">Writing report</string>
+    <string name="ui_copy_writing_source_request_3021661d" formatted="false">Writing source request…</string>
+    <string name="ui_copy_xylune_adds_request_specific_date_enabled__388d9dd8" formatted="false">Xylune adds request-specific date, enabled-tool, research, memory, attachment, and generated-content instructions at runtime. Those dynamic layers are not editable either and are not presented as one misleading static block.</string>
+    <string name="ui_copy_xylune_asks_for_the_non_sensitive_drive_ap_1514dc2b" formatted="false">Xylune asks for the non-sensitive drive.appdata scope only. The backup files remain hidden from normal Drive browsing and from other apps.</string>
+    <string name="ui_copy_xylune_cannot_send_messages_until_chatgpt__31d3179a" formatted="false">Xylune cannot send messages until ChatGPT, an API provider, or a local model server is connected.</string>
+    <string name="ui_copy_xylune_chat_cb1f11e8" formatted="false">Xylune chat</string>
+    <string name="ui_copy_xylune_cloud_folder_connected_2e05f8b8" formatted="false">Xylune cloud folder connected</string>
+    <string name="ui_copy_xylune_core_prompt_768aad75" formatted="false">Xylune core prompt</string>
+    <string name="ui_copy_xylune_includes_each_installed_root_filesy_fcf873a0" formatted="false">Xylune includes each installed root filesystem, packages, and configuration. Permissions, symbolic links, and hard links are preserved. This can make the backup several gigabytes.</string>
+    <string name="ui_copy_xylune_is_a_client_not_an_ai_model_host_re_1e39bcf3" formatted="false">Xylune is a client, not an AI model host. Responses come from the provider or local server selected by the user.</string>
+    <string name="ui_copy_xylune_is_ready_13cb949f" formatted="false">Xylune is ready</string>
+    <string name="ui_copy_xylune_is_up_to_date_ee323ee0" formatted="false">Xylune is up to date</string>
+    <string name="ui_copy_xylune_stores_memories_in_its_encrypted_lo_22af7bbe" formatted="false">Xylune stores memories in its encrypted local database and selects only relevant items under a strict context budget. Disabled memories remain stored but are not supplied to models.</string>
+    <string name="ui_copy_xylune_stream_error_bc4660cd" formatted="false">Xylune stream error</string>
+    <string name="ui_copy_cost_unavailable_b1d105c1" formatted="false">cost unavailable</string>
+    <string name="ui_copy_not_found_094b763b" formatted="false">not found</string>
+    <string name="ui_copy_running_c85296cf" formatted="false">running…</string>
+    <string name="ui_copy_saved_history_b269f3ad" formatted="false">saved history</string>
+    <!-- generated-ui-copy:end -->
 </resources>

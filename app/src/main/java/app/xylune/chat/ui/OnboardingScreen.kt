@@ -53,6 +53,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import app.xylune.chat.CatalogInitializationState
+import app.xylune.chat.R
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
@@ -62,8 +65,8 @@ private enum class OnboardingStep(val setupTitle: String) {
     READY("Finish"),
 }
 
-internal fun shouldBlockForProviderCatalog(catalogReady: Boolean, graceExpired: Boolean): Boolean =
-    !catalogReady && !graceExpired
+internal fun shouldBlockForProviderCatalog(state: CatalogInitializationState): Boolean =
+    state == CatalogInitializationState.LOADING
 
 internal fun shouldShowProviderOnboarding(
     catalogReady: Boolean,
@@ -93,7 +96,7 @@ internal fun XyluneStartupScreen() {
 @Composable
 internal fun OnboardingScreen(
     viewModel: ChatViewModel,
-    providerCatalogDelayed: Boolean,
+    providerCatalogUnavailable: Boolean,
     configuredProviderCount: Int,
     stepIndex: Int,
     stepOffsetFraction: Float,
@@ -202,7 +205,7 @@ internal fun OnboardingScreen(
                         when (destination) {
                             OnboardingStep.WELCOME -> WelcomeStep(viewModel)
                             OnboardingStep.PROVIDER -> ProviderStep(
-                                providerCatalogDelayed = providerCatalogDelayed,
+                                providerCatalogUnavailable = providerCatalogUnavailable,
                                 configuredProviderCount = configuredProviderCount,
                             )
                             OnboardingStep.READY -> ReadyStep(configuredProviderCount)
@@ -422,7 +425,7 @@ private fun WelcomeStep(viewModel: ChatViewModel) {
 
 @Composable
 private fun ProviderStep(
-    providerCatalogDelayed: Boolean,
+    providerCatalogUnavailable: Boolean,
     configuredProviderCount: Int,
 ) {
     SetupHeading(
@@ -456,7 +459,7 @@ private fun ProviderStep(
             }
         }
     }
-    if (providerCatalogDelayed) {
+    if (providerCatalogUnavailable) {
         Surface(
             color = MaterialTheme.colorScheme.tertiaryContainer,
             contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
@@ -464,7 +467,7 @@ private fun ProviderStep(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(
-                "The built-in provider catalog is delayed. Setup remains usable and Xylune will keep retrying in the background.",
+                stringResource(R.string.provider_catalog_initialization_failed),
                 modifier = Modifier.padding(14.dp),
                 style = MaterialTheme.typography.bodyMedium,
             )

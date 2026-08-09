@@ -4,13 +4,14 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import app.xylune.chat.CatalogInitializationState
 
 class OnboardingFlowTest {
     @Test
-    fun `startup wait has a bounded escape path`() {
-        assertTrue(shouldBlockForProviderCatalog(catalogReady = false, graceExpired = false))
-        assertFalse(shouldBlockForProviderCatalog(catalogReady = false, graceExpired = true))
-        assertFalse(shouldBlockForProviderCatalog(catalogReady = true, graceExpired = false))
+    fun `startup wait follows explicit catalog initialization state`() {
+        assertTrue(shouldBlockForProviderCatalog(CatalogInitializationState.LOADING))
+        assertFalse(shouldBlockForProviderCatalog(CatalogInitializationState.READY))
+        assertFalse(shouldBlockForProviderCatalog(CatalogInitializationState.FAILED))
     }
 
     @Test

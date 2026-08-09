@@ -7,7 +7,6 @@ import androidx.activity.compose.PredictiveBackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
@@ -29,17 +28,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import app.xylune.chat.CatalogInitializationState
 import app.xylune.chat.settings.DeveloperSettings
 import app.xylune.chat.settings.PerformanceOverlayPosition
 import app.xylune.chat.update.RepositoryUpdateState
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
 @Composable
@@ -58,7 +56,7 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
     val activeConversation by viewModel.conversation.collectAsState()
     val activeModels by viewModel.models.collectAsState()
     val credentialRevision by viewModel.credentialRevision.collectAsState()
-    val providerCatalogReady by viewModel.providerCatalogReady.collectAsState()
+    val catalogInitializationState by viewModel.catalogInitializationState.collectAsState()
     val configuredProviders = remember(providers, credentialRevision) {
         viewModel.configuredProviders(providers)
     }
@@ -67,7 +65,6 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
             activeModels.firstOrNull { it.modelId == selectedModelId }?.supportsImageGeneration == true
         } == true
     }
-    var providerCatalogGraceExpired by rememberSaveable { mutableStateOf(false) }
     val setupActive by viewModel.setupActive.collectAsState()
     val setupStepIndex by viewModel.setupStepIndex.collectAsState()
     val setupPageOffsetFraction by viewModel.setupPageOffsetFraction.collectAsState()
@@ -88,19 +85,12 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
     LaunchedEffect(viewModel) {
         viewModel.notices.collect { snackbar.showSnackbar(it) }
     }
-    LaunchedEffect(providerCatalogReady) {
-        if (providerCatalogReady) {
-            providerCatalogGraceExpired = false
-        } else {
-            delay(8_000)
-            providerCatalogGraceExpired = true
-        }
-    }
-    if (shouldBlockForProviderCatalog(providerCatalogReady, providerCatalogGraceExpired)) {
+    if (shouldBlockForProviderCatalog(catalogInitializationState)) {
         XyluneStartupScreen()
         return
     }
-    val onboardingCatalogUsable = providerCatalogReady || providerCatalogGraceExpired
+    val onboardingCatalogUsable = catalogInitializationState != CatalogInitializationState.LOADING
+    val providerCatalogUnavailable = catalogInitializationState == CatalogInitializationState.FAILED
     LaunchedEffect(onboardingCatalogUsable, configuredProviders.isEmpty(), setupDismissed, setupActive) {
         if (onboardingCatalogUsable && configuredProviders.isEmpty() && !setupDismissed && !setupActive) {
             viewModel.startSetup()
@@ -110,7 +100,7 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
         Box(Modifier.fillMaxSize()) {
             OnboardingScreen(
                 viewModel = viewModel,
-                providerCatalogDelayed = !providerCatalogReady,
+                providerCatalogUnavailable = providerCatalogUnavailable,
                 configuredProviderCount = configuredProviders.size,
                 stepIndex = setupStepIndex,
                 stepOffsetFraction = setupPageOffsetFraction,
@@ -221,10 +211,7 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
                         ChatScreen(viewModel, compactOpenDrawer)
                     }
                     Screen.SEARCH -> SearchScreen(viewModel, compactOpenDrawer)
-                    Screen.SETTINGS -> Box(Modifier.fillMaxSize()) {
-                        SettingsHostScreen(viewModel, compactOpenDrawer)
-                        SettingsLeftBackEdgeGuard()
-                    }
+                    Screen.SETTINGS -> SettingsScreen(viewModel, compactOpenDrawer)
                     Screen.SANDBOX -> SandboxScreen(viewModel)
                     Screen.TERMINAL -> LinuxTerminalScreen(viewModel)
                 }
@@ -372,20 +359,6 @@ private fun PerformanceOverlayHost(
         modifier = modifier,
     )
 }
-
-@Composable
-private fun SettingsLeftBackEdgeGuard() {
-    // The drawer can still be pulled from the Settings content, but the first
-    // 48 dp are owned by Android Back. This node only registers geometry; it
-    // consumes no pointer input and therefore cannot block taps or scrolling.
-    Box(
-        Modifier
-            .fillMaxHeight()
-            .width(48.dp)
-            .horizontalGesturePriority(),
-    )
-}
-
 internal fun performanceOverlayAlignment(position: PerformanceOverlayPosition): Alignment = when (position) {
     PerformanceOverlayPosition.TOP_START -> Alignment.TopStart
     PerformanceOverlayPosition.TOP_END -> Alignment.TopEnd
