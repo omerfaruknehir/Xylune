@@ -1,0 +1,47 @@
+name: Turkish UI dynamic audit once
+on:
+  push:
+    branches: [agent/complete-turkish-localization]
+    paths: ['.github/workflows/turkish-ui-dynamic-audit-once.yml']
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/complete-turkish-localization
+      - name: Extract likely user-visible dynamic copy
+        run: |
+          python3 - <<'PY'
+          import ast, re
+          from pathlib import Path
+          root=Path('app/src/main/java/app/xylune/chat/ui')
+          q=re.compile(r'(?s)(""".*?"""|"(?:\\.|[^"\\])*")')
+          markers=('Text(', 'SettingsGroup(', 'SettingsSwitch(', 'SettingsDestination(', 'title =', 'subtitle =', 'label =', 'placeholder =', 'supportingText', 'contentDescription', 'Snackbar', 'statusMessage')
+          rows=[]
+          for path in sorted(root.glob('*.kt')):
+              text=path.read_text()
+              for m in q.finditer(text):
+                  raw=m.group(0)
+                  try: value=raw[3:-3] if raw.startswith('"""') else ast.literal_eval(raw)
+                  except Exception: continue
+                  value=value.strip()
+                  if not value or ('$' not in value and '${' not in value): continue
+                  if len(value)>500 or not re.search(r'[A-Za-z]{2,}',value): continue
+                  before=text[max(0,m.start()-500):m.start()]
+                  if not any(x in before for x in markers): continue
+                  if any(x in value for x in ('UUID.randomUUID','context.packageName','message.nodeId','stateKey','messageKey','runId')): continue
+                  line=text.count('\n',0,m.start())+1
+                  rows.append(f'{path.name}:{line}: {value.replace(chr(10)," ↩ ")}')
+          Path('translation-dynamic-ui-audit.txt').write_text('# Likely user-visible dynamic English templates\n'+'\n'.join(sorted(set(rows)))+'\n')
+          PY
+      - name: Commit audit and remove workflow
+        run: |
+          rm .github/workflows/turkish-ui-dynamic-audit-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Refine dynamic Turkish UI coverage audit'
+          git push origin HEAD:agent/complete-turkish-localization
