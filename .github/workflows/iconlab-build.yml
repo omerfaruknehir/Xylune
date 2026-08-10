@@ -7,6 +7,12 @@ on:
       - 'iconlab/**'
       - 'settings.gradle.kts'
       - '.github/workflows/iconlab-build.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'iconlab/**'
+      - 'settings.gradle.kts'
+      - '.github/workflows/iconlab-build.yml'
   workflow_dispatch:
 
 permissions:
