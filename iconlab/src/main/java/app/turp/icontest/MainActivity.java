@@ -8,14 +8,15 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.provider.Settings;
 import android.text.InputFilter;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -34,10 +35,11 @@ public final class MainActivity extends Activity {
     private TextView fileInfo;
     private TextView status;
     private EditText nameInput;
-    private CheckBox adaptiveCheck;
-    private CheckBox hideStockCheck;
+    private Button applyButton;
     private Bitmap currentBitmap;
     private String currentType = "";
+    private boolean pendingApplyAfterPermission;
+    private boolean busy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,20 @@ public final class MainActivity extends Activity {
         window.setNavigationBarColor(getColor(R.color.page_bg));
         buildUi();
         loadState();
+        if (getIntent().getBooleanExtra("update_applied", false)) {
+            status.setText("Update applied. This is the rebuilt package using the new real launcher resources.");
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (status != null) updateLauncherStatus();
+        if (pendingApplyAfterPermission && canInstallPackages()) {
+            pendingApplyAfterPermission = false;
+            applyActualPackage();
+        } else if (!busy) {
+            updateStatus();
+        }
     }
 
     private void buildUi() {
@@ -62,7 +72,7 @@ public final class MainActivity extends Activity {
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(dp(20), dp(24), dp(20), dp(32));
+        root.setPadding(dp(20), dp(24), dp(20), dp(36));
         scroll.addView(root, new ScrollView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
@@ -71,7 +81,7 @@ public final class MainActivity extends Activity {
         root.addView(title);
 
         TextView subtitle = text(
-                "Import an Android drawable XML, SVG, or PNG, then test it as a home-screen launcher icon and launch splash.",
+                "Import Android drawable XML, SVG, or PNG. Apply rebuilds this installed APK so Android itself sees the new launcher name, adaptive icon, and system splash icon.",
                 15, getColor(R.color.text_secondary));
         subtitle.setPadding(0, dp(8), 0, dp(20));
         root.addView(subtitle);
@@ -87,8 +97,7 @@ public final class MainActivity extends Activity {
         previewCard.addView(iconSurface, new LinearLayout.LayoutParams(dp(96), dp(96)));
         previewIcon = new ImageView(this);
         previewIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        int iconPad = dp(10);
-        previewIcon.setPadding(iconPad, iconPad, iconPad, iconPad);
+        previewIcon.setPadding(dp(10), dp(10), dp(10), dp(10));
         iconSurface.addView(previewIcon, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -96,7 +105,7 @@ public final class MainActivity extends Activity {
         previewText.setOrientation(LinearLayout.VERTICAL);
         previewText.setPadding(dp(16), 0, 0, 0);
         previewCard.addView(previewText, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-        TextView previewLabel = text("LAUNCHER PREVIEW", 12, getColor(R.color.text_secondary));
+        TextView previewLabel = text("PACKAGE PREVIEW", 12, getColor(R.color.text_secondary));
         previewLabel.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         previewText.addView(previewLabel);
         previewName = text("Icon Lab", 20, getColor(R.color.text_primary));
@@ -111,11 +120,10 @@ public final class MainActivity extends Activity {
         nameInput.setTextColor(getColor(R.color.text_primary));
         nameInput.setHintTextColor(getColor(R.color.text_secondary));
         nameInput.setHint("e.g. Turp");
-        nameInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
+        nameInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(48)});
         nameInput.setPadding(dp(14), 0, dp(14), 0);
         nameInput.setBackground(roundRect(getColor(R.color.surface), 14, getColor(R.color.outline), 1));
         root.addView(nameInput, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(54)));
-        nameInput.setOnFocusChangeListener((v, focused) -> refreshPreviewName());
         nameInput.addTextChangedListener(new SimpleTextWatcher(this::refreshPreviewName));
 
         addSectionLabel(root, "Artwork");
@@ -123,72 +131,53 @@ public final class MainActivity extends Activity {
         choose.setOnClickListener(v -> chooseFile());
         root.addView(choose, lpMatchWrap(0, 8));
         fileInfo = text("No custom icon imported yet", 13, getColor(R.color.text_secondary));
-        fileInfo.setPadding(dp(2), 0, dp(2), 0);
         root.addView(fileInfo);
 
-        adaptiveCheck = checkBox("Use adaptive launcher mask");
-        adaptiveCheck.setPadding(0, dp(18), 0, 0);
-        root.addView(adaptiveCheck);
-
-        hideStockCheck = checkBox("Replace stock entry after pinning");
-        root.addView(hideStockCheck);
-
-        TextView caution = text(
-                "Replacement hides Icon Lab’s built-in launcher entry after the custom shortcut is pinned. Use Restore stock entry before deleting the custom shortcut if you still want a normal launcher entry.",
+        TextView note = text(
+                "XML and SVG are rendered to a 768 px transparent PNG before packaging. The resulting APK still uses a real adaptive-icon resource and the same packaged icon for Android 12+ splash.",
                 12, getColor(R.color.text_secondary));
-        caution.setPadding(dp(2), dp(2), dp(2), dp(18));
-        root.addView(caution);
+        note.setPadding(0, dp(10), 0, dp(18));
+        root.addView(note);
 
-        Button apply = primaryButton("Apply / update launcher icon");
-        apply.setOnClickListener(v -> applyLauncher());
-        root.addView(apply, lpMatchWrap(0, 10));
+        applyButton = primaryButton("Apply to this installed app");
+        applyButton.setOnClickListener(v -> applyRequested());
+        root.addView(applyButton, lpMatchWrap(0, 12));
 
-        Button testSplash = secondaryButton("Test splash screen");
-        testSplash.setOnClickListener(v -> testSplash());
-        root.addView(testSplash, lpMatchWrap(0, 10));
-
-        Button restore = secondaryButton("Restore stock launcher entry");
-        restore.setOnClickListener(v -> {
-            LauncherUtil.setStockLauncherEnabled(this, true);
-            hideStockCheck.setChecked(false);
-            IconStore.saveOptions(this, cleanName(), adaptiveCheck.isChecked(), false);
-            updateLauncherStatus();
-            Toast.makeText(this, "Stock Icon Lab launcher entry restored.", Toast.LENGTH_SHORT).show();
-        });
-        root.addView(restore, lpMatchWrap(0, 18));
+        Button settings = secondaryButton("Open install-source permission");
+        settings.setOnClickListener(v -> openInstallSourceSettings());
+        root.addView(settings, lpMatchWrap(0, 18));
 
         status = text("", 13, getColor(R.color.text_secondary));
         status.setPadding(dp(14), dp(12), dp(14), dp(12));
         status.setBackground(roundRect(getColor(R.color.surface_alt), 14, Color.TRANSPARENT, 0));
         root.addView(status);
 
-        TextView limitation = text(
-                "Android does not let an installed app rewrite arbitrary manifest icon/name resources at runtime. Icon Lab therefore uses Android’s pinned-shortcut API for the custom launcher entry. The launch splash immediately uses your imported artwork and name.",
+        TextView security = text(
+                "This is intentionally a test APK. Its final build embeds its own test signing key so it can re-sign updates to the same package. Do not reuse this signing design for a production app.",
                 12, getColor(R.color.text_secondary));
-        limitation.setPadding(dp(2), dp(16), dp(2), 0);
-        root.addView(limitation);
+        security.setPadding(0, dp(16), 0, 0);
+        root.addView(security);
 
         setContentView(scroll);
     }
 
     private void loadState() {
         nameInput.setText(IconStore.name(this));
-        adaptiveCheck.setChecked(IconStore.adaptive(this));
-        hideStockCheck.setChecked(IconStore.hideStock(this));
         Bitmap stored = IconStore.loadBitmap(this);
         if (stored != null) {
             currentBitmap = stored;
-            currentType = "Stored PNG rendering";
+            currentType = "stored render";
             previewIcon.setImageBitmap(stored);
             fileInfo.setText("Stored custom icon • ready");
         } else {
             previewIcon.setImageResource(R.drawable.default_icon);
         }
         refreshPreviewName();
-        updateLauncherStatus();
+        updateStatus();
     }
 
     private void chooseFile() {
+        if (busy) return;
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
@@ -209,13 +198,8 @@ public final class MainActivity extends Activity {
                 currentBitmap = bitmap;
                 currentType = kind;
                 previewIcon.setImageBitmap(bitmap);
-                fileInfo.setText(displayName + " • " + kind + " • rendered");
-                try {
-                    persistCurrent();
-                    updateLauncherStatus();
-                } catch (IOException e) {
-                    showError(e.getMessage());
-                }
+                fileInfo.setText(displayName + " • " + kind + " • ready");
+                try { persistCurrent(); } catch (IOException e) { showError(e.getMessage()); }
             }
 
             @Override
@@ -226,46 +210,44 @@ public final class MainActivity extends Activity {
         });
     }
 
-    private void applyLauncher() {
-        if (!validateReady()) return;
-        try {
-            persistCurrent();
-        } catch (IOException e) {
-            showError(e.getMessage());
+    private void applyRequested() {
+        if (!validateReady() || busy) return;
+        try { persistCurrent(); } catch (IOException e) { showError(e.getMessage()); return; }
+        if (!canInstallPackages()) {
+            pendingApplyAfterPermission = true;
+            status.setText("Enable “Allow from this source”. Icon Lab will continue automatically when you return.");
+            openInstallSourceSettings();
             return;
         }
-
-        LauncherUtil.ApplyResult result = LauncherUtil.apply(
-                this,
-                currentBitmap,
-                cleanName(),
-                adaptiveCheck.isChecked(),
-                hideStockCheck.isChecked()
-        );
-        switch (result) {
-            case PIN_REQUESTED:
-                status.setText("Confirm the launcher prompt. After it is pinned, the stock entry will be hidden if replacement is enabled.");
-                break;
-            case UPDATED:
-                status.setText("Pinned launcher entry updated. Some launchers may briefly cache the old artwork.");
-                break;
-            case UNSUPPORTED:
-                status.setText("This launcher does not expose Android’s pinned-shortcut flow. Try a launcher that supports pinned shortcuts.");
-                break;
-        }
-        updateLauncherStatusDelayed();
+        applyActualPackage();
     }
 
-    private void testSplash() {
-        if (!validateReady()) return;
-        try {
-            persistCurrent();
-        } catch (IOException e) {
-            showError(e.getMessage());
-            return;
-        }
-        Intent intent = new Intent(this, DynamicLaunchActivity.class)
-                .putExtra(DynamicLaunchActivity.EXTRA_TEST_ONLY, true);
+    private void applyActualPackage() {
+        if (!validateReady() || busy) return;
+        busy = true;
+        applyButton.setEnabled(false);
+        SelfUpdateBuilder.buildAndInstall(this, currentBitmap, cleanName(), new SelfUpdateBuilder.Callback() {
+            @Override public void onStage(String message) { status.setText(message); }
+            @Override public void onCommitted() {
+                status.setText("Update committed. Android is replacing this package now; the app may close and relaunch.");
+            }
+            @Override public void onError(String message) {
+                busy = false;
+                applyButton.setEnabled(true);
+                status.setText("Failed: " + message);
+                showError(message);
+            }
+        });
+    }
+
+    private boolean canInstallPackages() {
+        return Build.VERSION.SDK_INT < 26 || getPackageManager().canRequestPackageInstalls();
+    }
+
+    private void openInstallSourceSettings() {
+        if (Build.VERSION.SDK_INT < 26) return;
+        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                Uri.parse("package:" + getPackageName()));
         startActivity(intent);
     }
 
@@ -283,11 +265,15 @@ public final class MainActivity extends Activity {
     }
 
     private void persistCurrent() throws IOException {
-        if (currentBitmap != null) {
-            IconStore.save(this, currentBitmap, cleanName(), adaptiveCheck.isChecked(), hideStockCheck.isChecked());
-        } else {
-            IconStore.saveOptions(this, cleanName(), adaptiveCheck.isChecked(), hideStockCheck.isChecked());
-        }
+        if (currentBitmap != null) IconStore.save(this, currentBitmap, cleanName(), true, false);
+        else IconStore.saveOptions(this, cleanName(), true, false);
+    }
+
+    private void updateStatus() {
+        if (status == null) return;
+        status.setText("Package: " + getPackageName()
+                + "\nInstall-source permission: " + (canInstallPackages() ? "allowed" : "not allowed yet")
+                + "\nArtwork: " + (currentBitmap == null ? "none" : (currentType.isEmpty() ? "ready" : currentType + " ready")));
     }
 
     private String cleanName() {
@@ -298,19 +284,6 @@ public final class MainActivity extends Activity {
         if (previewName == null || nameInput == null) return;
         String name = cleanName();
         previewName.setText(name.isEmpty() ? "Icon Lab" : name);
-    }
-
-    private void updateLauncherStatusDelayed() {
-        status.postDelayed(this::updateLauncherStatus, 800);
-    }
-
-    private void updateLauncherStatus() {
-        boolean pinned = LauncherUtil.isPinned(this);
-        boolean stock = LauncherUtil.stockLauncherEnabled(this);
-        String imported = currentBitmap == null ? "no imported icon" : (currentType.isEmpty() ? "custom icon ready" : currentType + " ready");
-        status.setText("Custom pinned entry: " + (pinned ? "yes" : "not detected")
-                + "\nStock launcher entry: " + (stock ? "visible" : "hidden")
-                + "\nArtwork: " + imported);
     }
 
     private String displayName(Uri uri) {
@@ -345,14 +318,6 @@ public final class MainActivity extends Activity {
         view.setTextColor(color);
         view.setLineSpacing(0, 1.12f);
         return view;
-    }
-
-    private CheckBox checkBox(String label) {
-        CheckBox check = new CheckBox(this);
-        check.setText(label);
-        check.setTextSize(14);
-        check.setTextColor(getColor(R.color.text_primary));
-        return check;
     }
 
     private Button primaryButton(String label) {
