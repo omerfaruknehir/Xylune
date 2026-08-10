@@ -7,16 +7,10 @@ on:
       - 'iconlab/**'
       - 'settings.gradle.kts'
       - '.github/workflows/iconlab-build.yml'
-  pull_request:
-    branches: [main]
-    paths:
-      - 'iconlab/**'
-      - 'settings.gradle.kts'
-      - '.github/workflows/iconlab-build.yml'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -28,10 +22,39 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Build debug APK
+      - name: Build and publish branch artifact
+        shell: bash
         run: |
           chmod +x ./gradlew
-          ./gradlew :iconlab:assembleDebug --stacktrace
+          mkdir -p iconlab-dist
+          set +e
+          ./gradlew :iconlab:assembleDebug --stacktrace > iconlab-dist/build.log 2>&1
+          rc=$?
+          set -e
+
+          if [ "$rc" -eq 0 ]; then
+            cp iconlab/build/outputs/apk/debug/iconlab-debug.apk iconlab-dist/IconLab-debug.apk
+            printf 'success %s\n' "$GITHUB_SHA" > iconlab-dist/status.txt
+          else
+            rm -f iconlab-dist/IconLab-debug.apk
+            printf 'failure %s\n' "$GITHUB_SHA" > iconlab-dist/status.txt
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f iconlab-dist/status.txt iconlab-dist/build.log
+          if [ "$rc" -eq 0 ]; then
+            git add -f iconlab-dist/IconLab-debug.apk
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Icon Lab build artifact [skip ci]"
+            git push origin HEAD:icon-test-app
+          fi
+
+          if [ "$rc" -ne 0 ]; then
+            tail -n 300 iconlab-dist/build.log
+            exit "$rc"
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: icon-lab-apk
