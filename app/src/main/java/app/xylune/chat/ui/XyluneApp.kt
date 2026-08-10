@@ -17,14 +17,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.SideEffect
@@ -34,11 +33,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import app.xylune.chat.CatalogInitializationState
+import app.xylune.chat.XyluneApplication
 import app.xylune.chat.settings.DeveloperSettings
 import app.xylune.chat.settings.PerformanceOverlayPosition
+import app.xylune.chat.update.InstalledReleaseNotesState
+import app.xylune.chat.update.RepositoryRelease
 import app.xylune.chat.update.RepositoryUpdateState
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @Composable
 fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
@@ -73,6 +76,13 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
     val shareConversationId by viewModel.shareConversationId.collectAsState()
     val incomingArchive by viewModel.incomingArchive.collectAsState()
     val repositoryUpdateState by viewModel.repositoryUpdateState.collectAsState()
+    val repositoryUpdates = remember(activity) {
+        (activity.application as XyluneApplication).container.repositoryUpdates
+    }
+    val installedReleaseNotesState by repositoryUpdates.installedReleaseNotesState.collectAsState()
+    var availableUpdateRelease by remember { mutableStateOf<RepositoryRelease?>(null) }
+    var suppressInstalledNotesForSession by remember { mutableStateOf(false) }
+    val appScope = rememberCoroutineScope()
     val performanceMonitor = remember(activity) { XylunePerformanceMonitor(activity) }
     val showPerformanceOverlay = developerSettings.enabled &&
         (developerSettings.performanceOverlayEnabled || developerSettings.diagnosticProfilerEnabled)
@@ -81,9 +91,20 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
     val imeVisible = WindowInsets.ime.getBottom(density) > 0
     val snackbar = remember { SnackbarHostState() }
     val openDrawer = remember(drawerState) { { drawerState.open(); Unit } }
+    val openExternal = remember(activity, viewModel) {
+        { target: String ->
+            runCatching {
+                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(target)))
+            }.onFailure { viewModel.postNotice("Could not open the update link") }
+            Unit
+        }
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.notices.collect { snackbar.showSnackbar(it) }
+    }
+    LaunchedEffect(repositoryUpdates) {
+        repositoryUpdates.loadInstalledReleaseNotesIfNeeded()
     }
     if (shouldBlockForProviderCatalog(catalogInitializationState)) {
         XyluneStartupScreen()
@@ -151,22 +172,7 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
             ?: return@LaunchedEffect
         val release = available.release
         if (!viewModel.shouldPromptRepositoryUpdate(release.tagName)) return@LaunchedEffect
-        val target = if (release.directInstallCompatible && release.apkDownloadUrl != null) {
-            release.apkDownloadUrl
-        } else {
-            release.releasePageUrl
-        }
-        val result = snackbar.showSnackbar(
-            message = "Xylune ${release.versionName} is available from ${release.repository}",
-            actionLabel = if (release.directInstallCompatible) "Download" else "Open release",
-            duration = SnackbarDuration.Long,
-        )
-        viewModel.markRepositoryUpdatePrompted(release.tagName)
-        if (result == SnackbarResult.ActionPerformed) {
-            runCatching {
-                activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(target)))
-            }.onFailure { viewModel.postNotice("Could not open the update link") }
-        }
+        availableUpdateRelease = release
     }
     LaunchedEffect(pythonRun?.startedAt, pythonRun?.running, linuxRun?.startedAt, linuxRun?.running) {
         val activePython = pythonRun?.takeIf { it.running }
@@ -174,7 +180,7 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
         val active = activePython ?: activeLinux ?: return@LaunchedEffect
         val label = if (activePython != null) "Local code execution" else activeLinux!!.distribution.displayName
         val deadline = if (activePython != null) activePython.timeoutSeconds else activeLinux!!.timeoutSeconds
-        if (snackbar.showSnackbar("$label is running in the background • ${deadline}s deadline", "Stop", duration = SnackbarDuration.Indefinite) == SnackbarResult.ActionPerformed) {
+        if (snackbar.showSnackbar("$label is running in the background • ${deadline}s deadline", "Stop", duration = androidx.compose.material3.SnackbarDuration.Indefinite) == androidx.compose.material3.SnackbarResult.ActionPerformed) {
             if (activePython != null) viewModel.stopPythonRun() else viewModel.stopLinuxRun()
         }
     }
@@ -336,6 +342,65 @@ fun XyluneApp(viewModel: ChatViewModel, activity: Activity) {
         }
         incomingArchive?.let { state -> IncomingArchiveDialog(viewModel, state) }
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
+
+        val installedNotesVisible = !suppressInstalledNotesForSession && when (installedReleaseNotesState) {
+            is InstalledReleaseNotesState.Ready,
+            is InstalledReleaseNotesState.Failed -> true
+            InstalledReleaseNotesState.Hidden,
+            InstalledReleaseNotesState.Loading -> false
+        }
+        if (!suppressInstalledNotesForSession) {
+            when (val notesState = installedReleaseNotesState) {
+                is InstalledReleaseNotesState.Ready -> {
+                    InstalledWhatsNewDialog(
+                        release = notesState.release,
+                        onDismiss = repositoryUpdates::markInstalledReleaseNotesSeen,
+                        onOpenRelease = {
+                            repositoryUpdates.markInstalledReleaseNotesSeen()
+                            openExternal(notesState.release.releasePageUrl)
+                        },
+                    )
+                }
+                is InstalledReleaseNotesState.Failed -> {
+                    InstalledWhatsNewUnavailableDialog(
+                        versionName = notesState.versionName,
+                        message = notesState.message,
+                        onDismissForNow = { suppressInstalledNotesForSession = true },
+                        onRetry = {
+                            suppressInstalledNotesForSession = false
+                            appScope.launch { repositoryUpdates.loadInstalledReleaseNotesIfNeeded() }
+                        },
+                        onOpenRelease = {
+                            repositoryUpdates.markInstalledReleaseNotesSeen()
+                            openExternal(notesState.releasePageUrl)
+                        },
+                    )
+                }
+                InstalledReleaseNotesState.Hidden,
+                InstalledReleaseNotesState.Loading -> Unit
+            }
+        }
+        if (!installedNotesVisible) {
+            availableUpdateRelease?.let { release ->
+                UpdateAvailableDialog(
+                    release = release,
+                    onDismiss = {
+                        viewModel.markRepositoryUpdatePrompted(release.tagName)
+                        availableUpdateRelease = null
+                    },
+                    onOpenUpdate = {
+                        val target = if (release.directInstallCompatible && release.apkDownloadUrl != null) {
+                            release.apkDownloadUrl
+                        } else {
+                            release.releasePageUrl
+                        }
+                        viewModel.markRepositoryUpdatePrompted(release.tagName)
+                        availableUpdateRelease = null
+                        openExternal(target)
+                    },
+                )
+            }
+        }
     }
 }
 
