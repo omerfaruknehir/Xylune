@@ -7,7 +7,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "app.turp.icontest"
+        applicationId = "app.turp.icontest.v2"
         minSdk = 26
         targetSdk = 36
         versionCode = 2
