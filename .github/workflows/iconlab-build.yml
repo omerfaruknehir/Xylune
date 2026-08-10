@@ -34,10 +34,10 @@ jobs:
 
           if [ "$rc" -eq 0 ]; then
             cp iconlab/build/outputs/apk/debug/iconlab-debug.apk iconlab-dist/IconLab-debug.apk
-            printf 'success %s\n' "$GITHUB_SHA" > iconlab-dist/status.txt
+            printf 'result=success\nsource=%s\nrun=%s\n' "$GITHUB_SHA" "$GITHUB_RUN_ID" > iconlab-dist/status.txt
           else
             rm -f iconlab-dist/IconLab-debug.apk
-            printf 'failure %s\n' "$GITHUB_SHA" > iconlab-dist/status.txt
+            printf 'result=failure\nsource=%s\nrun=%s\n' "$GITHUB_SHA" "$GITHUB_RUN_ID" > iconlab-dist/status.txt
           fi
 
           git config user.name "github-actions[bot]"
