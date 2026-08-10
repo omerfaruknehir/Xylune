@@ -1,0 +1,33 @@
+name: Build Icon Lab APK
+
+on:
+  push:
+    branches: [icon-test-app]
+    paths:
+      - 'iconlab/**'
+      - 'settings.gradle.kts'
+      - '.github/workflows/iconlab-build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build debug APK
+        run: |
+          chmod +x ./gradlew
+          ./gradlew :iconlab:assembleDebug --stacktrace
+      - uses: actions/upload-artifact@v4
+        with:
+          name: icon-lab-apk
+          path: iconlab/build/outputs/apk/debug/iconlab-debug.apk
+          if-no-files-found: error
