@@ -25,3 +25,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 }
+
+dependencies {
+    implementation("com.android.tools.build:apksig:8.9.1")
+}
