@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="page_bg">#FF171212</color>
+    <color name="surface">#FF211A1A</color>
+    <color name="surface_alt">#FF2B2223</color>
+    <color name="text_primary">#FFFFE9E9</color>
+    <color name="text_secondary">#FFD9BEBF</color>
+    <color name="accent">#FFFFB2BC</color>
+    <color name="accent_on">#FF5F1022</color>
+    <color name="outline">#FF604A4D</color>
+    <color name="splash_bg">#FF171212</color>
+</resources>
