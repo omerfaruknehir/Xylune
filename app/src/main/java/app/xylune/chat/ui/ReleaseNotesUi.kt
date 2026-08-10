@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -145,14 +144,7 @@ private fun ReleaseNotesContent(markdown: String, emptyText: String) {
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(top = 4.dp),
                 )
-                is ReleaseNotesBlock.Bullet -> Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.Top,
-                ) {
-                    Text("•")
-                    Text(block.text, modifier = Modifier.weight(1f))
-                }
+                is ReleaseNotesBlock.Bullet -> Text("• ${block.text}")
                 is ReleaseNotesBlock.Paragraph -> Text(block.text)
             }
         }
