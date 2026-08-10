@@ -1,6 +1,8 @@
 package app.xylune.chat.update
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.content.edit
 import app.xylune.chat.BuildConfig
 import app.xylune.chat.installedAppVersion
@@ -42,6 +44,17 @@ sealed interface RepositoryUpdateState {
         val message: String,
         val checkedAt: Long,
     ) : RepositoryUpdateState
+}
+
+sealed interface InstalledReleaseNotesState {
+    data object Hidden : InstalledReleaseNotesState
+    data object Loading : InstalledReleaseNotesState
+    data class Ready(val release: RepositoryRelease) : InstalledReleaseNotesState
+    data class Failed(
+        val versionName: String,
+        val message: String,
+        val releasePageUrl: String,
+    ) : InstalledReleaseNotesState
 }
 
 data class RepositoryRelease(
@@ -90,6 +103,11 @@ class RepositoryUpdateManager(context: Context) {
         if (repository == null) RepositoryUpdateState.Unsupported else RepositoryUpdateState.Idle,
     )
     val state: StateFlow<RepositoryUpdateState> = _state.asStateFlow()
+    private val _installedReleaseNotesState = MutableStateFlow<InstalledReleaseNotesState>(
+        InstalledReleaseNotesState.Hidden,
+    )
+    val installedReleaseNotesState: StateFlow<InstalledReleaseNotesState> =
+        _installedReleaseNotesState.asStateFlow()
 
     suspend fun checkIfDue(now: Long = System.currentTimeMillis()) {
         if (repository == null) return
@@ -109,6 +127,7 @@ class RepositoryUpdateManager(context: Context) {
             runCatching {
                 withContext(Dispatchers.IO) { fetchLatestRelease(source) }
             }.onSuccess { release ->
+                cacheRelease(release)
                 preferences.edit { putLong(KEY_LAST_SUCCESS, now) }
                 _state.value = if (isRepositoryVersionNewer(
                         candidateVersion = release.versionName,
@@ -130,6 +149,53 @@ class RepositoryUpdateManager(context: Context) {
         }
     }
 
+    suspend fun loadInstalledReleaseNotesIfNeeded() {
+        val source = repository ?: run {
+            recordInstalledVersionSeen()
+            _installedReleaseNotesState.value = InstalledReleaseNotesState.Hidden
+            return
+        }
+        val lastSeen = preferences
+            .takeIf { it.contains(KEY_LAST_SEEN_INSTALLED_VERSION_CODE) }
+            ?.getInt(KEY_LAST_SEEN_INSTALLED_VERSION_CODE, installedVersion.versionCode)
+        val shouldShow = shouldShowInstalledReleaseNotes(
+            lastSeenVersionCode = lastSeen,
+            currentVersionCode = installedVersion.versionCode,
+            wasUpdatedInstall = wasPackageUpdated(),
+            debugBuild = BuildConfig.DEBUG,
+        )
+        if (!shouldShow) {
+            if (lastSeen != installedVersion.versionCode) recordInstalledVersionSeen()
+            _installedReleaseNotesState.value = InstalledReleaseNotesState.Hidden
+            return
+        }
+
+        _installedReleaseNotesState.value = InstalledReleaseNotesState.Loading
+        mutex.withLock {
+            cachedReleaseForInstalledVersion()?.let { cached ->
+                _installedReleaseNotesState.value = InstalledReleaseNotesState.Ready(cached)
+                return@withLock
+            }
+            runCatching {
+                withContext(Dispatchers.IO) { fetchInstalledRelease(source) }
+            }.onSuccess { release ->
+                cacheRelease(release)
+                _installedReleaseNotesState.value = InstalledReleaseNotesState.Ready(release)
+            }.onFailure { error ->
+                _installedReleaseNotesState.value = InstalledReleaseNotesState.Failed(
+                    versionName = installedVersion.versionName,
+                    message = updateFailureMessage(error),
+                    releasePageUrl = installedReleasePageUrl(source),
+                )
+            }
+        }
+    }
+
+    fun markInstalledReleaseNotesSeen() {
+        recordInstalledVersionSeen()
+        _installedReleaseNotesState.value = InstalledReleaseNotesState.Hidden
+    }
+
     fun shouldPrompt(tagName: String): Boolean =
         preferences.getString(KEY_LAST_PROMPTED_TAG, null) != tagName
 
@@ -137,11 +203,18 @@ class RepositoryUpdateManager(context: Context) {
         preferences.edit { putString(KEY_LAST_PROMPTED_TAG, tagName) }
     }
 
-    private fun fetchLatestRelease(source: String): RepositoryRelease {
-        val releaseUrl = "https://api.github.com/repos/$source/releases/latest"
+    private fun fetchLatestRelease(source: String): RepositoryRelease =
+        fetchRelease(source, "https://api.github.com/repos/$source/releases/latest")
+
+    private fun fetchInstalledRelease(source: String): RepositoryRelease {
+        val tag = "v${installedVersion.versionName}"
+        return fetchRelease(source, "https://api.github.com/repos/$source/releases/tags/$tag")
+    }
+
+    private fun fetchRelease(source: String, releaseUrl: String): RepositoryRelease {
         val root = requestJson(releaseUrl)
         if (root["draft"]?.jsonPrimitive?.booleanOrNull == true) {
-            throw IOException("The latest repository release is still a draft.")
+            throw IOException("The repository release is still a draft.")
         }
         val tag = root["tag_name"]?.jsonPrimitive?.contentOrNull
             ?.takeIf(String::isNotBlank)
@@ -177,6 +250,13 @@ class RepositoryUpdateManager(context: Context) {
             apk == null -> "The release does not contain an Android APK asset."
             else -> null
         }
+        val githubNotes = root["body"]?.jsonPrimitive?.contentOrNull.orEmpty().take(MAX_NOTES_CHARS)
+        val notes = localizedReleaseNotes(
+            source = source,
+            tag = tag,
+            versionName = versionName,
+            fallback = githubNotes,
+        )
         return RepositoryRelease(
             repository = source,
             tagName = tag,
@@ -185,13 +265,33 @@ class RepositoryUpdateManager(context: Context) {
             releasePageUrl = pageUrl,
             apkDownloadUrl = apk?.downloadUrl,
             publishedAt = root["published_at"]?.jsonPrimitive?.contentOrNull,
-            notes = root["body"]?.jsonPrimitive?.contentOrNull.orEmpty().take(4_000),
+            notes = notes,
             directInstallCompatible = compatible && apk != null,
             compatibilityMessage = compatibilityMessage,
         )
     }
 
-    private fun requestJson(url: String) = client.newCall(
+    private fun localizedReleaseNotes(
+        source: String,
+        tag: String,
+        versionName: String,
+        fallback: String,
+    ): String {
+        val language = appContext.resources.configuration.locales[0]?.language
+        if (!language.equals("tr", ignoreCase = true)) return fallback
+        val localizedUrl =
+            "https://raw.githubusercontent.com/$source/$tag/docs/releases/tr/RELEASE_NOTES_$versionName.md"
+        return runCatching { requestText(localizedUrl).trim() }
+            .getOrNull()
+            ?.takeIf(String::isNotBlank)
+            ?.take(MAX_NOTES_CHARS)
+            ?: fallback
+    }
+
+    private fun requestJson(url: String) =
+        json.parseToJsonElement(requestText(url)).jsonObject
+
+    private fun requestText(url: String): String = client.newCall(
         Request.Builder()
             .url(url)
             .header("Accept", "application/vnd.github+json")
@@ -212,7 +312,7 @@ class RepositoryUpdateManager(context: Context) {
                 },
             )
         }
-        json.parseToJsonElement(body).jsonObject
+        body
     }
 
     private fun parseManifest(root: kotlinx.serialization.json.JsonObject): RepositoryReleaseManifest =
@@ -228,12 +328,113 @@ class RepositoryUpdateManager(context: Context) {
             sourceCommit = root["sourceCommit"]?.jsonPrimitive?.contentOrNull.orEmpty(),
         )
 
+    private fun cacheRelease(release: RepositoryRelease) {
+        preferences.edit {
+            putString(KEY_CACHED_RELEASE_REPOSITORY, release.repository)
+            putString(KEY_CACHED_RELEASE_TAG, release.tagName)
+            putString(KEY_CACHED_RELEASE_VERSION_NAME, release.versionName)
+            if (release.versionCode != null) putInt(KEY_CACHED_RELEASE_VERSION_CODE, release.versionCode)
+            else remove(KEY_CACHED_RELEASE_VERSION_CODE)
+            putString(KEY_CACHED_RELEASE_PAGE_URL, release.releasePageUrl)
+            putString(KEY_CACHED_RELEASE_APK_URL, release.apkDownloadUrl)
+            putString(KEY_CACHED_RELEASE_PUBLISHED_AT, release.publishedAt)
+            putString(KEY_CACHED_RELEASE_NOTES, release.notes)
+            putBoolean(KEY_CACHED_RELEASE_DIRECT_INSTALL, release.directInstallCompatible)
+            putString(KEY_CACHED_RELEASE_COMPATIBILITY_MESSAGE, release.compatibilityMessage)
+        }
+    }
+
+    private fun cachedReleaseForInstalledVersion(): RepositoryRelease? {
+        val versionName = preferences.getString(KEY_CACHED_RELEASE_VERSION_NAME, null)
+            ?.takeIf { it == installedVersion.versionName }
+            ?: return null
+        val notes = preferences.getString(KEY_CACHED_RELEASE_NOTES, null)
+            ?.takeIf(String::isNotBlank)
+            ?: return null
+        val tag = preferences.getString(KEY_CACHED_RELEASE_TAG, null)
+            ?.takeIf(String::isNotBlank)
+            ?: "v$versionName"
+        val source = preferences.getString(KEY_CACHED_RELEASE_REPOSITORY, null)
+            ?.takeIf(String::isNotBlank)
+            ?: repository
+            ?: return null
+        return RepositoryRelease(
+            repository = source,
+            tagName = tag,
+            versionName = versionName,
+            versionCode = if (preferences.contains(KEY_CACHED_RELEASE_VERSION_CODE)) {
+                preferences.getInt(KEY_CACHED_RELEASE_VERSION_CODE, installedVersion.versionCode)
+            } else null,
+            releasePageUrl = preferences.getString(KEY_CACHED_RELEASE_PAGE_URL, null)
+                ?.takeIf(String::isNotBlank)
+                ?: "https://github.com/$source/releases/tag/$tag",
+            apkDownloadUrl = preferences.getString(KEY_CACHED_RELEASE_APK_URL, null),
+            publishedAt = preferences.getString(KEY_CACHED_RELEASE_PUBLISHED_AT, null),
+            notes = notes,
+            directInstallCompatible = preferences.getBoolean(KEY_CACHED_RELEASE_DIRECT_INSTALL, false),
+            compatibilityMessage = preferences.getString(KEY_CACHED_RELEASE_COMPATIBILITY_MESSAGE, null),
+        )
+    }
+
+    private fun recordInstalledVersionSeen() {
+        preferences.edit {
+            putInt(KEY_LAST_SEEN_INSTALLED_VERSION_CODE, installedVersion.versionCode)
+            putString(KEY_LAST_SEEN_INSTALLED_VERSION_NAME, installedVersion.versionName)
+        }
+    }
+
+    private fun wasPackageUpdated(): Boolean {
+        val packageInfo = runCatching {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                appContext.packageManager.getPackageInfo(
+                    appContext.packageName,
+                    PackageManager.PackageInfoFlags.of(0),
+                )
+            } else {
+                @Suppress("DEPRECATION")
+                appContext.packageManager.getPackageInfo(appContext.packageName, 0)
+            }
+        }.getOrNull() ?: return false
+        return packageInfo.lastUpdateTime > packageInfo.firstInstallTime + PACKAGE_UPDATE_CLOCK_TOLERANCE_MILLIS
+    }
+
+    private fun installedReleasePageUrl(source: String): String =
+        "https://github.com/$source/releases/tag/v${installedVersion.versionName}"
+
     companion object {
         private const val PREFERENCES = "xylune_repository_updates"
         private const val KEY_LAST_ATTEMPT = "last_attempt"
         private const val KEY_LAST_SUCCESS = "last_success"
         private const val KEY_LAST_PROMPTED_TAG = "last_prompted_tag"
+        private const val KEY_LAST_SEEN_INSTALLED_VERSION_CODE = "last_seen_installed_version_code"
+        private const val KEY_LAST_SEEN_INSTALLED_VERSION_NAME = "last_seen_installed_version_name"
+        private const val KEY_CACHED_RELEASE_REPOSITORY = "cached_release_repository"
+        private const val KEY_CACHED_RELEASE_TAG = "cached_release_tag"
+        private const val KEY_CACHED_RELEASE_VERSION_NAME = "cached_release_version_name"
+        private const val KEY_CACHED_RELEASE_VERSION_CODE = "cached_release_version_code"
+        private const val KEY_CACHED_RELEASE_PAGE_URL = "cached_release_page_url"
+        private const val KEY_CACHED_RELEASE_APK_URL = "cached_release_apk_url"
+        private const val KEY_CACHED_RELEASE_PUBLISHED_AT = "cached_release_published_at"
+        private const val KEY_CACHED_RELEASE_NOTES = "cached_release_notes"
+        private const val KEY_CACHED_RELEASE_DIRECT_INSTALL = "cached_release_direct_install"
+        private const val KEY_CACHED_RELEASE_COMPATIBILITY_MESSAGE = "cached_release_compatibility_message"
         private const val AUTO_CHECK_INTERVAL_MILLIS = 24L * 60L * 60L * 1_000L
+        private const val PACKAGE_UPDATE_CLOCK_TOLERANCE_MILLIS = 1_500L
+        private const val MAX_NOTES_CHARS = 4_000
+    }
+}
+
+internal fun shouldShowInstalledReleaseNotes(
+    lastSeenVersionCode: Int?,
+    currentVersionCode: Int,
+    wasUpdatedInstall: Boolean,
+    debugBuild: Boolean = false,
+): Boolean {
+    if (debugBuild) return false
+    return when {
+        lastSeenVersionCode == null -> wasUpdatedInstall
+        lastSeenVersionCode >= currentVersionCode -> false
+        else -> true
     }
 }
 
