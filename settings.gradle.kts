@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Xylune"
-include(":app")
+include(":app", ":iconlab")
