@@ -26,6 +26,7 @@ import app.xylune.chat.data.SystemPromptProfileEntity
 import app.xylune.chat.generation.GenerationRequestSnapshot
 import app.xylune.chat.settings.NewChatDefaults
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.UUID
@@ -633,24 +634,60 @@ class ChatRepository(private val database: XyluneDatabase) {
         return Json.encodeToString(GenerationRequestSnapshot.capture(conversation, provider, model, promptProfile))
     }
 
-    fun search(text: String): Flow<List<SearchHit>> {
-        val safe = text.trim().split(Regex("\\s+")).filter(String::isNotBlank).joinToString(" ") { "\"${it.replace("\"", "\"\"")}\"*" }
-        val like = "%${text.trim()}%"
-        return database.messageDao().search(SimpleSQLiteQuery(
+    fun search(text: String): Flow<List<SearchHit>> =
+        database.messageDao().search(searchQuery(text, projectId = null, excludeConversationId = null, limit = 100))
+
+    suspend fun searchHistory(
+        text: String,
+        projectId: String? = null,
+        excludeConversationId: String? = null,
+        limit: Int = 20,
+    ): List<SearchHit> = database.messageDao().search(
+        searchQuery(text, projectId, excludeConversationId, limit),
+    ).first()
+
+    private fun searchQuery(
+        text: String,
+        projectId: String?,
+        excludeConversationId: String?,
+        limit: Int,
+    ): SimpleSQLiteQuery {
+        val clean = text.trim()
+        require(clean.isNotBlank()) { "Search query cannot be empty" }
+        val safe = clean.split(Regex("\\s+")).filter(String::isNotBlank)
+            .joinToString(" ") { "\"${it.replace("\"", "\"\"")}\"*" }
+        val titleWhere = mutableListOf("c.title LIKE ?")
+        val titleArgs = mutableListOf<Any>("%$clean%")
+        val messageWhere = mutableListOf("message_fts MATCH ?")
+        val messageArgs = mutableListOf<Any>(safe)
+        if (projectId != null) {
+            titleWhere += "c.projectId = ?"
+            titleArgs += projectId
+            messageWhere += "c.projectId = ?"
+            messageArgs += projectId
+        }
+        if (excludeConversationId != null) {
+            titleWhere += "c.id != ?"
+            titleArgs += excludeConversationId
+            messageWhere += "c.id != ?"
+            messageArgs += excludeConversationId
+        }
+        val safeLimit = limit.coerceIn(1, 100)
+        return SimpleSQLiteQuery(
             """
                 SELECT nodeId, conversationId, conversationTitle, snippet, rank FROM (
                     SELECT COALESCE(c.activeLeafNodeId, c.id) AS nodeId, c.id AS conversationId,
                         c.title AS conversationTitle, c.title AS snippet, -100.0 AS rank
-                    FROM conversations c WHERE c.title LIKE ?
+                    FROM conversations c WHERE ${titleWhere.joinToString(" AND ")}
                     UNION ALL
                     SELECT message_fts.nodeId, message_fts.conversationId, c.title AS conversationTitle,
                         snippet(message_fts, 2, '[', ']', ' … ', 18) AS snippet,
                         bm25(message_fts) AS rank
                     FROM message_fts JOIN conversations c ON c.id = message_fts.conversationId
-                    WHERE message_fts MATCH ?
-                ) ORDER BY rank LIMIT 100
+                    WHERE ${messageWhere.joinToString(" AND ")}
+                ) ORDER BY rank LIMIT $safeLimit
             """.trimIndent(),
-            arrayOf(like, safe),
-        ))
+            (titleArgs + messageArgs).toTypedArray(),
+        )
     }
 }

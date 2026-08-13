@@ -18,10 +18,14 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Dns
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import java.net.URLDecoder
 import java.net.URI
@@ -37,6 +41,20 @@ data class AgentToolRequest(
     val code: String? = null,
     val source: String? = null,
     val url: String? = null,
+    val method: String? = null,
+    val headers: Map<String, String> = emptyMap(),
+    val body: String? = null,
+    val contentType: String? = null,
+    val effect: String? = null,
+    val confirmed: Boolean? = null,
+    val maxResponseBytes: Int? = null,
+    val graphqlQuery: String? = null,
+    val graphqlVariablesJson: String? = null,
+    val graphqlOperationName: String? = null,
+    val feedLimit: Int? = null,
+    val historyScope: String? = null,
+    val historyLimit: Int? = null,
+    val includeCurrentConversation: Boolean? = null,
     val command: String? = null,
     val path: String? = null,
     val caption: String? = null,
@@ -213,6 +231,24 @@ class AgentTools(
             val result = WidgetCompilerToolProtocol.result(source, compilation)
             AgentToolOutcome(json.encodeToString(result), isError = !result.success)
         }
+        "conversation_search" -> {
+            val query = requireNotNull(request.query) { "Conversation search query is missing" }.trim()
+            require(query.isNotBlank()) { "Conversation search query is empty" }
+            val projectId = when (request.historyScope.orEmpty().ifBlank { "all" }.lowercase()) {
+                "all" -> null
+                "current_project" -> requireNotNull(conversation.projectId) { "The current conversation is not in a project" }
+                else -> error("history scope must be all or current_project")
+            }
+            val hits = repository.searchHistory(
+                text = query,
+                projectId = projectId,
+                excludeConversationId = conversation.id.takeUnless { request.includeCurrentConversation == true },
+                limit = (request.historyLimit ?: 20).coerceIn(1, 50),
+            ).map { hit ->
+                ConversationSearchToolItem(hit.nodeId, hit.conversationId, hit.conversationTitle, hit.snippet, hit.rank)
+            }
+            AgentToolOutcome(json.encodeToString(hits))
+        }
         "web_search", "search" -> {
             check(conversation.webSearchEnabled) { "Web search is disabled for this conversation." }
             AgentToolOutcome(webSearchClient.search(requireNotNull(request.query) { "Search query is missing" }))
@@ -220,6 +256,18 @@ class AgentTools(
         "web_fetch", "fetch" -> {
             check(conversation.webSearchEnabled) { "Web access is disabled for this conversation." }
             AgentToolOutcome(fetch(requireNotNull(request.url) { "Fetch URL is missing" }))
+        }
+        "http_request" -> {
+            check(conversation.webSearchEnabled) { "Web access is disabled for this conversation." }
+            AgentToolOutcome(httpRequest(request))
+        }
+        "graphql_request" -> {
+            check(conversation.webSearchEnabled) { "Web access is disabled for this conversation." }
+            AgentToolOutcome(graphqlRequest(request))
+        }
+        "feed_read" -> {
+            check(conversation.webSearchEnabled) { "Web access is disabled for this conversation." }
+            AgentToolOutcome(feedRead(request))
         }
         "python", "python_exec" -> {
             check(conversation.agentPythonEnabled) { "Agent Python is disabled for this conversation." }
@@ -443,6 +491,146 @@ class AgentTools(
         }
     }
 
+    private suspend fun httpRequest(request: AgentToolRequest): String {
+        val response = executeHttp(
+            rawUrl = requireNotNull(request.url) { "HTTP URL is missing" },
+            requestedMethod = request.method,
+            requestedHeaders = request.headers,
+            body = request.body,
+            contentType = request.contentType,
+            requestedEffect = request.effect,
+            confirmed = request.confirmed == true,
+            maxResponseBytes = request.maxResponseBytes,
+        )
+        return json.encodeToString(response)
+    }
+
+    private suspend fun graphqlRequest(request: AgentToolRequest): String {
+        val query = requireNotNull(request.graphqlQuery) { "GraphQL query is missing" }.trim()
+        require(query.isNotBlank()) { "GraphQL query is empty" }
+        val effect = request.effect.orEmpty().ifBlank { "read" }
+        if (Regex("(?is)\\bmutation\\b").containsMatchIn(query)) {
+            require(effect.equals("write", ignoreCase = true)) { "GraphQL mutations must declare effect=write" }
+        }
+        val payload = buildJsonObject {
+            put("query", JsonPrimitive(query))
+            request.graphqlVariablesJson?.let { variables ->
+                put("variables", json.parseToJsonElement(variables))
+            }
+            request.graphqlOperationName?.takeIf(String::isNotBlank)?.let { operation ->
+                put("operationName", JsonPrimitive(operation))
+            }
+        }.toString()
+        val response = executeHttp(
+            rawUrl = requireNotNull(request.url) { "GraphQL URL is missing" },
+            requestedMethod = "POST",
+            requestedHeaders = request.headers + ("Accept" to "application/json"),
+            body = payload,
+            contentType = "application/json; charset=utf-8",
+            requestedEffect = effect,
+            confirmed = request.confirmed == true,
+            maxResponseBytes = request.maxResponseBytes,
+        )
+        return json.encodeToString(response)
+    }
+
+    private suspend fun feedRead(request: AgentToolRequest): String {
+        val limit = (request.feedLimit ?: 20).coerceIn(1, 50)
+        val response = executeHttp(
+            rawUrl = requireNotNull(request.url) { "Feed URL is missing" },
+            requestedMethod = "GET",
+            requestedHeaders = mapOf("Accept" to "application/atom+xml,application/rss+xml,application/xml,text/xml;q=0.9,*/*;q=0.2"),
+            body = null,
+            contentType = null,
+            requestedEffect = "read",
+            confirmed = false,
+            maxResponseBytes = request.maxResponseBytes ?: 1_000_000,
+        )
+        return json.encodeToString(FeedParser.parse(response.body, response.url, limit))
+    }
+
+    private suspend fun executeHttp(
+        rawUrl: String,
+        requestedMethod: String?,
+        requestedHeaders: Map<String, String>,
+        body: String?,
+        contentType: String?,
+        requestedEffect: String?,
+        confirmed: Boolean,
+        maxResponseBytes: Int?,
+    ): HttpToolResponse = withContext(Dispatchers.IO) {
+        var method = HttpToolPolicy.normalizeMethod(requestedMethod)
+        val effect = HttpToolPolicy.normalizeEffect(requestedEffect, method)
+        var headers = HttpToolPolicy.validateHeaders(requestedHeaders)
+        var activeBody = HttpToolPolicy.validateRequest(method, effect, confirmed, body, contentType)
+        val responseLimit = HttpToolPolicy.responseLimit(maxResponseBytes)
+        var url = validatePublicUrl(rawUrl)
+
+        repeat(4) { redirectCount ->
+            val builder = Request.Builder().url(url)
+                .header("User-Agent", "Mozilla/5.0 (Android) Xylune/0.12.0")
+            headers.forEach { (name, value) -> builder.header(name, value) }
+            if (!contentType.isNullOrBlank() && headers.keys.none { it.equals("Content-Type", ignoreCase = true) }) {
+                builder.header("Content-Type", contentType)
+            }
+            val mediaType = contentType?.toMediaTypeOrNull()
+            val requestBody = when {
+                method in setOf("GET", "HEAD") -> null
+                activeBody != null -> activeBody!!.toRequestBody(mediaType)
+                method in setOf("POST", "PUT", "PATCH") -> "".toRequestBody(mediaType)
+                else -> null
+            }
+            builder.method(method, requestBody)
+
+            client.newBuilder().followRedirects(false).build().newCall(builder.build()).execute().use { response ->
+                if (response.code in 300..399) {
+                    val location = response.header("Location") ?: error("Redirect has no Location header")
+                    val target = validatePublicUrl(response.request.url.resolve(location)?.toString() ?: location)
+                    val crossOrigin = !sameOrigin(url, target)
+                    val crossOriginSensitiveHeaders = headers.keys.any { !it.equals("Accept", ignoreCase = true) }
+                    if (crossOrigin && (crossOriginSensitiveHeaders || activeBody != null || method !in setOf("GET", "HEAD"))) {
+                        error("Cross-origin redirects are blocked for requests carrying non-navigation headers, a body, or a non-GET method")
+                    }
+                    if (response.code == 303 && method !in setOf("GET", "HEAD")) {
+                        method = "GET"
+                        activeBody = null
+                        headers = headers.filterKeys { !it.equals("Content-Type", ignoreCase = true) }
+                    }
+                    url = target
+                    return@repeat
+                }
+
+                val responseContentType = response.header("Content-Type").orEmpty()
+                require(HttpToolPolicy.isTextualContentType(responseContentType)) {
+                    "HTTP API tool supports textual, JSON, XML, and form responses; received ${responseContentType.ifBlank { "unknown binary content" }}"
+                }
+                val raw = if (method == "HEAD") "" else response.body?.readLimited(responseLimit.toLong()).orEmpty()
+                val safeHeaders = response.headers.names().asSequence()
+                    .filterNot(HttpToolPolicy::isSensitiveResponseHeader)
+                    .take(32)
+                    .associateWith { name -> response.header(name).orEmpty().take(4_000) }
+                return@withContext HttpToolResponse(
+                    url = url,
+                    method = method,
+                    status = response.code,
+                    contentType = responseContentType,
+                    headers = safeHeaders,
+                    body = raw.take(120_000),
+                )
+            }
+            if (redirectCount == 3) error("Too many redirects")
+        }
+        error("Unable to complete HTTP request")
+    }
+
+    private fun sameOrigin(left: String, right: String): Boolean {
+        val a = URI(left)
+        val b = URI(right)
+        fun port(uri: URI) = if (uri.port >= 0) uri.port else 443
+        return a.scheme.equals(b.scheme, ignoreCase = true) &&
+            a.host.equals(b.host, ignoreCase = true) && port(a) == port(b)
+    }
+
     private suspend fun fetch(rawUrl: String): String = withContext(Dispatchers.IO) {
         var url = validatePublicUrl(rawUrl)
         repeat(4) { redirectCount ->
@@ -525,6 +713,25 @@ private fun ResponseBody.readLimited(limit: Long): String {
     val count = minOf(source.buffer.size, limit)
     return source.buffer.readUtf8(count)
 }
+
+@Serializable
+private data class ConversationSearchToolItem(
+    val nodeId: String,
+    val conversationId: String,
+    val conversationTitle: String,
+    val snippet: String,
+    val rank: Double,
+)
+
+@Serializable
+internal data class HttpToolResponse(
+    val url: String,
+    val method: String,
+    val status: Int,
+    val contentType: String,
+    val headers: Map<String, String>,
+    val body: String,
+)
 
 @Serializable
 private data class MemorySaveToolResult(

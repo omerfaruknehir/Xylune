@@ -16,7 +16,7 @@ class XyluneNativeToolsTest {
         val definitions = XyluneNativeTools.definitions(conversation(web = true, python = false, linux = true))
 
         assertEquals(
-            listOf("compile_widget", "web_search", "web_fetch", "workspace_read", "apply_patch", "rerun_script", "linux_exec", "send_file"),
+            listOf("compile_widget", "conversation_search", "web_search", "web_fetch", "http_request", "graphql_request", "feed_read", "workspace_read", "apply_patch", "rerun_script", "linux_exec", "send_file"),
             definitions.map { it.name },
         )
         definitions.forEach { definition ->
@@ -77,6 +77,25 @@ class XyluneNativeToolsTest {
         assertEquals("linux laptop", request.memoryQuery)
         assertEquals(true, request.memoryIncludeDisabled)
         assertEquals(12, request.memoryLimit)
+    }
+
+    @Test fun parsesRichHttpAndHistoryCalls() {
+        val http = XyluneNativeTools.request(NativeToolCall(
+            "http-call", "http_request",
+            """{"url":"https://example.com/api","method":"POST","headers":{"Accept":"application/json"},"body":"{}","contentType":"application/json","effect":"read","maxResponseBytes":4096}""",
+        ))
+        assertEquals("POST", http.method)
+        assertEquals("application/json", http.headers["Accept"])
+        assertEquals("read", http.effect)
+        assertEquals(4096, http.maxResponseBytes)
+
+        val history = XyluneNativeTools.request(NativeToolCall(
+            "history-call", "conversation_search",
+            """{"query":"widget compiler","scope":"current_project","limit":7}""",
+        ))
+        assertEquals("conversation_search", history.type)
+        assertEquals("current_project", history.historyScope)
+        assertEquals(7, history.historyLimit)
     }
 
     @Test(expected = IllegalStateException::class)
