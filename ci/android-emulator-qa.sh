@@ -213,29 +213,51 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
     [[ -s "$OUT/provider.png" ]] && echo "providerScreenshot=PASS" >> "$OUT/qa-summary.txt" \
       || record_failure "providerScreenshot=FAIL"
 
-    # Return to chat, open the drawer from its UI node, then capture the redesigned Search settings page.
+    # Provider Back returns to Settings home. Scroll using bounds from the actual scrollable UI node,
+    # then open Search & web and capture the redesigned settings screen.
     adb shell input keyevent 4
     sleep 2
-    capture_screen main-return
-    dismiss_quickstep_anr main-return || record_failure "mainReturnSystemOverlayClear=FAIL"
-    if tap_desc "$OUT/main-return-ui.xml" "Conversations" "openConversationDrawer"; then
-      sleep 2
-      capture_screen drawer
-      if tap_text "$OUT/drawer-ui.xml" "Settings" "openSettings"; then
-        sleep 3
-        capture_screen settings-home
-        if tap_text "$OUT/settings-home-ui.xml" "Search & web" "openSearchSettings"; then
-          sleep 3
-          capture_screen search
-          if grep -Fq 'Search routing' "$OUT/search-ui.xml" 2>/dev/null && grep -Fq 'Automatic' "$OUT/search-ui.xml" 2>/dev/null; then
-            echo "searchSettingsUi=PASS" >> "$OUT/qa-summary.txt"
-          else
-            record_failure "searchSettingsUi=FAIL expected-compact-search-controls-missing"
-          fi
-          [[ -s "$OUT/search.png" ]] && echo "searchScreenshot=PASS" >> "$OUT/qa-summary.txt" \
-            || record_failure "searchScreenshot=FAIL"
-        fi
+    capture_screen settings-home
+    dismiss_quickstep_anr settings-home || record_failure "settingsHomeSystemOverlayClear=FAIL"
+    settings_ui="$OUT/settings-home-ui.xml"
+    if ! pick_text_center "$settings_ui" "Search & web" >/dev/null 2>&1; then
+      scroll_xy="$(python3 - "$settings_ui" <<'PY2'
+import re, sys
+data = open(sys.argv[1], encoding='utf-8', errors='replace').read()
+for tag in re.findall(r'<node\b[^>]*>', data):
+    if 'scrollable="true"' not in tag:
+        continue
+    m = re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', tag)
+    if not m:
+        continue
+    x1, y1, x2, y2 = map(int, m.groups())
+    x = (x1 + x2) // 2
+    print(x, y1 + (y2-y1)*3//4, x, y1 + (y2-y1)//4)
+    raise SystemExit(0)
+raise SystemExit(1)
+PY2
+      )" || true
+      if [[ -n "$scroll_xy" ]]; then
+        read -r sx sy ex ey <<<"$scroll_xy"
+        adb shell input swipe "$sx" "$sy" "$ex" "$ey" 350
+        echo "scrollSettingsHome=PASS coord=${sx},${sy}->${ex},${ey}" >> "$OUT/qa-summary.txt"
+        sleep 2
+        capture_screen settings-home-scrolled
+        settings_ui="$OUT/settings-home-scrolled-ui.xml"
+      else
+        record_failure "scrollSettingsHome=FAIL scrollable-node-not-found"
       fi
+    fi
+    if tap_text "$settings_ui" "Search & web" "openSearchSettings"; then
+      sleep 3
+      capture_screen search
+      if grep -Fq 'Search routing' "$OUT/search-ui.xml" 2>/dev/null && grep -Fq 'Automatic' "$OUT/search-ui.xml" 2>/dev/null; then
+        echo "searchSettingsUi=PASS" >> "$OUT/qa-summary.txt"
+      else
+        record_failure "searchSettingsUi=FAIL expected-compact-search-controls-missing"
+      fi
+      [[ -s "$OUT/search.png" ]] && echo "searchScreenshot=PASS" >> "$OUT/qa-summary.txt" \
+        || record_failure "searchScreenshot=FAIL"
     fi
   fi
 fi
