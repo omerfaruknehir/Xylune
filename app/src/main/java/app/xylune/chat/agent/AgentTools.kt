@@ -18,10 +18,14 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Dns
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import java.net.URLDecoder
 import java.net.URI
@@ -37,6 +41,19 @@ data class AgentToolRequest(
     val code: String? = null,
     val source: String? = null,
     val url: String? = null,
+    val method: String? = null,
+    val headers: Map<String, String> = emptyMap(),
+    val body: String? = null,
+    val contentType: String? = null,
+    val approvalId: String? = null,
+    val maxResponseBytes: Int? = null,
+    val graphqlQuery: String? = null,
+    val graphqlVariablesJson: String? = null,
+    val graphqlOperationName: String? = null,
+    val feedLimit: Int? = null,
+    val historyScope: String? = null,
+    val historyLimit: Int? = null,
+    val includeCurrentConversation: Boolean? = null,
     val command: String? = null,
     val path: String? = null,
     val caption: String? = null,
@@ -184,7 +201,7 @@ data class AgentToolOutcome(
 @Serializable
 private data class SentFileResult(val path: String, val name: String, val sizeBytes: Long, val caption: String)
 
-class AgentTools(
+class AgentTools internal constructor(
     private val python: PythonSandbox,
     private val ubuntu: UbuntuRuntime,
     private val repository: ChatRepository,
@@ -196,6 +213,7 @@ class AgentTools(
         .readTimeout(30, TimeUnit.SECONDS)
         .dns(PublicOnlyDns)
         .build(),
+    private val httpWriteApprovals: HttpWriteApprovalGuard = HttpWriteApprovalGuard(),
 ) {
     private val json = Json { encodeDefaults = true }
 
@@ -213,6 +231,25 @@ class AgentTools(
             val result = WidgetCompilerToolProtocol.result(source, compilation)
             AgentToolOutcome(json.encodeToString(result), isError = !result.success)
         }
+        "conversation_search" -> {
+            val query = requireNotNull(request.query) { "Conversation search query is missing" }.trim()
+            require(query.isNotBlank()) { "Conversation search query is empty" }
+            val defaultScope = if (conversation.projectId == null) "all" else "current_project"
+            val projectId = when (request.historyScope.orEmpty().ifBlank { defaultScope }.lowercase()) {
+                "all" -> null
+                "current_project" -> requireNotNull(conversation.projectId) { "The current conversation is not in a project" }
+                else -> error("history scope must be all or current_project")
+            }
+            val hits = repository.searchHistory(
+                text = query,
+                projectId = projectId,
+                excludeConversationId = conversation.id.takeUnless { request.includeCurrentConversation == true },
+                limit = (request.historyLimit ?: 20).coerceIn(1, 50),
+            ).map { hit ->
+                ConversationSearchToolItem(hit.nodeId, hit.conversationId, hit.conversationTitle, hit.snippet, hit.rank)
+            }
+            AgentToolOutcome(json.encodeToString(hits))
+        }
         "web_search", "search" -> {
             check(conversation.webSearchEnabled) { "Web search is disabled for this conversation." }
             AgentToolOutcome(webSearchClient.search(requireNotNull(request.query) { "Search query is missing" }))
@@ -220,6 +257,18 @@ class AgentTools(
         "web_fetch", "fetch" -> {
             check(conversation.webSearchEnabled) { "Web access is disabled for this conversation." }
             AgentToolOutcome(fetch(requireNotNull(request.url) { "Fetch URL is missing" }))
+        }
+        "http_request" -> {
+            check(conversation.webSearchEnabled) { "Web access is disabled for this conversation." }
+            AgentToolOutcome(httpRequest(conversation, request))
+        }
+        "graphql_request" -> {
+            check(conversation.webSearchEnabled) { "Web access is disabled for this conversation." }
+            AgentToolOutcome(graphqlRequest(conversation, request))
+        }
+        "feed_read" -> {
+            check(conversation.webSearchEnabled) { "Web access is disabled for this conversation." }
+            AgentToolOutcome(feedRead(request))
         }
         "python", "python_exec" -> {
             check(conversation.agentPythonEnabled) { "Agent Python is disabled for this conversation." }
@@ -443,6 +492,204 @@ class AgentTools(
         }
     }
 
+    private suspend fun httpRequest(conversation: ConversationEntity, request: AgentToolRequest): String {
+        val method = HttpToolPolicy.normalizeMethod(request.method)
+        val headers = HttpToolPolicy.validateHeaders(request.headers)
+        val body = HttpToolPolicy.validateRequest(method, request.body, request.contentType)
+        if (HttpToolPolicy.requiresWriteApproval(method)) {
+            approvalOrResult(
+                conversation = conversation,
+                request = request,
+                method = method,
+                headers = headers,
+                body = body,
+                contentType = request.contentType,
+            )?.let { return it }
+        }
+        return json.encodeToString(executeHttp(
+            rawUrl = requireNotNull(request.url) { "HTTP URL is missing" },
+            requestedMethod = method,
+            requestedHeaders = headers,
+            body = body,
+            contentType = request.contentType,
+            maxResponseBytes = request.maxResponseBytes,
+            hardResponseLimit = HttpToolPolicy.MAX_API_RESPONSE_BYTES,
+        ))
+    }
+
+    private suspend fun graphqlRequest(conversation: ConversationEntity, request: AgentToolRequest): String {
+        val query = requireNotNull(request.graphqlQuery) { "GraphQL query is missing" }.trim()
+        require(query.isNotBlank()) { "GraphQL query is empty" }
+        val mutation = Regex("(?im)^\\s*mutation\\b").containsMatchIn(query)
+        val payload = buildJsonObject {
+            put("query", JsonPrimitive(query))
+            request.graphqlVariablesJson?.let { variables ->
+                put("variables", json.parseToJsonElement(variables))
+            }
+            request.graphqlOperationName?.takeIf(String::isNotBlank)?.let { operation ->
+                put("operationName", JsonPrimitive(operation))
+            }
+        }.toString()
+        val headers = HttpToolPolicy.validateHeaders(request.headers + ("Accept" to "application/json"))
+        if (mutation) {
+            approvalOrResult(
+                conversation = conversation,
+                request = request,
+                method = "POST",
+                headers = headers,
+                body = payload,
+                contentType = "application/json; charset=utf-8",
+            )?.let { return it }
+        }
+        return json.encodeToString(executeHttp(
+            rawUrl = requireNotNull(request.url) { "GraphQL URL is missing" },
+            requestedMethod = "POST",
+            requestedHeaders = headers,
+            body = payload,
+            contentType = "application/json; charset=utf-8",
+            maxResponseBytes = request.maxResponseBytes,
+            hardResponseLimit = HttpToolPolicy.MAX_API_RESPONSE_BYTES,
+            allowReadOnlyPost = !mutation,
+        ))
+    }
+
+    private suspend fun approvalOrResult(
+        conversation: ConversationEntity,
+        request: AgentToolRequest,
+        method: String,
+        headers: Map<String, String>,
+        body: String?,
+        contentType: String?,
+    ): String? {
+        val latestUser = repository.recent(conversation.id, 20).firstOrNull { it.role == app.xylune.chat.data.MessageRole.USER }
+            ?: error("HTTP writes require a current user message")
+        val targetUrl = requireNotNull(request.url) { "HTTP URL is missing" }
+        val identity = HttpWriteRequestIdentity(
+            method = method,
+            url = targetUrl.trim(),
+            headers = headers,
+            body = body.orEmpty(),
+            contentType = contentType.orEmpty(),
+        )
+        return when (val decision = httpWriteApprovals.authorize(
+            conversationId = conversation.id,
+            latestUserNodeId = latestUser.nodeId,
+            latestUserText = latestUser.content,
+            request = identity,
+            approvalId = request.approvalId,
+        )) {
+            is HttpWriteApprovalDecision.Approved -> null
+            is HttpWriteApprovalDecision.Required -> json.encodeToString(HttpWriteApprovalToolResult(
+                status = "approval_required",
+                approvalId = decision.approvalId,
+                confirmationText = decision.confirmationText,
+                method = method,
+                url = targetUrl,
+                bodySha256 = identity.bodySha256,
+                expiresAt = decision.expiresAt,
+                instruction = "Do not retry this write in the current turn. Ask the user to reply with confirmationText exactly, then repeat the identical request with approvalId.",
+            ))
+        }
+    }
+
+    private suspend fun feedRead(request: AgentToolRequest): String {
+        val limit = (request.feedLimit ?: 20).coerceIn(1, 50)
+        val response = executeHttp(
+            rawUrl = requireNotNull(request.url) { "Feed URL is missing" },
+            requestedMethod = "GET",
+            requestedHeaders = mapOf("Accept" to "application/atom+xml,application/rss+xml,application/xml,text/xml;q=0.9,*/*;q=0.2"),
+            body = null,
+            contentType = null,
+            maxResponseBytes = request.maxResponseBytes ?: HttpToolPolicy.MAX_FEED_RESPONSE_BYTES,
+            hardResponseLimit = HttpToolPolicy.MAX_FEED_RESPONSE_BYTES,
+        )
+        return json.encodeToString(FeedParser.parse(response.body, response.url, limit))
+    }
+
+    private suspend fun executeHttp(
+        rawUrl: String,
+        requestedMethod: String?,
+        requestedHeaders: Map<String, String>,
+        body: String?,
+        contentType: String?,
+        maxResponseBytes: Int?,
+        hardResponseLimit: Int,
+        allowReadOnlyPost: Boolean = false,
+    ): HttpToolResponse = withContext(Dispatchers.IO) {
+        val method = HttpToolPolicy.normalizeMethod(requestedMethod)
+        require(method in setOf("GET", "HEAD") || (allowReadOnlyPost && method == "POST") || HttpToolPolicy.requiresWriteApproval(method)) {
+            "Unsupported HTTP execution mode"
+        }
+        val headers = HttpToolPolicy.validateHeaders(requestedHeaders)
+        val activeBody = HttpToolPolicy.validateRequest(method, body, contentType)
+        val responseLimit = HttpToolPolicy.responseLimit(maxResponseBytes, hardResponseLimit)
+        var url = validatePublicUrl(rawUrl)
+
+        repeat(4) { redirectCount ->
+            val builder = Request.Builder().url(url)
+                .header("User-Agent", "Mozilla/5.0 (Android) Xylune/0.12.0")
+            headers.forEach { (name, value) -> builder.header(name, value) }
+            if (!contentType.isNullOrBlank() && headers.keys.none { it.equals("Content-Type", ignoreCase = true) }) {
+                builder.header("Content-Type", contentType)
+            }
+            val mediaType = contentType?.toMediaTypeOrNull()
+            val requestBody = when {
+                method in setOf("GET", "HEAD") -> null
+                activeBody != null -> activeBody.toRequestBody(mediaType)
+                method in setOf("POST", "PUT", "PATCH") -> "".toRequestBody(mediaType)
+                else -> null
+            }
+            builder.method(method, requestBody)
+
+            client.newBuilder().followRedirects(false).build().newCall(builder.build()).execute().use { response ->
+                if (response.code in 300..399) {
+                    val location = response.header("Location") ?: error("Redirect has no Location header")
+                    if (method !in setOf("GET", "HEAD")) {
+                        error("Redirects are blocked for POST, PUT, PATCH, and DELETE API requests; call the final HTTPS endpoint directly")
+                    }
+                    val target = validatePublicUrl(response.request.url.resolve(location)?.toString() ?: location)
+                    val crossOrigin = !sameOrigin(url, target)
+                    val crossOriginSensitiveHeaders = headers.keys.any { !it.equals("Accept", ignoreCase = true) }
+                    if (crossOrigin && crossOriginSensitiveHeaders) {
+                        error("Cross-origin redirects are blocked for requests carrying custom headers")
+                    }
+                    url = target
+                    return@repeat
+                }
+
+                val responseContentType = response.header("Content-Type").orEmpty()
+                require(HttpToolPolicy.isTextualContentType(responseContentType)) {
+                    "HTTP API tool supports textual, JSON, XML, and form responses; received ${responseContentType.ifBlank { "unknown binary content" }}"
+                }
+                val limited = if (method == "HEAD") LimitedResponseText("", false)
+                    else response.body?.readLimitedWithTruncation(responseLimit.toLong()) ?: LimitedResponseText("", false)
+                val safeHeaders = response.headers.names().asSequence()
+                    .filterNot(HttpToolPolicy::isSensitiveResponseHeader)
+                    .take(32)
+                    .associateWith { name -> response.header(name).orEmpty().take(4_000) }
+                return@withContext HttpToolResponse(
+                    url = url,
+                    method = method,
+                    status = response.code,
+                    contentType = responseContentType,
+                    headers = safeHeaders,
+                    body = limited.text,
+                    truncated = limited.truncated,
+                )
+            }
+            if (redirectCount == 3) error("Too many redirects")
+        }
+        error("Unable to complete HTTP request")
+    }
+
+    private fun sameOrigin(left: String, right: String): Boolean {
+        val a = URI(left)
+        val b = URI(right)
+        fun port(uri: URI) = if (uri.port >= 0) uri.port else 443
+        return a.scheme.equals(b.scheme, ignoreCase = true) &&
+            a.host.equals(b.host, ignoreCase = true) && port(a) == port(b)
+    }
+
     private suspend fun fetch(rawUrl: String): String = withContext(Dispatchers.IO) {
         var url = validatePublicUrl(rawUrl)
         repeat(4) { redirectCount ->
@@ -468,13 +715,15 @@ class AgentTools(
     }
 
     private fun validatePublicUrl(raw: String): String {
-        val uri = URI(raw.trim())
+        val clean = raw.trim()
+        require(clean.length <= 8_192) { "URL is too long" }
+        val uri = URI(clean)
         require(uri.scheme == "https" && !uri.host.isNullOrBlank()) { "Only absolute HTTPS URLs can be fetched" }
+        require(uri.userInfo.isNullOrBlank()) { "Credentials embedded in URLs are not allowed" }
         val addresses = InetAddress.getAllByName(uri.host)
-        require(addresses.isNotEmpty() && addresses.none { address ->
-            address.isAnyLocalAddress || address.isLoopbackAddress || address.isLinkLocalAddress ||
-                address.isSiteLocalAddress || address.isMulticastAddress
-        }) { "Local and private network addresses are blocked from web fetch" }
+        require(addresses.isNotEmpty() && addresses.none(PublicNetworkPolicy::isBlockedAddress)) {
+            "Local and private network addresses are blocked from web fetch"
+        }
         return uri.toString()
     }
 
@@ -511,20 +760,62 @@ class AgentTools(
 private object PublicOnlyDns : Dns {
     override fun lookup(hostname: String): List<InetAddress> {
         val addresses = Dns.SYSTEM.lookup(hostname)
-        require(addresses.isNotEmpty() && addresses.none(::isPrivateAddress)) { "Local and private network addresses are blocked" }
+        require(addresses.isNotEmpty() && addresses.none(PublicNetworkPolicy::isBlockedAddress)) {
+            "Local and private network addresses are blocked"
+        }
         return addresses
     }
 }
 
-private fun isPrivateAddress(address: InetAddress): Boolean = address.isAnyLocalAddress || address.isLoopbackAddress ||
-    address.isLinkLocalAddress || address.isSiteLocalAddress || address.isMulticastAddress
-
 private fun ResponseBody.readLimited(limit: Long): String {
     val source = source()
-    source.request(limit + 1)
+    source.request(limit)
     val count = minOf(source.buffer.size, limit)
     return source.buffer.readUtf8(count)
 }
+
+private data class LimitedResponseText(val text: String, val truncated: Boolean)
+
+private fun ResponseBody.readLimitedWithTruncation(limit: Long): LimitedResponseText {
+    val source = source()
+    val probe = limit.coerceAtLeast(1) + 1
+    source.request(probe)
+    val available = source.buffer.size
+    val count = minOf(available, limit)
+    return LimitedResponseText(source.buffer.readUtf8(count), available > limit)
+}
+
+@Serializable
+private data class ConversationSearchToolItem(
+    val nodeId: String,
+    val conversationId: String,
+    val conversationTitle: String,
+    val snippet: String,
+    val rank: Double,
+)
+
+@Serializable
+internal data class HttpToolResponse(
+    val url: String,
+    val method: String,
+    val status: Int,
+    val contentType: String,
+    val headers: Map<String, String>,
+    val body: String,
+    val truncated: Boolean = false,
+)
+
+@Serializable
+private data class HttpWriteApprovalToolResult(
+    val status: String,
+    val approvalId: String,
+    val confirmationText: String,
+    val method: String,
+    val url: String,
+    val bodySha256: String,
+    val expiresAt: Long,
+    val instruction: String,
+)
 
 @Serializable
 private data class MemorySaveToolResult(
