@@ -6,19 +6,16 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class HttpToolPolicyTest {
-    @Test fun readPostIsAllowedButDeleteCannotPretendToBeReadOnly() {
-        assertEquals("POST", HttpToolPolicy.normalizeMethod("post"))
-        assertEquals("read", HttpToolPolicy.normalizeEffect("read", "POST"))
-        val failure = runCatching { HttpToolPolicy.normalizeEffect("read", "DELETE") }.exceptionOrNull()
-        assertTrue(failure is IllegalArgumentException)
+    @Test fun allGenericNonGetMethodsRequireWriteApproval() {
+        assertFalse(HttpToolPolicy.requiresWriteApproval("GET"))
+        assertFalse(HttpToolPolicy.requiresWriteApproval("HEAD"))
+        listOf("POST", "PUT", "PATCH", "DELETE").forEach { assertTrue(HttpToolPolicy.requiresWriteApproval(it)) }
     }
 
-    @Test fun writesRequireExplicitConfirmation() {
-        val failure = runCatching {
-            HttpToolPolicy.validateRequest("PATCH", "write", confirmed = false, body = "{}", contentType = "application/json")
-        }.exceptionOrNull()
-        assertTrue(failure is IllegalArgumentException)
-        assertEquals("{}", HttpToolPolicy.validateRequest("PATCH", "write", confirmed = true, body = "{}", contentType = "application/json"))
+    @Test fun requestValidationRejectsBodiesOnReadsAndBoundsApiResponses() {
+        assertTrue(runCatching { HttpToolPolicy.validateRequest("GET", "{}", "application/json") }.isFailure)
+        assertEquals("{}", HttpToolPolicy.validateRequest("POST", "{}", "application/json"))
+        assertEquals(HttpToolPolicy.MAX_API_RESPONSE_BYTES, HttpToolPolicy.responseLimit(2_000_000))
     }
 
     @Test fun secretAndHopByHopHeadersAreRejected() {

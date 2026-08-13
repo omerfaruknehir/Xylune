@@ -35,19 +35,19 @@ internal object FeedParser {
         val items = blocks.map { block ->
             val rawLink = if (format == "atom") atomLink(block) else tag(block, "link")
             FeedItem(
-                id = tag(block, if (format == "atom") "id" else "guid"),
-                title = tag(block, "title"),
-                url = resolve(sourceUrl, rawLink),
+                id = tag(block, if (format == "atom") "id" else "guid").take(1_000),
+                title = tag(block, "title").take(1_000),
+                url = resolve(sourceUrl, rawLink).take(8_192),
                 publishedAt = tag(block, if (format == "atom") "published" else "pubDate")
-                    .ifBlank { tag(block, "updated") },
-                author = if (format == "atom") tag(tagRaw(block, "author"), "name")
-                    .ifBlank { tag(block, "author") } else tag(block, "author").ifBlank { tag(block, "dc:creator") },
+                    .ifBlank { tag(block, "updated") }.take(200),
+                author = (if (format == "atom") tag(tagRaw(block, "author"), "name")
+                    .ifBlank { tag(block, "author") } else tag(block, "author").ifBlank { tag(block, "dc:creator") }).take(500),
                 summary = tag(block, if (format == "atom") "summary" else "description")
                     .ifBlank { tag(block, "content") }.take(2_000),
             )
         }
         val titleSource = if (format == "rss") tagRaw(xml, "channel") else xml.substringBefore(blocks.firstOrNull().orEmpty())
-        return FeedDocument(sourceUrl, tag(titleSource, "title"), format, items)
+        return FeedDocument(sourceUrl.take(8_192), tag(titleSource, "title").take(1_000), format, items)
     }
 
     private fun atomLink(block: String): String {

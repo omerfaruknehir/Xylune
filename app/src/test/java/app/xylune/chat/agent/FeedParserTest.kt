@@ -16,6 +16,19 @@ class FeedParserTest {
         assertEquals("Ready", feed.items.single().summary)
     }
 
+    @Test fun boundsUntrustedFeedFields() {
+        val huge = "x".repeat(5_000)
+        val feed = FeedParser.parse(
+            "<rss><channel><title>$huge</title><item><guid>$huge</guid><title>$huge</title><link>https://example.com/a</link><description>$huge</description></item></channel></rss>",
+            "https://example.com/feed.xml",
+            10,
+        )
+        assertEquals(1_000, feed.title.length)
+        assertEquals(1_000, feed.items.single().id.length)
+        assertEquals(1_000, feed.items.single().title.length)
+        assertEquals(2_000, feed.items.single().summary.length)
+    }
+
     @Test fun normalizesAtomAlternateLink() {
         val feed = FeedParser.parse(
             """<feed><title>News</title><entry><id>a</id><title>Hello</title><link rel="alternate" href="https://example.com/a"/><updated>now</updated><summary>Body</summary></entry></feed>""",

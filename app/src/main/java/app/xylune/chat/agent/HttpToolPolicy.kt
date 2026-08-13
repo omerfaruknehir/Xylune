@@ -1,8 +1,9 @@
 package app.xylune.chat.agent
 
 internal object HttpToolPolicy {
+    const val MAX_API_RESPONSE_BYTES = 120_000
+    const val MAX_FEED_RESPONSE_BYTES = 2_000_000
     private val allowedMethods = setOf("GET", "HEAD", "POST", "PUT", "PATCH", "DELETE")
-    private val readMethods = setOf("GET", "HEAD", "POST")
     private val blockedHeaders = setOf(
         "host", "connection", "content-length", "transfer-encoding", "upgrade", "te", "trailer",
         "proxy-authorization", "proxy-authenticate", "authorization", "cookie", "set-cookie",
@@ -16,17 +17,7 @@ internal object HttpToolPolicy {
         return method
     }
 
-    fun normalizeEffect(value: String?, method: String): String {
-        val effect = value.orEmpty().ifBlank { if (method in setOf("GET", "HEAD")) "read" else "" }.lowercase()
-        require(effect in setOf("read", "write")) { "HTTP effect must be read or write" }
-        if (effect == "read") require(method in readMethods) {
-            "$method cannot be declared read-only; use effect=write and obtain user confirmation"
-        }
-        if (effect == "write") require(method !in setOf("GET", "HEAD")) {
-            "$method cannot be declared as a write"
-        }
-        return effect
-    }
+    fun requiresWriteApproval(method: String): Boolean = normalizeMethod(method) !in setOf("GET", "HEAD")
 
     fun validateHeaders(values: Map<String, String>): Map<String, String> {
         require(values.size <= 32) { "HTTP requests support at most 32 custom headers" }
@@ -43,10 +34,7 @@ internal object HttpToolPolicy {
         }.toMap(linkedMapOf())
     }
 
-    fun validateRequest(method: String, effect: String, confirmed: Boolean, body: String?, contentType: String?): String? {
-        if (effect == "write") require(confirmed) {
-            "Write-intent HTTP requires explicit user confirmation before the tool call"
-        }
+    fun validateRequest(method: String, body: String?, contentType: String?): String? {
         if (method in setOf("GET", "HEAD")) require(body.isNullOrBlank()) { "$method requests cannot include a body" }
         require((body?.length ?: 0) <= 256_000) { "HTTP request bodies are limited to 256,000 characters" }
         require(contentType == null || (contentType.length <= 200 && '\n' !in contentType && '\r' !in contentType)) {
@@ -55,7 +43,8 @@ internal object HttpToolPolicy {
         return body
     }
 
-    fun responseLimit(value: Int?): Int = (value ?: 512_000).coerceIn(1_024, 2_000_000)
+    fun responseLimit(value: Int?, hardMax: Int = MAX_API_RESPONSE_BYTES): Int =
+        (value ?: hardMax).coerceIn(1_024, hardMax)
 
     fun isTextualContentType(value: String): Boolean {
         if (value.isBlank()) return true

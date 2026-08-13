@@ -82,11 +82,11 @@ class XyluneNativeToolsTest {
     @Test fun parsesRichHttpAndHistoryCalls() {
         val http = XyluneNativeTools.request(NativeToolCall(
             "http-call", "http_request",
-            """{"url":"https://example.com/api","method":"POST","headers":{"Accept":"application/json"},"body":"{}","contentType":"application/json","effect":"read","maxResponseBytes":4096}""",
+            """{"url":"https://example.com/api","method":"POST","headers":{"Accept":"application/json"},"body":"{}","contentType":"application/json","maxResponseBytes":4096}""",
         ))
         assertEquals("POST", http.method)
         assertEquals("application/json", http.headers["Accept"])
-        assertEquals("read", http.effect)
+        assertEquals(null, http.approvalId)
         assertEquals(4096, http.maxResponseBytes)
 
         val history = XyluneNativeTools.request(NativeToolCall(
