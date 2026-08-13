@@ -23,7 +23,7 @@ object ModelRequestPolicy {
         "gpt-image-1",
         "gpt-image-1-mini",
     )
-    private val automaticOpenAiCompatiblePresetIds = setOf("openai", "deepseek", "openrouter", "xai", "qwen-cloud", "ollama")
+    private val automaticOpenAiCompatiblePresetIds = setOf("openai", "deepseek", "openrouter", "groq", "mistral", "xai", "qwen-cloud", "ollama")
     private val qwen3OpenSourceHybridModels = setOf(
         "qwen3-235b-a22b",
         "qwen3-32b",

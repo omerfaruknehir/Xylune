@@ -2197,6 +2197,7 @@ private fun ProviderSettings(
 ) {
     var selectedId by remember { mutableStateOf<String?>(null) }
     var addingProvider by remember { mutableStateOf(false) }
+    var addingProviderTemplateId by remember { mutableStateOf<String?>(null) }
     var addingChatGpt by remember { mutableStateOf(false) }
     var renamingOAuth by remember { mutableStateOf<ProviderEntity?>(null) }
     var removingProvider by remember { mutableStateOf<ProviderEntity?>(null) }
@@ -2256,32 +2257,88 @@ private fun ProviderSettings(
         syncingModels = false
     }
 
+    val featuredApiPresets = remember(providers) {
+        listOf(
+            "openai" to "OpenAI",
+            "anthropic" to "Anthropic",
+            "gemini" to "Gemini",
+            "openrouter" to "OpenRouter",
+            "deepseek" to "DeepSeek",
+            "groq" to "Groq",
+            "mistral" to "Mistral",
+            "ollama" to "Local server",
+        ).mapNotNull { (id, label) -> providers.firstOrNull { it.id == id }?.let { it to label } }
+    }
+
     SettingsPage {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
-                SectionTitle("Providers", "Choose a provider, then manage its connection and models.")
+                SectionTitle("Providers", "Connect an account or API, then manage its models in one place.")
             }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedButton(onClick = { addingChatGpt = true }) {
-                    Icon(Icons.Outlined.AccountCircle, null)
-                    Text(" ChatGPT")
-                }
-                FilledTonalButton(onClick = { addingProvider = true }) {
-                    Icon(Icons.Outlined.Add, null)
-                    Text(" API", Modifier.padding(start = 2.dp))
+            if (registeredProviders.isNotEmpty()) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = { addingChatGpt = true }) {
+                        Icon(Icons.Outlined.AccountCircle, null)
+                        Text(" ChatGPT")
+                    }
+                    FilledTonalButton(onClick = {
+                        addingProviderTemplateId = null
+                        addingProvider = true
+                    }) {
+                        Icon(Icons.Outlined.Add, null)
+                        Text(" API", Modifier.padding(start = 2.dp))
+                    }
                 }
             }
         }
 
         if (registeredProviders.isEmpty()) {
             Surface(color = MaterialTheme.colorScheme.surfaceContainer, shape = MaterialTheme.shapes.extraLarge, modifier = Modifier.fillMaxWidth()) {
-                Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Icon(Icons.Outlined.Cloud, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(30.dp))
-                    Text("No providers yet", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                    Text("Add a ChatGPT account or configure an API-compatible provider.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Button(onClick = { addingChatGpt = true }) { Text("Add ChatGPT") }
-                        OutlinedButton(onClick = { addingProvider = true }) { Text("Add API") }
+                Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Icon(Icons.Outlined.Cloud, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(28.dp))
+                    Text("Choose a provider", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text(
+                        "Start with a preset. You can review its endpoint and discovered models before saving.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = { addingChatGpt = true }, modifier = Modifier.weight(1f)) {
+                            Text("ChatGPT", maxLines = 1)
+                        }
+                        featuredApiPresets.firstOrNull()?.let { (preset, label) ->
+                            OutlinedButton(
+                                onClick = {
+                                    addingProviderTemplateId = preset.id
+                                    addingProvider = true
+                                },
+                                modifier = Modifier.weight(1f),
+                            ) { Text(label, maxLines = 1) }
+                        } ?: Spacer(Modifier.weight(1f))
+                    }
+                    featuredApiPresets.drop(1).chunked(2).forEach { pair ->
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            pair.forEach { (preset, label) ->
+                                OutlinedButton(
+                                    onClick = {
+                                        addingProviderTemplateId = preset.id
+                                        addingProvider = true
+                                    },
+                                    modifier = Modifier.weight(1f),
+                                ) { Text(label, maxLines = 1) }
+                            }
+                            if (pair.size == 1) Spacer(Modifier.weight(1f))
+                        }
+                    }
+                    TextButton(
+                        onClick = {
+                            addingProviderTemplateId = null
+                            addingProvider = true
+                        },
+                        modifier = Modifier.align(Alignment.End),
+                    ) {
+                        Icon(Icons.Outlined.Add, null, Modifier.size(18.dp))
+                        Text(" More API providers", Modifier.padding(start = 4.dp))
                     }
                 }
             }
@@ -2479,7 +2536,8 @@ private fun ProviderSettings(
 
     if (addingProvider) AddProviderDialog(
         templates = providers.filter { provider -> provider.kind != ProviderKind.OPENAI_OAUTH && provider !in registeredProviders },
-        onDismiss = { addingProvider = false },
+        onDismiss = { addingProvider = false
+            addingProviderTemplateId = null },
         onDiscover = viewModel::discoverModels,
         onAdd = { draft ->
             val id = draft.templateProviderId ?: "provider-${UUID.randomUUID()}"
@@ -2532,6 +2590,7 @@ private fun ProviderSettings(
             viewModel.addProvider(provider, draft.apiKey, models)
             selectedId = id
             addingProvider = false
+            addingProviderTemplateId = null
         },
     )
 }
@@ -2917,20 +2976,23 @@ private data class ProviderDraft(
 @Composable
 private fun AddProviderDialog(
     templates: List<ProviderEntity>,
+    initialTemplateId: String? = null,
     onDismiss: () -> Unit,
     onDiscover: suspend (ProviderKind, String, String, String) -> List<DiscoveredModel>,
     onAdd: (ProviderDraft) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
-    var templateId by remember { mutableStateOf<String?>(null) }
+    val initialTemplate = remember(initialTemplateId, templates) { templates.firstOrNull { it.id == initialTemplateId } }
+    val initialKind = initialTemplate?.kind ?: ProviderKind.OPENAI_COMPATIBLE
+    var templateId by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.id) }
     var templateMenu by remember { mutableStateOf(false) }
-    var name by remember { mutableStateOf("") }
-    var kind by remember { mutableStateOf(ProviderKind.OPENAI_COMPATIBLE) }
+    var name by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.displayName.orEmpty()) }
+    var kind by remember(initialTemplateId, templates) { mutableStateOf(initialKind) }
     var typeMenu by remember { mutableStateOf(false) }
-    var baseUrl by remember { mutableStateOf(defaultBaseUrl(kind)) }
+    var baseUrl by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.baseUrl ?: defaultBaseUrl(initialKind)) }
     var apiKey by remember { mutableStateOf("") }
-    var apiKeyRequired by remember { mutableStateOf(true) }
-    var headers by remember { mutableStateOf("{}") }
+    var apiKeyRequired by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.apiKeyRequired ?: true) }
+    var headers by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.customHeadersJson ?: "{}") }
     var manualModelId by remember { mutableStateOf("") }
     var manualModelName by remember { mutableStateOf("") }
     var discoveredModels by remember { mutableStateOf<List<DiscoveredModel>>(emptyList()) }
@@ -3755,82 +3817,88 @@ private fun SearchSettingsPage() = SettingsPage {
         mutableStateOf(container.secureStore.searchApiKey(settings.engine.name))
     }
     var keySaved by remember(settings.engine) { mutableStateOf(false) }
+    val showEngine = settings.route != app.xylune.chat.settings.WebSearchRoute.NATIVE_ONLY
 
-    SettingsGroup("Routing") {
-        app.xylune.chat.settings.WebSearchRoute.entries.forEach { route ->
-            ListItem(
-                headlineContent = { Text(route.title) },
-                supportingContent = { Text(route.description) },
-                leadingContent = {
-                    RadioButton(
-                        selected = settings.route == route,
-                        onClick = null,
-                    )
-                },
-                modifier = Modifier.clickable {
-                    container.appPreferences.updateWebSearchSettings { it.copy(route = route) }
-                },
-            )
-        }
-    }
-
-    SettingsGroup("Fallback search engine") {
-        app.xylune.chat.settings.WebSearchEngine.entries.forEach { engine ->
-            ListItem(
-                headlineContent = { Text(engine.title) },
-                supportingContent = { Text(engine.description) },
-                leadingContent = {
-                    RadioButton(
-                        selected = settings.engine == engine,
-                        onClick = null,
-                    )
-                },
-                modifier = Modifier.clickable {
-                    keySaved = false
-                    container.appPreferences.updateWebSearchSettings { it.copy(engine = engine) }
-                },
-            )
-        }
-    }
-
-    if (settings.engine.requiresApiKey) {
-        SettingsGroup("${settings.engine.title} credential") {
-            OutlinedTextField(
-                value = apiKey,
-                onValueChange = {
-                    apiKey = it
-                    keySaved = false
-                },
-                label = { Text("API key") },
-                singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
-            )
+    SettingsGroup("Search routing") {
+        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.End,
+                Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Button(onClick = {
-                    container.secureStore.setSearchApiKey(settings.engine.name, apiKey)
-                    keySaved = true
-                }) {
-                    Text(if (keySaved) "Saved" else "Save key")
+                app.xylune.chat.settings.WebSearchRoute.entries.forEach { route ->
+                    FilterChip(
+                        selected = settings.route == route,
+                        onClick = { container.appPreferences.updateWebSearchSettings { it.copy(route = route) } },
+                        label = { Text(route.title) },
+                    )
                 }
+            }
+            Text(
+                settings.route.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+
+    if (showEngine) {
+        SettingsGroup(if (settings.route == app.xylune.chat.settings.WebSearchRoute.AUTO) "Fallback engine" else "Search engine") {
+            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Row(
+                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    app.xylune.chat.settings.WebSearchEngine.entries.forEach { engine ->
+                        FilterChip(
+                            selected = settings.engine == engine,
+                            onClick = {
+                                keySaved = false
+                                container.appPreferences.updateWebSearchSettings { it.copy(engine = engine) }
+                            },
+                            label = { Text(engine.title) },
+                        )
+                    }
+                }
+                Text(
+                    settings.engine.description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
         }
     }
 
-    if (settings.engine == app.xylune.chat.settings.WebSearchEngine.SEARXNG) {
-        SettingsGroup("SearXNG endpoint") {
+    if (showEngine && settings.engine.requiresApiKey) {
+        SettingsGroup("${settings.engine.title} credential") {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                OutlinedTextField(
+                    value = apiKey,
+                    onValueChange = { apiKey = it; keySaved = false },
+                    label = { Text("API key") },
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Button(
+                    onClick = {
+                        container.secureStore.setSearchApiKey(settings.engine.name, apiKey)
+                        keySaved = true
+                    },
+                    enabled = apiKey.isNotBlank(),
+                ) { Text(if (keySaved) "Saved" else "Save key") }
+            }
+        }
+    }
+
+    if (showEngine && settings.engine == app.xylune.chat.settings.WebSearchEngine.SEARXNG) {
+        SettingsGroup("SearXNG instance") {
             OutlinedTextField(
                 value = settings.searxngEndpoint,
                 onValueChange = { value ->
-                    container.appPreferences.updateWebSearchSettings {
-                        it.copy(searxngEndpoint = value)
-                    }
+                    container.appPreferences.updateWebSearchSettings { it.copy(searxngEndpoint = value) }
                 },
-                label = { Text("Public HTTPS base URL") },
-                supportingText = { Text("The instance must enable JSON search output.") },
+                label = { Text("HTTPS endpoint") },
+                supportingText = { Text("Example: https://search.example.com") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
             )
@@ -3838,37 +3906,35 @@ private fun SearchSettingsPage() = SettingsPage {
     }
 
     SettingsGroup("Tool behavior") {
-        var maxResultsText by remember(settings.maxResults) {
-            mutableStateOf(settings.maxResults.toString())
-        }
-        OutlinedTextField(
-            value = maxResultsText,
-            onValueChange = { raw ->
-                maxResultsText = raw.filter(Char::isDigit).take(2)
-                maxResultsText.toIntOrNull()?.let { value ->
-                    container.appPreferences.updateWebSearchSettings {
-                        it.copy(maxResults = value)
-                    }
-                }
+        ListItem(
+            headlineContent = { Text("Results per search") },
+            supportingContent = { Text("Choose 3–20 results") },
+            trailingContent = {
+                var maxResultsText by remember(settings.maxResults) { mutableStateOf(settings.maxResults.toString()) }
+                OutlinedTextField(
+                    value = maxResultsText,
+                    onValueChange = { raw ->
+                        if (raw.length <= 2 && raw.all(Char::isDigit)) {
+                            maxResultsText = raw
+                            raw.toIntOrNull()?.takeIf { it in 3..20 }?.let { value ->
+                                container.appPreferences.updateWebSearchSettings { it.copy(maxResults = value) }
+                            }
+                        }
+                    },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true,
+                    modifier = Modifier.width(82.dp),
+                )
             },
-            label = { Text("Maximum search results") },
-            supportingText = { Text("3–20 results per search call") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
         )
         ListItem(
             headlineContent = { Text("Allow page fetching") },
-            supportingContent = {
-                Text("Expose web_fetch so the model can read public HTTPS pages after searching.")
-            },
+            supportingContent = { Text("Open relevant result pages when snippets are not enough") },
             trailingContent = {
                 Switch(
                     checked = settings.pageFetchEnabled,
                     onCheckedChange = { enabled ->
-                        container.appPreferences.updateWebSearchSettings {
-                            it.copy(pageFetchEnabled = enabled)
-                        }
+                        container.appPreferences.updateWebSearchSettings { it.copy(pageFetchEnabled = enabled) }
                     },
                 )
             },
@@ -3876,7 +3942,13 @@ private fun SearchSettingsPage() = SettingsPage {
     }
 
     Text(
-        "API keys are stored in Android encrypted preferences. Native-only mode never silently switches to a Xylune engine; Automatic mode does.",
+        "Active: ${settings.activeLabel}",
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(horizontal = 6.dp),
+    )
+    Text(
+        "Search API keys stay encrypted on-device. Native-only never falls back; Automatic uses the selected engine only when native search is unavailable.",
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(horizontal = 6.dp),

@@ -234,11 +234,13 @@ class AgentTools internal constructor(
         "conversation_search" -> {
             val query = requireNotNull(request.query) { "Conversation search query is missing" }.trim()
             require(query.isNotBlank()) { "Conversation search query is empty" }
-            val defaultScope = if (conversation.projectId == null) "all" else "current_project"
-            val projectId = when (request.historyScope.orEmpty().ifBlank { defaultScope }.lowercase()) {
-                "all" -> null
-                "current_project" -> requireNotNull(conversation.projectId) { "The current conversation is not in a project" }
-                else -> error("history scope must be all or current_project")
+            val requestedScope = request.historyScope?.trim()?.takeIf(String::isNotBlank)?.lowercase()
+            val projectId = when {
+                requestedScope == "all" -> null
+                requestedScope == "current_project" -> requireNotNull(conversation.projectId) { "The current conversation is not in a project" }
+                requestedScope != null -> error("history scope must be all or current_project")
+                conversation.projectId != null -> conversation.projectId
+                else -> error("Outside a project, conversation_search requires explicit scope=all")
             }
             val hits = repository.searchHistory(
                 text = query,

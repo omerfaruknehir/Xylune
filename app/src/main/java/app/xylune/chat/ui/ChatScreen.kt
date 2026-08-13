@@ -1112,31 +1112,26 @@ fun ChatScreen(viewModel: ChatViewModel, openDrawer: (() -> Unit)?) {
                     }
                 },
                 modelSelector = {
-                    Surface(
-                        onClick = {
-                            if (usableProviders.isEmpty()) viewModel.openProviderSetup()
-                            else showModelPicker = true
-                        },
-                        color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = .78f),
-                        shape = CircleShape,
-                    ) {
-                        Row(Modifier.padding(horizontal = 10.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Icon(Icons.Outlined.Psychology, null, Modifier.size(14.dp))
-                            Text(
-                                buildString {
-                                    if (usableProviders.isEmpty()) {
-                                        append("Set up provider")
-                                        return@buildString
-                                    }
-                                    val provider = usableProviders.firstOrNull { it.id == conversation?.selectedProviderId }
-                                    if (provider != null && usableProviders.size > 1) append(provider.displayName).append(" · ")
-                                    append(models.firstOrNull { it.modelId == conversation?.selectedModelId }?.displayName ?: conversation?.selectedModelId ?: "Choose model")
-                                },
-                                Modifier.padding(start = 4.dp),
-                                style = MaterialTheme.typography.labelSmall,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
+                    if (usableProviders.isNotEmpty()) {
+                        Surface(
+                            onClick = { showModelPicker = true },
+                            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = .78f),
+                            shape = CircleShape,
+                        ) {
+                            Row(Modifier.padding(horizontal = 10.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Outlined.Psychology, null, Modifier.size(14.dp))
+                                Text(
+                                    buildString {
+                                        val provider = usableProviders.firstOrNull { it.id == conversation?.selectedProviderId }
+                                        if (provider != null && usableProviders.size > 1) append(provider.displayName).append(" · ")
+                                        append(models.firstOrNull { it.modelId == conversation?.selectedModelId }?.displayName ?: conversation?.selectedModelId ?: "Choose model")
+                                    },
+                                    Modifier.padding(start = 4.dp),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
                         }
                     }
                 },
@@ -1464,7 +1459,7 @@ private fun EmptyConversation(
             if (providerConfigured) {
                 "Ask a question, attach a file, or choose Search and Tools beside the message box."
             } else {
-                "Xylune cannot send messages until ChatGPT, an API provider, or a local model server is connected."
+                "Choose a provider once, then Xylune can discover its available models and start chatting."
             },
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -3067,8 +3062,7 @@ private fun Composer(
                     enabled = providerConfigured,
                     placeholder = {
                         Text(
-                            if (!providerConfigured) "Set up a provider to start"
-                            else if (generating) "Add direction…"
+                            if (generating) "Add direction…"
                             else if (imageGenerationBlocked) "Remove attachments to generate an image"
                             else if (imageGenerationMode) "Describe an image to generate…"
                             else if (conversation?.deepResearchEnabled == true) "Research request…"
