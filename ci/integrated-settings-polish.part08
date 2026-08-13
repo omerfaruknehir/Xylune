@@ -1,0 +1,7 @@
+-        assertTrue(chat.contains("Set up a provider to start"))
++        assertFalse(chat.contains("Set up a provider to start"))
++        assertFalse(chat.contains("append(\"Set up provider\")"))
++        assertTrue(chat.contains("Text(\"Set up a provider\")"))
+         assertTrue(chat.contains("onSetUpProvider = viewModel::openProviderSetup"))
+         assertTrue(chat.contains("modifier = Modifier.zIndex(1f).padding("))
+         assertTrue(viewModel.contains("fun openProviderSetup()"))
