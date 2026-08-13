@@ -5,7 +5,7 @@ on:
     branches:
       - agent/integrated-settings-polish-20260813
     paths:
-      - ci/integrated-settings-polish.patch
+      - 'ci/integrated-settings-polish.part*'
 
 permissions:
   contents: write
@@ -33,17 +33,18 @@ jobs:
         with:
           packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
       - uses: gradle/actions/setup-gradle@v6
-      - name: Apply exact validated patch
+      - name: Reassemble and apply exact validated patch
         run: |
           set -euo pipefail
-          git apply --check ci/integrated-settings-polish.patch
-          git apply ci/integrated-settings-polish.patch
+          cat ci/integrated-settings-polish.part* > /tmp/integrated-settings-polish.patch
+          git apply --check /tmp/integrated-settings-polish.patch
+          git apply /tmp/integrated-settings-polish.patch
       - name: Verify unit tests
         run: ./gradlew --no-daemon --stacktrace --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process testDebugUnitTest
       - name: Publish clean source commit
         run: |
           set -euo pipefail
-          git rm ci/integrated-settings-polish.patch .github/workflows/apply-integrated-settings-polish.yml
+          git rm ci/integrated-settings-polish.part* .github/workflows/apply-integrated-settings-polish.yml
           git add -A
           git config user.name 'xylune-agent[bot]'
           git config user.email 'xylune-agent[bot]@users.noreply.github.com'
