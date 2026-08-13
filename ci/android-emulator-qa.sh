@@ -61,6 +61,31 @@ tap_text() {
   return 1
 }
 
+# The API-35 CI image can occasionally show a launcher/Quickstep ANR dialog
+# while Xylune itself remains responsive. Never suppress a Xylune ANR. If the
+# hierarchy explicitly identifies Quickstep, choose Wait using UI-tree bounds
+# and recapture the app before making any Xylune assertion.
+dismiss_quickstep_anr() {
+  local name="$1"
+  local i
+  for i in 1 2 3; do
+    if ! grep -Fq "Quickstep isn't responding" "$OUT/${name}-ui.xml" 2>/dev/null; then
+      return 0
+    fi
+    echo "quickstepAnrObserved=INFO attempt=$i" >> "$OUT/qa-summary.txt"
+    local xy
+    if xy="$(pick_text_center "$OUT/${name}-ui.xml" "Wait")"; then
+      read -r x y <<<"$xy"
+      adb shell input tap "$x" "$y"
+      sleep 2
+      capture_screen "$name"
+    else
+      return 1
+    fi
+  done
+  ! grep -Fq "Quickstep isn't responding" "$OUT/${name}-ui.xml" 2>/dev/null
+}
+
 {
   echo "Xylune Android emulator QA"
   echo "commit=${GITHUB_SHA:-unknown}"
@@ -101,6 +126,11 @@ fi
 
 sleep 5
 capture_screen welcome
+if dismiss_quickstep_anr welcome; then
+  echo "systemOverlayClear=PASS" >> "$OUT/qa-summary.txt"
+else
+  record_failure "systemOverlayClear=FAIL Quickstep ANR persisted"
+fi
 
 if grep -q '<hierarchy' "$OUT/welcome-ui.xml" 2>/dev/null; then
   echo "welcomeUiHierarchy=PASS" >> "$OUT/qa-summary.txt"
@@ -114,6 +144,7 @@ fi
 if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
   sleep 4
   capture_screen main
+  dismiss_quickstep_anr main || record_failure "mainSystemOverlayClear=FAIL"
   if grep -q '<hierarchy' "$OUT/main-ui.xml" 2>/dev/null; then
     echo "mainUiHierarchy=PASS" >> "$OUT/qa-summary.txt"
   else
@@ -126,6 +157,7 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
   if tap_text "$OUT/main-ui.xml" "Add provider" "tapAddProvider"; then
     sleep 3
     capture_screen provider
+    dismiss_quickstep_anr provider || record_failure "providerSystemOverlayClear=FAIL"
     if grep -q '<hierarchy' "$OUT/provider-ui.xml" 2>/dev/null; then
       echo "providerUiHierarchy=PASS" >> "$OUT/qa-summary.txt"
     else
