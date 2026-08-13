@@ -19,19 +19,20 @@ capture_screen() {
   adb exec-out screencap -p > "$OUT/${name}.png" 2> "$OUT/${name}-screenshot-error.txt" || true
 }
 
-pick_text_center() {
+pick_node_center() {
   local file="$1"
-  local text="$2"
-  python3 - "$file" "$text" <<'PY'
+  local attr="$2"
+  local target="$3"
+  python3 - "$file" "$attr" "$target" <<'PY'
 import html
 import re
 import sys
 
-path, target = sys.argv[1], sys.argv[2]
+path, attr, target = sys.argv[1], sys.argv[2], sys.argv[3]
 data = open(path, encoding="utf-8", errors="replace").read()
 for tag in re.findall(r"<node\b[^>]*>", data):
     attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', tag))
-    if html.unescape(attrs.get("text", "")) != target:
+    if html.unescape(attrs.get(attr, "")) != target:
         continue
     m = re.fullmatch(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", attrs.get("bounds", ""))
     if m:
@@ -40,6 +41,14 @@ for tag in re.findall(r"<node\b[^>]*>", data):
         raise SystemExit(0)
 raise SystemExit(1)
 PY
+}
+
+pick_text_center() {
+  pick_node_center "$1" text "$2"
+}
+
+pick_desc_center() {
+  pick_node_center "$1" content-desc "$2"
 }
 
 tap_text() {
@@ -54,6 +63,21 @@ tap_text() {
     return 0
   fi
   record_failure "${label}=FAIL node-not-found text=$text"
+  return 1
+}
+
+tap_desc() {
+  local file="$1"
+  local desc="$2"
+  local label="$3"
+  local xy
+  if xy="$(pick_desc_center "$file" "$desc")"; then
+    read -r x y <<<"$xy"
+    adb shell input tap "$x" "$y"
+    echo "${label}=PASS desc=${desc} coord=${x},${y}" >> "$OUT/qa-summary.txt"
+    return 0
+  fi
+  record_failure "${label}=FAIL node-not-found desc=$desc"
   return 1
 }
 
@@ -188,6 +212,31 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
     fi
     [[ -s "$OUT/provider.png" ]] && echo "providerScreenshot=PASS" >> "$OUT/qa-summary.txt" \
       || record_failure "providerScreenshot=FAIL"
+
+    # Return to chat, open the drawer from its UI node, then capture the redesigned Search settings page.
+    adb shell input keyevent 4
+    sleep 2
+    capture_screen main-return
+    dismiss_quickstep_anr main-return || record_failure "mainReturnSystemOverlayClear=FAIL"
+    if tap_desc "$OUT/main-return-ui.xml" "Conversations" "openConversationDrawer"; then
+      sleep 2
+      capture_screen drawer
+      if tap_text "$OUT/drawer-ui.xml" "Settings" "openSettings"; then
+        sleep 3
+        capture_screen settings-home
+        if tap_text "$OUT/settings-home-ui.xml" "Search & web" "openSearchSettings"; then
+          sleep 3
+          capture_screen search
+          if grep -Fq 'Search routing' "$OUT/search-ui.xml" 2>/dev/null && grep -Fq 'Automatic' "$OUT/search-ui.xml" 2>/dev/null; then
+            echo "searchSettingsUi=PASS" >> "$OUT/qa-summary.txt"
+          else
+            record_failure "searchSettingsUi=FAIL expected-compact-search-controls-missing"
+          fi
+          [[ -s "$OUT/search.png" ]] && echo "searchScreenshot=PASS" >> "$OUT/qa-summary.txt" \
+            || record_failure "searchScreenshot=FAIL"
+        fi
+      fi
+    fi
   fi
 fi
 
