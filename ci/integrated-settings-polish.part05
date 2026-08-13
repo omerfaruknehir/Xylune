@@ -1,0 +1,80 @@
++    var kind by remember(initialTemplateId, templates) { mutableStateOf(initialKind) }
+     var typeMenu by remember { mutableStateOf(false) }
+-    var baseUrl by remember { mutableStateOf(defaultBaseUrl(kind)) }
++    var baseUrl by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.baseUrl ?: defaultBaseUrl(initialKind)) }
+     var apiKey by remember { mutableStateOf("") }
+-    var apiKeyRequired by remember { mutableStateOf(true) }
+-    var headers by remember { mutableStateOf("{}") }
++    var apiKeyRequired by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.apiKeyRequired ?: true) }
++    var headers by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.customHeadersJson ?: "{}") }
+     var manualModelId by remember { mutableStateOf("") }
+     var manualModelName by remember { mutableStateOf("") }
+     var discoveredModels by remember { mutableStateOf<List<DiscoveredModel>>(emptyList()) }
+@@ -3755,82 +3817,88 @@ private fun SearchSettingsPage() = SettingsPage {
+         mutableStateOf(container.secureStore.searchApiKey(settings.engine.name))
+     }
+     var keySaved by remember(settings.engine) { mutableStateOf(false) }
++    val showEngine = settings.route != app.xylune.chat.settings.WebSearchRoute.NATIVE_ONLY
+ 
+-    SettingsGroup("Routing") {
+-        app.xylune.chat.settings.WebSearchRoute.entries.forEach { route ->
+-            ListItem(
+-                headlineContent = { Text(route.title) },
+-                supportingContent = { Text(route.description) },
+-                leadingContent = {
+-                    RadioButton(
++    SettingsGroup("Search routing") {
++        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
++            Row(
++                Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
++                horizontalArrangement = Arrangement.spacedBy(8.dp),
++            ) {
++                app.xylune.chat.settings.WebSearchRoute.entries.forEach { route ->
++                    FilterChip(
+                         selected = settings.route == route,
+-                        onClick = null,
++                        onClick = { container.appPreferences.updateWebSearchSettings { it.copy(route = route) } },
++                        label = { Text(route.title) },
+                     )
+-                },
+-                modifier = Modifier.clickable {
+-                    container.appPreferences.updateWebSearchSettings { it.copy(route = route) }
+-                },
++                }
++            }
++            Text(
++                settings.route.description,
++                style = MaterialTheme.typography.bodySmall,
++                color = MaterialTheme.colorScheme.onSurfaceVariant,
+             )
+         }
+     }
+ 
+-    SettingsGroup("Fallback search engine") {
+-        app.xylune.chat.settings.WebSearchEngine.entries.forEach { engine ->
+-            ListItem(
+-                headlineContent = { Text(engine.title) },
+-                supportingContent = { Text(engine.description) },
+-                leadingContent = {
+-                    RadioButton(
+-                        selected = settings.engine == engine,
+-                        onClick = null,
+-                    )
+-                },
+-                modifier = Modifier.clickable {
+-                    keySaved = false
+-                    container.appPreferences.updateWebSearchSettings { it.copy(engine = engine) }
+-                },
+-            )
++    if (showEngine) {
++        SettingsGroup(if (settings.route == app.xylune.chat.settings.WebSearchRoute.AUTO) "Fallback engine" else "Search engine") {
++            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
++                Row(
++                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
++                    horizontalArrangement = Arrangement.spacedBy(8.dp),
++                ) {
++                    app.xylune.chat.settings.WebSearchEngine.entries.forEach { engine ->
++                        FilterChip(
++                            selected = settings.engine == engine,
++                            onClick = {
++                                keySaved = false
