@@ -220,7 +220,7 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
     capture_screen settings-home
     dismiss_quickstep_anr settings-home || record_failure "settingsHomeSystemOverlayClear=FAIL"
     settings_ui="$OUT/settings-home-ui.xml"
-    for scroll_attempt in 1 2 3 4 5 6; do
+    for scroll_attempt in 1 2 3 4 5 6 7 8; do
       if pick_text_center "$settings_ui" "Search & web" >/dev/null 2>&1; then
         break
       fi
