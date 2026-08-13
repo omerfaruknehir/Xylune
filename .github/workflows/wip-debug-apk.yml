@@ -1,0 +1,74 @@
+name: WIP Debug APK
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, converted_to_draft, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wip-debug-apk-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  XYLUNE_SOURCE_REPOSITORY: ${{ github.repository }}
+  XYLUNE_SOURCE_COMMIT: ${{ github.sha }}
+  XYLUNE_MICROSOFT_CLIENT_ID: ${{ vars.XYLUNE_MICROSOFT_CLIENT_ID }}
+  XYLUNE_DROPBOX_APP_KEY: ${{ vars.XYLUNE_DROPBOX_APP_KEY }}
+
+jobs:
+  debug-apk:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.draft == true ||
+      startsWith(github.event.pull_request.title, 'WIP') ||
+      startsWith(github.event.pull_request.title, '[WIP]') ||
+      contains(github.event.pull_request.title, ' WIP')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Build debug APK
+        run: >-
+          ./gradlew --no-daemon --stacktrace --max-workers=2
+          -Pkotlin.compiler.execution.strategy=in-process
+          :app:assembleDebug
+
+      - name: Stage debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p wip-debug
+          pr="${{ github.event.pull_request.number || 'manual' }}"
+          short_sha="$(git rev-parse --short=10 HEAD)"
+          apk="Xylune-PR-${pr}-${short_sha}-debug.apk"
+          cp app/build/outputs/apk/debug/app-debug.apk "wip-debug/$apk"
+          sha256sum "wip-debug/$apk" > "wip-debug/$apk.sha256"
+          printf '%s\n' "$apk" > wip-debug/APK_NAME.txt
+          git rev-parse HEAD > wip-debug/COMMIT.txt
+
+      - name: Upload installable debug APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: xylune-pr-${{ github.event.pull_request.number || 'manual' }}-debug-apk
+          if-no-files-found: error
+          retention-days: 14
+          path: wip-debug/
