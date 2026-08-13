@@ -43,9 +43,6 @@ raise SystemExit(1)
 PY
 }
 
-# Text may be on a child while the clickable semantics live on its parent.
-# Android input accepts a tap at the text bounds, so this still derives the
-# coordinate entirely from the UI tree.
 tap_text() {
   local file="$1"
   local text="$2"
@@ -62,9 +59,7 @@ tap_text() {
 }
 
 # The API-35 CI image can occasionally show a launcher/Quickstep ANR dialog
-# while Xylune itself remains responsive. Never suppress a Xylune ANR. If the
-# hierarchy explicitly identifies Quickstep, choose Wait using UI-tree bounds
-# and recapture the app before making any Xylune assertion.
+# while Xylune itself remains responsive. Never suppress a Xylune ANR.
 dismiss_quickstep_anr() {
   local name="$1"
   local i
@@ -86,6 +81,28 @@ dismiss_quickstep_anr() {
   ! grep -Fq "Quickstep isn't responding" "$OUT/${name}-ui.xml" 2>/dev/null
 }
 
+# Fresh installs can legitimately surface Xylune's release/update dialog after
+# setup is skipped. Dismiss it through its visible Later action before testing
+# the zero-provider screen. This is an expected app flow, not a failure.
+dismiss_release_dialog() {
+  local name="$1"
+  if ! grep -Fq 'Open release' "$OUT/${name}-ui.xml" 2>/dev/null; then
+    return 0
+  fi
+  local xy
+  if xy="$(pick_text_center "$OUT/${name}-ui.xml" "Later")"; then
+    read -r x y <<<"$xy"
+    adb shell input tap "$x" "$y"
+    echo "releaseDialogDismissed=PASS coord=${x},${y}" >> "$OUT/qa-summary.txt"
+    sleep 2
+    capture_screen "$name"
+    dismiss_quickstep_anr "$name"
+    return $?
+  fi
+  record_failure "releaseDialogDismissed=FAIL Later-node-not-found"
+  return 1
+}
+
 {
   echo "Xylune Android emulator QA"
   echo "commit=${GITHUB_SHA:-unknown}"
@@ -96,8 +113,6 @@ adb wait-for-device
 adb shell getprop > "$OUT/getprop.txt" 2>&1 || true
 adb devices -l > "$OUT/adb-devices.txt" 2>&1 || true
 
-# Run the repository's complete instrumentation suite first. Keep going on failure
-# so screenshots/logs from a launch attempt are still preserved.
 if ./gradlew --no-daemon --stacktrace --max-workers=2 connectedDebugAndroidTest \
     > "$OUT/connectedDebugAndroidTest.txt" 2>&1; then
   echo "instrumentation=PASS" >> "$OUT/qa-summary.txt"
@@ -113,7 +128,6 @@ else
   record_failure "installDebug=FAIL"
 fi
 
-# Exercise a clean first launch, not a warm process with state left by tests.
 adb shell am force-stop "$PACKAGE" >/dev/null 2>&1 || true
 adb shell pm clear "$PACKAGE" > "$OUT/pm-clear.txt" 2>&1 || true
 adb logcat -c || true
@@ -145,6 +159,8 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
   sleep 4
   capture_screen main
   dismiss_quickstep_anr main || record_failure "mainSystemOverlayClear=FAIL"
+  dismiss_release_dialog main || true
+
   if grep -q '<hierarchy' "$OUT/main-ui.xml" 2>/dev/null; then
     echo "mainUiHierarchy=PASS" >> "$OUT/qa-summary.txt"
   else
