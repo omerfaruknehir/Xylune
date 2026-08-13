@@ -220,7 +220,10 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
     capture_screen settings-home
     dismiss_quickstep_anr settings-home || record_failure "settingsHomeSystemOverlayClear=FAIL"
     settings_ui="$OUT/settings-home-ui.xml"
-    if ! pick_text_center "$settings_ui" "Search & web" >/dev/null 2>&1; then
+    for scroll_attempt in 1 2 3; do
+      if pick_text_center "$settings_ui" "Search & web" >/dev/null 2>&1; then
+        break
+      fi
       scroll_xy="$(python3 - "$settings_ui" <<'PY2'
 import re, sys
 data = open(sys.argv[1], encoding='utf-8', errors='replace').read()
@@ -237,17 +240,19 @@ for tag in re.findall(r'<node\b[^>]*>', data):
 raise SystemExit(1)
 PY2
       )" || true
-      if [[ -n "$scroll_xy" ]]; then
-        read -r sx sy ex ey <<<"$scroll_xy"
-        adb shell input swipe "$sx" "$sy" "$ex" "$ey" 350
-        echo "scrollSettingsHome=PASS coord=${sx},${sy}->${ex},${ey}" >> "$OUT/qa-summary.txt"
-        sleep 2
-        capture_screen settings-home-scrolled
-        settings_ui="$OUT/settings-home-scrolled-ui.xml"
-      else
-        record_failure "scrollSettingsHome=FAIL scrollable-node-not-found"
+      if [[ -z "$scroll_xy" ]]; then
+        record_failure "scrollSettingsHome=FAIL scrollable-node-not-found attempt=$scroll_attempt"
+        break
       fi
-    fi
+      read -r sx sy ex ey <<<"$scroll_xy"
+      adb shell input swipe "$sx" "$sy" "$ex" "$ey" 350
+      echo "scrollSettingsHome=PASS attempt=$scroll_attempt coord=${sx},${sy}->${ex},${ey}" >> "$OUT/qa-summary.txt"
+      sleep 2
+      capture_name="settings-home-scroll-${scroll_attempt}"
+      capture_screen "$capture_name"
+      dismiss_quickstep_anr "$capture_name" || record_failure "settingsScrollSystemOverlayClear=FAIL attempt=$scroll_attempt"
+      settings_ui="$OUT/${capture_name}-ui.xml"
+    done
     if tap_text "$settings_ui" "Search & web" "openSearchSettings"; then
       sleep 3
       capture_screen search
