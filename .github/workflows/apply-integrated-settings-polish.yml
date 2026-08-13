@@ -36,7 +36,11 @@ jobs:
       - name: Reassemble and apply exact validated patch
         run: |
           set -euo pipefail
-          cat ci/integrated-settings-polish.part* > /tmp/integrated-settings-polish.patch
+          : > /tmp/integrated-settings-polish.patch
+          for part in ci/integrated-settings-polish.part*; do
+            cat "$part" >> /tmp/integrated-settings-polish.patch
+            printf '\n' >> /tmp/integrated-settings-polish.patch
+          done
           git apply --check /tmp/integrated-settings-polish.patch
           git apply /tmp/integrated-settings-polish.patch
       - name: Verify unit tests
