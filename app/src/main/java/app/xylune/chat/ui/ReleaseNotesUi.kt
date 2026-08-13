@@ -15,7 +15,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.xylune.chat.update.RepositoryRelease
@@ -209,7 +209,7 @@ private data class ReleaseNotesStrings(
 
 @Composable
 private fun releaseNotesStrings(): ReleaseNotesStrings {
-    val language = LocalContext.current.resources.configuration.locales[0]?.language
+    val language = LocalConfiguration.current.locales[0]?.language
     return if (language.equals("tr", ignoreCase = true)) {
         ReleaseNotesStrings(
             whatsNew = "Neler yeni",

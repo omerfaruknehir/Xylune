@@ -26,7 +26,6 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Cloud
-import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material3.Button
@@ -200,7 +199,7 @@ internal fun OnboardingScreen(
                             .verticalScroll(pageScrollStates[page])
                             .padding(top = 8.dp, bottom = 16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(14.dp),
                     ) {
                         when (destination) {
                             OnboardingStep.WELCOME -> WelcomeStep(viewModel)
@@ -237,7 +236,7 @@ private fun OnboardingStepActions(
     val haptics = rememberXyluneHaptics()
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         when (step) {
-            OnboardingStep.WELCOME -> PrimaryNextButton("Start setup", onContinue)
+            OnboardingStep.WELCOME -> PrimaryNextButton("Continue", onContinue)
             OnboardingStep.PROVIDER -> ProviderStepActions(
                 configuredProviderCount = configuredProviderCount,
                 onContinue = onContinue,
@@ -286,13 +285,13 @@ private fun ProviderStepActions(
             },
             modifier = Modifier.fillMaxWidth(),
         ) { Text("Connect a provider") }
-        OutlinedButton(
+        TextButton(
             onClick = {
                 haptics.selection()
                 onContinue()
             },
             modifier = Modifier.fillMaxWidth(),
-        ) { Text("Continue without one") }
+        ) { Text("Do this later") }
     }
 }
 
@@ -386,17 +385,17 @@ private fun OnboardingProgressHeader(
 
 @Composable
 private fun WelcomeStep(viewModel: ChatViewModel) {
-    Spacer(Modifier.height(2.dp))
-    XyluneMark(modifier = Modifier.size(72.dp), contentDescription = "Xylune")
+    Spacer(Modifier.height(8.dp))
+    XyluneMark(modifier = Modifier.size(64.dp), contentDescription = "Xylune")
     Text(
-        "Set up Xylune",
+        "Welcome to Xylune",
         style = MaterialTheme.typography.headlineMedium,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onBackground,
         textAlign = TextAlign.Center,
     )
     Text(
-        "Restore a backup if you have one, then connect the model provider you actually want to use. Everything optional stays out of your way.",
+        "Connect model access or restore an existing setup. Everything here can be changed later in Settings.",
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         textAlign = TextAlign.Center,
@@ -408,19 +407,20 @@ private fun WelcomeStep(viewModel: ChatViewModel) {
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column {
-            OnboardingValueRow(Icons.Outlined.Lock, "Private by design", "Chats, credentials, and tool workspaces stay on this device.")
-            OnboardingValueRow(Icons.Outlined.Cloud, "Bring your own models", "Use a ChatGPT account, API provider, or local server.")
-            OnboardingValueRow(Icons.Outlined.Code, "Optional tools stay optional", "Python and Linux are managed later from Settings → Local execution.")
+            OnboardingValueRow(
+                Icons.Outlined.Lock,
+                "Private by default",
+                "Chats and credentials stay on this device.",
+            )
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            OnboardingValueRow(
+                Icons.Outlined.Cloud,
+                "Bring your model access",
+                "Use ChatGPT, an API provider, or a local server.",
+            )
         }
     }
     SetupRestoreActions(viewModel)
-    Text(
-        "Starting fresh? Ignore the restore card and tap Continue.",
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth(),
-    )
 }
 
 @Composable
@@ -429,11 +429,11 @@ private fun ProviderStep(
     configuredProviderCount: Int,
 ) {
     SetupHeading(
-        if (configuredProviderCount > 0) "Model access connected" else "Connect a model provider",
+        if (configuredProviderCount > 0) "Model access connected" else "Connect model access",
         if (configuredProviderCount > 0) {
-            "Xylune detected ${providerCountLabel(configuredProviderCount)}. Continue or open the provider manager to make changes."
+            "${providerCountLabel(configuredProviderCount)} ready. You can continue or change it now."
         } else {
-            "A provider is needed only when you send a message. You may connect one now or continue and do it later."
+            "Choose how Xylune should reach a model. You can also leave this for later."
         },
     )
     if (configuredProviderCount > 0) {
@@ -451,10 +451,7 @@ private fun ProviderStep(
                 Icon(Icons.Outlined.CheckCircle, null, Modifier.size(28.dp))
                 Column(Modifier.weight(1f)) {
                     Text("${providerCountLabel(configuredProviderCount)} ready", fontWeight = FontWeight.SemiBold)
-                    Text(
-                        "Credentials were found and this step is complete.",
-                        style = MaterialTheme.typography.bodySmall,
-                    )
+                    Text("You can change providers later in Settings.", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
@@ -480,29 +477,36 @@ private fun ProviderStep(
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column {
-            OnboardingValueRow(Icons.Outlined.AccountCircle, "ChatGPT account", "Sign in without pasting an API key.")
-            OnboardingValueRow(Icons.Outlined.Cloud, "API provider", "Use OpenAI, Anthropic, Gemini, DeepSeek, or another compatible endpoint.")
-            OnboardingValueRow(Icons.Outlined.Storage, "Local server", "Connect to Ollama, llama.cpp, or LM Studio.")
+            OnboardingValueRow(Icons.Outlined.AccountCircle, "ChatGPT", "Sign in without pasting an API key.")
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            OnboardingValueRow(Icons.Outlined.Cloud, "API provider", "OpenAI, Anthropic, Gemini, DeepSeek, and compatible endpoints.")
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            OnboardingValueRow(Icons.Outlined.Storage, "Local server", "Ollama, llama.cpp, or LM Studio.")
         }
     }
-    Surface(
-        color = MaterialTheme.colorScheme.secondaryContainer,
-        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        shape = MaterialTheme.shapes.large,
-        modifier = Modifier.fillMaxWidth(),
+    Row(
+        Modifier.fillMaxWidth().padding(horizontal = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(Modifier.padding(14.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Outlined.Lock, null)
-            Text("Credentials are encrypted with Android Keystore and sent only to the provider you choose.", style = MaterialTheme.typography.bodySmall)
-        }
+        Icon(Icons.Outlined.Lock, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(
+            "Credentials are protected by Android Keystore.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 
 @Composable
 private fun ReadyStep(configuredProviderCount: Int) {
     SetupHeading(
-        "Xylune is ready",
-        "You can start chatting now. Appearance, local execution, backups, memory, and other optional features remain in clearly grouped Settings.",
+        "Ready to go",
+        if (configuredProviderCount > 0) {
+            "Your provider is connected. Start a chat and adjust anything else when you need it."
+        } else {
+            "You can enter Xylune now and connect a provider when you're ready to send a message."
+        },
     )
     Surface(
         color = MaterialTheme.colorScheme.surfaceContainer,
@@ -515,15 +519,14 @@ private fun ReadyStep(configuredProviderCount: Int) {
                 "Model provider",
                 if (configuredProviderCount > 0) "${providerCountLabel(configuredProviderCount)} connected" else "Not connected yet",
             )
-            OnboardingValueRow(Icons.Outlined.CheckCircle, "Focused defaults", "Local execution starts off; enable Python or Linux only when a chat needs it.")
-            OnboardingValueRow(Icons.Outlined.CheckCircle, "Settings stay optional", "Appearance, backups, memory, and advanced behavior are grouped for later.")
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+            OnboardingValueRow(
+                Icons.Outlined.CheckCircle,
+                "Everything else can wait",
+                "Appearance, backups, memory, and local tools stay in Settings.",
+            )
         }
     }
-    Text(
-        "Enter Xylune now. You can return to Providers & models from Settings at any time.",
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        textAlign = TextAlign.Center,
-    )
 }
 
 @Composable
@@ -531,7 +534,7 @@ private fun SetupHeading(title: String, subtitle: String) {
     Text(
         title,
         style = MaterialTheme.typography.headlineMedium,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onBackground,
         modifier = Modifier.fillMaxWidth(),
     )
@@ -548,9 +551,9 @@ private fun OnboardingValueRow(icon: ImageVector, title: String, subtitle: Strin
                 color = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 shape = MaterialTheme.shapes.large,
-                modifier = Modifier.size(42.dp),
+                modifier = Modifier.size(38.dp),
             ) {
-                Box(contentAlignment = Alignment.Center) { Icon(icon, null, Modifier.size(22.dp)) }
+                Box(contentAlignment = Alignment.Center) { Icon(icon, null, Modifier.size(20.dp)) }
             }
         },
         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
