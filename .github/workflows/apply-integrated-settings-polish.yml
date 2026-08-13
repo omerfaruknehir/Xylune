@@ -1,0 +1,51 @@
+name: Apply integrated settings polish
+
+on:
+  push:
+    branches:
+      - agent/integrated-settings-polish-20260813
+    paths:
+      - ci/integrated-settings-polish.patch
+
+permissions:
+  contents: write
+
+concurrency:
+  group: integrated-settings-polish
+  cancel-in-progress: true
+
+jobs:
+  apply-test-clean:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/integrated-settings-polish-20260813
+          fetch-depth: 0
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Apply exact validated patch
+        run: |
+          set -euo pipefail
+          git apply --check ci/integrated-settings-polish.patch
+          git apply ci/integrated-settings-polish.patch
+      - name: Verify unit tests
+        run: ./gradlew --no-daemon --stacktrace --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process testDebugUnitTest
+      - name: Publish clean source commit
+        run: |
+          set -euo pipefail
+          git rm ci/integrated-settings-polish.patch .github/workflows/apply-integrated-settings-polish.yml
+          git add -A
+          git config user.name 'xylune-agent[bot]'
+          git config user.email 'xylune-agent[bot]@users.noreply.github.com'
+          git commit -m 'Polish provider and search settings UX'
+          git push origin HEAD:agent/integrated-settings-polish-20260813
