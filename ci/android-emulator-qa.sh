@@ -51,10 +51,28 @@ tap_text() {
   if xy="$(pick_text_center "$file" "$text")"; then
     read -r x y <<<"$xy"
     adb shell input tap "$x" "$y"
-    echo "${label}=PASS coord=${x},${y}" >> "$OUT/qa-summary.txt"
+    echo "${label}=PASS text=${text} coord=${x},${y}" >> "$OUT/qa-summary.txt"
     return 0
   fi
   record_failure "${label}=FAIL node-not-found text=$text"
+  return 1
+}
+
+# Xylune's zero-provider CTA wording has changed over releases. Resolve the
+# currently visible label from the hierarchy rather than hard-coding one old
+# phrase, and only fail if none of the known/current variants is exposed.
+tap_provider_cta() {
+  local file="$1"
+  local text xy
+  for text in "Set up a provider" "Set up provider" "Add provider"; do
+    if xy="$(pick_text_center "$file" "$text")"; then
+      read -r x y <<<"$xy"
+      adb shell input tap "$x" "$y"
+      echo "tapProviderCta=PASS text=${text} coord=${x},${y}" >> "$OUT/qa-summary.txt"
+      return 0
+    fi
+  done
+  record_failure "tapProviderCta=FAIL no-provider-cta-node"
   return 1
 }
 
@@ -83,7 +101,7 @@ dismiss_quickstep_anr() {
 
 # Fresh installs can legitimately surface Xylune's release/update dialog after
 # setup is skipped. Dismiss it through its visible Later action before testing
-# the zero-provider screen. This is an expected app flow, not a failure.
+# the zero-provider screen.
 dismiss_release_dialog() {
   local name="$1"
   if ! grep -Fq 'Open release' "$OUT/${name}-ui.xml" 2>/dev/null; then
@@ -169,8 +187,8 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
   [[ -s "$OUT/main.png" ]] && echo "mainScreenshot=PASS" >> "$OUT/qa-summary.txt" \
     || record_failure "mainScreenshot=FAIL"
 
-  # Validate the important zero-provider CTA actually navigates somewhere.
-  if tap_text "$OUT/main-ui.xml" "Add provider" "tapAddProvider"; then
+  # Validate the zero-provider CTA actually navigates into provider setup.
+  if tap_provider_cta "$OUT/main-ui.xml"; then
     sleep 3
     capture_screen provider
     dismiss_quickstep_anr provider || record_failure "providerSystemOverlayClear=FAIL"
