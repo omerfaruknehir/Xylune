@@ -1,0 +1,42 @@
+name: Finalize Search QA scroll reachability
+
+on:
+  push:
+    branches:
+      - agent/integrated-settings-polish-20260813
+    paths:
+      - .github/workflows/finalize-search-qa-scroll.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-clean:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/integrated-settings-polish-20260813
+      - name: Extend final UI-tree scroll reach
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('ci/android-emulator-qa.sh')
+          s = p.read_text()
+          old = 'for scroll_attempt in 1 2 3 4 5 6; do'
+          new = 'for scroll_attempt in 1 2 3 4 5 6 7 8; do'
+          if s.count(old) != 1:
+              raise SystemExit(f'expected one six-attempt loop, found {s.count(old)}')
+          p.write_text(s.replace(old, new, 1))
+          PY
+          bash -n ci/android-emulator-qa.sh
+      - name: Publish clean QA adjustment
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/finalize-search-qa-scroll.yml
+          git add ci/android-emulator-qa.sh
+          git config user.name 'xylune-agent[bot]'
+          git config user.email 'xylune-agent[bot]@users.noreply.github.com'
+          git commit -m 'Reach Search page in Settings QA'
+          git push origin HEAD:agent/integrated-settings-polish-20260813
