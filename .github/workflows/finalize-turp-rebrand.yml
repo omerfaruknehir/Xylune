@@ -31,6 +31,7 @@ jobs:
           python3 ci/finalize_turp_followup.py
           python3 ci/finalize_turp_last.py
           python3 ci/finalize_turp_sitefix.py
+          python3 ci/finalize_turp_release_names.py
           python3 - <<'PY'
           from pathlib import Path
 
@@ -113,6 +114,9 @@ jobs:
           grep -F 'home-hero__backdrop--turp' docs/index.html
           grep -F 'M734 681' docs/assets/js/logo-motion.js
           ! grep -F 'M33.549193' docs/assets/js/logo-motion.js
+          grep -F 'apk="Turp-${XYLUNE_VERSION}-release.apk"' .github/workflows/android.yml
+          grep -F -- '--title "Turp ${XYLUNE_VERSION}"' .github/workflows/android.yml
+          grep -F 'apk="Turp-PR-${pr}-${short_sha}-debug.apk"' .github/workflows/wip-debug-apk.yml
           grep -F 'XyluneProgramRuntime.render' app/src/main/java/app/xylune/chat/widgets/ProgramBlocks.kt
 
       - name: Build test and lint
@@ -125,7 +129,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git rm .github/workflows/finalize-turp-rebrand.yml ci/finalize_turp.py ci/finalize_turp_followup.py ci/finalize_turp_last.py ci/finalize_turp_sitefix.py
+          git rm .github/workflows/finalize-turp-rebrand.yml ci/finalize_turp.py ci/finalize_turp_followup.py ci/finalize_turp_last.py ci/finalize_turp_sitefix.py ci/finalize_turp_release_names.py
           git add -A
           git config user.name 'xylune-agent[bot]'
           git config user.email 'xylune-agent[bot]@users.noreply.github.com'
