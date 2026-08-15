@@ -29,6 +29,7 @@ jobs:
         run: |
           python3 ci/finalize_turp.py
           python3 ci/finalize_turp_followup.py
+          python3 ci/finalize_turp_last.py
 
       - name: Verify source contracts
         shell: bash
@@ -37,6 +38,8 @@ jobs:
           grep -F 'initialTemplateId = addingProviderTemplateId' app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt
           grep -F 'templates = DefaultCatalog.providers.filter' app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt
           grep -F 'fun matchesPresetId(providerId: String?, presetId: String)' app/src/main/java/app/xylune/chat/provider/ModelRequestPolicy.kt
+          grep -F 'ModelRequestPolicy.matchesPresetId(provider?.id, "openrouter")' app/src/main/java/app/xylune/chat/provider/ThinkingCapabilities.kt
+          grep -F 'ModelRequestPolicy.matchesPresetId(providerId, "openai")' app/src/main/java/app/xylune/chat/provider/ThinkingCapabilities.kt
           grep -F 'includeApiKeys: Boolean = false' app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt
           grep -F 'API keys require a password-encrypted backup' app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt
           grep -F '<string name="app_name">Turp</string>' app/src/main/res/values/strings.xml
@@ -44,6 +47,7 @@ jobs:
           grep -F 'baseurl: /Xylune' docs/_config.yml
           grep -F 'repository: omerfaruknehir/Xylune' docs/_config.yml
           grep -F 'M734,681' app/src/main/res/drawable/ic_xylune_foreground.xml
+          grep -F 'branding/turp-banner.svg' README.md
           grep -F 'home-hero__backdrop--turp' docs/index.html
           grep -F 'XyluneProgramRuntime.render' app/src/main/java/app/xylune/chat/widgets/ProgramBlocks.kt
 
@@ -57,7 +61,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git rm .github/workflows/finalize-turp-rebrand.yml ci/finalize_turp.py ci/finalize_turp_followup.py
+          git rm .github/workflows/finalize-turp-rebrand.yml ci/finalize_turp.py ci/finalize_turp_followup.py ci/finalize_turp_last.py
           git add -A
           git config user.name 'xylune-agent[bot]'
           git config user.email 'xylune-agent[bot]@users.noreply.github.com'
