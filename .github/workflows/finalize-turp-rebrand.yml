@@ -26,17 +26,25 @@ jobs:
           cache: gradle
 
       - name: Apply final changes
-        run: python3 ci/finalize_turp.py
+        run: |
+          python3 ci/finalize_turp.py
+          python3 ci/finalize_turp_followup.py
 
       - name: Verify source contracts
         shell: bash
         run: |
           set -euo pipefail
+          grep -F 'initialTemplateId = addingProviderTemplateId' app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt
           grep -F 'templates = DefaultCatalog.providers.filter' app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt
+          grep -F 'fun matchesPresetId(providerId: String?, presetId: String)' app/src/main/java/app/xylune/chat/provider/ModelRequestPolicy.kt
           grep -F 'includeApiKeys: Boolean = false' app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt
           grep -F 'API keys require a password-encrypted backup' app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt
           grep -F '<string name="app_name">Turp</string>' app/src/main/res/values/strings.xml
           grep -F 'applicationId = "app.xylune.chat"' app/build.gradle.kts
+          grep -F 'baseurl: /Xylune' docs/_config.yml
+          grep -F 'repository: omerfaruknehir/Xylune' docs/_config.yml
+          grep -F 'M734,681' app/src/main/res/drawable/ic_xylune_foreground.xml
+          grep -F 'home-hero__backdrop--turp' docs/index.html
           grep -F 'XyluneProgramRuntime.render' app/src/main/java/app/xylune/chat/widgets/ProgramBlocks.kt
 
       - name: Build test and lint
@@ -49,7 +57,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git rm .github/workflows/finalize-turp-rebrand.yml ci/finalize_turp.py
+          git rm .github/workflows/finalize-turp-rebrand.yml ci/finalize_turp.py ci/finalize_turp_followup.py
           git add -A
           git config user.name 'xylune-agent[bot]'
           git config user.email 'xylune-agent[bot]@users.noreply.github.com'
