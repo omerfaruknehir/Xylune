@@ -26,20 +26,7 @@ jobs:
           cache: gradle
 
       - name: Apply final changes
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          p = Path('ci/finalize_turp.py')
-          s = p.read_text()
-          old = 'replace_once(transfer, "        enabled = !busy && passwordsMatch,", "        enabled = !busy && backupReady,")'
-          new = 'replace_once(transfer, "        options = backupOptions,\\n        password = password,\\n        enabled = !busy && passwordsMatch,", "        options = backupOptions,\\n        password = password,\\n        enabled = !busy && backupReady,")'
-          if s.count(old) != 1:
-              raise SystemExit(f'finalizer guard repair expected one match, found {s.count(old)}')
-          p.write_text(s.replace(old, new, 1))
-          PY
-          python3 ci/finalize_turp.py
+        run: python3 ci/finalize_turp.py
 
       - name: Verify source contracts
         shell: bash
@@ -50,6 +37,7 @@ jobs:
           grep -F 'API keys require a password-encrypted backup' app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt
           grep -F '<string name="app_name">Turp</string>' app/src/main/res/values/strings.xml
           grep -F 'applicationId = "app.xylune.chat"' app/build.gradle.kts
+          grep -F 'XyluneProgramRuntime.render' app/src/main/java/app/xylune/chat/widgets/ProgramBlocks.kt
 
       - name: Build test and lint
         run: >-
