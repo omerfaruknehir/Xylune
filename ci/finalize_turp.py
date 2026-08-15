@@ -150,7 +150,11 @@ new_help = '''            if (includeAppSettings) {
                 }
             }'''
 replace_once(transfer, old_help, new_help)
-replace_once(transfer, "        enabled = !busy && passwordsMatch,", "        enabled = !busy && backupReady,")
+replace_once(
+    transfer,
+    "        options = backupOptions,\n        password = password,\n        enabled = !busy && passwordsMatch,",
+    "        options = backupOptions,\n        password = password,\n        enabled = !busy && backupReady,",
+)
 replace_once(
     transfer,
     "        enabled = !busy && passwordsMatch,\n        modifier = Modifier.fillMaxWidth(),\n    ) {\n        if (busy)",
@@ -192,7 +196,10 @@ replacement = '''    @Test
 Path(feature_test).write_text(text[:start] + replacement + text[end:])
 
 # --- User-visible rebrand: keep code/package/schema identifiers stable. ---
+# Only replace the standalone product word. This deliberately avoids touching symbols such as
+# XyluneProgramRuntime even when they appear inside an interpolated Kotlin string.
 string_re = re.compile(r'"""[\s\S]*?"""|"(?:\\.|[^"\\])*"')
+standalone_brand = re.compile(r"\bXylune\b")
 protected = (
     "github.com/omerfaruknehir/Xylune",
     "omerfaruknehir.github.io/Xylune",
@@ -206,7 +213,7 @@ for p in Path("app/src/main/java").rglob("*.kt"):
         literal = match.group(0)
         if "Xylune" not in literal or any(token in literal for token in protected):
             return literal
-        return literal.replace("Xylune", "Turp")
+        return standalone_brand.sub("Turp", literal)
     updated = string_re.sub(repl, source)
     if updated != source:
         p.write_text(updated)
@@ -218,11 +225,12 @@ for p in Path("app/src/main/res").glob("values*/strings.xml"):
             first = line.find(">") + 1
             last = line.rfind("<")
             if 0 < first <= last:
-                line = line[:first] + line[first:last].replace("Xylune", "Turp") + line[last:]
+                line = line[:first] + standalone_brand.sub("Turp", line[first:last]) + line[last:]
         lines.append(line)
     p.write_text("".join(lines))
 
-# Current docs/site copy: protect URLs and inline-code legacy identifiers.
+# Current docs/site copy: protect URLs and inline-code legacy identifiers, then replace only the
+# standalone product word. Historical release notes remain untouched.
 doc_files = [
     Path("README.md"), Path("PRIVACY.md"), Path("TERMS.md"), Path("DATA_DELETION.md"),
     Path("BUILDING.md"), Path("ARCHITECTURE.md"), Path("HISTORY_IMPORT.md"), Path("WIDGETS.md"),
@@ -239,12 +247,12 @@ for p in doc_files:
         continue
     source = p.read_text()
     stash = []
-    def protect(match):
+    def protect_doc(match):
         stash.append(match.group(0))
         return f"@@TURP_PROTECTED_{len(stash)-1}@@"
-    masked = url_re.sub(protect, source)
-    masked = code_re.sub(protect, masked)
-    masked = masked.replace("Xylune", "Turp")
+    masked = url_re.sub(protect_doc, source)
+    masked = code_re.sub(protect_doc, masked)
+    masked = standalone_brand.sub("Turp", masked)
     for i, value in enumerate(stash):
         masked = masked.replace(f"@@TURP_PROTECTED_{i}@@", value)
     p.write_text(masked)
