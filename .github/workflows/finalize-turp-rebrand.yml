@@ -1,0 +1,416 @@
+name: Finalize Turp rebrand and provider backup
+
+on:
+  push:
+    branches:
+      - agent/integrated-settings-polish-20260813
+    paths:
+      - .github/workflows/finalize-turp-rebrand.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: agent/integrated-settings-polish-20260813
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Apply Turp rebrand, reusable provider presets, and encrypted API-key backup
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          def read(path):
+              return Path(path).read_text()
+
+          def write(path, text):
+              Path(path).write_text(text)
+
+          def replace_once(path, old, new):
+              p = Path(path)
+              text = p.read_text()
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{path}: expected exactly one match, found {count}: {old[:100]!r}')
+              p.write_text(text.replace(old, new, 1))
+
+          # Provider presets are immutable templates. Every use creates a distinct provider
+          # instance, which naturally gives each Gemini/OpenAI/etc connection its own key.
+          settings = 'app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt'
+          replace_once(
+              settings,
+              '        ).mapNotNull { (id, label) -> providers.firstOrNull { it.id == id }?.let { it to label } }',
+              '        ).mapNotNull { (id, label) -> DefaultCatalog.providers.firstOrNull { it.id == id }?.let { it to label } }',
+          )
+          replace_once(
+              settings,
+              '        templates = providers.filter { provider -> provider.kind != ProviderKind.OPENAI_OAUTH && provider !in registeredProviders },',
+              '        templates = DefaultCatalog.providers.filter { provider -> provider.kind != ProviderKind.OPENAI_OAUTH },',
+          )
+          replace_once(
+              settings,
+              '            val id = draft.templateProviderId ?: "provider-${UUID.randomUUID()}"\n            val template = providers.firstOrNull { it.id == draft.templateProviderId }',
+              '            val templateId = draft.templateProviderId\n            val id = "provider-${templateId ?: draft.kind.name.lowercase()}-${UUID.randomUUID()}"\n            val template = DefaultCatalog.providers.firstOrNull { it.id == templateId }',
+          )
+          replace_once(
+              settings,
+              '            )).copy(\n                displayName = draft.name,',
+              '            )).copy(\n                id = id,\n                displayName = draft.name,',
+          )
+          replace_once(
+              settings,
+              '                val bundled = DefaultCatalog.models.firstOrNull { it.providerId == id && it.modelId == candidate.id }',
+              '                val bundled = DefaultCatalog.models.firstOrNull { it.providerId == (templateId ?: id) && it.modelId == candidate.id }',
+          )
+          replace_once(
+              settings,
+              '                val model = base.copy(\n                    displayName = candidate.displayName,',
+              '                val model = base.copy(\n                    providerId = id,\n                    displayName = candidate.displayName,',
+          )
+
+          # Portable settings can optionally carry API keys. OAuth sessions and cloud grants
+          # remain excluded. The archive manager below makes this option password-only.
+          store = 'app/src/main/java/app/xylune/chat/transfer/AppSettingsArchiveStore.kt'
+          replace_once(
+              store,
+              'import app.xylune.chat.provider.ProviderEndpointPolicy\n',
+              'import app.xylune.chat.provider.ProviderEndpointPolicy\nimport app.xylune.chat.security.SecureStore\n',
+          )
+          replace_once(
+              store,
+              '    val apiKeyRequired: Boolean,\n)',
+              '    val apiKeyRequired: Boolean,\n    val apiKey: String? = null,\n)',
+          )
+          replace_once(
+              store,
+              '/**\n * Portable, explicit settings backup. Secrets are intentionally not represented:\n * no API keys, OAuth sessions, encrypted database key, provider authorization\n * headers, cloud grants, drafts, or transient navigation state can enter it.\n */',
+              '/**\n * Portable settings backup. API keys are included only when the caller explicitly opts in;\n * XyluneArchiveManager only permits that mode for password-encrypted backups. OAuth sessions,\n * encrypted database keys, provider authorization headers, cloud grants, drafts, and transient\n * navigation state are never represented here.\n */',
+          )
+          replace_once(
+              store,
+              '    private val preferences: AppPreferences,\n    private val database: XyluneDatabase,\n) {\n    suspend fun snapshot(): PortableAppSettings {',
+              '    private val preferences: AppPreferences,\n    private val database: XyluneDatabase,\n    private val secureStore: SecureStore,\n) {\n    suspend fun snapshot(includeApiKeys: Boolean = false): PortableAppSettings {',
+          )
+          replace_once(
+              store,
+              '                    registered = provider.registered,\n                    apiKeyRequired = provider.apiKeyRequired,\n                )',
+              '                    registered = provider.registered,\n                    apiKeyRequired = provider.apiKeyRequired,\n                    apiKey = if (includeApiKeys && provider.kind != ProviderKind.OPENAI_OAUTH) {\n                        secureStore.apiKey(provider.id).takeIf(String::isNotBlank)\n                    } else null,\n                )',
+          )
+          replace_once(
+              store,
+              '            val baseUrl = runCatching { ProviderEndpointPolicy.validate(portable.baseUrl) }.getOrNull() ?: return@forEach\n            val canRemainRegistered = portable.registered && !portable.apiKeyRequired && kind != ProviderKind.OPENAI_OAUTH',
+              '            val baseUrl = runCatching { ProviderEndpointPolicy.validate(portable.baseUrl) }.getOrNull() ?: return@forEach\n            val restoredApiKey = portable.apiKey.orEmpty().take(MAX_API_KEY_CHARS)\n            val canRemainRegistered = portable.registered &&\n                (!portable.apiKeyRequired || restoredApiKey.isNotBlank()) &&\n                kind != ProviderKind.OPENAI_OAUTH',
+          )
+          replace_once(
+              store,
+              '            )\n            restoredProviderIds += portable.id\n        }\n        value.models.groupBy',
+              '            )\n            if (kind != ProviderKind.OPENAI_OAUTH && restoredApiKey.isNotBlank()) {\n                secureStore.setApiKey(portable.id, restoredApiKey)\n            }\n            restoredProviderIds += portable.id\n        }\n        value.models.groupBy',
+          )
+          replace_once(
+              store,
+              '        const val MAX_TRUST_LIST_CHARS = 256_000\n',
+              '        const val MAX_TRUST_LIST_CHARS = 256_000\n        const val MAX_API_KEY_CHARS = 8_192\n',
+          )
+
+          app = 'app/src/main/java/app/xylune/chat/XyluneApplication.kt'
+          replace_once(
+              app,
+              '    val appSettingsArchives = AppSettingsArchiveStore(application, appPreferences, database)',
+              '    val appSettingsArchives = AppSettingsArchiveStore(application, appPreferences, database, secureStore)',
+          )
+
+          archive = 'app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt'
+          replace_once(
+              archive,
+              '    val includeLinuxEnvironments: Boolean = false,\n    val includeAppSettings: Boolean = false,',
+              '    val includeLinuxEnvironments: Boolean = false,\n    val includeAppSettings: Boolean = false,\n    val includeApiKeys: Boolean = false,',
+          )
+          replace_once(
+              archive,
+              '    ) {\n        val bundles = conversationIds.mapNotNull { id -> snapshotConversation(id, options) }\n        val preparedLinux = if (kind == ArchiveKind.BACKUP && options.includeLinuxEnvironments) {',
+              '    ) {\n        require(!options.includeApiKeys || kind == ArchiveKind.BACKUP) { "API keys can only be included in full backups" }\n        require(!options.includeApiKeys || options.includeAppSettings) { "Enable app settings before including API keys" }\n        require(!options.includeApiKeys || password.isNotEmpty()) { "API keys require a password-encrypted backup" }\n        val bundles = conversationIds.mapNotNull { id -> snapshotConversation(id, options) }\n        val preparedLinux = if (kind == ArchiveKind.BACKUP && options.includeLinuxEnvironments) {',
+          )
+          replace_once(
+              archive,
+              '            appSettings.snapshot()\n',
+              '            appSettings.snapshot(includeApiKeys = options.includeApiKeys)\n',
+          )
+
+          transfer = 'app/src/main/java/app/xylune/chat/ui/TransferUi.kt'
+          replace_once(
+              transfer,
+              '    var includeAppSettings by remember { mutableStateOf(true) }\n',
+              '    var includeAppSettings by remember { mutableStateOf(true) }\n    var includeApiKeys by remember { mutableStateOf(false) }\n',
+          )
+          replace_once(
+              transfer,
+              '        includeLinuxEnvironments = includeLinuxEnvironments,\n        includeAppSettings = includeAppSettings,\n    )\n    val backupLauncher',
+              '        includeLinuxEnvironments = includeLinuxEnvironments,\n        includeAppSettings = includeAppSettings,\n        includeApiKeys = includeApiKeys,\n    )\n    val backupReady = passwordsMatch && (!includeApiKeys || password.isNotEmpty())\n    val backupLauncher',
+          )
+          replace_once(
+              transfer,
+              '                    "Chats, branches, app configuration, organization, metadata, and optional attachments. API keys and OAuth sessions are deliberately excluded.",',
+              '                    "Chats, branches, app configuration, organization, metadata, and optional attachments. API keys are optional and require password encryption; OAuth sessions are always excluded.",',
+          )
+          replace_once(
+              transfer,
+              '            TransferSwitch("Include app settings and configuration", includeAppSettings) { includeAppSettings = it }',
+              '            TransferSwitch("Include app settings and configuration", includeAppSettings) { enabled ->\n                includeAppSettings = enabled\n                if (!enabled) includeApiKeys = false\n            }',
+          )
+          old_settings_help = '''            if (includeAppSettings) {
+                Text(
+                    "Includes theme, UI behavior, new-chat defaults, provider endpoints/models, projects, prompt profiles, and automation settings. Credentials, OAuth sessions, provider authorization headers, cloud grants, drafts, and navigation state stay excluded.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }'''
+          new_settings_help = '''            if (includeAppSettings) {
+                Text(
+                    "Includes theme, UI behavior, new-chat defaults, provider endpoints/models, projects, prompt profiles, and automation settings. API keys are included only when separately enabled. OAuth sessions, provider authorization headers, cloud grants, drafts, and navigation state stay excluded.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                TransferSwitch("Include API keys", includeApiKeys) { includeApiKeys = it }
+                if (includeApiKeys) {
+                    Text(
+                        "API keys are sensitive. Turp requires a non-empty backup password before this backup can be saved or uploaded. OAuth sessions are never exported.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
+            }'''
+          replace_once(transfer, old_settings_help, new_settings_help)
+          replace_once(transfer, '        enabled = !busy && passwordsMatch,', '        enabled = !busy && backupReady,')
+          replace_once(transfer, '        enabled = !busy && passwordsMatch,\n        modifier = Modifier.fillMaxWidth(),\n    ) {\n        if (busy)', '        enabled = !busy && backupReady,\n        modifier = Modifier.fillMaxWidth(),\n    ) {\n        if (busy)')
+          replace_once(
+              transfer,
+              '                    IncludedRow("App settings and configuration", value.appSettingsIncluded)\n                    IncludedRow("Installed Linux environments", value.options.includeLinuxEnvironments)',
+              '                    IncludedRow("App settings and configuration", value.appSettingsIncluded)\n                    IncludedRow("API keys", value.options.includeApiKeys)\n                    IncludedRow("Installed Linux environments", value.options.includeLinuxEnvironments)',
+          )
+          replace_once(
+              transfer,
+              '            "Imports are non-destructive: every chat is created as a separate copy. Existing chats are never overwritten. Provider credentials are not imported, so reconnect the required provider before continuing an imported chat.",',
+              '            "Imports are non-destructive: every chat is created as a separate copy. Existing chats are never overwritten. API keys are restored only from backups that explicitly included them; OAuth sessions are never imported.",',
+          )
+          replace_once(
+              transfer,
+              '                                "Chats are imported as separate copies. Included app settings and organization are applied, but API keys, OAuth sessions, provider authorization headers, and cloud grants are never imported."',
+              '                                if (value.options.includeApiKeys) "Chats are imported as separate copies. Included app settings, organization, and API keys are applied. OAuth sessions, provider authorization headers, and cloud grants are never imported." else "Chats are imported as separate copies. Included app settings and organization are applied, but API keys, OAuth sessions, provider authorization headers, and cloud grants are not imported."',
+          )
+
+          # Update the contract test that deliberately asserted secrets could never be represented.
+          feature_test = 'app/src/test/java/app/xylune/chat/ui/SetupRestoreSettingsFeatureTest.kt'
+          old_test = '''    @Test
+    fun portableBackupCarriesNonSecretSettingsAndOrganization() {
+        val archive = source("src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt")
+        val settings = source("src/main/java/app/xylune/chat/transfer/AppSettingsArchiveStore.kt")
+        assertTrue(archive.contains("includeAppSettings: Boolean = false"))
+        assertTrue(archive.contains("appSettings.snapshot()"))
+        assertTrue(settings.contains("PortablePreferenceSettings"))
+        assertTrue(settings.contains("PortableProviderSettings"))
+        assertTrue(settings.contains("PortableProjectSettings"))
+        assertTrue(settings.contains("PortableSystemPromptSettings"))
+        assertTrue(settings.contains("customHeadersJson = \\"{}\\""))
+        assertFalse(settings.contains("SecureStore"))
+        assertFalse(settings.contains("setApiKey"))
+        assertFalse(settings.contains("accessToken"))
+    }'''
+          new_test = '''    @Test
+    fun portableBackupCanCarryApiKeysOnlyWhenExplicitlyEncrypted() {
+        val archive = source("src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt")
+        val settings = source("src/main/java/app/xylune/chat/transfer/AppSettingsArchiveStore.kt")
+        val ui = source("src/main/java/app/xylune/chat/ui/TransferUi.kt")
+        assertTrue(archive.contains("includeAppSettings: Boolean = false"))
+        assertTrue(archive.contains("includeApiKeys: Boolean = false"))
+        assertTrue(archive.contains("appSettings.snapshot(includeApiKeys = options.includeApiKeys)"))
+        assertTrue(archive.contains("API keys require a password-encrypted backup"))
+        assertTrue(settings.contains("PortablePreferenceSettings"))
+        assertTrue(settings.contains("PortableProviderSettings"))
+        assertTrue(settings.contains("val apiKey: String? = null"))
+        assertTrue(settings.contains("SecureStore"))
+        assertTrue(settings.contains("secureStore.setApiKey"))
+        assertTrue(settings.contains("customHeadersJson = \\"{}\\""))
+        assertFalse(settings.contains("accessToken"))
+        assertTrue(ui.contains("Include API keys"))
+        assertTrue(ui.contains("!includeApiKeys || password.isNotEmpty()"))
+    }'''
+          replace_once(feature_test, old_test, new_test)
+
+          # Rebrand user-visible Kotlin string literals without renaming source identifiers,
+          # package IDs, legacy MIME types/schemas, or repository URLs.
+          string_re = re.compile(r'"""[\\s\\S]*?"""|"(?:\\\\.|[^"\\\\])*"')
+          protected_fragments = (
+              'github.com/omerfaruknehir/Xylune',
+              'omerfaruknehir.github.io/Xylune',
+              'app.xylune.chat',
+              'XyluneApplication',
+              'XyluneDatabase',
+          )
+          for p in Path('app/src/main/java').rglob('*.kt'):
+              text = p.read_text()
+              def brand_literal(match):
+                  literal = match.group(0)
+                  if 'Xylune' not in literal or any(token in literal for token in protected_fragments):
+                      return literal
+                  return literal.replace('Xylune', 'Turp')
+              changed = string_re.sub(brand_literal, text)
+              if changed != text:
+                  p.write_text(changed)
+
+          # Android string resources: change text values, never resource identifiers or URLs.
+          for p in Path('app/src/main/res').glob('values*/strings.xml'):
+              lines = []
+              for line in p.read_text().splitlines(keepends=True):
+                  if 'Xylune' in line and 'http://' not in line and 'https://' not in line and '>' in line and '<' in line:
+                      first = line.find('>') + 1
+                      last = line.rfind('<')
+                      if 0 < first <= last:
+                          line = line[:first] + line[first:last].replace('Xylune', 'Turp') + line[last:]
+                  lines.append(line)
+              p.write_text(''.join(lines))
+
+          # Current documentation/site prose gets the new product name while legacy repository
+          # URLs and package IDs remain intact. Historical changelog/release-note files are left alone.
+          doc_files = [
+              Path('README.md'), Path('PRIVACY.md'), Path('TERMS.md'), Path('DATA_DELETION.md'),
+              Path('BUILDING.md'), Path('ARCHITECTURE.md'), Path('HISTORY_IMPORT.md'), Path('WIDGETS.md'),
+              Path('THIRD_PARTY_NOTICES.md'),
+          ]
+          doc_files += [p for p in Path('docs').rglob('*') if p.is_file() and p.suffix.lower() in {'.md', '.html', '.yml', '.yaml'} and 'releases' not in p.parts]
+          url_re = re.compile(r'https?://[^\\s)>"\']+')
+          code_re = re.compile(r'`[^`]*`')
+          for p in doc_files:
+              if not p.exists():
+                  continue
+              text = p.read_text()
+              stash = []
+              def protect(m):
+                  stash.append(m.group(0))
+                  return f'@@TURP_PROTECTED_{len(stash)-1}@@'
+              masked = url_re.sub(protect, text)
+              masked = code_re.sub(protect, masked)
+              masked = masked.replace('Xylune', 'Turp')
+              for i, value in enumerate(stash):
+                  masked = masked.replace(f'@@TURP_PROTECTED_{i}@@', value)
+              p.write_text(masked)
+
+          readme = Path('README.md')
+          text = readme.read_text()
+          old_banner = '<img src="branding/xylune-banner.png" alt="Turp — open-source BYOK AI chat app for Android." width="100%">'
+          if old_banner in text:
+              text = text.replace(old_banner, '<img src="branding/turp-radish.svg" alt="Turp radish logo" width="220">', 1)
+          text = text.replace('<strong>Turp</strong> (pronounced <strong>“Zy-loon”</strong>)', '<strong>Turp</strong>')
+          readme.write_text(text)
+
+          # Keep compatibility resource names but replace the actual launcher/splash mark with
+          # the radish. Existing inset wrappers and palette backgrounds therefore continue to work.
+          radish = '''<vector xmlns:android="http://schemas.android.com/apk/res/android"
+              android:width="108dp"
+              android:height="108dp"
+              android:viewportWidth="1536"
+              android:viewportHeight="1536">
+              <group android:scaleX="0.76" android:scaleY="0.76" android:pivotX="768" android:pivotY="768">
+                  <path android:fillColor="#66AD3A" android:pathData="M774,649 C784,604 779,559 748,520 C715,480 662,455 643,408 C621,354 629,289 650,242 C664,210 684,206 708,216 C754,236 805,280 840,337 C866,379 874,430 856,489 C842,540 818,595 795,648 Z"/>
+                  <path android:fillColor="#3A8331" android:fillAlpha="0.93" android:pathData="M784,641 C787,586 772,518 754,458 C737,398 718,336 698,272 C714,318 735,378 754,436 C774,495 798,560 790,642 Z"/>
+                  <path android:fillColor="#4D9A36" android:pathData="M827,674 C874,624 927,570 1000,519 C1060,477 1112,454 1155,466 C1210,481 1260,515 1282,548 C1304,579 1286,617 1260,649 C1215,705 1168,732 1115,726 C1078,722 1049,701 1015,684 C973,663 935,656 900,670 C870,682 846,690 827,674 Z"/>
+                  <path android:fillColor="#24782D" android:pathData="M831,670 C887,615 960,561 1040,518 C1088,492 1131,463 1160,465 C1201,476 1247,505 1272,535 C1203,548 1125,562 1050,576 C970,592 894,620 831,670 Z"/>
+                  <path android:fillColor="#74B93F" android:pathData="M817,661 C801,597 802,523 805,447 C809,372 840,315 890,264 C936,216 982,178 1017,176 C1057,174 1090,198 1111,237 C1134,281 1141,342 1137,393 C1133,444 1115,489 1085,518 C1054,547 1012,563 969,576 C912,594 858,616 817,661 Z"/>
+                  <path android:fillColor="#367F31" android:pathData="M817,661 C819,611 835,574 856,534 C881,488 907,437 932,387 C957,337 981,287 1007,235 C1017,214 1027,194 1038,179 C1003,178 966,198 923,235 C870,280 826,333 812,385 C797,442 804,526 809,585 C813,619 814,642 817,661 Z"/>
+                  <path android:fillColor="#E51F47" android:pathData="M771,638 C786,643 821,665 858,695 L835,746 C797,720 763,700 734,682 Z"/>
+                  <path android:fillColor="#EF2E52" android:pathData="M734,681 C686,657 633,648 586,654 C519,663 463,699 428,747 C399,786 389,828 400,875 C406,903 421,936 440,970 C458,1004 469,1035 469,1070 C470,1122 449,1173 414,1219 C390,1250 365,1278 378,1289 C386,1296 414,1267 449,1239 C491,1205 532,1181 574,1169 C618,1157 669,1167 718,1161 C771,1154 820,1131 858,1091 C895,1053 918,1005 923,953 C930,891 916,836 884,791 C846,738 790,705 734,681 Z"/>
+                  <path android:fillColor="#F5A0B0" android:pathData="M440,989 C471,1005 500,1024 531,1048 C570,1078 601,1114 631,1158 C600,1159 570,1166 541,1178 C499,1195 462,1223 428,1253 C402,1276 382,1295 376,1290 C369,1284 393,1253 415,1225 C451,1179 470,1128 468,1072 C468,1037 457,1006 440,989 Z"/>
+                  <path android:fillColor="#C91A40" android:fillAlpha="0.82" android:pathData="M516,981 C539,925 572,872 613,831 C651,793 694,777 739,773 C784,769 832,777 870,799 C901,817 919,846 923,891 C929,951 916,1005 884,1049 C853,1092 810,1124 765,1143 C725,1160 680,1165 631,1163 C598,1113 567,1073 531,1043 C497,1015 472,998 440,984 C464,994 489,994 516,981 Z"/>
+              </group>
+          </vector>'''
+          monochrome = radish
+          for color in ('#66AD3A','#3A8331','#4D9A36','#24782D','#74B93F','#367F31','#E51F47','#EF2E52','#F5A0B0','#C91A40'):
+              monochrome = monochrome.replace(color, '#FFFFFFFF')
+          marks = [
+              'ic_xylune_mark.xml', 'ic_xylune_mark_graphite.xml', 'ic_xylune_mark_ocean.xml',
+              'ic_xylune_mark_sunset.xml', 'ic_xylune_mark_system.xml', 'ic_xylune_mark_violet.xml',
+          ]
+          for name in marks:
+              p = Path('app/src/main/res/drawable') / name
+              if not p.exists():
+                  raise SystemExit(f'missing launcher mark {p}')
+              p.write_text(radish + '\n')
+          mono_path = Path('app/src/main/res/drawable/ic_xylune_monochrome.xml')
+          if mono_path.exists():
+              mono_path.write_text(monochrome + '\n')
+
+          background = '''<vector xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:aapt="http://schemas.android.com/aapt"
+              android:width="108dp" android:height="108dp"
+              android:viewportWidth="108" android:viewportHeight="108">
+              <path android:pathData="M0,0h108v108h-108z">
+                  <aapt:attr name="android:fillColor">
+                      <gradient android:type="radial" android:centerX="56" android:centerY="50" android:gradientRadius="82">
+                          <item android:offset="0" android:color="#FFFFF0D7"/>
+                          <item android:offset="0.62" android:color="#FFFEE8C8"/>
+                          <item android:offset="1" android:color="#FFFDE1BD"/>
+                      </gradient>
+                  </aapt:attr>
+              </path>
+          </vector>'''
+          Path('app/src/main/res/drawable/ic_xylune_background.xml').write_text(background + '\n')
+
+          # Keep the old package/application identity and archive protocol on purpose.
+          gradle = Path('app/build.gradle.kts').read_text()
+          if 'applicationId = "app.xylune.chat"' not in gradle:
+              raise SystemExit('compatibility guard: app.xylune.chat applicationId changed or missing')
+          manifest = Path('app/src/main/AndroidManifest.xml').read_text()
+          if '@string/app_name' not in manifest:
+              raise SystemExit('compatibility guard: manifest no longer uses app_name')
+
+          # Rebrand the self-owned component display name without changing its stable catalog key.
+          license_component = Path('licenses/components/xylune.json')
+          if license_component.exists():
+              lc = license_component.read_text()
+              license_component.write_text(re.sub(r'("name"\s*:\s*")Xylune("\s*)', r'\1Turp\2', lc, count=1))
+
+          # Ensure the headline resource actually changed.
+          values = Path('app/src/main/res/values/strings.xml').read_text()
+          if '<string name="app_name">Turp</string>' not in values:
+              raise SystemExit('rebrand guard: app_name was not changed to Turp')
+          PY
+
+      - name: Verify source contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -F 'templates = DefaultCatalog.providers.filter' app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt
+          grep -F 'provider-${templateId ?: draft.kind.name.lowercase()}-${UUID.randomUUID()}' app/src/main/java/app/xylune/chat/ui/SettingsScreen.kt
+          grep -F 'includeApiKeys: Boolean = false' app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt
+          grep -F 'API keys require a password-encrypted backup' app/src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt
+          grep -F '<string name="app_name">Turp</string>' app/src/main/res/values/strings.xml
+          grep -F 'applicationId = "app.xylune.chat"' app/build.gradle.kts
+
+      - name: Build, test, and lint
+        run: >-
+          ./gradlew --no-daemon --stacktrace --max-workers=2
+          -Pkotlin.compiler.execution.strategy=in-process
+          :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
+
+      - name: Publish clean implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/finalize-turp-rebrand.yml
+          git add -A
+          git config user.name 'xylune-agent[bot]'
+          git config user.email 'xylune-agent[bot]@users.noreply.github.com'
+          git commit -m 'Rebrand Xylune to Turp and support reusable provider presets'
+          git push origin HEAD:agent/integrated-settings-polish-20260813
