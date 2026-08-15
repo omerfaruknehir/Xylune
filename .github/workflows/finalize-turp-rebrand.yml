@@ -26,7 +26,20 @@ jobs:
           cache: gradle
 
       - name: Apply final changes
-        run: python3 ci/finalize_turp.py
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('ci/finalize_turp.py')
+          s = p.read_text()
+          old = 'replace_once(transfer, "        enabled = !busy && passwordsMatch,", "        enabled = !busy && backupReady,")'
+          new = 'replace_once(transfer, "        options = backupOptions,\\n        password = password,\\n        enabled = !busy && passwordsMatch,", "        options = backupOptions,\\n        password = password,\\n        enabled = !busy && backupReady,")'
+          if s.count(old) != 1:
+              raise SystemExit(f'finalizer guard repair expected one match, found {s.count(old)}')
+          p.write_text(s.replace(old, new, 1))
+          PY
+          python3 ci/finalize_turp.py
 
       - name: Verify source contracts
         shell: bash
