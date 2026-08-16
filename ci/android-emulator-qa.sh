@@ -15,7 +15,25 @@ record_failure() {
 
 capture_screen() {
   local name="$1"
-  adb exec-out uiautomator dump /dev/tty > "$OUT/${name}-ui.xml" 2> "$OUT/${name}-ui-error.txt" || true
+  local attempt
+  local ui="$OUT/${name}-ui.xml"
+  local tmp="$OUT/${name}-ui.tmp"
+  local err="$OUT/${name}-ui-error.txt"
+  : > "$err"
+  for attempt in 1 2 3 4 5; do
+    adb exec-out uiautomator dump /dev/tty > "$tmp" 2>> "$err" || true
+    if grep -q '<hierarchy' "$tmp" 2>/dev/null; then
+      mv "$tmp" "$ui"
+      if (( attempt > 1 )); then
+        echo "uiHierarchyRetry=PASS screen=$name attempt=$attempt" >> "$OUT/qa-summary.txt"
+      fi
+      break
+    fi
+    cp "$tmp" "$ui" 2>/dev/null || true
+    echo "uiautomator dump attempt $attempt returned no hierarchy" >> "$err"
+    sleep 1
+  done
+  rm -f "$tmp"
   adb exec-out screencap -p > "$OUT/${name}.png" 2> "$OUT/${name}-screenshot-error.txt" || true
 }
 
@@ -277,7 +295,7 @@ adb shell dumpsys window windows > "$OUT/windows.txt" 2>&1 || true
 adb shell dumpsys package "$PACKAGE" > "$OUT/package.txt" 2>&1 || true
 adb shell dumpsys meminfo "$PACKAGE" > "$OUT/meminfo.txt" 2>&1 || true
 adb shell dumpsys gfxinfo "$PACKAGE" > "$OUT/gfxinfo.txt" 2>&1 || true
-adb shell pidof -s "$PACKAGE" > "$OUT/pid.txt" 2>&1 || true
+adb shell pidof -s "$PACKAGE" > "$OUT/pid.txt" 2>/dev/null || true
 adb logcat -b crash -d > "$OUT/logcat-crash.txt" 2>&1 || true
 adb logcat -d > "$OUT/logcat.txt" 2>&1 || true
 
