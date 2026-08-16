@@ -84,9 +84,9 @@ jobs:
                       "sunset" to listOf("#FFFFB59C", "#FFD7C58D"),
                   )
                   expected.forEach { (name, colors) ->
-                      val source = File("src/main/res/drawable/ic_xylune_foreground_${'$'}name.xml").readText()
+                      val source = File("src/main/res/drawable/ic_xylune_foreground_$name.xml").readText()
                       assertTrue(name, source.contains("M734,681"))
-                      colors.forEach { color -> assertTrue("${'$'}name missing ${'$'}color", source.contains(color)) }
+                      colors.forEach { color -> assertTrue("$name missing $color", source.contains(color)) }
                   }
               }
           }
@@ -116,6 +116,7 @@ jobs:
           grep -F '@android:color/system_accent1_200' app/src/main/res/drawable-v31/ic_xylune_foreground_system.xml
           grep -F '@android:color/system_accent3_200' app/src/main/res/drawable-v31/ic_xylune_foreground_system.xml
           grep -F '@android:color/system_accent1_800' app/src/main/res/drawable-v31/ic_xylune_mark_system.xml
+          grep -F 'Theme.Xylune.Launcher.System' app/src/test/java/app/xylune/chat/settings/LauncherIconManagerTest.kt
           grep -F 'branding/turp-banner.svg' README.md
           grep -F 'home-hero__backdrop--turp' docs/index.html
           grep -F 'M734 681' docs/assets/js/logo-motion.js
