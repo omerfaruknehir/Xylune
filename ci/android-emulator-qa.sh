@@ -281,6 +281,22 @@ PY2
       dismiss_quickstep_anr "$capture_name" || record_failure "settingsScrollSystemOverlayClear=FAIL attempt=$scroll_attempt"
       settings_ui="$OUT/${capture_name}-ui.xml"
     done
+
+    # The loop captures the result of its final swipe at the end of the last iteration.
+    # Re-evaluate that final capture before declaring the Search row unavailable.
+    if [[ "$search_ready" != true ]]; then
+      search_xy="$(pick_text_center "$settings_ui" "Search & web" 2>/dev/null || true)"
+      if [[ -n "$search_xy" ]]; then
+        read -r search_x search_y <<<"$search_xy"
+        if (( search_y <= 2200 )); then
+          echo "searchNodeVisible=PASS attempt=final coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
+          search_ready=true
+        else
+          echo "searchNodeClipped=INFO attempt=final coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
+        fi
+      fi
+    fi
+
     if [[ "$search_ready" == true ]]; then
       adb shell input tap "$search_x" "$search_y"
       echo "openSearchSettings=PASS text=Search & web coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
