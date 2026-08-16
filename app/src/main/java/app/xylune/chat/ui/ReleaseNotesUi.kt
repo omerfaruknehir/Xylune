@@ -144,14 +144,7 @@ private fun ReleaseNotesContent(markdown: String, emptyText: String) {
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(top = 4.dp),
                 )
-                is ReleaseNotesBlock.Bullet -> Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.Top,
-                ) {
-                    Text("•")
-                    Text(block.text, modifier = Modifier.weight(1f))
-                }
+                is ReleaseNotesBlock.Bullet -> Text("• ${block.text}")
                 is ReleaseNotesBlock.Paragraph -> Text(block.text)
             }
         }
