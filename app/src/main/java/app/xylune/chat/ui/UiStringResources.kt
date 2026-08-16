@@ -26,7 +26,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "API model ID" -> R.string.ui_copy_api_model_id_d4e4b444
     "ARCHIVED CHATS" -> R.string.ui_copy_archived_chats_f8b0180b
     "About" -> R.string.ui_copy_about_6b21fb79
-    "About Xylune" -> R.string.ui_copy_about_xylune_be7ca9fe
+    "About Turp" -> R.string.ui_copy_about_xylune_be7ca9fe
     "Access key ID" -> R.string.ui_copy_access_key_id_2ea1eee1
     "Account connected" -> R.string.ui_copy_account_connected_4d04eece
     "Add" -> R.string.ui_copy_add_61cc55aa
@@ -66,8 +66,8 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Allow pip direct references and relaxed apt names; command-line options remain blocked" -> R.string.ui_copy_allow_pip_direct_references_and_relaxed_ap_bfca3617
     "Amazon S3, MinIO, Backblaze B2, or another compatible bucket" -> R.string.ui_copy_amazon_s3_minio_backblaze_b2_or_another_co_7a850576
     "An external page linked from this answer." -> R.string.ui_copy_an_external_page_linked_from_this_answer_c8d5d675
-    "Android grants Xylune persistent access only to the folder you select. Create or choose a dedicated Xylune folder; no account-wide permission is requested." -> R.string.ui_copy_android_grants_xylune_persistent_access_on_34c55edf
-    "Android themed icons can recolor Xylune's monochrome layer. Dynamic uses the live wallpaper-derived Material You palette when themed icons are off." -> R.string.ui_copy_android_themed_icons_can_recolor_xylune_s__f7184987
+    "Android grants Turp persistent access only to the folder you select. Create or choose a dedicated Turp folder; no account-wide permission is requested." -> R.string.ui_copy_android_grants_xylune_persistent_access_on_34c55edf
+    "Android themed icons can recolor Turp's monochrome layer. Dynamic uses the live wallpaper-derived Material You palette when themed icons are off." -> R.string.ui_copy_android_themed_icons_can_recolor_xylune_s__f7184987
     "App settings and configuration" -> R.string.ui_copy_app_settings_and_configuration_54efc74b
     "Appearance" -> R.string.ui_copy_appearance_41def7a0
     "Appearance, backups, memory, and advanced behavior are grouped for later." -> R.string.ui_copy_appearance_backups_memory_and_advanced_beh_5e5344ce
@@ -137,11 +137,11 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "ChatGPT OAuth • Signing in" -> R.string.ui_copy_chatgpt_oauth_signing_in_9a70e7b4
     "Chats are kept and moved back to All chats." -> R.string.ui_copy_chats_are_kept_and_moved_back_to_all_chats_2d13eaa4
     "Chats, credentials, and tool workspaces stay on this device." -> R.string.ui_copy_chats_credentials_and_tool_workspaces_stay_38633b64
-    "Chats, credentials, and workspaces stay on your device. Xylune connects directly to providers you configure and has no application backend, ads, or telemetry." -> R.string.ui_copy_chats_credentials_and_workspaces_stay_on_y_1ee4fc0c
+    "Chats, credentials, and workspaces stay on your device. Turp connects directly to providers you configure and has no application backend, ads, or telemetry." -> R.string.ui_copy_chats_credentials_and_workspaces_stay_on_y_1ee4fc0c
     "Check again" -> R.string.ui_copy_check_again_e185048c
     "Check automatically" -> R.string.ui_copy_check_automatically_7cd229d2
     "Check for updates" -> R.string.ui_copy_check_for_updates_736b9062
-    "Check the source repository once per day when Xylune starts" -> R.string.ui_copy_check_the_source_repository_once_per_day_w_7fdea90f
+    "Check the source repository once per day when Turp starts" -> R.string.ui_copy_check_the_source_repository_once_per_day_w_7fdea90f
     "Checking…" -> R.string.ui_copy_checking_820d6004
     "Choose a model" -> R.string.ui_copy_choose_a_model_fefb3326
     "Choose a provider, then manage its connection and models." -> R.string.ui_copy_choose_a_provider_then_manage_its_connecti_b661d571
@@ -149,9 +149,9 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Choose approval model" -> R.string.ui_copy_choose_approval_model_411af022
     "Choose automation model" -> R.string.ui_copy_choose_automation_model_91c89c6f
     "Choose folder" -> R.string.ui_copy_choose_folder_1838a415
-    "Choose how Xylune names chats and compresses older context." -> R.string.ui_copy_choose_how_xylune_names_chats_and_compress_0c947c25
+    "Choose how Turp names chats and compresses older context." -> R.string.ui_copy_choose_how_xylune_names_chats_and_compress_0c947c25
     "Choose image model" -> R.string.ui_copy_choose_image_model_fc20b463
-    "Choose when Xylune may install Python or Linux packages and which sources are trusted." -> R.string.ui_copy_choose_when_xylune_may_install_python_or_l_0e6027fb
+    "Choose when Turp may install Python or Linux packages and which sources are trusted." -> R.string.ui_copy_choose_when_xylune_may_install_python_or_l_0e6027fb
     "Clear" -> R.string.ui_copy_clear_719ea396
     "Clear terminal" -> R.string.ui_copy_clear_terminal_b754d96c
     "Close" -> R.string.ui_copy_close_bbfa773e
@@ -186,7 +186,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Context tokens" -> R.string.ui_copy_context_tokens_4d6993db
     "Continue" -> R.string.ui_copy_continue_2e026239
     "Continue without one" -> R.string.ui_copy_continue_without_one_f9f05eb4
-    "Controls how Xylune handles AI-generated interactive UI." -> R.string.ui_copy_controls_how_xylune_handles_ai_generated_i_48acf2ef
+    "Controls how Turp handles AI-generated interactive UI." -> R.string.ui_copy_controls_how_xylune_handles_ai_generated_i_48acf2ef
     "Controls whether reasoning and tool cards expand automatically; they remain saved either way." -> R.string.ui_copy_controls_whether_reasoning_and_tool_cards__21e3df21
     "Controls whether this custom endpoint uses chat/completions or images/generations." -> R.string.ui_copy_controls_whether_this_custom_endpoint_uses_284b17b7
     "Conversation deleted" -> R.string.ui_copy_conversation_deleted_798eb3c2
@@ -220,7 +220,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Create new project" -> R.string.ui_copy_create_new_project_dcd5a8d5
     "Created by @omerfaruknehir" -> R.string.ui_copy_created_by_omerfaruknehir_f66bf993
     "Creating and uploading…" -> R.string.ui_copy_creating_and_uploading_6059a4cb
-    "Credentials are encrypted with Android Keystore and are never included in Xylune backups." -> R.string.ui_copy_credentials_are_encrypted_with_android_key_8b5ed846
+    "Credentials are encrypted with Android Keystore and are never included in Turp backups." -> R.string.ui_copy_credentials_are_encrypted_with_android_key_8b5ed846
     "Credentials are encrypted with Android Keystore and sent only to the provider you choose." -> R.string.ui_copy_credentials_are_encrypted_with_android_key_51e96499
     "Credentials were found and this step is complete." -> R.string.ui_copy_credentials_were_found_and_this_step_is_co_ae35eccc
     "Credits: unlimited" -> R.string.ui_copy_credits_unlimited_a3b91acc
@@ -294,11 +294,11 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Download update" -> R.string.ui_copy_download_update_870d57b0
     "Draws explicit debug guides at the top and bottom panel boundaries. Normal UI no longer draws a boundary highlight." -> R.string.ui_copy_draws_explicit_debug_guides_at_the_top_and_5be7ef59
     "Dropbox" -> R.string.ui_copy_dropbox_ac88abd7
-    "Dropbox Xylune App folder" -> R.string.ui_copy_dropbox_xylune_app_folder_eb60f8b3
+    "Dropbox Turp App folder" -> R.string.ui_copy_dropbox_xylune_app_folder_eb60f8b3
     "Duplicate content recording for blur" -> R.string.ui_copy_duplicate_content_recording_for_blur_abb2e364
     "Dynamic" -> R.string.ui_copy_dynamic_ceb739df
     "Each chat has a persistent bundled-Python session and isolated .packages directory. It works without installing Linux and remains confined by Android's app sandbox." -> R.string.ui_copy_each_chat_has_a_persistent_bundled_python__0645477c
-    "Each provider keeps its OAuth session, models, usage limits, and refresh state separate. Xylune requests a fresh sign-in page so you can add a different ChatGPT account." -> R.string.ui_copy_each_provider_keeps_its_oauth_session_mode_92069f27
+    "Each provider keeps its OAuth session, models, usage limits, and refresh state separate. Turp requests a fresh sign-in page so you can add a different ChatGPT account." -> R.string.ui_copy_each_provider_keeps_its_oauth_session_mode_92069f27
     "Edge softness" -> R.string.ui_copy_edge_softness_535764f7
     "Edit" -> R.string.ui_copy_edit_5301648d
     "Edit connection" -> R.string.ui_copy_edit_connection_b3171b22
@@ -318,10 +318,10 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Enabled by default. Technical symbols and emoji requested by the user are not blocked." -> R.string.ui_copy_enabled_by_default_technical_symbols_and_e_053fa2a9
     "Encryption password (optional)" -> R.string.ui_copy_encryption_password_optional_d7003844
     "Endpoint" -> R.string.ui_copy_endpoint_92ec6350
-    "Enter Xylune" -> R.string.ui_copy_enter_xylune_7e429cf0
-    "Enter Xylune now. You can return to Providers & models from Settings at any time." -> R.string.ui_copy_enter_xylune_now_you_can_return_to_provide_a37af7f9
+    "Enter Turp" -> R.string.ui_copy_enter_xylune_7e429cf0
+    "Enter Turp now. You can return to Providers & models from Settings at any time." -> R.string.ui_copy_enter_xylune_now_you_can_return_to_provide_a37af7f9
     "Enter a server folder and credentials" -> R.string.ui_copy_enter_a_server_folder_and_credentials_ac04ef74
-    "Enter the exact HTTPS URL of a dedicated Xylune folder. For Nextcloud this normally ends with /remote.php/dav/files/USERNAME/Xylune/." -> R.string.ui_copy_enter_the_exact_https_url_of_a_dedicated_x_91f38cfa
+    "Enter the exact HTTPS URL of a dedicated Turp folder. For Nextcloud this normally ends with /remote.php/dav/files/USERNAME/Turp/." -> R.string.ui_copy_enter_the_exact_https_url_of_a_dedicated_x_91f38cfa
     "Everything listed here is embedded in this build and available without a network connection." -> R.string.ui_copy_everything_listed_here_is_embedded_in_this_6cdf576d
     "Everything requested is already installed." -> R.string.ui_copy_everything_requested_is_already_installed_65a85f67
     "Exact provider counters where available, then local family and generic fallbacks." -> R.string.ui_copy_exact_provider_counters_where_available_th_0741822f
@@ -368,7 +368,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Generated UI safety and local-data behavior" -> R.string.ui_copy_generated_ui_safety_and_local_data_behavio_07e16dad
     "Generated content" -> R.string.ui_copy_generated_content_265611d8
     "Generated widgets are paused and shown as safe fallback content." -> R.string.ui_copy_generated_widgets_are_paused_and_shown_as__7189218f
-    "Generated widgets may render, but Xylune still applies its capability checks and crash recovery." -> R.string.ui_copy_generated_widgets_may_render_but_xylune_st_9a434e3e
+    "Generated widgets may render, but Turp still applies its capability checks and crash recovery." -> R.string.ui_copy_generated_widgets_may_render_but_xylune_st_9a434e3e
     "Generating image" -> R.string.ui_copy_generating_image_6adaae43
     "Generating image…" -> R.string.ui_copy_generating_image_2ff63fd3
     "GitHub release workflows embed their own owner/repository. Fork builds therefore follow the fork they came from." -> R.string.ui_copy_github_release_workflows_embed_their_own_o_777dfc18
@@ -411,7 +411,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Image model" -> R.string.ui_copy_image_model_ec9bc150
     "Image request" -> R.string.ui_copy_image_request_ce977f3c
     "Import" -> R.string.ui_copy_import_d6fbc9d2
-    "Import Xylune backup" -> R.string.ui_copy_import_xylune_backup_32a86156
+    "Import Turp backup" -> R.string.ui_copy_import_xylune_backup_32a86156
     "Import and continue" -> R.string.ui_copy_import_and_continue_2d344c5b
     "Import backup" -> R.string.ui_copy_import_backup_1b40a3ad
     "Import creates separate local copies. It never replaces an existing chat and does not import API keys or OAuth sessions." -> R.string.ui_copy_import_creates_separate_local_copies_it_ne_68b9d377
@@ -434,7 +434,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Inspect environments, install packages, run a test, or add/remove the optional Linux distribution." -> R.string.ui_copy_inspect_environments_install_packages_run__d21d8fff
     "Install" -> R.string.ui_copy_install_fd6c3ebf
     "Install Linux" -> R.string.ui_copy_install_linux_f477b4b7
-    "Install Ubuntu, Debian, or Alpine before Xylune can use Linux tools." -> R.string.ui_copy_install_ubuntu_debian_or_alpine_before_xyl_cfa5e8a8
+    "Install Ubuntu, Debian, or Alpine before Turp can use Linux tools." -> R.string.ui_copy_install_ubuntu_debian_or_alpine_before_xyl_cfa5e8a8
     "Install a Linux workspace before enabling" -> R.string.ui_copy_install_a_linux_workspace_before_enabling_2029a1e6
     "Install blocked" -> R.string.ui_copy_install_blocked_65cb6dde
     "Install every valid preflight plan without asking" -> R.string.ui_copy_install_every_valid_preflight_plan_without_fb125aee
@@ -457,12 +457,12 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Interface panels" -> R.string.ui_copy_interface_panels_84c17fa8
     "Interrupted response" -> R.string.ui_copy_interrupted_response_4fca3cbd
     "Invalid completed widgets, charts, and diagrams are repaired in place up to this limit." -> R.string.ui_copy_invalid_completed_widgets_charts_and_diagr_81c17c7f
-    "Its complete message history, attachments, and local code workspace records will be removed from Xylune." -> R.string.ui_copy_its_complete_message_history_attachments_a_2bc529c4
+    "Its complete message history, attachments, and local code workspace records will be removed from Turp." -> R.string.ui_copy_its_complete_message_history_attachments_a_2bc529c4
     "Its encrypted OAuth session and models will be disconnected. Chats and usage history are kept." -> R.string.ui_copy_its_encrypted_oauth_session_and_models_wil_ce3a7c79
     "Its saved API key will be erased and it will disappear from model selectors. Chats and usage history are kept." -> R.string.ui_copy_its_saved_api_key_will_be_erased_and_it_wi_6ee2c51a
-    "Keep Xylune open" -> R.string.ui_copy_keep_xylune_open_ba99f421
+    "Keep Turp open" -> R.string.ui_copy_keep_xylune_open_ba99f421
     "Keep in background" -> R.string.ui_copy_keep_in_background_eef84cf4
-    "Keep the classic Xylune green icon regardless of the selected palette." -> R.string.ui_copy_keep_the_classic_xylune_green_icon_regardl_a53d36aa
+    "Keep the classic Turp green icon regardless of the selected palette." -> R.string.ui_copy_keep_the_classic_xylune_green_icon_regardl_a53d36aa
     "Keep the partial answer" -> R.string.ui_copy_keep_the_partial_answer_4335f8b2
     "Keyless endpoint" -> R.string.ui_copy_keyless_endpoint_c68df92f
     "Known calculated cost" -> R.string.ui_copy_known_calculated_cost_5822cfd8
@@ -497,7 +497,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Local backup" -> R.string.ui_copy_local_backup_14278997
     "Local code execution" -> R.string.ui_copy_local_code_execution_dba7a428
     "Local description" -> R.string.ui_copy_local_description_a14ecdef
-    "Local diagnostics for measuring Xylune's rendering and process performance. No metrics are uploaded or stored in chat history." -> R.string.ui_copy_local_diagnostics_for_measuring_xylune_s_r_7859cb0b
+    "Local diagnostics for measuring Turp's rendering and process performance. No metrics are uploaded or stored in chat history." -> R.string.ui_copy_local_diagnostics_for_measuring_xylune_s_r_7859cb0b
     "Local execution" -> R.string.ui_copy_local_execution_f3ca65f0
     "Local execution is opt-in for fresh installs. Existing chats keep their own tool choices." -> R.string.ui_copy_local_execution_is_opt_in_for_fresh_instal_bd33adc8
     "Local execution starts off; enable Python or Linux only when a chat needs it." -> R.string.ui_copy_local_execution_starts_off_enable_python_o_fc0fc181
@@ -518,7 +518,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Maximum supported reasoning" -> R.string.ui_copy_maximum_supported_reasoning_72f61320
     "Medium" -> R.string.ui_copy_medium_d404968e
     "Memory" -> R.string.ui_copy_memory_89c8a285
-    "Message Xylune…" -> R.string.ui_copy_message_xylune_5bdb2e7f
+    "Message Turp…" -> R.string.ui_copy_message_xylune_5bdb2e7f
     "Message actions" -> R.string.ui_copy_message_actions_949184b0
     "Messages, code, and reasoning are searched locally as you type." -> R.string.ui_copy_messages_code_and_reasoning_are_searched_l_e9813ab2
     "Minimal" -> R.string.ui_copy_minimal_a711cca9
@@ -533,7 +533,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Model provider" -> R.string.ui_copy_model_provider_a98fe960
     "Model receives OCR fallback • original preview is unchanged" -> R.string.ui_copy_model_receives_ocr_fallback_original_previ_720c2fa1
     "Model refresh failed" -> R.string.ui_copy_model_refresh_failed_66a368ae
-    "Model review is advisory and can be wrong. Xylune records the selected model's allow/deny reason, but this is not malware analysis or a security guarantee." -> R.string.ui_copy_model_review_is_advisory_and_can_be_wrong__5aa84b0e
+    "Model review is advisory and can be wrong. Turp records the selected model's allow/deny reason, but this is not malware analysis or a security guarantee." -> R.string.ui_copy_model_review_is_advisory_and_can_be_wrong__5aa84b0e
     "Model, thinking, context, and output limits" -> R.string.ui_copy_model_thinking_context_and_output_limits_a300db3e
     "Models" -> R.string.ui_copy_models_f3798f81
     "Models discovered for this ChatGPT account only." -> R.string.ui_copy_models_discovered_for_this_chatgpt_account_d0054503
@@ -559,7 +559,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Nextcloud" -> R.string.ui_copy_nextcloud_aab73a3d
     "Nextcloud / WebDAV" -> R.string.ui_copy_nextcloud_webdav_0869236b
     "No GitHub source was embedded in this build" -> R.string.ui_copy_no_github_source_was_embedded_in_this_buil_ca48df2c
-    "No Xylune account, ads, analytics, or Xylune cloud. Chat history and API keys remain on this device; traffic goes to endpoints and web tools you explicitly enable." -> R.string.ui_copy_no_xylune_account_ads_analytics_or_xylune__58797359
+    "No Turp account, ads, analytics, or Turp cloud. Chat history and API keys remain on this device; traffic goes to endpoints and web tools you explicitly enable." -> R.string.ui_copy_no_xylune_account_ads_analytics_or_xylune__58797359
     "No additional diagnostic text was returned by the provider." -> R.string.ui_copy_no_additional_diagnostic_text_was_returned_04b2ab87
     "No backup file selected." -> R.string.ui_copy_no_backup_file_selected_11ac152a
     "No chat workspace is available" -> R.string.ui_copy_no_chat_workspace_is_available_4a5eaecf
@@ -605,19 +605,19 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Offline dependency catalog and full license texts" -> R.string.ui_copy_offline_dependency_catalog_and_full_licens_7fff5d96
     "Older messages outside the active context window are merged into saved compact context." -> R.string.ui_copy_older_messages_outside_the_active_context__8f176d19
     "On" -> R.string.ui_copy_on_e0049a66
-    "One package requirement per line. Xylune resolves Android-compatible Python 3.12 wheels before applying your approval policy." -> R.string.ui_copy_one_package_requirement_per_line_xylune_re_2cdc609b
-    "One searchable catalog is used everywhere in Xylune." -> R.string.ui_copy_one_searchable_catalog_is_used_everywhere__3b52403e
-    "One-tap native OAuth. Xylune opens the system browser, receives the localhost callback itself, encrypts the session on this device, and refreshes it automatically. No extension or local proxy is required." -> R.string.ui_copy_one_tap_native_oauth_xylune_opens_the_syst_028265ea
+    "One package requirement per line. Turp resolves Android-compatible Python 3.12 wheels before applying your approval policy." -> R.string.ui_copy_one_package_requirement_per_line_xylune_re_2cdc609b
+    "One searchable catalog is used everywhere in Turp." -> R.string.ui_copy_one_searchable_catalog_is_used_everywhere__3b52403e
+    "One-tap native OAuth. Turp opens the system browser, receives the localhost callback itself, encrypts the session on this device, and refreshes it automatically. No extension or local proxy is required." -> R.string.ui_copy_one_tap_native_oauth_xylune_opens_the_syst_028265ea
     "OneDrive" -> R.string.ui_copy_onedrive_80753c98
-    "OneDrive Apps/Xylune" -> R.string.ui_copy_onedrive_apps_xylune_65f8fd13
-    "Only missing or outdated packages will be changed. Packages and install scripts run with Xylune's app permissions." -> R.string.ui_copy_only_missing_or_outdated_packages_will_be__36387bb4
-    "Only missing or outdated packages will change. Install scripts run with Xylune's app permissions." -> R.string.ui_copy_only_missing_or_outdated_packages_will_cha_0024de76
+    "OneDrive Apps/Turp" -> R.string.ui_copy_onedrive_apps_xylune_65f8fd13
+    "Only missing or outdated packages will be changed. Packages and install scripts run with Turp's app permissions." -> R.string.ui_copy_only_missing_or_outdated_packages_will_be__36387bb4
+    "Only missing or outdated packages will change. Install scripts run with Turp's app permissions." -> R.string.ui_copy_only_missing_or_outdated_packages_will_cha_0024de76
     "Only the essentials are shown. Pricing is optional." -> R.string.ui_copy_only_the_essentials_are_shown_pricing_is_o_ec6a64b1
     "Only the selected provider models will be saved." -> R.string.ui_copy_only_the_selected_provider_models_will_be__d8bf05dd
     "Only this page is held in memory. Save or share the file for full-file processing." -> R.string.ui_copy_only_this_page_is_held_in_memory_save_or_s_f543dcb1
     "Open" -> R.string.ui_copy_open_cf9b7706
     "Open OCR view" -> R.string.ui_copy_open_ocr_view_94133154
-    "Open Xylune archive" -> R.string.ui_copy_open_xylune_archive_925f05d2
+    "Open Turp archive" -> R.string.ui_copy_open_xylune_archive_925f05d2
     "Open conversations" -> R.string.ui_copy_open_conversations_65aafc8c
     "Open full-screen preview" -> R.string.ui_copy_open_full_screen_preview_54e1aea4
     "Open navigation drawer" -> R.string.ui_copy_open_navigation_drawer_73502976
@@ -627,7 +627,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Open terminal" -> R.string.ui_copy_open_terminal_b4ae7862
     "Open the creator's GitHub profile" -> R.string.ui_copy_open_the_creator_s_github_profile_1882d59e
     "Open-source licenses" -> R.string.ui_copy_open_source_licenses_30dced67
-    "Opened by Xylune" -> R.string.ui_copy_opened_by_xylune_809ef254
+    "Opened by Turp" -> R.string.ui_copy_opened_by_xylune_809ef254
     "Opening Android's folder picker…" -> R.string.ui_copy_opening_android_s_folder_picker_e7e6b80d
     "Opening backup preview…" -> R.string.ui_copy_opening_backup_preview_9e9080e2
     "Opening file picker…" -> R.string.ui_copy_opening_file_picker_a46eeb43
@@ -658,7 +658,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Package manager" -> R.string.ui_copy_package_manager_a069a02e
     "Package review" -> R.string.ui_copy_package_review_d72d29e6
     "Packages" -> R.string.ui_copy_packages_0a999012
-    "Packages and their installers run with Xylune's app permissions. Ubuntu is for compatibility, not containment; these settings intentionally reduce confirmation barriers." -> R.string.ui_copy_packages_and_their_installers_run_with_xyl_fbb64874
+    "Packages and their installers run with Turp's app permissions. Ubuntu is for compatibility, not containment; these settings intentionally reduce confirmation barriers." -> R.string.ui_copy_packages_and_their_installers_run_with_xyl_fbb64874
     "Panel opacity" -> R.string.ui_copy_panel_opacity_e2eed655
     "Panel shape" -> R.string.ui_copy_panel_shape_504daac7
     "Panel shape is a choice. Blur, softness, and tint remain continuous controls." -> R.string.ui_copy_panel_shape_is_a_choice_blur_softness_and__7e45858a
@@ -675,11 +675,11 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Personalization" -> R.string.ui_copy_personalization_f203458e
     "Pin" -> R.string.ui_copy_pin_9c918414
     "Plan ready for your confirmation." -> R.string.ui_copy_plan_ready_for_your_confirmation_7f5831cb
-    "Portable Xylune backup" -> R.string.ui_copy_portable_xylune_backup_27aec9c6
+    "Portable Turp backup" -> R.string.ui_copy_portable_xylune_backup_27aec9c6
     "Portable cloud backups can include chats, app settings, organization, and optional Linux root filesystems. Passwordless backups are allowed after an explicit warning; API keys, OAuth sessions, provider authorization headers, cloud grants, and database encryption keys are excluded." -> R.string.ui_copy_portable_cloud_backups_can_include_chats_a_4e7a5c3f
     "Preflight & review" -> R.string.ui_copy_preflight_review_25740cd2
     "Preflight failed" -> R.string.ui_copy_preflight_failed_10168b8c
-    "Preparing Xylune…" -> R.string.ui_copy_preparing_xylune_25621d30
+    "Preparing Turp…" -> R.string.ui_copy_preparing_xylune_25621d30
     "Preparing file" -> R.string.ui_copy_preparing_file_17b2d5d2
     "Preparing package plan…" -> R.string.ui_copy_preparing_package_plan_a7d922a2
     "Preparing query" -> R.string.ui_copy_preparing_query_03c56532
@@ -701,7 +701,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Privacy & safety" -> R.string.ui_copy_privacy_safety_3c5b980b
     "Privacy policy" -> R.string.ui_copy_privacy_policy_7ceacdca
     "Privacy, local data, providers, and KVKK/GDPR boundaries" -> R.string.ui_copy_privacy_local_data_providers_and_kvkk_gdpr_fb4f9a28
-    "Private Xylune app storage" -> R.string.ui_copy_private_xylune_app_storage_d537b698
+    "Private Turp app storage" -> R.string.ui_copy_private_xylune_app_storage_d537b698
     "Private by design" -> R.string.ui_copy_private_by_design_3aaa9fd1
     "Private cloud targets" -> R.string.ui_copy_private_cloud_targets_d3ad80b3
     "Profiler disabled" -> R.string.ui_copy_profiler_disabled_26604127
@@ -902,7 +902,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Server folder" -> R.string.ui_copy_server_folder_fb1c1bc5
     "Session" -> R.string.ui_copy_session_f7f1997c
     "Session token (optional)" -> R.string.ui_copy_session_token_optional_2a8a2056
-    "Set up Xylune" -> R.string.ui_copy_set_up_xylune_f554f170
+    "Set up Turp" -> R.string.ui_copy_set_up_xylune_f554f170
     "Set up a provider" -> R.string.ui_copy_set_up_a_provider_a3a52a95
     "Set up a provider to start" -> R.string.ui_copy_set_up_a_provider_to_start_0994c6b5
     "Set up provider" -> R.string.ui_copy_set_up_provider_f899c153
@@ -912,7 +912,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Setup & connections" -> R.string.ui_copy_setup_connections_85bdfce5
     "Setup details" -> R.string.ui_copy_setup_details_97269512
     "Share" -> R.string.ui_copy_share_09ca55ca
-    "Share Xylune chat" -> R.string.ui_copy_share_xylune_chat_2c99756b
+    "Share Turp chat" -> R.string.ui_copy_share_xylune_chat_2c99756b
     "Share image" -> R.string.ui_copy_share_image_ecb8ec64
     "Share message" -> R.string.ui_copy_share_message_c1c0e65f
     "Share portable chat" -> R.string.ui_copy_share_portable_chat_a106eb58
@@ -933,7 +933,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Sign in again" -> R.string.ui_copy_sign_in_again_7842ff56
     "Sign in with ChatGPT" -> R.string.ui_copy_sign_in_with_chatgpt_fe0b3b61
     "Sign in without pasting an API key." -> R.string.ui_copy_sign_in_without_pasting_an_api_key_6acc0e4c
-    "Sign in; Xylune only uses its app folder" -> R.string.ui_copy_sign_in_xylune_only_uses_its_app_folder_1177a8cd
+    "Sign in; Turp only uses its app folder" -> R.string.ui_copy_sign_in_xylune_only_uses_its_app_folder_1177a8cd
     "Sign out" -> R.string.ui_copy_sign_out_dc1649a1
     "Signing SHA-1" -> R.string.ui_copy_signing_sha_1_c7a274c3
     "Skip for now" -> R.string.ui_copy_skip_for_now_6fc09607
@@ -974,9 +974,9 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Terms" -> R.string.ui_copy_terms_a55a275a
     "Terms & disclaimer" -> R.string.ui_copy_terms_disclaimer_7add8494
     "Text opacity" -> R.string.ui_copy_text_opacity_83e09703
-    "The Android document picker can save directly to Google Drive, OneDrive, Dropbox, Nextcloud, a USB drive, or local storage. Xylune does not upload through a hidden server." -> R.string.ui_copy_the_android_document_picker_can_save_direc_92e0305e
-    "The Xylune maintainer does not create, train, host, pre-review, or endorse individual model outputs. AI output can be wrong, unsafe, biased, or unsuitable; verify it before relying on it. Provider terms, fees, retention, and content rules apply independently." -> R.string.ui_copy_the_xylune_maintainer_does_not_create_trai_448f39da
-    "The built-in provider catalog is delayed. Setup remains usable and Xylune will keep retrying in the background." -> R.string.ui_copy_the_built_in_provider_catalog_is_delayed_s_ce0dd5b5
+    "The Android document picker can save directly to Google Drive, OneDrive, Dropbox, Nextcloud, a USB drive, or local storage. Turp does not upload through a hidden server." -> R.string.ui_copy_the_android_document_picker_can_save_direc_92e0305e
+    "The Turp maintainer does not create, train, host, pre-review, or endorse individual model outputs. AI output can be wrong, unsafe, biased, or unsuitable; verify it before relying on it. Provider terms, fees, retention, and content rules apply independently." -> R.string.ui_copy_the_xylune_maintainer_does_not_create_trai_448f39da
+    "The built-in provider catalog is delayed. Setup remains usable and Turp will keep retrying in the background." -> R.string.ui_copy_the_built_in_provider_catalog_is_delayed_s_ce0dd5b5
     "The edited source is compiled, executed in the bounded runtime, and rendered before use." -> R.string.ui_copy_the_edited_source_is_compiled_executed_in__476436cf
     "The embedded license document could not be opened." -> R.string.ui_copy_the_embedded_license_document_could_not_be_74bfeeea
     "The exact prompt bundled with this app version is shown below. It is selectable for inspection and intentionally read-only." -> R.string.ui_copy_the_exact_prompt_bundled_with_this_app_ver_f8633265
@@ -992,7 +992,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "The source and conversation are intact." -> R.string.ui_copy_the_source_and_conversation_are_intact_e8bc1257
     "Theme mode" -> R.string.ui_copy_theme_mode_a4085941
     "Theme, palette, launcher icon, and AMOLED black" -> R.string.ui_copy_theme_palette_launcher_icon_and_amoled_bla_d2a156c2
-    "These providers keep Xylune backups in an app-specific folder or prefix. OAuth tokens and storage credentials are encrypted on this device and excluded from exported backups." -> R.string.ui_copy_these_providers_keep_xylune_backups_in_an__1d48776c
+    "These providers keep Turp backups in an app-specific folder or prefix. OAuth tokens and storage credentials are encrypted on this device and excluded from exported backups." -> R.string.ui_copy_these_providers_keep_xylune_backups_in_an__1d48776c
     "Thinking" -> R.string.ui_copy_thinking_d08d8da0
     "Thinking always on" -> R.string.ui_copy_thinking_always_on_cfd10cca
     "Thinking effort" -> R.string.ui_copy_thinking_effort_ffa4386d
@@ -1003,12 +1003,12 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "This build is missing its generated offline notices." -> R.string.ui_copy_this_build_is_missing_its_generated_offlin_04e7a509
     "This file is encrypted. Enter its password to inspect it." -> R.string.ui_copy_this_file_is_encrypted_enter_its_password__a264ac25
     "This is a debug-signed development build." -> R.string.ui_copy_this_is_a_debug_signed_development_build_a41215a2
-    "This location is connected, but it does not contain a Xylune backup yet." -> R.string.ui_copy_this_location_is_connected_but_it_does_not_43aa5057
+    "This location is connected, but it does not contain a Turp backup yet." -> R.string.ui_copy_this_location_is_connected_but_it_does_not_43aa5057
     "This model cannot read the original attachment. OCR fallback will be prepared before sending." -> R.string.ui_copy_this_model_cannot_read_the_original_attach_207f386d
     "This model does not accept reference images." -> R.string.ui_copy_this_model_does_not_accept_reference_image_4ea7de09
     "This model doesn't support tool calling. Web, Python, and Linux tools won't run." -> R.string.ui_copy_this_model_doesn_t_support_tool_calling_we_1b99daec
     "This model receives OCR text and coordinates; you still see the untouched original." -> R.string.ui_copy_this_model_receives_ocr_text_and_coordinat_9c63ece0
-    "This permanently removes the selected memory data from Xylune." -> R.string.ui_copy_this_permanently_removes_the_selected_memo_014d9f87
+    "This permanently removes the selected memory data from Turp." -> R.string.ui_copy_this_permanently_removes_the_selected_memo_014d9f87
     "This provider returns the final image when generation finishes." -> R.string.ui_copy_this_provider_returns_the_final_image_when_bb8b2c86
     "This removes the selected Linux root filesystem and its installed packages for all chats. Chat files in /workspace and bundled Python packages are kept." -> R.string.ui_copy_this_removes_the_selected_linux_root_files_1834b47d
     "This saved package request already completed successfully." -> R.string.ui_copy_this_saved_package_request_already_complet_dcaa5d0f
@@ -1016,7 +1016,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Tint is fully opaque and covers the blurred background. Lower Tint opacity to reveal blur." -> R.string.ui_copy_tint_is_fully_opaque_and_covers_the_blurre_b79c4db7
     "Tint opacity" -> R.string.ui_copy_tint_opacity_96fb97b9
     "Token counting" -> R.string.ui_copy_token_counting_a4f106cd
-    "Token fields are stored from provider usage metadata when the provider reports them. Otherwise Xylune may fall back to its local counter/estimator. Use the raw token counts above with your provider's current pricing table for manual calculation." -> R.string.ui_copy_token_fields_are_stored_from_provider_usag_cd3b8407
+    "Token fields are stored from provider usage metadata when the provider reports them. Otherwise Turp may fall back to its local counter/estimator. Use the raw token counts above with your provider's current pricing table for manual calculation." -> R.string.ui_copy_token_fields_are_stored_from_provider_usag_cd3b8407
     "Tool behavior" -> R.string.ui_copy_tool_behavior_e85448db
     "Tool call" -> R.string.ui_copy_tool_call_e313188e
     "Tool completed" -> R.string.ui_copy_tool_completed_3ac043d2
@@ -1030,7 +1030,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Tools" -> R.string.ui_copy_tools_4fa8cc86
     "Tools & safety" -> R.string.ui_copy_tools_safety_b9da3713
     "Tools and modes" -> R.string.ui_copy_tools_and_modes_128b5854
-    "Tools available to Xylune in this chat" -> R.string.ui_copy_tools_available_to_xylune_in_this_chat_3fc79d3d
+    "Tools available to Turp in this chat" -> R.string.ui_copy_tools_available_to_xylune_in_this_chat_3fc79d3d
     "Top left" -> R.string.ui_copy_top_left_04b38cf9
     "Top right" -> R.string.ui_copy_top_right_c1cc898f
     "Total tokens" -> R.string.ui_copy_total_tokens_e6dad16e
@@ -1060,7 +1060,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Usage & limits" -> R.string.ui_copy_usage_limits_199e5478
     "Usage details" -> R.string.ui_copy_usage_details_e3d72694
     "Use OpenAI, Anthropic, Gemini, DeepSeek, or another compatible endpoint." -> R.string.ui_copy_use_openai_anthropic_gemini_deepseek_or_an_dbc45081
-    "Use Xylune default for new chats" -> R.string.ui_copy_use_xylune_default_for_new_chats_7d65475a
+    "Use Turp default for new chats" -> R.string.ui_copy_use_xylune_default_for_new_chats_7d65475a
     "Use a ChatGPT account, API provider, or local server." -> R.string.ui_copy_use_a_chatgpt_account_api_provider_or_loca_453052ab
     "Use a key restricted to this bucket and prefix. Credentials remain encrypted on-device." -> R.string.ui_copy_use_a_key_restricted_to_this_bucket_and_pr_2fe03688
     "Use chart JSON or `label: value` lines." -> R.string.ui_copy_use_chart_json_or_label_value_lines_f2a909d0
@@ -1071,8 +1071,8 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Use selected model" -> R.string.ui_copy_use_selected_model_0c8ec874
     "Use terms, third-party AI limits, warranty, and liability" -> R.string.ui_copy_use_terms_third_party_ai_limits_warranty_a_5b45ab19
     "Use your ChatGPT plan without an API key" -> R.string.ui_copy_use_your_chatgpt_plan_without_an_api_key_bee8ee5d
-    "Uses Dropbox App folder access and scoped file permissions. Xylune cannot browse the rest of Dropbox." -> R.string.ui_copy_uses_dropbox_app_folder_access_and_scoped__e108dc0b
-    "Uses OneDrive's Apps/Xylune folder with Files.ReadWrite.AppFolder instead of access to the whole drive." -> R.string.ui_copy_uses_onedrive_s_apps_xylune_folder_with_fi_86f5b49b
+    "Uses Dropbox App folder access and scoped file permissions. Turp cannot browse the rest of Dropbox." -> R.string.ui_copy_uses_dropbox_app_folder_access_and_scoped__e108dc0b
+    "Uses OneDrive's Apps/Turp folder with Files.ReadWrite.AppFolder instead of access to the whole drive." -> R.string.ui_copy_uses_onedrive_s_apps_xylune_folder_with_fi_86f5b49b
     "Uses only Drive's hidden appDataFolder. Connect once, then create, browse, preview, and restore backups without repeating the consent flow." -> R.string.ui_copy_uses_only_drive_s_hidden_appdatafolder_con_119f5820
     "Usually unnecessary" -> R.string.ui_copy_usually_unnecessary_71831aa8
     "Verify" -> R.string.ui_copy_verify_dda6ac27
@@ -1096,7 +1096,7 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "What are we creating?" -> R.string.ui_copy_what_are_we_creating_20d7e61f
     "What are we working on?" -> R.string.ui_copy_what_are_we_working_on_81ac7f3a
     "What this screen manages" -> R.string.ui_copy_what_this_screen_manages_542d8dc3
-    "While Xylune is working" -> R.string.ui_copy_while_xylune_is_working_34273e03
+    "While Turp is working" -> R.string.ui_copy_while_xylune_is_working_34273e03
     "While working" -> R.string.ui_copy_while_working_3cf6d7a9
     "Within frame budget" -> R.string.ui_copy_within_frame_budget_b9f948c7
     "Work complete" -> R.string.ui_copy_work_complete_272c4c9f
@@ -1110,18 +1110,18 @@ internal fun xyluneUiStringResource(text: String): Int? = when (text) {
     "Workspace" -> R.string.ui_copy_workspace_4ca0a75c
     "Writing report" -> R.string.ui_copy_writing_report_37d1a667
     "Writing source request…" -> R.string.ui_copy_writing_source_request_3021661d
-    "Xylune adds request-specific date, enabled-tool, research, memory, attachment, and generated-content instructions at runtime. Those dynamic layers are not editable either and are not presented as one misleading static block." -> R.string.ui_copy_xylune_adds_request_specific_date_enabled__388d9dd8
-    "Xylune asks for the non-sensitive drive.appdata scope only. The backup files remain hidden from normal Drive browsing and from other apps." -> R.string.ui_copy_xylune_asks_for_the_non_sensitive_drive_ap_1514dc2b
-    "Xylune cannot send messages until ChatGPT, an API provider, or a local model server is connected." -> R.string.ui_copy_xylune_cannot_send_messages_until_chatgpt__31d3179a
-    "Xylune chat" -> R.string.ui_copy_xylune_chat_cb1f11e8
-    "Xylune cloud folder connected" -> R.string.ui_copy_xylune_cloud_folder_connected_2e05f8b8
-    "Xylune core prompt" -> R.string.ui_copy_xylune_core_prompt_768aad75
-    "Xylune includes each installed root filesystem, packages, and configuration. Permissions, symbolic links, and hard links are preserved. This can make the backup several gigabytes." -> R.string.ui_copy_xylune_includes_each_installed_root_filesy_fcf873a0
-    "Xylune is a client, not an AI model host. Responses come from the provider or local server selected by the user." -> R.string.ui_copy_xylune_is_a_client_not_an_ai_model_host_re_1e39bcf3
-    "Xylune is ready" -> R.string.ui_copy_xylune_is_ready_13cb949f
-    "Xylune is up to date" -> R.string.ui_copy_xylune_is_up_to_date_ee323ee0
-    "Xylune stores memories in its encrypted local database and selects only relevant items under a strict context budget. Disabled memories remain stored but are not supplied to models." -> R.string.ui_copy_xylune_stores_memories_in_its_encrypted_lo_22af7bbe
-    "Xylune stream error" -> R.string.ui_copy_xylune_stream_error_bc4660cd
+    "Turp adds request-specific date, enabled-tool, research, memory, attachment, and generated-content instructions at runtime. Those dynamic layers are not editable either and are not presented as one misleading static block." -> R.string.ui_copy_xylune_adds_request_specific_date_enabled__388d9dd8
+    "Turp asks for the non-sensitive drive.appdata scope only. The backup files remain hidden from normal Drive browsing and from other apps." -> R.string.ui_copy_xylune_asks_for_the_non_sensitive_drive_ap_1514dc2b
+    "Turp cannot send messages until ChatGPT, an API provider, or a local model server is connected." -> R.string.ui_copy_xylune_cannot_send_messages_until_chatgpt__31d3179a
+    "Turp chat" -> R.string.ui_copy_xylune_chat_cb1f11e8
+    "Turp cloud folder connected" -> R.string.ui_copy_xylune_cloud_folder_connected_2e05f8b8
+    "Turp core prompt" -> R.string.ui_copy_xylune_core_prompt_768aad75
+    "Turp includes each installed root filesystem, packages, and configuration. Permissions, symbolic links, and hard links are preserved. This can make the backup several gigabytes." -> R.string.ui_copy_xylune_includes_each_installed_root_filesy_fcf873a0
+    "Turp is a client, not an AI model host. Responses come from the provider or local server selected by the user." -> R.string.ui_copy_xylune_is_a_client_not_an_ai_model_host_re_1e39bcf3
+    "Turp is ready" -> R.string.ui_copy_xylune_is_ready_13cb949f
+    "Turp is up to date" -> R.string.ui_copy_xylune_is_up_to_date_ee323ee0
+    "Turp stores memories in its encrypted local database and selects only relevant items under a strict context budget. Disabled memories remain stored but are not supplied to models." -> R.string.ui_copy_xylune_stores_memories_in_its_encrypted_lo_22af7bbe
+    "Turp stream error" -> R.string.ui_copy_xylune_stream_error_bc4660cd
     "cost unavailable" -> R.string.ui_copy_cost_unavailable_b1d105c1
     "not found" -> R.string.ui_copy_not_found_094b763b
     "running…" -> R.string.ui_copy_running_c85296cf

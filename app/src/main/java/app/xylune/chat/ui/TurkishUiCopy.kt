@@ -97,14 +97,14 @@ internal object TurkishUiCopy {
         "Back to runtime manager" -> "Çalışma zamanı yöneticisine dön"
         "Welcome" -> "Hoş geldiniz"
         "Model access" -> "Model erişimi"
-        "Preparing Xylune…" -> "Xylune hazırlanıyor…"
+        "Preparing Turp…" -> "Turp hazırlanıyor…"
         "Start setup" -> "Kuruluma başla"
-        "Enter Xylune" -> "Xylune'a gir"
+        "Enter Turp" -> "Turp'a gir"
         "Manage providers" -> "Sağlayıcıları yönet"
         "Connect a provider" -> "Sağlayıcı bağla"
         "Continue without one" -> "Sağlayıcı olmadan devam et"
         "Skip for now" -> "Şimdilik atla"
-        "Set up Xylune" -> "Xylune'u kur"
+        "Set up Turp" -> "Turp'u kur"
         "Restore a backup if you have one, then connect the model provider you actually want to use. Everything optional stays out of your way." -> "Varsa bir yedeği geri yükleyin, ardından kullanmak istediğiniz model sağlayıcısını bağlayın. İsteğe bağlı her şey yolunuzdan çekilir."
         "Private by design" -> "Tasarım gereği özel"
         "Chats, credentials, and tool workspaces stay on this device." -> "Sohbetler, kimlik bilgileri ve araç çalışma alanları bu cihazda kalır."
@@ -117,7 +117,7 @@ internal object TurkishUiCopy {
         "Connect a model provider" -> "Model sağlayıcısı bağla"
         "A provider is needed only when you send a message. You may connect one now or continue and do it later." -> "Bir sağlayıcı yalnızca mesaj gönderirken gerekir. Şimdi bağlayabilir veya devam edip daha sonra ekleyebilirsiniz."
         "Credentials were found and this step is complete." -> "Kimlik bilgileri bulundu ve bu adım tamamlandı."
-        "The built-in provider catalog is delayed. Setup remains usable and Xylune will keep retrying in the background." -> "Yerleşik sağlayıcı kataloğu gecikiyor. Kurulum kullanılabilir kalacak ve Xylune arka planda yeniden denemeye devam edecek."
+        "The built-in provider catalog is delayed. Setup remains usable and Turp will keep retrying in the background." -> "Yerleşik sağlayıcı kataloğu gecikiyor. Kurulum kullanılabilir kalacak ve Turp arka planda yeniden denemeye devam edecek."
         "Setup" -> "Kurulum"
         "Finish setup" -> "Kurulumu tamamla"
         "Setup & connections" -> "Kurulum ve bağlantılar"
@@ -153,7 +153,7 @@ internal object TurkishUiCopy {
         "Rename chat" -> "Sohbeti yeniden adlandır"
         "New project" -> "Yeni proje"
         "Chats are kept and moved back to All chats." -> "Sohbetler korunur ve Tüm sohbetler bölümüne geri taşınır."
-        "Its complete message history, attachments, and local code workspace records will be removed from Xylune." -> "Tüm mesaj geçmişi, ekleri ve yerel kod çalışma alanı kayıtları Xylune'dan kaldırılır."
+        "Its complete message history, attachments, and local code workspace records will be removed from Turp." -> "Tüm mesaj geçmişi, ekleri ve yerel kod çalışma alanı kayıtları Turp'dan kaldırılır."
         "Settings" -> "Ayarlar"
         "Providers & models" -> "Sağlayıcılar ve modeller"
         "Add your first API provider" -> "İlk API sağlayıcınızı ekleyin"
@@ -186,14 +186,14 @@ internal object TurkishUiCopy {
         "Appearance" -> "Görünüm"
         "Theme, palette, launcher icon, and AMOLED black" -> "Tema, palet, başlatıcı simgesi ve AMOLED siyahı"
         "About" -> "Hakkında"
-        "About Xylune" -> "Xylune hakkında"
+        "About Turp" -> "Turp hakkında"
         "Version, architecture, and privacy model" -> "Sürüm, mimari ve gizlilik modeli"
         "Assistant responses" -> "Asistan yanıtları"
         "Less emoji" -> "Daha az emoji"
         "Avoid decorative emoji and use them only when they add meaning" -> "Dekoratif emojilerden kaçın ve yalnızca anlam kattıklarında kullan"
         "Enabled by default. Technical symbols and emoji requested by the user are not blocked." -> "Varsayılan olarak etkindir. Teknik semboller ve kullanıcının istediği emojiler engellenmez."
         "Background task models" -> "Arka plan görevi modelleri"
-        "Choose how Xylune names chats and compresses older context." -> "Xylune'un sohbetleri nasıl adlandıracağını ve eski bağlamı nasıl sıkıştıracağını seçin."
+        "Choose how Turp names chats and compresses older context." -> "Turp'un sohbetleri nasıl adlandıracağını ve eski bağlamı nasıl sıkıştıracağını seçin."
         "Configure a usable provider to enable model-based automation." -> "Model tabanlı otomasyon için kullanılabilir bir sağlayıcı yapılandırın."
         "Chat naming" -> "Sohbet adlandırma"
         "Model mode considers newer messages whenever a name is regenerated." -> "Model modu, ad her yeniden oluşturulduğunda daha yeni mesajları dikkate alır."
@@ -220,7 +220,7 @@ internal object TurkishUiCopy {
         "Manual" -> "Elle"
         "From chat" -> "Sohbetten"
         "Delete memory?" -> "Hafıza silinsin mi?"
-        "This permanently removes the selected memory data from Xylune." -> "Bu işlem seçili hafıza verisini Xylune'dan kalıcı olarak kaldırır."
+        "This permanently removes the selected memory data from Turp." -> "Bu işlem seçili hafıza verisini Turp'dan kalıcı olarak kaldırır."
         "Disabled memories are currently excluded from chats. This cleanup permanently removes them." -> "Devre dışı hafızalar şu anda sohbetlere dahil edilmez. Bu temizlik onları kalıcı olarak kaldırır."
         "Recently updated" -> "Son güncellenen"
         "Recently created" -> "Son oluşturulan"
@@ -240,8 +240,8 @@ internal object TurkishUiCopy {
         "Sunset" -> "Gün batımı"
         "Choose a restrained built-in palette or Android dynamic colors. Every swatch is rendered from that palette, not the currently selected one." -> "Sade bir yerleşik palet veya Android dinamik renklerini seçin. Her renk örneği mevcut seçimden değil, kendi paletinden oluşturulur."
         "Match launcher icon to palette" -> "Başlatıcı simgesini paletle eşleştir"
-        "Keep the classic Xylune green icon regardless of the selected palette." -> "Seçili paletten bağımsız olarak klasik yeşil Xylune simgesini koru."
-        "Android themed icons can recolor Xylune's monochrome layer. Dynamic uses the live wallpaper-derived Material You palette when themed icons are off." -> "Android temalı simgeleri Xylune'un tek renkli katmanını yeniden renklendirebilir. Temalı simgeler kapalıyken Dinamik, duvar kâğıdından türetilen canlı Material You paletini kullanır."
+        "Keep the classic Turp green icon regardless of the selected palette." -> "Seçili paletten bağımsız olarak klasik yeşil Turp simgesini koru."
+        "Android themed icons can recolor Turp's monochrome layer. Dynamic uses the live wallpaper-derived Material You palette when themed icons are off." -> "Android temalı simgeleri Turp'un tek renkli katmanını yeniden renklendirebilir. Temalı simgeler kapalıyken Dinamik, duvar kâğıdından türetilen canlı Material You paletini kullanır."
         "AMOLED black" -> "AMOLED siyahı"
         "AMOLED black only changes dark mode surfaces." -> "AMOLED siyahı yalnızca koyu mod yüzeylerini değiştirir."
         "Interface panels" -> "Arayüz panelleri"
@@ -261,18 +261,18 @@ internal object TurkishUiCopy {
         "100% is fully opaque and hides background blur." -> "%100 tamamen opaktır ve arka plan bulanıklığını gizler."
         "0% is transparent. 100% is a fully opaque panel tint." -> "%0 saydamdır. %100 tamamen opak panel renk tonudur."
         "Generated content" -> "Oluşturulan içerik"
-        "Controls how Xylune handles AI-generated interactive UI." -> "Xylune'un yapay zekâ tarafından oluşturulan etkileşimli arayüzü nasıl işleyeceğini denetler."
+        "Controls how Turp handles AI-generated interactive UI." -> "Turp'un yapay zekâ tarafından oluşturulan etkileşimli arayüzü nasıl işleyeceğini denetler."
         "Safe generated rendering" -> "Güvenli oluşturulan içerik işleme"
         "Generated widgets are paused and shown as safe fallback content." -> "Oluşturulan widget'lar duraklatılır ve güvenli yedek içerik olarak gösterilir."
-        "Generated widgets may render, but Xylune still applies its capability checks and crash recovery." -> "Oluşturulan widget'lar işlenebilir; Xylune yine de yetenek kontrollerini ve çökme kurtarmasını uygular."
+        "Generated widgets may render, but Turp still applies its capability checks and crash recovery." -> "Oluşturulan widget'lar işlenebilir; Turp yine de yetenek kontrollerini ve çökme kurtarmasını uygular."
         "Automatic repair attempts" -> "Otomatik onarım denemeleri"
         "Invalid completed widgets, charts, and diagrams are repaired in place up to this limit." -> "Geçersiz tamamlanmış widget, grafik ve diyagramlar bu sınıra kadar yerinde onarılır."
         "Third-party AI and services" -> "Üçüncü taraf yapay zekâ ve hizmetler"
-        "Xylune is a client, not an AI model host. Responses come from the provider or local server selected by the user." -> "Xylune bir istemcidir, yapay zekâ modeli barındırmaz. Yanıtlar kullanıcının seçtiği sağlayıcıdan veya yerel sunucudan gelir."
+        "Turp is a client, not an AI model host. Responses come from the provider or local server selected by the user." -> "Turp bir istemcidir, yapay zekâ modeli barındırmaz. Yanıtlar kullanıcının seçtiği sağlayıcıdan veya yerel sunucudan gelir."
         "Privacy" -> "Gizlilik"
         "Terms" -> "Koşullar"
         "Data deletion" -> "Veri silme"
-        "No Xylune account, ads, analytics, or Xylune cloud. Chat history and API keys remain on this device; traffic goes to endpoints and web tools you explicitly enable." -> "Xylune hesabı, reklam, analiz veya Xylune bulutu yoktur. Sohbet geçmişi ve API anahtarları bu cihazda kalır; trafik yalnızca açıkça etkinleştirdiğiniz uç noktalara ve web araçlarına gider."
+        "No Turp account, ads, analytics, or Turp cloud. Chat history and API keys remain on this device; traffic goes to endpoints and web tools you explicitly enable." -> "Turp hesabı, reklam, analiz veya Turp bulutu yoktur. Sohbet geçmişi ve API anahtarları bu cihazda kalır; trafik yalnızca açıkça etkinleştirdiğiniz uç noktalara ve web araçlarına gider."
         "Privacy policy" -> "Gizlilik politikası"
         "Terms & disclaimer" -> "Koşullar ve sorumluluk reddi"
         "Legal" -> "Yasal"
@@ -286,7 +286,7 @@ internal object TurkishUiCopy {
         "Additional instructions" -> "Ek talimatlar"
         "Override default tone/persona" -> "Varsayılan üslup/personayı geçersiz kıl"
         "Use for new chats" -> "Yeni sohbetlerde kullan"
-        "Use Xylune default for new chats" -> "Yeni sohbetlerde Xylune varsayılanını kullan"
+        "Use Turp default for new chats" -> "Yeni sohbetlerde Turp varsayılanını kullan"
         "Edit custom profile" -> "Özel profili düzenle"
         "Name" -> "Ad"
         "Prepend" -> "Başa ekle"
@@ -303,7 +303,7 @@ internal object TurkishUiCopy {
         "Inspect environments, install packages, run a test, or add/remove the optional Linux distribution." -> "Ortamları inceleyin, paket yükleyin, test çalıştırın veya isteğe bağlı Linux dağıtımını ekleyip kaldırın."
         "Open runtime manager" -> "Çalışma zamanı yöneticisini aç"
         "Package approval" -> "Paket onayı"
-        "Choose when Xylune may install Python or Linux packages and which sources are trusted." -> "Xylune'un Python veya Linux paketlerini ne zaman yükleyebileceğini ve hangi kaynakların güvenilir olduğunu seçin."
+        "Choose when Turp may install Python or Linux packages and which sources are trusted." -> "Turp'un Python veya Linux paketlerini ne zaman yükleyebileceğini ve hangi kaynakların güvenilir olduğunu seçin."
         "Ask every time" -> "Her seferinde sor"
         "Show the full plan and wait for you" -> "Tam planı göster ve onayınızı bekle"
         "Trusted list" -> "Güvenilir liste"
@@ -325,7 +325,7 @@ internal object TurkishUiCopy {
         "Commands run as uid 0 inside the selected PRoot distribution." -> "Komutlar seçili PRoot dağıtımında uid 0 olarak çalışır."
         "Back up now" -> "Şimdi yedekle"
         "Developer settings" -> "Geliştirici ayarları"
-        "Local diagnostics for measuring Xylune's rendering and process performance. No metrics are uploaded or stored in chat history." -> "Xylune'un işleme ve süreç performansını ölçen yerel tanılamalar. Hiçbir ölçüm yüklenmez veya sohbet geçmişinde saklanmaz."
+        "Local diagnostics for measuring Turp's rendering and process performance. No metrics are uploaded or stored in chat history." -> "Turp'un işleme ve süreç performansını ölçen yerel tanılamalar. Hiçbir ölçüm yüklenmez veya sohbet geçmişinde saklanmaz."
         "Enable developer settings" -> "Geliştirici ayarlarını etkinleştir"
         "Tool diagnostics" -> "Araç tanılamaları"
         "Show tool diagnostics" -> "Araç tanılamalarını göster"
@@ -363,10 +363,10 @@ internal object TurkishUiCopy {
         "Bugs, regressions, and feature requests" -> "Hatalar, gerilemeler ve özellik istekleri"
         "Updates" -> "Güncellemeler"
         "Check automatically" -> "Otomatik kontrol et"
-        "Check the source repository once per day when Xylune starts" -> "Xylune başlatıldığında kaynak deposunu günde bir kez kontrol et"
+        "Check the source repository once per day when Turp starts" -> "Turp başlatıldığında kaynak deposunu günde bir kez kontrol et"
         "Check for updates" -> "Güncellemeleri kontrol et"
         "Check again" -> "Tekrar kontrol et"
-        "Xylune is up to date" -> "Xylune güncel"
+        "Turp is up to date" -> "Turp güncel"
         "Update check failed" -> "Güncelleme kontrolü başarısız"
         "Download update" -> "Güncellemeyi indir"
         "Open release page" -> "Sürüm sayfasını aç"
@@ -381,7 +381,7 @@ internal object TurkishUiCopy {
         "Running on" -> "Çalıştığı sürüm"
         "Device ABI" -> "Cihaz ABI'si"
         "Private by design" -> "Tasarım gereği özel"
-        "Chats, credentials, and workspaces stay on your device. Xylune connects directly to providers you configure and has no application backend, ads, or telemetry." -> "Sohbetler, kimlik bilgileri ve çalışma alanları cihazınızda kalır. Xylune yapılandırdığınız sağlayıcılara doğrudan bağlanır; uygulama arka ucu, reklam veya telemetri içermez."
+        "Chats, credentials, and workspaces stay on your device. Turp connects directly to providers you configure and has no application backend, ads, or telemetry." -> "Sohbetler, kimlik bilgileri ve çalışma alanları cihazınızda kalır. Turp yapılandırdığınız sağlayıcılara doğrudan bağlanır; uygulama arka ucu, reklam veya telemetri içermez."
         "This is a debug-signed development build." -> "Bu, hata ayıklama imzalı bir geliştirme derlemesidir."
         else -> null
     }
@@ -404,7 +404,7 @@ internal object TurkishUiCopy {
         "Working history token budget" -> "Çalışma geçmişi token bütçesi"
         "Maximum output tokens" -> "Maksimum çıktı token'ı"
         "Working display" -> "Çalışma görünümü"
-        "Xylune core prompt" -> "Xylune çekirdek istemi"
+        "Turp core prompt" -> "Turp çekirdek istemi"
         "Thinking" -> "Düşünme"
         "Not supported by this model" -> "Bu model tarafından desteklenmiyor"
         "Thinking effort" -> "Düşünme düzeyi"
@@ -419,7 +419,7 @@ internal object TurkishUiCopy {
         "While working" -> "Çalışırken"
         "Collapsed" -> "Daraltılmış"
         "Model" -> "Model"
-        "One searchable catalog is used everywhere in Xylune." -> "Xylune'un her yerinde tek bir aranabilir katalog kullanılır."
+        "One searchable catalog is used everywhere in Turp." -> "Turp'un her yerinde tek bir aranabilir katalog kullanılır."
         "Choose a model" -> "Model seç"
         "No provider selected" -> "Sağlayıcı seçilmedi"
         "Add a usable provider in the Providers tab." -> "Sağlayıcılar sekmesinden kullanılabilir bir sağlayıcı ekleyin."
@@ -616,7 +616,7 @@ internal object TurkishUiCopy {
         "Bucket" -> "Bucket"
         "Endpoint" -> "Uç nokta"
         "Region" -> "Bölge"
-        "Android grants Xylune persistent access only to the folder you select. Create or choose a dedicated Xylune folder; no account-wide permission is requested." -> "Android, Xylune'a yalnızca seçtiğiniz klasöre kalıcı erişim verir. Xylune için özel bir klasör oluşturun veya seçin; hesap genelinde izin istenmez."
+        "Android grants Turp persistent access only to the folder you select. Create or choose a dedicated Turp folder; no account-wide permission is requested." -> "Android, Turp'a yalnızca seçtiğiniz klasöre kalıcı erişim verir. Turp için özel bir klasör oluşturun veya seçin; hesap genelinde izin istenmez."
         "Runtime" -> "Çalışma zamanı"
         "Runtime status" -> "Çalışma zamanı durumu"
         "Python environment" -> "Python ortamı"
@@ -758,8 +758,8 @@ internal object TurkishUiCopy {
         Regex("""Latest release: (.+) · checked (.+)""").matchEntire(text)?.let {
             return "En son sürüm: ${it.groupValues[1]} · kontrol: ${it.groupValues[2]}"
         }
-        Regex("""Xylune (.+) is available""").matchEntire(text)?.let {
-            return "Xylune ${it.groupValues[1]} kullanılabilir"
+        Regex("""Turp (.+) is available""").matchEntire(text)?.let {
+            return "Turp ${it.groupValues[1]} kullanılabilir"
         }
         Regex("""Credits balance: (.+)""").matchEntire(text)?.let {
             return "Kredi bakiyesi: ${it.groupValues[1]}"
@@ -803,8 +803,8 @@ internal object TurkishUiCopy {
         Regex("""(.+) ready""").matchEntire(text)?.let {
             return "${it.groupValues[1]} hazır"
         }
-        Regex("""Xylune detected (.+)\. Continue or open the provider manager to make changes\.""").matchEntire(text)?.let {
-            return "Xylune ${it.groupValues[1]} algıladı. Devam edin veya değişiklik yapmak için sağlayıcı yöneticisini açın."
+        Regex("""Turp detected (.+)\. Continue or open the provider manager to make changes\.""").matchEntire(text)?.let {
+            return "Turp ${it.groupValues[1]} algıladı. Devam edin veya değişiklik yapmak için sağlayıcı yöneticisini açın."
         }
         Regex("""(.+) is running in the background • (\d+)s deadline""").matchEntire(text)?.let {
             return "${it.groupValues[1]} arka planda çalışıyor • ${it.groupValues[2]} sn süre sınırı"
@@ -819,8 +819,8 @@ internal object TurkishUiCopy {
             return "${it.groupValues[1]} hariç"
         }
 
-        if (text.startsWith("Managed by Xylune · revision ")) {
-            return text.replaceFirst("Managed by Xylune · revision ", "Xylune tarafından yönetiliyor · revizyon ")
+        if (text.startsWith("Managed by Turp · revision ")) {
+            return text.replaceFirst("Managed by Turp · revision ", "Turp tarafından yönetiliyor · revizyon ")
         }
         if (text.startsWith("Preset: ")) return text.replaceFirst("Preset: ", "Ön ayar: ")
         if (text.startsWith("Protocol: ")) return text.replaceFirst("Protocol: ", "Protokol: ")

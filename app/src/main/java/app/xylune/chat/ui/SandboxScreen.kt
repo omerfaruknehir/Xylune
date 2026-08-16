@@ -337,7 +337,7 @@ fun SandboxScreen(viewModel: ChatViewModel) {
             Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Install packages", fontWeight = FontWeight.SemiBold)
-                    Text("One package requirement per line. Xylune resolves Android-compatible Python 3.12 wheels before applying your approval policy.", style = MaterialTheme.typography.bodySmall)
+                    Text("One package requirement per line. Turp resolves Android-compatible Python 3.12 wheels before applying your approval policy.", style = MaterialTheme.typography.bodySmall)
                     OutlinedTextField(
                         value = packageQuery,
                         onValueChange = { packageQuery = it.take(100) },
@@ -479,7 +479,7 @@ fun SandboxScreen(viewModel: ChatViewModel) {
                     Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
                         Text("Before the first install", fontWeight = FontWeight.SemiBold)
                         Text("• Requires a network download and app-private storage.", style = MaterialTheme.typography.bodySmall)
-                        Text("• Xylune verifies the archive before extraction and exposes progress for every stage.", style = MaterialTheme.typography.bodySmall)
+                        Text("• Turp verifies the archive before extraction and exposes progress for every stage.", style = MaterialTheme.typography.bodySmall)
                         Text("• A failed or interrupted setup can be retried; /workspace chat files are not deleted.", style = MaterialTheme.typography.bodySmall)
                         Text("• No Android root access is used or requested.", style = MaterialTheme.typography.bodySmall)
                     }
@@ -598,7 +598,7 @@ fun SandboxScreen(viewModel: ChatViewModel) {
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
                                     Text(
-                                        "Keep Xylune open",
+                                        "Keep Turp open",
                                         style = MaterialTheme.typography.labelSmall,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
@@ -723,7 +723,7 @@ fun SandboxScreen(viewModel: ChatViewModel) {
         title = { Text("Allow package installation?") },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text("Only missing or outdated packages will change. Install scripts run with Xylune's app permissions.")
+                Text("Only missing or outdated packages will change. Install scripts run with Turp's app permissions.")
                 packageReview?.plan?.items?.filter { it.action != PackageAction.ALREADY_INSTALLED }?.forEach { item ->
                     Text("• ${item.name}: ${item.action.name.lowercase()}${item.candidateVersion?.let { " $it" }.orEmpty()}", fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall)
                 }
@@ -798,7 +798,7 @@ fun SandboxScreen(viewModel: ChatViewModel) {
             onDismissRequest = { dismissedLongRun = startedAt },
             title = { Text("Python is still running") },
             text = {
-                Text("This has taken $seconds seconds. It will keep running while you browse Xylune, up to its hard deadline. You can leave it in the background or stop it now. A blocking native Python extension may take a moment to return after Stop.")
+                Text("This has taken $seconds seconds. It will keep running while you browse Turp, up to its hard deadline. You can leave it in the background or stop it now. A blocking native Python extension may take a moment to return after Stop.")
             },
             dismissButton = { OutlinedButton(onClick = { dismissedLongRun = startedAt }) { Text("Keep in background") } },
             confirmButton = {

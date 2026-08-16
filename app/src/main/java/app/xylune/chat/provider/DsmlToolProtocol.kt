@@ -129,7 +129,7 @@ internal object DsmlToolProtocol {
         .joinToString("") { "%02x".format(it) }
 
     internal const val MALFORMED_NOTICE =
-        "\n\n*The provider returned a malformed tool request. Xylune ignored the protocol text instead of displaying or executing it.*\n\n"
+        "\n\n*The provider returned a malformed tool request. Turp ignored the protocol text instead of displaying or executing it.*\n\n"
 }
 
 

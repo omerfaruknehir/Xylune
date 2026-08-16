@@ -17,12 +17,12 @@
 
   const appIconPalettes = {
     xylune: {
-      backgroundStart: '#083a2c',
-      backgroundEnd: '#0c684f',
-      markStart: '#86dfb8',
-      markEnd: '#ddfbea',
-      leaf: '#f4c761',
-      secondStroke: '#f1fff7',
+      backgroundStart: '#fff0d7',
+      backgroundEnd: '#fde1bd',
+      markStart: '#78bf43',
+      markEnd: '#28722e',
+      leaf: '#ef2e52',
+      secondStroke: '#f5a0b0',
     },
     system: {
       backgroundStart: '#293b52',
@@ -101,21 +101,23 @@
 
     const paletteName = iconPaletteFor(schemePreference);
     const palette = appIconPalettes[paletteName];
-    const svg = `<svg width="512" height="512" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+    const svg = `<svg width="512" height="512" viewBox="0 0 1536 1536" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="15" y1="8" x2="96" y2="101" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="220" y1="120" x2="1340" y2="1420" gradientUnits="userSpaceOnUse">
       <stop stop-color="${palette.backgroundStart}"/>
       <stop offset="1" stop-color="${palette.backgroundEnd}"/>
     </linearGradient>
-    <linearGradient id="mark" x1="31.9912" y1="82.6202" x2="76.4301" y2="30.3824" gradientUnits="userSpaceOnUse">
+    <linearGradient id="leaf" x1="720" y1="220" x2="860" y2="680" gradientUnits="userSpaceOnUse">
       <stop stop-color="${palette.markStart}"/>
       <stop offset="1" stop-color="${palette.markEnd}"/>
     </linearGradient>
   </defs>
-  <rect width="108" height="108" rx="24" fill="url(#bg)"/>
-  <path d="M33.549193 80.863216C45.542258 64.507039 58.821502 47.408289 73.585895 32.881898" fill="none" stroke="url(#mark)" stroke-width="11.5517" stroke-linecap="round"/>
-  <path d="M39.107895 30.166046C43.79571 20.768808 52.715523 17.003434 60.890902 20.847009C59.491039 30.710867 51.981892 36.353531 40.896179 34.109428Z" fill="${palette.leaf}"/>
-  <path d="M33.99223 32.881898C48.756623 47.408289 62.035867 64.507039 74.028932 80.863216" fill="none" stroke="${palette.secondStroke}" stroke-width="11.5517" stroke-linecap="round"/>
+  <rect width="1536" height="1536" rx="350" fill="url(#bg)"/>
+  <path d="M774 649C784 604 779 559 748 520C715 480 662 455 643 408C621 354 629 289 650 242C664 210 684 206 708 216C754 236 805 280 840 337C866 379 874 430 856 489C842 540 818 595 795 648Z" fill="url(#leaf)"/>
+  <path d="M827 674C874 624 927 570 1000 519C1060 477 1112 454 1155 466C1210 481 1260 515 1282 548C1304 579 1286 617 1260 649C1215 705 1168 732 1115 726C1078 722 1049 701 1015 684C973 663 935 656 900 670C870 682 846 690 827 674Z" fill="url(#leaf)"/>
+  <path d="M817 661C801 597 802 523 805 447C809 372 840 315 890 264C936 216 982 178 1017 176C1057 174 1090 198 1111 237C1134 281 1141 342 1137 393C1133 444 1115 489 1085 518C1054 547 1012 563 969 576C912 594 858 616 817 661Z" fill="url(#leaf)"/>
+  <path d="M734 681C686 657 633 648 586 654C519 663 463 699 428 747C399 786 389 828 400 875C406 903 421 936 440 970C458 1004 469 1035 469 1070C470 1122 449 1173 414 1219C390 1250 365 1278 378 1289C386 1296 414 1267 449 1239C491 1205 532 1181 574 1169C618 1157 669 1167 718 1161C771 1154 820 1131 858 1091C895 1053 918 1005 923 953C930 891 916 836 884 791C846 738 790 705 734 681Z" fill="${palette.leaf}"/>
+  <path d="M440 989C471 1005 500 1024 531 1048C570 1078 601 1114 631 1158C600 1159 570 1166 541 1178C499 1195 462 1223 428 1253C402 1276 382 1295 376 1290C369 1284 393 1253 415 1225C451 1179 470 1128 468 1072C468 1037 457 1006 440 989Z" fill="${palette.secondStroke}"/>
 </svg>`;
     return `data:image/svg+xml,${encodeURIComponent(svg)}`;
   }

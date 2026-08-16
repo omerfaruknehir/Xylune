@@ -27,7 +27,7 @@ internal object TurkishDynamicUiCopy {
         Regex("""Latest release: (.+) · checked (.+)""").matchEntire(text)?.let {
             return "En son sürüm: ${it.groupValues[1]} · kontrol: ${it.groupValues[2]}"
         }
-        Regex("""Xylune (.+) is available""").matchEntire(text)?.let { return "Xylune ${it.groupValues[1]} kullanılabilir" }
+        Regex("""Turp (.+) is available""").matchEntire(text)?.let { return "Turp ${it.groupValues[1]} kullanılabilir" }
         Regex("""Source: (.+)""").matchEntire(text)?.let { return "Kaynak: ${it.groupValues[1]}" }
 
         Regex("""PDF preview unavailable: (.+)""").matchEntire(text)?.let { return "PDF önizlemesi kullanılamıyor: ${it.groupValues[1]}" }
@@ -142,8 +142,8 @@ internal object TurkishDynamicUiCopy {
         Regex("""(.+) will remove this Python package from the current chat environment\. Other packages and the optional Linux runtime are kept\.""").matchEntire(text)?.let {
             return "${it.groupValues[1]} bu Python paketini geçerli sohbet ortamından kaldıracak. Diğer paketler ve isteğe bağlı Linux çalışma zamanı korunur."
         }
-        Regex("""This has taken (\d+) seconds\. It will keep running while you browse Xylune, up to its hard deadline\. You can leave it in the background or stop it now\. A blocking native Python extension may take a moment to return after Stop\.""").matchEntire(text)?.let {
-            return "Bu işlem ${it.groupValues[1]} saniyedir sürüyor. Kesin süre sınırına kadar Xylune'da gezinirken çalışmaya devam eder. Arka planda bırakabilir veya şimdi durdurabilirsiniz. Engelleyici bir yerel Python uzantısının Durdur'dan sonra dönmesi kısa bir süre alabilir."
+        Regex("""This has taken (\d+) seconds\. It will keep running while you browse Turp, up to its hard deadline\. You can leave it in the background or stop it now\. A blocking native Python extension may take a moment to return after Stop\.""").matchEntire(text)?.let {
+            return "Bu işlem ${it.groupValues[1]} saniyedir sürüyor. Kesin süre sınırına kadar Turp'da gezinirken çalışmaya devam eder. Arka planda bırakabilir veya şimdi durdurabilirsiniz. Engelleyici bir yerel Python uzantısının Durdur'dan sonra dönmesi kısa bir süre alabilir."
         }
 
         Regex("""Delete (\d+) disabled memories?""").matchEntire(text)?.let { return "${it.groupValues[1]} devre dışı hafızayı sil" }
@@ -155,7 +155,7 @@ internal object TurkishDynamicUiCopy {
         Regex("""Edit (.+)""").matchEntire(text)?.let { return "Düzenle: ${it.groupValues[1]}" }
         Regex("""Delete (.+)""").matchEntire(text)?.let { return "Sil: ${it.groupValues[1]}" }
         Regex("""(.+ \d[^ ]*) installed""").matchEntire(text)?.let { return "${it.groupValues[1]} yüklü" }
-        Regex("""Managed by Xylune · revision (.+)""").matchEntire(text)?.let { return "Xylune tarafından yönetiliyor · revizyon ${it.groupValues[1]}" }
+        Regex("""Managed by Turp · revision (.+)""").matchEntire(text)?.let { return "Turp tarafından yönetiliyor · revizyon ${it.groupValues[1]}" }
         Regex("""Automatically updated metadata for (\d+) models""").matchEntire(text)?.let { return "${it.groupValues[1]} modelin üst verileri otomatik güncellendi" }
         Regex("""Automatic metadata refresh failed: (.+)""").matchEntire(text)?.let { return "Otomatik üst veri yenileme başarısız: ${it.groupValues[1]}" }
         Regex("""Updated (\d+) models""").matchEntire(text)?.let { return "${it.groupValues[1]} model güncellendi" }
@@ -207,11 +207,11 @@ internal object TurkishDynamicUiCopy {
         Regex("""(\d+) saved items?; (\d+) enabled\.""").matchEntire(text)?.let { return "${it.groupValues[1]} kayıtlı öğe; ${it.groupValues[2]} etkin." }
         Regex("""(\d+) selected""").matchEntire(text)?.let { return "${it.groupValues[1]} seçili" }
 
-        Regex("""Connected to (.+), but no Xylune backups were found\.""").matchEntire(text)?.let {
-            return "${it.groupValues[1]} bağlantısı kuruldu ancak Xylune yedeği bulunamadı."
+        Regex("""Connected to (.+), but no Turp backups were found\.""").matchEntire(text)?.let {
+            return "${it.groupValues[1]} bağlantısı kuruldu ancak Turp yedeği bulunamadı."
         }
-        Regex("""Found (\d+) Xylune backups? in (.+)\.""").matchEntire(text)?.let {
-            return "${it.groupValues[2]} içinde ${it.groupValues[1]} Xylune yedeği bulundu."
+        Regex("""Found (\d+) Turp backups? in (.+)\.""").matchEntire(text)?.let {
+            return "${it.groupValues[2]} içinde ${it.groupValues[1]} Turp yedeği bulundu."
         }
 
         Regex("""(.+) ms of (.+) ms frame budget""").matchEntire(text)?.let { return "${it.groupValues[1]} ms / ${it.groupValues[2]} ms kare bütçesi" }
@@ -260,9 +260,9 @@ internal object TurkishDynamicUiCopy {
   val linux = it.groupValues[4].takeIf(String::isNotBlank)?.let { count -> " • $count Linux ortamı" }.orEmpty()
   return "${it.groupValues[1]} sohbet • ${it.groupValues[2]} mesaj • ${it.groupValues[3]} ek$linux"
         }
-        Regex("""Created by Xylune (.+) • (encrypted|not encrypted)""").matchEntire(text)?.let {
+        Regex("""Created by Turp (.+) • (encrypted|not encrypted)""").matchEntire(text)?.let {
   val state = if (it.groupValues[2] == "encrypted") "şifreli" else "şifrelenmemiş"
-  return "Xylune ${it.groupValues[1]} tarafından oluşturuldu • $state"
+  return "Turp ${it.groupValues[1]} tarafından oluşturuldu • $state"
         }
         Regex("""Call (\d+) · round (\d+)""").matchEntire(text)?.let { return "Çağrı ${it.groupValues[1]} · tur ${it.groupValues[2]}" }
         Regex("""input (\d+) · cached (\d+) · output (\d+)""").matchEntire(text)?.let {

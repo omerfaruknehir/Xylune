@@ -134,7 +134,7 @@ internal fun DirectCloudProviderTargets(
         modifier = Modifier.padding(top = 6.dp),
     )
     Text(
-        "These providers keep Xylune backups in an app-specific folder or prefix. OAuth tokens and storage credentials are encrypted on this device and excluded from exported backups.",
+        "These providers keep Turp backups in an app-specific folder or prefix. OAuth tokens and storage credentials are encrypted on this device and excluded from exported backups.",
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
@@ -142,7 +142,7 @@ internal fun DirectCloudProviderTargets(
     OAuthCloudCard(
         provider = DirectCloudProvider.ONEDRIVE,
         state = oauthStates[CloudOAuthProvider.ONEDRIVE] ?: CloudOAuthState.Disconnected,
-        description = "Uses OneDrive's Apps/Xylune folder with Files.ReadWrite.AppFolder instead of access to the whole drive.",
+        description = "Uses OneDrive's Apps/Turp folder with Files.ReadWrite.AppFolder instead of access to the whole drive.",
         entries = entries[DirectCloudProvider.ONEDRIVE].orEmpty(),
         busy = busy,
         error = errors[DirectCloudProvider.ONEDRIVE],
@@ -164,7 +164,7 @@ internal fun DirectCloudProviderTargets(
     OAuthCloudCard(
         provider = DirectCloudProvider.DROPBOX,
         state = oauthStates[CloudOAuthProvider.DROPBOX] ?: CloudOAuthState.Disconnected,
-        description = "Uses Dropbox App folder access and scoped file permissions. Xylune cannot browse the rest of Dropbox.",
+        description = "Uses Dropbox App folder access and scoped file permissions. Turp cannot browse the rest of Dropbox.",
         entries = entries[DirectCloudProvider.DROPBOX].orEmpty(),
         busy = busy,
         error = errors[DirectCloudProvider.DROPBOX],
@@ -476,7 +476,7 @@ private fun DirectBackupList(
                             if (isNotEmpty()) append(" • ")
                             append(readableDirectBytes(entry.sizeBytes))
                         }
-                    }.ifBlank { "Portable Xylune backup" },
+                    }.ifBlank { "Portable Turp backup" },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -520,7 +520,7 @@ internal fun WebDavConfigDialog(
         title = { Text("WebDAV / Nextcloud") },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Enter the exact HTTPS URL of a dedicated Xylune folder. For Nextcloud this normally ends with /remote.php/dav/files/USERNAME/Xylune/.")
+                Text("Enter the exact HTTPS URL of a dedicated Turp folder. For Nextcloud this normally ends with /remote.php/dav/files/USERNAME/Turp/.")
                 OutlinedTextField(label, { label = it }, label = { Text("Label") }, singleLine = true)
                 OutlinedTextField(url, { url = it }, label = { Text("WebDAV folder URL") }, singleLine = true)
                 OutlinedTextField(username, { username = it }, label = { Text("Username") }, singleLine = true)
@@ -531,7 +531,7 @@ internal fun WebDavConfigDialog(
                     visualTransformation = PasswordVisualTransformation(),
                     singleLine = true,
                 )
-                Text("Credentials are encrypted with Android Keystore and are never included in Xylune backups.", style = MaterialTheme.typography.bodySmall)
+                Text("Credentials are encrypted with Android Keystore and are never included in Turp backups.", style = MaterialTheme.typography.bodySmall)
             }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } },

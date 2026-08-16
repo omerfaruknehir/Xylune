@@ -12,11 +12,11 @@ internal object TurkishUiCopyExtra3 {
         "Provider native only" to "Yalnızca sağlayıcının yerel araması",
         "Require the selected provider/model to perform search itself. Unsupported models fail instead of silently switching engines." to
             "Seçili sağlayıcı/modelin aramayı kendisinin yapmasını zorunlu kılar. Desteklenmeyen modeller sessizce başka bir motora geçmek yerine hata verir.",
-        "Xylune search engine" to "Xylune arama motoru",
-        "Always use the selected search engine through Xylune's client-side web_search tool." to
-            "Her zaman Xylune'un istemci tarafındaki web_search aracı üzerinden seçili arama motorunu kullanır.",
-        "Use the model provider's native server-side search when supported, otherwise use the selected Xylune search engine." to
-            "Destekleniyorsa model sağlayıcısının sunucu tarafındaki yerel aramasını, aksi halde seçili Xylune arama motorunu kullanır.",
+        "Turp search engine" to "Turp arama motoru",
+        "Always use the selected search engine through Turp's client-side web_search tool." to
+            "Her zaman Turp'un istemci tarafındaki web_search aracı üzerinden seçili arama motorunu kullanır.",
+        "Use the model provider's native server-side search when supported, otherwise use the selected Turp search engine." to
+            "Destekleniyorsa model sağlayıcısının sunucu tarafındaki yerel aramasını, aksi halde seçili Turp arama motorunu kullanır.",
         "No API key. Uses DuckDuckGo's lightweight HTML results endpoint." to
             "API anahtarı gerekmez. DuckDuckGo'nun hafif HTML sonuç uç noktasını kullanır.",
         "Uses the official Brave Search API." to "Resmî Brave Search API'sini kullanır.",
@@ -26,8 +26,8 @@ internal object TurkishUiCopyExtra3 {
         "Uses a user-supplied public HTTPS SearXNG instance with JSON output enabled." to
             "JSON çıktısı etkin, kullanıcının sağladığı herkese açık bir HTTPS SearXNG örneğini kullanır.",
         "Native only" to "Yalnızca sağlayıcının yerel araması",
-        "API keys are stored in Android encrypted preferences. Native-only mode never silently switches to a Xylune engine; Automatic mode does." to
-            "API anahtarları Android'in şifreli tercihlerinde saklanır. Yalnızca sağlayıcının yerel araması modu hiçbir zaman sessizce bir Xylune motoruna geçmez; Otomatik mod gerektiğinde geçer."
+        "API keys are stored in Android encrypted preferences. Native-only mode never silently switches to a Turp engine; Automatic mode does." to
+            "API anahtarları Android'in şifreli tercihlerinde saklanır. Yalnızca sağlayıcının yerel araması modu hiçbir zaman sessizce bir Turp motoruna geçmez; Otomatik mod gerektiğinde geçer."
     )
 
     private fun dynamic(text: String): String? {

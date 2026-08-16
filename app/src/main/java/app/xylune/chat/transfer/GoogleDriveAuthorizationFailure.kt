@@ -21,7 +21,7 @@ data class GoogleDriveAuthorizationFailure(
     val setupGuideUrl: String?,
 ) {
     fun copyableSetupDetails(): String = buildString {
-        appendLine("Xylune Google Drive OAuth registration")
+        appendLine("Turp Google Drive OAuth registration")
         appendLine("Package: ${identity.packageName}")
         appendLine("Signing SHA-1: ${identity.signingSha1}")
         appendLine("Signing SHA-256: ${identity.signingSha256}")

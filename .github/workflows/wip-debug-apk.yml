@@ -59,7 +59,7 @@ jobs:
           mkdir -p wip-debug
           pr="${{ github.event.pull_request.number || 'manual' }}"
           short_sha="$(git rev-parse --short=10 HEAD)"
-          apk="Xylune-PR-${pr}-${short_sha}-debug.apk"
+          apk="Turp-PR-${pr}-${short_sha}-debug.apk"
           cp app/build/outputs/apk/debug/app-debug.apk "wip-debug/$apk"
           sha256sum "wip-debug/$apk" > "wip-debug/$apk.sha256"
           printf '%s\n' "$apk" > wip-debug/APK_NAME.txt
@@ -68,7 +68,7 @@ jobs:
       - name: Upload installable debug APK
         uses: actions/upload-artifact@v7
         with:
-          name: xylune-pr-${{ github.event.pull_request.number || 'manual' }}-debug-apk
+          name: turp-pr-${{ github.event.pull_request.number || 'manual' }}-debug-apk
           if-no-files-found: error
           retention-days: 14
           path: wip-debug/

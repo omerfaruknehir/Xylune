@@ -64,7 +64,7 @@ class WorkingTimelineUiTest {
         assertTrue(composer.contains("Queue this message"))
         assertTrue(composer.contains("Stop current response"))
         assertTrue(composer.contains("if (providerConfigured && !generating)"))
-        assertFalse(composer.contains("Xylune is working in the background"))
+        assertFalse(composer.contains("Turp is working in the background"))
         assertFalse(composer.contains("Choose Queue, Steer, or separate turn"))
         assertFalse(composer.contains("Start a separate turn"))
         assertFalse(composer.contains("\"Stop or send\""))

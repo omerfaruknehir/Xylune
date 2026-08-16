@@ -94,7 +94,7 @@ jobs:
           cp app/build/outputs/bundle/release/app-release.aab ci-release/app-release.aab
       - uses: actions/upload-artifact@v7
         with:
-          name: xylune-public-release-build
+          name: turp-public-release-build
           if-no-files-found: error
           retention-days: 7
           path: |
@@ -103,7 +103,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: xylune-android-failure-reports
+          name: turp-android-failure-reports
           if-no-files-found: ignore
           retention-days: 7
           path: |
@@ -172,7 +172,7 @@ jobs:
           packages: 'platform-tools build-tools;36.0.0'
       - uses: actions/download-artifact@v5
         with:
-          name: xylune-public-release-build
+          name: turp-public-release-build
           path: ci-release
       - name: Prepare fixed six-asset release
         shell: bash
@@ -181,18 +181,18 @@ jobs:
           rm -rf release
           mkdir release
 
-          apk="Xylune-${XYLUNE_VERSION}-release.apk"
-          aab="Xylune-${XYLUNE_VERSION}-release.aab"
-          source_zip="Xylune-${XYLUNE_VERSION}-source.zip"
-          source_tar="Xylune-${XYLUNE_VERSION}-source.tar.gz"
-          manifest="Xylune-${XYLUNE_VERSION}-release.json"
-          checksums="Xylune-${XYLUNE_VERSION}-SHA256.txt"
+          apk="Turp-${XYLUNE_VERSION}-release.apk"
+          aab="Turp-${XYLUNE_VERSION}-release.aab"
+          source_zip="Turp-${XYLUNE_VERSION}-source.zip"
+          source_tar="Turp-${XYLUNE_VERSION}-source.tar.gz"
+          manifest="Turp-${XYLUNE_VERSION}-release.json"
+          checksums="Turp-${XYLUNE_VERSION}-SHA256.txt"
 
           cp ci-release/app-release.apk "release/$apk"
           cp ci-release/app-release.aab "release/$aab"
           "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs "release/$apk"
-          git archive --format=zip --prefix="Xylune-${XYLUNE_VERSION}/" -o "release/$source_zip" "$GITHUB_SHA"
-          git archive --format=tar --prefix="Xylune-${XYLUNE_VERSION}/" "$GITHUB_SHA" | gzip -n > "release/$source_tar"
+          git archive --format=zip --prefix="Turp-${XYLUNE_VERSION}/" -o "release/$source_zip" "$GITHUB_SHA"
+          git archive --format=tar --prefix="Turp-${XYLUNE_VERSION}/" "$GITHUB_SHA" | gzip -n > "release/$source_tar"
 
           apk_sha256="$(sha256sum "release/$apk" | awk '{print $1}')"
           cert_sha256="$("$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs "release/$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' | head -n1)"
@@ -250,15 +250,15 @@ jobs:
           fi
 
           gh release create "$XYLUNE_TAG" \
-            "release/Xylune-${XYLUNE_VERSION}-release.apk" \
-            "release/Xylune-${XYLUNE_VERSION}-release.aab" \
-            "release/Xylune-${XYLUNE_VERSION}-source.zip" \
-            "release/Xylune-${XYLUNE_VERSION}-source.tar.gz" \
-            "release/Xylune-${XYLUNE_VERSION}-release.json" \
-            "release/Xylune-${XYLUNE_VERSION}-SHA256.txt" \
+            "release/Turp-${XYLUNE_VERSION}-release.apk" \
+            "release/Turp-${XYLUNE_VERSION}-release.aab" \
+            "release/Turp-${XYLUNE_VERSION}-source.zip" \
+            "release/Turp-${XYLUNE_VERSION}-source.tar.gz" \
+            "release/Turp-${XYLUNE_VERSION}-release.json" \
+            "release/Turp-${XYLUNE_VERSION}-SHA256.txt" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
-            --title "Xylune ${XYLUNE_VERSION}" \
+            --title "Turp ${XYLUNE_VERSION}" \
             --notes-file "$notes"
 
   device-smoke:
@@ -324,7 +324,7 @@ jobs:
         run: ./gradlew --no-daemon --stacktrace --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process testReleaseUnitTest lintRelease assembleRelease bundleRelease
       - uses: actions/upload-artifact@v7
         with:
-          name: xylune-protected-signed-release
+          name: turp-protected-signed-release
           if-no-files-found: error
           retention-days: 7
           path: |

@@ -156,10 +156,10 @@ class QwenCloudProviderTest {
     fun qwenResponsesActionSourcesBecomeVisibleCitations() {
         val state = ResponsesApiStreamState("Qwen Cloud native search")
         val chunk = state.accept(
-            """{"type":"response.completed","response":{"status":"completed","output":[{"type":"web_search_call","id":"ws_1","status":"completed","action":{"type":"search","query":"Xylune","sources":[{"url":"https://example.com/xylune","title":"Xylune source"}]}},{"type":"message","id":"m_1","role":"assistant","content":[{"type":"output_text","text":"Result"}]}],"usage":{"input_tokens":4,"output_tokens":2}}}""",
+            """{"type":"response.completed","response":{"status":"completed","output":[{"type":"web_search_call","id":"ws_1","status":"completed","action":{"type":"search","query":"Turp","sources":[{"url":"https://example.com/xylune","title":"Turp source"}]}},{"type":"message","id":"m_1","role":"assistant","content":[{"type":"output_text","text":"Result"}]}],"usage":{"input_tokens":4,"output_tokens":2}}}""",
         )!!
 
-        assertTrue(chunk.text.contains("Xylune source"))
+        assertTrue(chunk.text.contains("Turp source"))
         assertTrue(chunk.text.contains("https://example.com/xylune"))
         assertTrue(chunk.nativeProviderPayloadJson.contains("web_search_call"))
     }
@@ -474,7 +474,7 @@ class QwenCloudProviderTest {
             supportsTools = true,
         ),
         apiKey = "test-key",
-        messages = listOf(InputMessage(MessageRole.USER, "Search for Xylune")),
+        messages = listOf(InputMessage(MessageRole.USER, "Search for Turp")),
         maxOutputTokens = 2_048,
         thinkingEnabled = true,
         tools = listOf(webSearch, webFetch),

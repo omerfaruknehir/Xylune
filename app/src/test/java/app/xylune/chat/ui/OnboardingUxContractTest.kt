@@ -9,7 +9,7 @@ class OnboardingUxContractTest {
     fun `welcome stays concise and defers optional setup`() {
         val source = java.io.File("src/main/java/app/xylune/chat/ui/OnboardingScreen.kt").readText()
 
-        assertTrue(source.contains("Welcome to Xylune"))
+        assertTrue(source.contains("Welcome to Turp"))
         assertTrue(source.contains("Everything here can be changed later in Settings"))
         assertTrue(source.contains("PrimaryNextButton(\"Continue\""))
         assertFalse(source.contains("Starting fresh? Ignore the restore card"))

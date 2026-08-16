@@ -24,6 +24,20 @@ object ModelRequestPolicy {
         "gpt-image-1-mini",
     )
     private val automaticOpenAiCompatiblePresetIds = setOf("openai", "deepseek", "openrouter", "groq", "mistral", "xai", "qwen-cloud", "ollama")
+    /**
+     * Saved API-key connections get unique IDs so the same preset can be used more than once.
+     * This helper keeps provider-specific protocol decisions attached to the preset identity
+     * without forcing the persisted row to reuse the preset's singleton ID.
+     */
+    fun matchesPresetId(providerId: String?, presetId: String): Boolean {
+        val id = providerId.orEmpty()
+        return id.equals(presetId, ignoreCase = true) ||
+            id.startsWith("provider-$presetId-", ignoreCase = true)
+    }
+
+    fun matchesPreset(provider: ProviderEntity, presetId: String): Boolean =
+        matchesPresetId(provider.id, presetId)
+
     private val qwen3OpenSourceHybridModels = setOf(
         "qwen3-235b-a22b",
         "qwen3-32b",
@@ -48,7 +62,7 @@ object ModelRequestPolicy {
 
     fun isOpenRouter(provider: ProviderEntity): Boolean =
         provider.kind == ProviderKind.OPENAI_COMPATIBLE &&
-            (provider.id == "openrouter" || isOpenRouterBaseUrl(provider.baseUrl))
+            (matchesPreset(provider, "openrouter") || isOpenRouterBaseUrl(provider.baseUrl))
 
     fun isQwenCloudBaseUrl(rawBaseUrl: String): Boolean {
         val uri = runCatching { URI(rawBaseUrl.trim()) }.getOrNull() ?: return false
@@ -62,7 +76,7 @@ object ModelRequestPolicy {
     /** True for the Alibaba Model Studio OpenAI-compatible provider, including hosted third-party models. */
     fun isAlibabaModelStudio(provider: ProviderEntity): Boolean =
         provider.kind == ProviderKind.OPENAI_COMPATIBLE &&
-            (provider.id.equals("qwen-cloud", ignoreCase = true) || isQwenCloudBaseUrl(provider.baseUrl))
+            (matchesPreset(provider, "qwen-cloud") || isQwenCloudBaseUrl(provider.baseUrl))
 
     /** Kept for request code that needs Alibaba's provider-level compatibility behavior. */
     fun isQwenCloud(provider: ProviderEntity, model: ModelEntity): Boolean =
@@ -123,13 +137,13 @@ object ModelRequestPolicy {
 
     fun isOfficialOpenAi(provider: ProviderEntity): Boolean =
         provider.kind == ProviderKind.OPENAI_COMPATIBLE &&
-            (provider.id == "openai" || isOfficialOpenAiBaseUrl(provider.baseUrl))
+            (matchesPreset(provider, "openai") || isOfficialOpenAiBaseUrl(provider.baseUrl))
 
     fun usesManualRequestType(provider: ProviderEntity): Boolean =
         provider.kind == ProviderKind.OPENAI_COMPATIBLE &&
             !isOfficialOpenAi(provider) &&
             !isOpenRouter(provider) &&
-            provider.id !in automaticOpenAiCompatiblePresetIds
+            automaticOpenAiCompatiblePresetIds.none { presetId -> matchesPreset(provider, presetId) }
 
     fun requestType(provider: ProviderEntity, model: ModelEntity): ModelRequestType = when {
         isOfficialOpenAi(provider) -> if (model.modelId.substringAfterLast('/') in officialOpenAiImageIds) {

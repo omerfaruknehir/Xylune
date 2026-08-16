@@ -152,7 +152,7 @@ class AppContainer(val application: Application, val crashReporter: CrashReporte
     val pythonSandbox = PythonSandbox(application)
     val ubuntuRuntime = UbuntuRuntime(application, pythonSandbox)
     val linuxEnvironmentArchives = LinuxEnvironmentArchiveStore(application, pythonSandbox, ubuntuRuntime)
-    val appSettingsArchives = AppSettingsArchiveStore(application, appPreferences, database)
+    val appSettingsArchives = AppSettingsArchiveStore(application, appPreferences, database, secureStore)
     val archiveManager = XyluneArchiveManager(application, database, linuxEnvironmentArchives, appSettingsArchives)
     val scopedCloudFolder = ScopedCloudFolderStore(application)
     val googleDriveAppData = GoogleDriveAppDataClient(application)

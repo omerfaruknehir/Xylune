@@ -232,7 +232,7 @@ val snippet = Regex(
     }
 
     private companion object {
-        const val USER_AGENT = "Mozilla/5.0 (Android) Xylune/0.24.7"
+        const val USER_AGENT = "Mozilla/5.0 (Android) Turp/0.24.7"
         val JSON_MEDIA_TYPE = "application/json".toMediaType()
     }
 }

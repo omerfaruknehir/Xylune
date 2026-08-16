@@ -1,6 +1,6 @@
 # Cloud provider setup
 
-Xylune supports six cloud paths:
+Turp supports six cloud paths:
 
 1. Android's scoped folder picker
 2. Google Drive `appDataFolder`
@@ -29,8 +29,8 @@ The repository owner must create or select one Google Cloud project:
 1. Enable Google Drive API.
 2. Configure the OAuth consent screen.
 3. Create an Android OAuth client for every officially distributed package/signing pair.
-4. Register the exact package and SHA-1 shown by Xylune's diagnostic card.
-5. Keep the requested scope limited to `https://www.googleapis.com/auth/drive.appdata`.
+4. Register the exact package and SHA-1 shown by Turp's diagnostic card.
+5. Keep the requested scope limited to `@@TURP_PROTECTED_0@@
 
 The normal public GitHub release currently uses package `app.xylune.chat`. Protected production releases use `app.xylune.chat` and need their private release certificate SHA-1 registered separately in the same Cloud project.
 
@@ -92,7 +92,7 @@ Use a dedicated key restricted to the selected bucket and prefix. A minimal poli
 ## Public legal URLs
 
 - Homepage: `https://omerfaruknehir.github.io/Xylune/`
-- Privacy: `https://omerfaruknehir.github.io/Xylune/privacy/`
+- Privacy: `@@TURP_PROTECTED_3@@
 - Terms: `https://omerfaruknehir.github.io/Xylune/terms/`
 - Data deletion: `https://omerfaruknehir.github.io/Xylune/data-deletion/`
 

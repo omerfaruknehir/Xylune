@@ -605,7 +605,7 @@ private fun PackageRequestBlock(
         text = {
             val plan = review?.plan
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Only missing or outdated packages will be changed. Packages and install scripts run with Xylune's app permissions.")
+                Text("Only missing or outdated packages will be changed. Packages and install scripts run with Turp's app permissions.")
                 plan?.items?.filter { it.action != PackageAction.ALREADY_INSTALLED }?.forEach { item ->
                     Text("• ${item.name}: ${item.action.name.lowercase()}${item.candidateVersion?.let { " $it" }.orEmpty()}", fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall)
                 }

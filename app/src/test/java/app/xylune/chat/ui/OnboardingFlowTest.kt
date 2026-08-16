@@ -36,7 +36,7 @@ class OnboardingFlowTest {
         assertFalse(source.contains("OnboardingStep.TOOLS"))
         assertFalse(source.contains("private fun AppearanceStep"))
         assertFalse(source.contains("private fun ToolsStep"))
-        assertTrue(source.contains("Welcome to Xylune"))
+        assertTrue(source.contains("Welcome to Turp"))
         assertTrue(source.contains("Everything here can be changed later in Settings"))
         assertTrue(source.contains("PrimaryNextButton(\"Continue\""))
         assertTrue(source.contains("TextButton(onClick = onSkipForNow)"))

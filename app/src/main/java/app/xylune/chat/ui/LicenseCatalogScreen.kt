@@ -194,7 +194,7 @@ private fun DevelopmentDisclosureCard() {
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
             )
             Text(
-                "Xylune was made with full vibe coding: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools. It may contain serious defects.",
+                "Turp was made with full vibe coding: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools. It may contain serious defects.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
             )
@@ -291,7 +291,7 @@ private fun LicenseIcon(component: OfflineLicenseComponent, modifier: Modifier =
         if (component.id == "xylune") {
             XyluneMark(
                 modifier = Modifier.fillMaxSize().padding(4.dp),
-                contentDescription = "Xylune",
+                contentDescription = "Turp",
             )
         } else {
             when {

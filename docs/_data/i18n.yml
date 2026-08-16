@@ -8,7 +8,7 @@ en:
     github: GitHub
   ui:
     primary_navigation: Primary navigation
-    xylune_home: Xylune home
+    xylune_home: Turp home
     open_navigation: Open navigation
     appearance_controls: Appearance controls
     open_appearance: Open appearance settings
@@ -27,15 +27,15 @@ en:
     sunset: Sunset
     brand_icon: Brand icon
     dynamic_icon: Dynamic icon
-    dynamic_icon_description: Use the same icon variant as Xylune for the selected color scheme.
-    use_dynamic_icon: Use dynamic Xylune icon
+    dynamic_icon_description: Use the same icon variant as Turp for the selected color scheme.
+    use_dynamic_icon: Use dynamic Turp icon
     language: Language
     language_controls: Language selector
     choose_language: Choose language
     english: English
     turkish: Türkçe
     current_language: Current language
-    back_to_xylune: Back to Xylune
+    back_to_xylune: Back to Turp
   footer:
     maintained_by: This project is maintained by
     open_source: Open source on GitHub
@@ -58,7 +58,7 @@ tr:
     github: GitHub
   ui:
     primary_navigation: Ana gezinme
-    xylune_home: Xylune ana sayfası
+    xylune_home: Turp ana sayfası
     open_navigation: Gezinme menüsünü aç
     appearance_controls: Görünüm ayarları
     open_appearance: Görünüm ayarlarını aç
@@ -75,17 +75,17 @@ tr:
     ocean: Okyanus
     violet: Mor
     sunset: Gün batımı
-    brand_icon: Xylune simgesi
+    brand_icon: Turp simgesi
     dynamic_icon: Dinamik simge
-    dynamic_icon_description: Seçili renk şemasına uygun Xylune simgesini kullan.
-    use_dynamic_icon: Temaya uyumlu Xylune simgesini kullan
+    dynamic_icon_description: Seçili renk şemasına uygun Turp simgesini kullan.
+    use_dynamic_icon: Temaya uyumlu Turp simgesini kullan
     language: Dil
     language_controls: Dil seçimi
     choose_language: Dil seç
     english: İngilizce
     turkish: Türkçe
     current_language: Seçili dil
-    back_to_xylune: Xylune'a dön
+    back_to_xylune: Turp'a dön
   footer:
     maintained_by: "Proje sorumlusu:"
     open_source: GitHub'da açık kaynak

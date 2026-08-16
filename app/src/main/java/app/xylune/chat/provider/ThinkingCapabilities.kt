@@ -31,7 +31,7 @@ private fun metadataLevels(provider: ProviderEntity?, model: ModelEntity): List<
         // OpenRouter documents null supported_efforts as accepting its complete normalized
         // gateway scale. Other providers use an empty effort list to mean that thinking is
         // controllable only as an on/off mode and must not inherit fake OpenAI effort levels.
-        val openRouterMetadata = provider?.id.equals("openrouter", ignoreCase = true) ||
+        val openRouterMetadata = ModelRequestPolicy.matchesPresetId(provider?.id, "openrouter") ||
             model.metadataSource.contains("openrouter", ignoreCase = true)
         if (!openRouterMetadata) {
             return buildList {
@@ -85,7 +85,7 @@ private val effortOptions = linkedMapOf(
 
 private fun openAiCompatibleLevels(providerId: String, modelId: String): List<ThinkingLevelOption> {
     if (modelId.contains("gpt-5-pro")) return listOf(high)
-    if (providerId == "openai" && modelId.contains("gpt-5.1") && !modelId.contains("codex-max")) {
+    if (ModelRequestPolicy.matchesPresetId(providerId, "openai") && modelId.contains("gpt-5.1") && !modelId.contains("codex-max")) {
         return listOf(off, low, medium, high)
     }
     val result = mutableListOf(off, minimal, low, medium, high)

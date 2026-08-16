@@ -46,7 +46,7 @@ class OpenAiOAuthProvider(
                 .url(endpoint)
                 .header("Accept", "text/event-stream")
                 .header("Content-Type", "application/json")
-                .header("User-Agent", "Xylune/0.19.4 openai-oauth-android")
+                .header("User-Agent", "Turp/0.19.4 openai-oauth-android")
                 .post(body.toString().toRequestBody("application/json".toMediaType()))
             request.customHeaders.forEach(builder::header)
             // OAuth transport headers are authoritative and must not be overridden by provider metadata.
@@ -352,7 +352,7 @@ class OpenAiOAuthProvider(
             if (!emittedImageIds.add(stableId)) return null
             val bytes = runCatching { Base64.getDecoder().decode(encoded.substringAfter("base64,", encoded)) }
                 .getOrElse { throw ProviderProtocolException("ChatGPT returned invalid image data", it) }
-            require(bytes.size.toLong() <= MAX_IMAGE_BYTES) { "Generated image exceeded Xylune's 64 MB limit" }
+            require(bytes.size.toLong() <= MAX_IMAGE_BYTES) { "Generated image exceeded Turp's 64 MB limit" }
             return GeneratedImageOutput(
                 bytes = bytes,
                 mimeType = "image/png",

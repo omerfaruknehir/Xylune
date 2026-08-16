@@ -15,7 +15,7 @@ internal class AlibabaImageRoutingProvider(
             // The built-in preset is editable. If it is repointed to another compatible
             // service, do not let its historical qwen-cloud ID trigger Alibaba-only
             // serialization in the generic transport. This copy is request-local only.
-            val neutralized = if (request.provider.id.equals("qwen-cloud", ignoreCase = true)) {
+            val neutralized = if (ModelRequestPolicy.matchesPreset(request.provider, "qwen-cloud")) {
                 request.copy(provider = request.provider.copy(id = "custom-openai-compatible"))
             } else {
                 request

@@ -335,7 +335,7 @@ class UbuntuRuntime(
 
         try {
             publish(UbuntuStage.DOWNLOADING, 0f, 1, "Starting ${distro.displayName} ${distro.release} download")
-            val request = Request.Builder().url(spec.url).header("User-Agent", "Xylune/$APP_RUNTIME_VERSION Android").build()
+            val request = Request.Builder().url(spec.url).header("User-Agent", "Turp/$APP_RUNTIME_VERSION Android").build()
             client.newCall(request).execute().use { response ->
                 check(response.isSuccessful) { "${distro.displayName} download failed with HTTP ${response.code}" }
                 val body = requireNotNull(response.body) { "The Linux download returned no data" }
@@ -492,7 +492,7 @@ class UbuntuRuntime(
         val clean = query.trim().take(100)
         if (clean.length < 2) return@withContext emptyList()
         val url = "https://pypi.org/search/?q=" + URLEncoder.encode(clean, "UTF-8")
-        val request = Request.Builder().url(url).header("User-Agent", "Xylune/$APP_RUNTIME_VERSION Android").build()
+        val request = Request.Builder().url(url).header("User-Agent", "Turp/$APP_RUNTIME_VERSION Android").build()
         client.newCall(request).execute().use { response ->
             check(response.isSuccessful) { "PyPI search failed with HTTP ${response.code}" }
             val html = response.body?.string().orEmpty().take(2_000_000)
@@ -879,7 +879,7 @@ class UbuntuRuntime(
             UbuntuRuntimeStatus(UbuntuStage.READY, distro, architecture = spec.arch, sizeBytes = directorySize(runtimeDir()), detail = "${distro.displayName} ${distro.release} tool layer")
         } else if (rootfsMarker().exists() || rootfs().exists()) {
             UbuntuRuntimeStatus(UbuntuStage.ERROR, distro, architecture = spec.arch, sizeBytes = directorySize(runtimeDir()), detail = "${distro.displayName} files are incomplete or from another runtime version. Retry setup to repair them.")
-        } else UbuntuRuntimeStatus(UbuntuStage.NOT_INSTALLED, distro, architecture = spec.arch, detail = "Optional ${spec.downloadMiB} MiB download; stored only inside Xylune")
+        } else UbuntuRuntimeStatus(UbuntuStage.NOT_INSTALLED, distro, architecture = spec.arch, detail = "Optional ${spec.downloadMiB} MiB download; stored only inside Turp")
     }
 
     private fun parsePackageRequests(raw: String, restrictionsEnabled: Boolean): List<String> {

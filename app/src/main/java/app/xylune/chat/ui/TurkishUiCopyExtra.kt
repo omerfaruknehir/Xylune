@@ -44,7 +44,7 @@ internal object TurkishUiCopyExtra {
         "Could not unlock archive" -> "Arşidin kilidi açılamadı"
         "Create image" -> "Görsel oluştur"
         "Creating and uploading…" -> "Oluşturuluyor ve yükleniyor…"
-        "Credentials are encrypted with Android Keystore and are never included in Xylune backups." -> "Kimlik bilgileri Android Keystore ile şifrelenir ve Xylune yedeklerine hiçbir zaman dahil edilmez."
+        "Credentials are encrypted with Android Keystore and are never included in Turp backups." -> "Kimlik bilgileri Android Keystore ile şifrelenir ve Turp yedeklerine hiçbir zaman dahil edilmez."
         "Credentials are encrypted with Android Keystore and sent only to the provider you choose." -> "Kimlik bilgileri Android Keystore ile şifrelenir ve yalnızca seçtiğiniz sağlayıcıya gönderilir."
         "Credits: unlimited" -> "Krediler: sınırsız"
         "Custom system prompt" -> "Özel sistem istemi"
@@ -82,10 +82,10 @@ internal object TurkishUiCopyExtra {
         "Documents, archives, code, audio, and other supported files" -> "Belgeler, arşivler, kod, ses ve desteklenen diğer dosyalar"
         "Double-tap, pinch, or drag" -> "Çift dokunun, sıkıştırın veya sürükleyin"
         "Draws explicit debug guides at the top and bottom panel boundaries. Normal UI no longer draws a boundary highlight." -> "Üst ve alt panel sınırlarında belirgin hata ayıklama kılavuzları çizer. Normal arayüz artık sınır vurgusu çizmez."
-        "Dropbox Xylune App folder" -> "Dropbox Xylune uygulama klasörü"
+        "Dropbox Turp App folder" -> "Dropbox Turp uygulama klasörü"
         "Duplicate content recording for blur" -> "Bulanıklık için yinelenen içerik kaydı"
         "Each chat has a persistent bundled-Python session and isolated .packages directory. It works without installing Linux and remains confined by Android's app sandbox." -> "Her sohbetin kalıcı bir dahili Python oturumu ve yalıtılmış .packages dizini vardır. Linux yüklemeden çalışır ve Android uygulama sanal alanı içinde kalır."
-        "Each provider keeps its OAuth session, models, usage limits, and refresh state separate. Xylune requests a fresh sign-in page so you can add a different ChatGPT account." -> "Her sağlayıcı OAuth oturumunu, modellerini, kullanım sınırlarını ve yenileme durumunu ayrı tutar. Farklı bir ChatGPT hesabı ekleyebilmeniz için Xylune yeni bir oturum açma sayfası ister."
+        "Each provider keeps its OAuth session, models, usage limits, and refresh state separate. Turp requests a fresh sign-in page so you can add a different ChatGPT account." -> "Her sağlayıcı OAuth oturumunu, modellerini, kullanım sınırlarını ve yenileme durumunu ayrı tutar. Farklı bir ChatGPT hesabı ekleyebilmeniz için Turp yeni bir oturum açma sayfası ister."
         "Edit image" -> "Görseli düzenle"
         "Edit images" -> "Görselleri düzenle"
         "Edit memory" -> "Hafızayı düzenle"
@@ -93,8 +93,8 @@ internal object TurkishUiCopyExtra {
         "Edit source" -> "Kaynağı düzenle"
         "Encryption password (optional)" -> "Şifreleme parolası (isteğe bağlı)"
         "Enter a server folder and credentials" -> "Sunucu klasörü ve kimlik bilgilerini girin"
-        "Enter the exact HTTPS URL of a dedicated Xylune folder. For Nextcloud this normally ends with /remote.php/dav/files/USERNAME/Xylune/." -> "Özel bir Xylune klasörünün tam HTTPS URL'sini girin. Nextcloud için bu genellikle /remote.php/dav/files/KULLANICI_ADI/Xylune/ ile biter."
-        "Enter Xylune now. You can return to Providers & models from Settings at any time." -> "Şimdi Xylune'a girin. İstediğiniz zaman Ayarlar'dan Sağlayıcılar ve modeller bölümüne dönebilirsiniz."
+        "Enter the exact HTTPS URL of a dedicated Turp folder. For Nextcloud this normally ends with /remote.php/dav/files/USERNAME/Turp/." -> "Özel bir Turp klasörünün tam HTTPS URL'sini girin. Nextcloud için bu genellikle /remote.php/dav/files/KULLANICI_ADI/Turp/ ile biter."
+        "Enter Turp now. You can return to Providers & models from Settings at any time." -> "Şimdi Turp'a girin. İstediğiniz zaman Ayarlar'dan Sağlayıcılar ve modeller bölümüne dönebilirsiniz."
         "Everything listed here is embedded in this build and available without a network connection." -> "Burada listelenen her şey bu derlemeye gömülüdür ve ağ bağlantısı olmadan kullanılabilir."
         "Everything requested is already installed." -> "İstenen her şey zaten yüklü."
         "Exact provider counters where available, then local family and generic fallbacks." -> "Varsa sağlayıcının kesin sayaçları, ardından yerel aile ve genel yedek değerler kullanılır."
@@ -158,7 +158,7 @@ internal object TurkishUiCopyExtra {
         "Import failed" -> "İçe aktarma başarısız"
         "Import verification passed." -> "İçe aktarma doğrulaması başarılı."
         "Import verification warning:" -> "İçe aktarma doğrulama uyarısı:"
-        "Import Xylune backup" -> "Xylune yedeğini içe aktar"
+        "Import Turp backup" -> "Turp yedeğini içe aktar"
         "Imports are non-destructive: every chat is created as a separate copy. Existing chats are never overwritten. Provider credentials are not imported, so reconnect the required provider before continuing an imported chat." -> "İçe aktarma tahribatsızdır: her sohbet ayrı bir kopya olarak oluşturulur. Mevcut sohbetlerin üzerine yazılmaz. Sağlayıcı kimlik bilgileri içe aktarılmaz; içe aktarılan bir sohbete devam etmeden önce gerekli sağlayıcıyı yeniden bağlayın."
         "Include app settings and configuration" -> "Uygulama ayarlarını ve yapılandırmayı dahil et"
         "Include attachments" -> "Ekleri dahil et"
@@ -178,7 +178,7 @@ internal object TurkishUiCopyExtra {
         "Install blocked" -> "Yükleme engellendi"
         "Install failed" -> "Yükleme başarısız"
         "Install packages" -> "Paketleri yükle"
-        "Install Ubuntu, Debian, or Alpine before Xylune can use Linux tools." -> "Xylune Linux araçlarını kullanmadan önce Ubuntu, Debian veya Alpine yükleyin."
+        "Install Ubuntu, Debian, or Alpine before Turp can use Linux tools." -> "Turp Linux araçlarını kullanmadan önce Ubuntu, Debian veya Alpine yükleyin."
         "Installation and import verification completed." -> "Yükleme ve içe aktarma doğrulaması tamamlandı."
         "Installation completed successfully." -> "Yükleme başarıyla tamamlandı."
         "Installation failed" -> "Yükleme başarısız"
@@ -194,7 +194,7 @@ internal object TurkishUiCopyExtra {
         "Its saved API key will be erased and it will disappear from model selectors. Chats and usage history are kept." -> "Kaydedilmiş API anahtarı silinir ve sağlayıcı model seçicilerden kaybolur. Sohbetler ve kullanım geçmişi korunur."
         "Keep in background" -> "Arka planda tut"
         "Keep the partial answer" -> "Kısmi yanıtı koru"
-        "Keep Xylune open" -> "Xylune'u açık tut"
+        "Keep Turp open" -> "Turp'u açık tut"
         "Known calculated cost" -> "Bilinen hesaplanmış maliyet"
         "Last request/answer pairs" -> "Son istek/yanıt çiftleri"
         "Layout / measure" -> "Yerleşim / ölçüm"
@@ -224,14 +224,14 @@ internal object TurkishUiCopyExtra {
         "Manage Linux workspace" -> "Linux çalışma alanını yönet"
         "Maximum supported reasoning" -> "Desteklenen maksimum akıl yürütme"
         "Message actions" -> "Mesaj işlemleri"
-        "Message Xylune…" -> "Xylune'a mesaj yaz…"
+        "Message Turp…" -> "Turp'a mesaj yaz…"
         "Messages, code, and reasoning are searched locally as you type." -> "Yazdıkça mesajlar, kod ve akıl yürütme yerel olarak aranır."
         "Mixed / unattributed frame work" -> "Karma / kaynağı belirlenemeyen kare işi"
         "Model capabilities and request transport are selected automatically by this provider preset." -> "Model yetenekleri ve istek aktarımı bu sağlayıcı ön ayarı tarafından otomatik seçilir."
         "Model provider" -> "Model sağlayıcısı"
         "Model receives OCR fallback • original preview is unchanged" -> "Model OCR yedeğini alır • özgün önizleme değişmez"
         "Model refresh failed" -> "Model yenileme başarısız"
-        "Model review is advisory and can be wrong. Xylune records the selected model's allow/deny reason, but this is not malware analysis or a security guarantee." -> "Model incelemesi yalnızca tavsiye niteliğindedir ve yanlış olabilir. Xylune seçili modelin izin/verme nedenini kaydeder; bu bir kötü amaçlı yazılım analizi veya güvenlik garantisi değildir."
+        "Model review is advisory and can be wrong. Turp records the selected model's allow/deny reason, but this is not malware analysis or a security guarantee." -> "Model incelemesi yalnızca tavsiye niteliğindedir ve yanlış olabilir. Turp seçili modelin izin/verme nedenini kaydeder; bu bir kötü amaçlı yazılım analizi veya güvenlik garantisi değildir."
         "Models discovered for this ChatGPT account only." -> "Yalnızca bu ChatGPT hesabı için bulunan modeller."
         "More thorough reasoning" -> "Daha kapsamlı akıl yürütme"
         "My DeepSeek account" -> "DeepSeek hesabım"
@@ -272,11 +272,11 @@ internal object TurkishUiCopyExtra {
     }
 
     private fun exact6(text: String): String? = when (text) {
-        "One package requirement per line. Xylune resolves Android-compatible Python 3.12 wheels before applying your approval policy." -> "Satır başına bir paket gereksinimi. Xylune onay politikanızı uygulamadan önce Android uyumlu Python 3.12 wheel paketlerini çözümler."
-        "One-tap native OAuth. Xylune opens the system browser, receives the localhost callback itself, encrypts the session on this device, and refreshes it automatically. No extension or local proxy is required." -> "Tek dokunuşla yerel OAuth. Xylune sistem tarayıcısını açar, localhost geri çağrısını kendisi alır, oturumu bu cihazda şifreler ve otomatik yeniler. Eklenti veya yerel proxy gerekmez."
-        "OneDrive Apps/Xylune" -> "OneDrive Apps/Xylune"
-        "Only missing or outdated packages will be changed. Packages and install scripts run with Xylune's app permissions." -> "Yalnızca eksik veya eski paketler değiştirilir. Paketler ve kurulum betikleri Xylune'un uygulama izinleriyle çalışır."
-        "Only missing or outdated packages will change. Install scripts run with Xylune's app permissions." -> "Yalnızca eksik veya eski paketler değişir. Kurulum betikleri Xylune'un uygulama izinleriyle çalışır."
+        "One package requirement per line. Turp resolves Android-compatible Python 3.12 wheels before applying your approval policy." -> "Satır başına bir paket gereksinimi. Turp onay politikanızı uygulamadan önce Android uyumlu Python 3.12 wheel paketlerini çözümler."
+        "One-tap native OAuth. Turp opens the system browser, receives the localhost callback itself, encrypts the session on this device, and refreshes it automatically. No extension or local proxy is required." -> "Tek dokunuşla yerel OAuth. Turp sistem tarayıcısını açar, localhost geri çağrısını kendisi alır, oturumu bu cihazda şifreler ve otomatik yeniler. Eklenti veya yerel proxy gerekmez."
+        "OneDrive Apps/Turp" -> "OneDrive Apps/Turp"
+        "Only missing or outdated packages will be changed. Packages and install scripts run with Turp's app permissions." -> "Yalnızca eksik veya eski paketler değiştirilir. Paketler ve kurulum betikleri Turp'un uygulama izinleriyle çalışır."
+        "Only missing or outdated packages will change. Install scripts run with Turp's app permissions." -> "Yalnızca eksik veya eski paketler değişir. Kurulum betikleri Turp'un uygulama izinleriyle çalışır."
         "Only this page is held in memory. Save or share the file for full-file processing." -> "Yalnızca bu sayfa bellekte tutulur. Dosyanın tamamını işlemek için kaydedin veya paylaşın."
         "Open conversations" -> "Sohbetleri aç"
         "Open full-screen preview" -> "Tam ekran önizlemeyi aç"
@@ -338,8 +338,8 @@ internal object TurkishUiCopyExtra {
         Regex("""Connected (.+) • (\d+) models available""").matchEntire(text)?.let {
             return "${it.groupValues[1]} bağlandı • ${it.groupValues[2]} model kullanılabilir"
         }
-        Regex("""Connected to (.+), but no Xylune backups were found\.""").matchEntire(text)?.let {
-            return "${it.groupValues[1]} bağlantısı kuruldu ancak Xylune yedeği bulunamadı."
+        Regex("""Connected to (.+), but no Turp backups were found\.""").matchEntire(text)?.let {
+            return "${it.groupValues[1]} bağlantısı kuruldu ancak Turp yedeği bulunamadı."
         }
         Regex("""Could not open (.+) sign-in""").matchEntire(text)?.let { return "${it.groupValues[1]} oturum açma sayfası açılamadı" }
         Regex("""Could not read (.+) backups""").matchEntire(text)?.let { return "${it.groupValues[1]} yedekleri okunamadı" }
@@ -353,7 +353,7 @@ internal object TurkishUiCopyExtra {
         Regex("""Image requests cannot include ordinary files\. Remove the non-image attachments?""").matchEntire(text)?.let {
             return "Görsel istekleri normal dosya içeremez. Görsel olmayan ekleri kaldırın."
         }
-        Regex("""Found (\d+) Xylune backups?""").matchEntire(text)?.let { return "${it.groupValues[1]} Xylune yedeği bulundu" }
+        Regex("""Found (\d+) Turp backups?""").matchEntire(text)?.let { return "${it.groupValues[1]} Turp yedeği bulundu" }
         Regex("""Installed (.+)""").matchEntire(text)?.let { return "Yüklendi: ${it.groupValues[1]}" }
         Regex("""Installed and import-verified:? (.+)""").matchEntire(text)?.let { return "Yüklendi ve içe aktarma doğrulandı: ${it.groupValues[1]}" }
         Regex("""Downloading (.+)…""").matchEntire(text)?.let { return "${it.groupValues[1]} indiriliyor…" }

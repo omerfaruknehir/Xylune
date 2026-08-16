@@ -41,7 +41,7 @@ class LegalDocumentsConsistencyTest {
         assertTrue(
             privacy.contains(
                 "[GitHub](https://docs.github.com/site-policy/privacy-policies/github-privacy-statement)" +
-                    "—not the Xylune maintainer—operates",
+                    "—not the Turp maintainer—operates",
             ),
         )
         assertTrue(

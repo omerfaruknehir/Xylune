@@ -170,7 +170,7 @@ internal fun parseReleaseNotes(markdown: String): List<ReleaseNotesBlock> = mark
     .filter(String::isNotBlank)
     .mapNotNull { line ->
         when {
-            line.startsWith("# Xylune ", ignoreCase = true) -> null
+            line.startsWith("# Turp ", ignoreCase = true) -> null
             line.startsWith("### ") -> ReleaseNotesBlock.Heading(cleanReleaseNotesInline(line.removePrefix("### ")))
             line.startsWith("## ") -> ReleaseNotesBlock.Heading(cleanReleaseNotesInline(line.removePrefix("## ")))
             line.startsWith("# ") -> ReleaseNotesBlock.Heading(cleanReleaseNotesInline(line.removePrefix("# ")))
@@ -220,8 +220,8 @@ private fun releaseNotesStrings(): ReleaseNotesStrings {
             retry = "Yeniden dene",
             noReleaseNotes = "Bu sürüm için sürüm notu bulunamadı.",
             couldNotLoad = "Bu sürümün yenilikleri şu anda yüklenemedi.",
-            updateAvailable = { version -> "Xylune $version kullanılabilir" },
-            whatsNewIn = { version -> "Xylune $version sürümünde neler yeni" },
+            updateAvailable = { version -> "Turp $version kullanılabilir" },
+            whatsNewIn = { version -> "Turp $version sürümünde neler yeni" },
         )
     } else {
         ReleaseNotesStrings(
@@ -233,8 +233,8 @@ private fun releaseNotesStrings(): ReleaseNotesStrings {
             retry = "Retry",
             noReleaseNotes = "No release notes were provided for this version.",
             couldNotLoad = "What's new for this version could not be loaded right now.",
-            updateAvailable = { version -> "Xylune $version is available" },
-            whatsNewIn = { version -> "What's new in Xylune $version" },
+            updateAvailable = { version -> "Turp $version is available" },
+            whatsNewIn = { version -> "What's new in Turp $version" },
         )
     }
 }

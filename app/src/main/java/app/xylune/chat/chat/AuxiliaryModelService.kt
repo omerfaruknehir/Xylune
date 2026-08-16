@@ -34,7 +34,7 @@ class AuxiliaryModelService(
             conversation.selectedModelId,
             state.conversationId,
             system = """
-                Repair exactly one Xylune generated-content block under contract ${GeneratedContentCapabilityRegistry.CONTRACT_VERSION}.
+                Repair exactly one Turp generated-content block under contract ${GeneratedContentCapabilityRegistry.CONTRACT_VERSION}.
                 Return exactly one complete `${state.canonicalFence}` fenced block and no prose, explanation, or second block.
                 The candidate is compiled before the user can see it. Compiler feedback may come from schema parsing, bounded action execution, actual public HTTP JSON preflight, JSON binding checks, or representative Android launcher renders. Fix the root cause rather than hiding errors with fake values.
                 Preserve intended behavior and visible labels where they remain compatible. Shorten or restructure launcher content when layout compilation reports clipping or cramped text. Use at most four visible launcher actions, at most six list rows, normal text of at least 15sp, and useful fallback values for every live HTTP binding.
@@ -63,7 +63,7 @@ class AuxiliaryModelService(
             conversation.selectedProviderId,
             conversation.selectedModelId,
             conversationId,
-            system = "You are providing a second-opinion security review of an Xylune declarative native widget. Xylune itself enforces the schema; your review is advisory. Identify concrete benefits, privacy/security cautions, misleading claims, risky public data sources, and whether Home-screen exposure is appropriate. Do not claim the widget can run code or access Android permissions unless the definition actually contains a capability Xylune supports. Use short headings: Benefits, Cautions, Verdict.",
+            system = "You are providing a second-opinion security review of an Turp declarative native widget. Turp itself enforces the schema; your review is advisory. Identify concrete benefits, privacy/security cautions, misleading claims, risky public data sources, and whether Home-screen exposure is appropriate. Do not claim the widget can run code or access Android permissions unless the definition actually contains a capability Turp supports. Use short headings: Benefits, Cautions, Verdict.",
             prompt = source.take(16_000),
             maxTokens = 700,
         )
@@ -304,6 +304,6 @@ class AuxiliaryModelService(
         private const val MAX_MESSAGE_CHARS = 4_000
         private const val MAX_SOURCE_CHARS = 48_000
         private const val MAX_SUMMARY_CHARS = 20_000
-        private const val SUMMARY_GAP = "\n[Xylune compacted repetitive middle context]\n"
+        private const val SUMMARY_GAP = "\n[Turp compacted repetitive middle context]\n"
     }
 }

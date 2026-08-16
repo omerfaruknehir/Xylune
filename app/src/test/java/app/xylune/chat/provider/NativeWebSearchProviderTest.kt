@@ -96,14 +96,14 @@ class NativeWebSearchProviderTest {
 
     @Test
     fun responsesReplaysProviderOwnedSearchItemsUnchanged() {
-        val payload = """[{"type":"web_search_call","id":"ws_1","status":"completed","action":{"type":"search","query":"Xylune"}},{"type":"message","id":"msg_1","role":"assistant","content":[{"type":"output_text","text":"Found it"}]}]"""
+        val payload = """[{"type":"web_search_call","id":"ws_1","status":"completed","action":{"type":"search","query":"Turp"}},{"type":"message","id":"msg_1","role":"assistant","content":[{"type":"output_text","text":"Found it"}]}]"""
         val request = request(
             providerId = "deepseek",
             modelId = "deepseek-v4-flash",
             baseUrl = "https://api.deepseek.com",
         ).copy(
             messages = listOf(
-                InputMessage(MessageRole.USER, "Search for Xylune"),
+                InputMessage(MessageRole.USER, "Search for Turp"),
                 InputMessage(MessageRole.ASSISTANT, "Found it", nativeProviderPayloadJson = payload),
             ),
         )

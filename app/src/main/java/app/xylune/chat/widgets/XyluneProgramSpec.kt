@@ -165,7 +165,7 @@ object XyluneProgramParser {
             XyluneProgramSurface.SNIPPET -> rawId.takeIf(String::isNotBlank)?.let(::requireId) ?: "snippet"
             XyluneProgramSurface.WIDGET -> requireId(rawId).also { require(it.isNotBlank()) { "Widget id is required" } }
         }
-        val title = root.string("title").take(120).ifBlank { if (expected == XyluneProgramSurface.WIDGET) "Xylune widget" else "Interactive snippet" }
+        val title = root.string("title").take(120).ifBlank { if (expected == XyluneProgramSurface.WIDGET) "Turp widget" else "Interactive snippet" }
         val stateObject = root.objectOrNull("state") ?: JsonObject(emptyMap())
         require(stateObject.size <= MAX_STATE_VALUES) { "At most $MAX_STATE_VALUES state values are allowed" }
         val state = stateObject.entries.associate { (key, value) ->

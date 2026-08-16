@@ -61,7 +61,7 @@ internal class OpenAiImageStreamingProvider(
 
         val capabilities = requireNotNull(imageModelCapabilities(request.provider, request.model))
         require(attachments.size <= capabilities.maxInputImages) {
-            "${request.model.displayName} accepts at most ${capabilities.maxInputImages} reference images in Xylune."
+            "${request.model.displayName} accepts at most ${capabilities.maxInputImages} reference images in Turp."
         }
         require(attachments.isEmpty() || capabilities.supportsEditing) {
             "${request.model.displayName} supports generation but not image editing."
@@ -111,7 +111,7 @@ internal class OpenAiImageStreamingProvider(
         attachments.forEach { attachment ->
             val mime = normalizedMime(attachment.mimeType)
             require(mime in SUPPORTED_EDIT_MIME_TYPES) {
-                "OpenAI image editing does not support ${attachment.mimeType.ifBlank { "this image format" }} in Xylune."
+                "OpenAI image editing does not support ${attachment.mimeType.ifBlank { "this image format" }} in Turp."
             }
             val file = File(attachment.localPath)
             require(file.isFile) { "Could not read attached image: ${attachment.displayName}" }
@@ -208,7 +208,7 @@ internal class OpenAiImageStreamingProvider(
             .getOrElse { throw ProviderProtocolException("OpenAI image stream returned invalid base64 image data", it) }
             .also { bytes ->
                 require(bytes.size.toLong() <= MAX_OUTPUT_IMAGE_BYTES) {
-                    "Generated image exceeded Xylune's 64 MB limit"
+                    "Generated image exceeded Turp's 64 MB limit"
                 }
             }
     }

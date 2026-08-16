@@ -17,6 +17,7 @@ import app.xylune.chat.data.SystemPromptMode
 import app.xylune.chat.data.SystemPromptProfileEntity
 import app.xylune.chat.data.ThinkingEffort
 import app.xylune.chat.provider.ProviderEndpointPolicy
+import app.xylune.chat.security.SecureStore
 import app.xylune.chat.settings.AppPreferences
 import app.xylune.chat.settings.ColorPalette
 import app.xylune.chat.settings.DeveloperSettings
@@ -101,6 +102,7 @@ data class PortableProviderSettings(
     val enabled: Boolean,
     val registered: Boolean,
     val apiKeyRequired: Boolean,
+    val apiKey: String? = null,
 )
 
 @Serializable
@@ -193,8 +195,9 @@ class AppSettingsArchiveStore(
     private val context: Context,
     private val preferences: AppPreferences,
     private val database: XyluneDatabase,
+    private val secureStore: SecureStore,
 ) {
-    suspend fun snapshot(): PortableAppSettings {
+    suspend fun snapshot(includeApiKeys: Boolean = false): PortableAppSettings {
         val defaults = preferences.newChatDefaults.value
         val developer = preferences.developerSettings.value
         val automation = database.automationSettingsDao().get()
@@ -253,6 +256,9 @@ class AppSettingsArchiveStore(
                     enabled = provider.enabled,
                     registered = provider.registered,
                     apiKeyRequired = provider.apiKeyRequired,
+                    apiKey = if (includeApiKeys && provider.kind != ProviderKind.OPENAI_OAUTH) {
+                        secureStore.apiKey(provider.id).takeIf(String::isNotBlank)
+                    } else null,
                 )
             },
             models = database.catalogDao().allModels().map { model ->
@@ -334,7 +340,7 @@ class AppSettingsArchiveStore(
     }
 
     suspend fun restore(value: PortableAppSettings): AppSettingsRestoreResult {
-        require(value.schema == PORTABLE_SETTINGS_SCHEMA) { "Unsupported Xylune settings backup" }
+        require(value.schema == PORTABLE_SETTINGS_SCHEMA) { "Unsupported Turp settings backup" }
         val projectIds = linkedMapOf<String, String>()
         val promptIds = linkedMapOf<String, String>()
         database.withTransaction {
@@ -359,7 +365,10 @@ class AppSettingsArchiveStore(
             if (!SAFE_ID.matches(portable.id) || portable.displayName.isBlank()) return@forEach
             val kind = portable.kind.enumOr(ProviderKind.OPENAI_COMPATIBLE)
             val baseUrl = runCatching { ProviderEndpointPolicy.validate(portable.baseUrl) }.getOrNull() ?: return@forEach
-            val canRemainRegistered = portable.registered && !portable.apiKeyRequired && kind != ProviderKind.OPENAI_OAUTH
+            val restoredApiKey = portable.apiKey.orEmpty().take(MAX_API_KEY_CHARS)
+            val canRemainRegistered = portable.registered &&
+                (!portable.apiKeyRequired || restoredApiKey.isNotBlank()) &&
+                kind != ProviderKind.OPENAI_OAUTH
             catalog.upsertProvider(
                 ProviderEntity(
                     id = portable.id,
@@ -372,6 +381,9 @@ class AppSettingsArchiveStore(
                     apiKeyRequired = portable.apiKeyRequired,
                 ),
             )
+            if (kind != ProviderKind.OPENAI_OAUTH && restoredApiKey.isNotBlank()) {
+                secureStore.setApiKey(portable.id, restoredApiKey)
+            }
             restoredProviderIds += portable.id
         }
         value.models.groupBy(PortableModelSettings::providerId).forEach { (providerId, rows) ->
@@ -575,6 +587,7 @@ class AppSettingsArchiveStore(
         const val MAX_PROMPT_PROFILES = 500
         const val MAX_PROMPT_CHARS = 256_000
         const val MAX_TRUST_LIST_CHARS = 256_000
+        const val MAX_API_KEY_CHARS = 8_192
         val SAFE_ID = Regex("^[A-Za-z0-9][A-Za-z0-9._:-]{0,239}$")
         val SUPPORTED_DISTRIBUTIONS = setOf("UBUNTU", "DEBIAN", "ALPINE")
     }
