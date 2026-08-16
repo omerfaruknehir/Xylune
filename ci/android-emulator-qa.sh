@@ -103,7 +103,7 @@ dismiss_quickstep_anr() {
     if ! grep -Fq "Quickstep isn't responding" "$OUT/${name}-ui.xml" 2>/dev/null; then
       return 0
     fi
-    echo "quickstepAnrObserved=INFO attempt=$i" >> "$OUT/qa-summary.txt"
+    echo "quickstepAnrObserved=INFO screen=$name attempt=$i" >> "$OUT/qa-summary.txt"
     local xy
     if xy="$(pick_text_center "$OUT/${name}-ui.xml" "Wait")"; then
       read -r x y <<<"$xy"
@@ -137,7 +137,7 @@ dismiss_release_dialog() {
 }
 
 {
-  echo "Xylune Android emulator QA"
+  echo "Turp Android emulator QA"
   echo "commit=${GITHUB_SHA:-unknown}"
   echo "utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 } > "$OUT/qa-summary.txt"
@@ -256,6 +256,11 @@ PY2
     if tap_text "$settings_ui" "Search & web" "openSearchSettings"; then
       sleep 3
       capture_screen search
+      if dismiss_quickstep_anr search; then
+        echo "searchSystemOverlayClear=PASS" >> "$OUT/qa-summary.txt"
+      else
+        record_failure "searchSystemOverlayClear=FAIL Quickstep ANR persisted"
+      fi
       if grep -Fq 'Search routing' "$OUT/search-ui.xml" 2>/dev/null && grep -Fq 'Automatic' "$OUT/search-ui.xml" 2>/dev/null; then
         echo "searchSettingsUi=PASS" >> "$OUT/qa-summary.txt"
       else
