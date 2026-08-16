@@ -231,16 +231,26 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
     [[ -s "$OUT/provider.png" ]] && echo "providerScreenshot=PASS" >> "$OUT/qa-summary.txt" \
       || record_failure "providerScreenshot=FAIL"
 
-    # Provider Back returns to Settings home. Scroll using bounds from the actual scrollable UI node,
-    # then open Search & web and capture the redesigned settings screen.
+    # Provider Back returns to Settings home. Keep scrolling until the Search row is not merely
+    # present in the accessibility tree but is also above the bottom system-navigation area.
     adb shell input keyevent 4
     sleep 2
     capture_screen settings-home
     dismiss_quickstep_anr settings-home || record_failure "settingsHomeSystemOverlayClear=FAIL"
     settings_ui="$OUT/settings-home-ui.xml"
+    search_ready=false
+    search_x=""
+    search_y=""
     for scroll_attempt in 1 2 3 4 5 6 7 8; do
-      if pick_text_center "$settings_ui" "Search & web" >/dev/null 2>&1; then
-        break
+      search_xy="$(pick_text_center "$settings_ui" "Search & web" 2>/dev/null || true)"
+      if [[ -n "$search_xy" ]]; then
+        read -r search_x search_y <<<"$search_xy"
+        if (( search_y <= 2200 )); then
+          echo "searchNodeVisible=PASS attempt=$scroll_attempt coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
+          search_ready=true
+          break
+        fi
+        echo "searchNodeClipped=INFO attempt=$scroll_attempt coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
       fi
       scroll_xy="$(python3 - "$settings_ui" <<'PY2'
 import re, sys
@@ -271,7 +281,9 @@ PY2
       dismiss_quickstep_anr "$capture_name" || record_failure "settingsScrollSystemOverlayClear=FAIL attempt=$scroll_attempt"
       settings_ui="$OUT/${capture_name}-ui.xml"
     done
-    if tap_text "$settings_ui" "Search & web" "openSearchSettings"; then
+    if [[ "$search_ready" == true ]]; then
+      adb shell input tap "$search_x" "$search_y"
+      echo "openSearchSettings=PASS text=Search & web coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
       sleep 3
       capture_screen search
       if dismiss_quickstep_anr search; then
@@ -286,6 +298,8 @@ PY2
       fi
       [[ -s "$OUT/search.png" ]] && echo "searchScreenshot=PASS" >> "$OUT/qa-summary.txt" \
         || record_failure "searchScreenshot=FAIL"
+    else
+      record_failure "openSearchSettings=FAIL safe-visible-search-row-not-found"
     fi
   fi
 fi
