@@ -188,7 +188,7 @@ internal fun MessageUsageDialog(
                     )
                 }
                 Text(
-                    "Token fields are stored from provider usage metadata when the provider reports them. Otherwise Xylune may fall back to its local counter/estimator. Use the raw token counts above with your provider's current pricing table for manual calculation.",
+                    "Token fields are stored from provider usage metadata when the provider reports them. Otherwise Turp may fall back to its local counter/estimator. Use the raw token counts above with your provider's current pricing table for manual calculation.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -273,7 +273,7 @@ private fun shareMessage(
 ) {
     val role = when (message.role) {
         MessageRole.USER -> "You"
-        MessageRole.ASSISTANT -> "Xylune"
+        MessageRole.ASSISTANT -> "Turp"
         else -> message.role.name.lowercase().replaceFirstChar(Char::uppercase)
     }
     val text = buildString {

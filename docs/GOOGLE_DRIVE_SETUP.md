@@ -1,6 +1,6 @@
 # Google Drive app-data authorization
 
-Xylune requests only `https://www.googleapis.com/auth/drive.appdata` and stores backups in Drive's hidden `appDataFolder`. No OAuth client secret belongs in the APK or repository.
+Turp requests only `@@TURP_PROTECTED_0@@ and stores backups in Drive's hidden `appDataFolder`. No OAuth client secret belongs in the APK or repository.
 
 ## Google Cloud configuration
 
@@ -8,7 +8,7 @@ Xylune requests only `https://www.googleapis.com/auth/drive.appdata` and stores 
 2. Configure and publish the OAuth consent screen, or add permitted test users while in Testing.
 3. Use these public URLs:
    - Homepage: `https://omerfaruknehir.github.io/Xylune/`
-   - Privacy: `https://omerfaruknehir.github.io/Xylune/privacy/`
+   - Privacy: `@@TURP_PROTECTED_2@@
    - Terms: `https://omerfaruknehir.github.io/Xylune/terms/`
 4. Create an OAuth client ID of type Android.
 5. Register the package and signing SHA-1 below.
@@ -21,4 +21,4 @@ Xylune requests only `https://www.googleapis.com/auth/drive.appdata` and stores 
 
 A protected release keeps package `app.xylune.chat` but uses its private signing certificate, so it needs another Android OAuth client for that certificate SHA-1.
 
-Xylune displays its current package, SHA-1, and SHA-256 in the Google Drive diagnostic card when registration is missing.
+Turp displays its current package, SHA-1, and SHA-256 in the Google Drive diagnostic card when registration is missing.

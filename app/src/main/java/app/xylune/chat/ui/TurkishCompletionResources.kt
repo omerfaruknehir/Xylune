@@ -51,8 +51,8 @@ internal fun xyluneTurkishCompletionResource(text: String): Int? = when (text) {
     "Choose search mode" -> R.string.tr_complete_choose_search_mode
     "Choose chat tools" -> R.string.tr_complete_choose_chat_tools
     "Activity" -> R.string.tr_complete_activity
-    "Choose a scoped Android folder, an OAuth app folder, WebDAV/Nextcloud, or an S3-compatible bucket prefix. Xylune avoids account-wide cloud access." -> R.string.tr_complete_cloud_scope_explanation
-    "Xylune Google Drive OAuth setup" -> R.string.tr_complete_google_drive_oauth_setup
+    "Choose a scoped Android folder, an OAuth app folder, WebDAV/Nextcloud, or an S3-compatible bucket prefix. Turp avoids account-wide cloud access." -> R.string.tr_complete_cloud_scope_explanation
+    "Turp Google Drive OAuth setup" -> R.string.tr_complete_google_drive_oauth_setup
     "Open setup guide" -> R.string.tr_complete_open_setup_guide
     "Open provider setup guide" -> R.string.tr_complete_open_provider_setup_guide
     "Compile & use" -> R.string.tr_complete_compile_and_use
@@ -62,7 +62,7 @@ internal fun xyluneTurkishCompletionResource(text: String): Int? = when (text) {
     "Images" -> R.string.tr_complete_images
     "Choose one or more reference images" -> R.string.tr_complete_choose_reference_images
     "Current generated image preview" -> R.string.tr_complete_generated_image_preview
-    "Xylune was made with full vibe coding: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools. It may contain serious defects." -> R.string.tr_complete_vibe_coding_notice
+    "Turp was made with full vibe coding: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools. It may contain serious defects." -> R.string.tr_complete_vibe_coding_notice
     "The app is provided “AS IS”, without warranties. Use it at your own risk. To the maximum extent permitted by applicable law, the author and contributors are not responsible for data loss, device damage, account loss, charges, security incidents, or other consequences arising from its use, modification, or distribution. Review the source and keep backups before relying on it." -> R.string.tr_complete_as_is_notice
     "Choose a chat model" -> R.string.tr_complete_choose_chat_model
     "Choose an image model" -> R.string.tr_complete_choose_image_model
@@ -82,27 +82,27 @@ internal fun xyluneTurkishCompletionResource(text: String): Int? = when (text) {
     "Collapse plan" -> R.string.tr_complete_collapse_plan
     "Choose a rootless user-space distribution for broader third-party CLIs and libraries. Each distribution keeps its own packages, shares this chat's files at /workspace, and is a compatibility layer—not a security boundary." -> R.string.tr_complete_linux_distribution_explanation
     "• Requires a network download and app-private storage." -> R.string.tr_complete_linux_network_bullet
-    "• Xylune verifies the archive before extraction and exposes progress for every stage." -> R.string.tr_complete_linux_verify_bullet
+    "• Turp verifies the archive before extraction and exposes progress for every stage." -> R.string.tr_complete_linux_verify_bullet
     "• A failed or interrupted setup can be retried; /workspace chat files are not deleted." -> R.string.tr_complete_linux_retry_bullet
     "• No Android root access is used or requested." -> R.string.tr_complete_linux_no_root_bullet
     "Approved automatically • repairing package state and installing…" -> R.string.tr_complete_auto_approved_repairing
     "Collapse complete plan" -> R.string.tr_complete_collapse_complete_plan
-    "Changing the launcher icon briefly restarts Xylune after saving the open page, chat drafts and files, and current scroll positions. Android themed icons can still override app-selected colors." -> R.string.tr_complete_launcher_restart_explanation
-    "Attributes slow frames to Android frame stages, Xylune blur work, Compose recomposition pressure, allocations, and blocking GC. It adds some diagnostic overhead, so use it while reproducing an issue." -> R.string.tr_complete_profiler_explanation
+    "Changing the launcher icon briefly restarts Turp after saving the open page, chat drafts and files, and current scroll positions. Android themed icons can still override app-selected colors." -> R.string.tr_complete_launcher_restart_explanation
+    "Attributes slow frames to Android frame stages, Turp blur work, Compose recomposition pressure, allocations, and blocking GC. It adds some diagnostic overhead, so use it while reproducing an issue." -> R.string.tr_complete_profiler_explanation
     "Detailed mode shows Choreographer FPS, average/p95/p99 frame interval, jank against the current refresh budget, app CPU, PSS, Java heap, GPU duration when Android reports it, missed vsyncs per second, and total observed frames. Cause profiler ranks primary and secondary causes, reports confidence and severity, and shows the evidence used for attribution alongside FrameMetrics, blur, recomposition, allocation, and GC counters." -> R.string.tr_complete_detailed_metrics_explanation
     "Compact mode shows FPS, average frame time, and jank percentage." -> R.string.tr_complete_compact_metrics_explanation
     "Automatic checks are unavailable because this build has no embedded GitHub repository origin." -> R.string.tr_complete_no_repository_origin
-    "Xylune's natural green Material palette" -> R.string.tr_complete_natural_green_palette
+    "Turp's natural green Material palette" -> R.string.tr_complete_natural_green_palette
     "Colors generated from your wallpaper on Android 12+" -> R.string.tr_complete_wallpaper_colors
-    "Xylune's versioned core prompt is built into the app and updates with Xylune. Profiles can adjust tone or add preferences, but cannot replace the core capability, tool, research, date, privacy, or safety protocol." -> R.string.tr_complete_versioned_core_prompt
+    "Turp's versioned core prompt is built into the app and updates with Turp. Profiles can adjust tone or add preferences, but cannot replace the core capability, tool, research, date, privacy, or safety protocol." -> R.string.tr_complete_versioned_core_prompt
     "Choose a preset or connect a custom API endpoint." -> R.string.tr_complete_choose_provider_preset
     "Choose a backup" -> R.string.tr_complete_choose_backup
-    "Choose where Xylune should look. Every option is limited to app-only storage or a folder you explicitly select." -> R.string.tr_complete_choose_backup_source
+    "Choose where Turp should look. Every option is limited to app-only storage or a folder you explicitly select." -> R.string.tr_complete_choose_backup_source
     "Choose a backup folder" -> R.string.tr_complete_choose_backup_folder
     "• tap to check backups" -> R.string.tr_complete_tap_check_backups
     "Cloud & file backup" -> R.string.tr_complete_cloud_file_backup
     "Chats, branches, app configuration, organization, metadata, and optional attachments. API keys and OAuth sessions are deliberately excluded." -> R.string.tr_complete_backup_contents_explanation
-    "Open shared Xylune chat" -> R.string.tr_complete_open_shared_chat
+    "Open shared Turp chat" -> R.string.tr_complete_open_shared_chat
     "Chats are imported as separate copies. Included app settings and organization are applied, but API keys, OAuth sessions, provider authorization headers, and cloud grants are never imported." -> R.string.tr_complete_import_safety_explanation
     else -> null
 }

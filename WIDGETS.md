@@ -1,4 +1,4 @@
-# Xylune snippets and programmable widgets
+# Turp snippets and programmable widgets
 
 Contract family: `xylune-generated-content/2`
 Validator: `2.4.0`
@@ -7,7 +7,7 @@ Validator: `2.4.0`
 
 ## The hard boundary
 
-Xylune has two generated-program surfaces. They are intentionally incompatible.
+Turp has two generated-program surfaces. They are intentionally incompatible.
 
 | Surface | Fence | Schema | Lives where | External capabilities |
 |---|---|---|---|---|
@@ -16,7 +16,7 @@ Xylune has two generated-program surfaces. They are intentionally incompatible.
 
 A **snippet** is a chat interaction: a quiz, short questionnaire, calculator, checklist, configuration form, simple question, or other temporary interactive answer.
 
-A **widget** is an Android launcher program. Xylune shows an installation card inside chat, but the program itself runs outside the app after the user reviews its manifest and pins it.
+A **widget** is an Android launcher program. Turp shows an installation card inside chat, but the program itself runs outside the app after the user reviews its manifest and pins it.
 
 The removed `xylune-ui`, `ui`, `xylune-form`, `widget`, category-based widget roots, and `mini_app` schema are not parsed or migrated.
 
@@ -76,7 +76,7 @@ Theme color tokens are `primary`, `secondary`, `tertiary`, `surface`, `surface_v
 
 ## State, templates, conditions, and actions
 
-State is a flat map of at most 64 primitive values. `{{name}}` inserts a state value. `{{=count*2}}` evaluates Xylune's numeric expression language. `{{urlencode:name}}` percent-encodes a state value for an HTTP query parameter.
+State is a flat map of at most 64 primitive values. `{{name}}` inserts a state value. `{{=count*2}}` evaluates Turp's numeric expression language. `{{urlencode:name}}` percent-encodes a state value for an HTTP query parameter.
 
 Expressions allow numbers, state identifiers, `+ - * / % ^`, parentheses, and `min`, `max`, `abs`, `round`, and `pow`. There are no loops, imports, user-defined functions, or object access.
 
@@ -89,7 +89,7 @@ Actions are named groups containing ordered operations:
 - `submit` for sending an explicit snippet result back into the chat
 - `refresh` for requesting one widget data source
 - `write_folder` for replacing the file of a declared `folder_text` source after a `read_write` grant
-- `open_app` for opening Xylune from a launcher widget
+- `open_app` for opening Turp from a launcher widget
 
 Later operations see state changes made by earlier operations in the same group.
 
@@ -137,7 +137,7 @@ A widget requires a stable `id`, a general UI tree, named actions, an explicit c
 
 ### Compile before display
 
-Xylune does not present a raw `xylune-widget` block as a usable widget. It first compiles the definition into the typed widget runtime and runs a bounded preflight:
+Turp does not present a raw `xylune-widget` block as a usable widget. It first compiles the definition into the typed widget runtime and runs a bounded preflight:
 
 1. Parse and validate the complete schema and capability graph.
 2. Seed representative location/folder values, then execute public HTTP JSON sources in dependency order.
@@ -150,9 +150,9 @@ Only a candidate that passes this cycle is shown with its install/preview card. 
 
 ### Capability manifest
 
-Each capability has a user-facing `reason`. Xylune rejects a data source unless its matching capability is present, then asks the user to grant it for that pinned widget instance.
+Each capability has a user-facing `reason`. Turp rejects a data source unless its matching capability is present, then asks the user to grant it for that pinned widget instance.
 
-- `network`: exact HTTPS origins only, for example `https://api.open-meteo.com`. No wildcards, path grants, embedded credentials, or private/local IPs. HTTPS redirects are followed for at most five hops only when every destination origin is explicitly declared.
+- `network`: exact HTTPS origins only, for example `@@TURP_PROTECTED_0@@ No wildcards, path grants, embedded credentials, or private/local IPs. HTTPS redirects are followed for at most five hops only when every destination origin is explicitly declared.
 - `location`: `approximate` or `precise`; the Android runtime permission must still exist when the widget refreshes.
 - `folder`: `read` or `read_write`; the user chooses one Storage Access Framework document tree. Relative paths cannot escape it.
 - `background_refresh`: permits WorkManager scheduling. The interval is 15–1440 minutes and Android may defer execution.

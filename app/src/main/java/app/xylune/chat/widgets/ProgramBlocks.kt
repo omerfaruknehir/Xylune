@@ -203,7 +203,7 @@ fun WidgetInstallBlock(
                         previewStatus = when {
                             transition.refreshSources.isNotEmpty() -> "Live refresh will run from the installed widget."
                             transition.folderWrites.isNotEmpty() -> "Folder writing will run only after the selected-folder grant."
-                            transition.openRoute != null -> "This action will open the matching Xylune screen after installation."
+                            transition.openRoute != null -> "This action will open the matching Turp screen after installation."
                             transition.submitMessage != null -> "Submit actions are chat-only and are ignored by Home widgets."
                             else -> "Preview updated"
                         }
@@ -314,7 +314,7 @@ fun WidgetInstallBlock(
                     }
                     WidgetPinResult.UNSUPPORTED -> {
                         pinStatusError = true
-                        pinStatus = "This launcher blocks Android's one-tap widget pinning flow, so Xylune cannot safely transfer this configured copy."
+                        pinStatus = "This launcher blocks Android's one-tap widget pinning flow, so Turp cannot safely transfer this configured copy."
                     }
                     WidgetPinResult.INVALID -> {
                         pinStatusError = true

@@ -1,6 +1,6 @@
-# Building Xylune
+# Building Turp
 
-These instructions build Xylune 0.20.9 (`versionCode 135`). The normal distributable variant is an optimized release build with R8 minification and resource shrinking enabled.
+These instructions build Turp 0.20.9 (`versionCode 135`). The normal distributable variant is an optimized release build with R8 minification and resource shrinking enabled.
 
 ## Requirements
 
@@ -33,11 +33,11 @@ app/build/outputs/bundle/release/app-release.aab
 
 The app packages Python for `arm64-v8a` and `x86_64`. Change `abiFilters` in `app/build.gradle.kts` if another ABI is required.
 
-The same ABI folders contain the PRoot launcher, loader, talloc, and libandroid-shmem. Xylune keeps legacy native-library packaging so Android extracts the APK-embedded launcher components used by its target-SDK 36 runtime path. The packaged talloc shared library is LGPL-3.0-or-later; the retained historical Termux recipe uses an over-broad GPL-3.0 package label that does not override the license headers and `LICENSE` file in the exact talloc source archive. Exact corresponding sources, build recipes, license texts, and hashes are under `third_party/`; see `THIRD_PARTY_NOTICES.md` before replacing any binary.
+The same ABI folders contain the PRoot launcher, loader, talloc, and libandroid-shmem. Turp keeps legacy native-library packaging so Android extracts the APK-embedded launcher components used by its target-SDK 36 runtime path. The packaged talloc shared library is LGPL-3.0-or-later; the retained historical Termux recipe uses an over-broad GPL-3.0 package label that does not override the license headers and `LICENSE` file in the exact talloc source archive. Exact corresponding sources, build recipes, license texts, and hashes are under `third_party/`; see `THIRD_PARTY_NOTICES.md` before replacing any binary.
 
 ## Public release signing and update compatibility
 
-When no protected release key is configured, the `release` build type uses Xylune's intentionally public reproducible key and package ID `app.xylune.chat`. This keeps the optimized GitHub release APK update-compatible with older GitHub debug APKs and preserves their app data. The build itself is still non-debuggable, minified, and resource-shrunk. Xylune's in-app Developer settings are normal product functionality and remain available.
+When no protected release key is configured, the `release` build type uses Turp's intentionally public reproducible key and package ID `app.xylune.chat`. This keeps the optimized GitHub release APK update-compatible with older GitHub debug APKs and preserves their app data. The build itself is still non-debuggable, minified, and resource-shrunk. Turp's in-app Developer settings are normal product functionality and remain available.
 
 The public key is documented in [`ci/README.md`](ci/README.md). It is not suitable for store or production distribution.
 

@@ -231,7 +231,7 @@ class RepositoryUpdateManager(context: Context) {
         }
         val tagVersion = tag.removePrefix("v").removePrefix("V")
         val manifestAsset = assets.firstOrNull {
-            it.name == "Xylune-$tagVersion-release.json" || it.name.endsWith("-release.json")
+            it.name == "Turp-$tagVersion-release.json" || it.name.endsWith("-release.json")
         }
         val manifest = manifestAsset?.let { asset ->
             runCatching { parseManifest(requestJson(asset.downloadUrl)) }.getOrNull()
@@ -296,7 +296,7 @@ class RepositoryUpdateManager(context: Context) {
             .url(url)
             .header("Accept", "application/vnd.github+json")
             .header("X-GitHub-Api-Version", "2022-11-28")
-            .header("User-Agent", "Xylune/${installedVersion.versionName} (${appContext.packageName})")
+            .header("User-Agent", "Turp/${installedVersion.versionName} (${appContext.packageName})")
             .build(),
     ).execute().use { response ->
         val body = response.body?.string().orEmpty()
@@ -458,7 +458,7 @@ internal fun selectRepositoryReleaseApk(
     if (!manifestAssetName.isNullOrBlank()) {
         assets.firstOrNull { it.name == manifestAssetName }?.let { return it }
     }
-    return assets.firstOrNull { it.name == "Xylune-$versionName-release.apk" }
+    return assets.firstOrNull { it.name == "Turp-$versionName-release.apk" }
         ?: assets.firstOrNull { it.name.endsWith("-release.apk", ignoreCase = true) }
         ?: assets.firstOrNull { it.name.endsWith(".apk", ignoreCase = true) }
 }

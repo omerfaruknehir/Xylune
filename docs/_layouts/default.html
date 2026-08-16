@@ -8,7 +8,7 @@
 {% endif %}
 {% assign document_title = page.browser_title %}
 {% if document_title == nil or document_title == '' %}
-  {% capture document_title %}{{ page.title | default: site.title | escape }} · Xylune{% endcapture %}
+  {% capture document_title %}{{ page.title | default: site.title | escape }} · Turp{% endcapture %}
 {% endif %}
 {% assign page_description = page.description | default: site.description %}
 {% assign canonical_path = page.canonical_url | default: page.url %}
@@ -22,7 +22,7 @@
   {% assign releases_path = '/tr/releases/' %}
   {% assign og_locale = 'tr_TR' %}
   {% assign og_locale_alternate = 'en_US' %}
-  {% assign social_alt = 'Xylune Android BYOK yapay zekâ sohbet uygulaması' %}
+  {% assign social_alt = 'Turp Android BYOK yapay zekâ sohbet uygulaması' %}
 {% else %}
   {% assign home_path = '/' %}
   {% assign privacy_path = '/privacy/' %}
@@ -31,14 +31,14 @@
   {% assign releases_path = '/releases/' %}
   {% assign og_locale = 'en_US' %}
   {% assign og_locale_alternate = 'tr_TR' %}
-  {% assign social_alt = 'Xylune Android BYOK AI chat app' %}
+  {% assign social_alt = 'Turp Android BYOK AI chat app' %}
 {% endif %}
 <html lang="{{ page_lang }}" data-theme="dark" class="collapsing-title-page">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#101411">
-    <meta name="application-name" content="Xylune">
+    <meta name="application-name" content="Turp">
     <meta name="author" content="Ömer Faruk Nehir">
     <meta name="description" content="{{ page_description | escape }}">
     <meta name="keywords" content="{{ site.seo_keywords | escape }}">
@@ -54,7 +54,7 @@
     <link rel="me" href="https://github.com/omerfaruknehir">
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Xylune">
+    <meta property="og:site_name" content="Turp">
     <meta property="og:locale" content="{{ og_locale }}">
     <meta property="og:locale:alternate" content="{{ og_locale_alternate }}">
     <meta property="og:title" content="{{ document_title | strip | escape }}">
@@ -87,8 +87,8 @@
           "@type": "WebSite",
           "@id": "{{ '/' | absolute_url }}#website",
           "url": "{{ '/' | absolute_url }}",
-          "name": "Xylune",
-          "alternateName": "Xylune Android BYOK AI Chat",
+          "name": "Turp",
+          "alternateName": "Turp Android BYOK AI Chat",
           "description": {{ site.description | jsonify }},
           "inLanguage": ["en", "tr"],
           "creator": { "@id": "{{ '/' | absolute_url }}#maintainer" },
@@ -119,7 +119,7 @@
             {
               "@type": "ListItem",
               "position": 1,
-              "name": "Xylune",
+              "name": "Turp",
               "item": "{{ home_path | absolute_url }}"
             },
             {
@@ -133,8 +133,8 @@
         {
           "@type": "MobileApplication",
           "@id": "{{ '/' | absolute_url }}#app",
-          "name": "Xylune",
-          "alternateName": "Xylune Android BYOK AI Chat",
+          "name": "Turp",
+          "alternateName": "Turp Android BYOK AI Chat",
           "url": "{{ '/' | absolute_url }}",
           "description": {{ page_description | strip | jsonify }},
           "inLanguage": "{{ page_lang }}",
@@ -165,7 +165,7 @@
             "OpenAI, Anthropic, Gemini, DeepSeek, OpenRouter and xAI support",
             "Compatible local model servers",
             "Local encrypted chat storage",
-            "Direct provider connections without a Xylune relay server",
+            "Direct provider connections without a Turp relay server",
             "Search, tools, files, widgets and portable backups"
           ]
         }{% endif %}
@@ -199,7 +199,7 @@
     <aside class="site-rail" aria-label="{{ strings.ui.primary_navigation | escape }}">
       <a class="brand rail-brand" href="{{ home_path | relative_url }}" aria-label="{{ strings.ui.xylune_home | escape }}">
         <img src="{{ '/assets/images/xylune-logo.svg' | relative_url }}" alt="" data-xylune-logo width="58" height="58">
-        <span>Xylune</span>
+        <span>Turp</span>
       </a>
       <nav class="rail-nav">
         <a class="nav-item{% if page.url == home_path %} is-active{% endif %}" href="{{ home_path | relative_url }}"{% if page.url == home_path %} aria-current="page"{% endif %}><span class="material-symbols-rounded" aria-hidden="true">home</span><span>{{ strings.nav.home }}</span></a>
@@ -207,7 +207,7 @@
         <a class="nav-item{% if page.url == terms_path %} is-active{% endif %}" href="{{ terms_path | relative_url }}"{% if page.url == terms_path %} aria-current="page"{% endif %}><span class="material-symbols-rounded" aria-hidden="true">description</span><span>{{ strings.nav.terms }}</span></a>
         <a class="nav-item{% if page.url == deletion_path %} is-active{% endif %}" href="{{ deletion_path | relative_url }}"{% if page.url == deletion_path %} aria-current="page"{% endif %}><span class="material-symbols-rounded" aria-hidden="true">person_remove</span><span>{{ strings.nav.data_deletion }}</span></a>
         <a class="nav-item{% if page.url == releases_path %} is-active{% endif %}" href="{{ releases_path | relative_url }}"{% if page.url == releases_path %} aria-current="page"{% endif %}><span class="material-symbols-rounded" aria-hidden="true">sell</span><span>{{ strings.nav.releases }}</span></a>
-        <a class="nav-item" href="https://github.com/omerfaruknehir/Xylune" aria-label="Xylune on GitHub, external link"><span class="material-symbols-rounded" aria-hidden="true">code</span><span>{{ strings.nav.github }}</span><span class="material-symbols-rounded nav-item__external" aria-hidden="true">open_in_new</span></a>
+        <a class="nav-item" href="https://github.com/omerfaruknehir/Xylune" aria-label="Turp on GitHub, external link"><span class="material-symbols-rounded" aria-hidden="true">code</span><span>{{ strings.nav.github }}</span><span class="material-symbols-rounded nav-item__external" aria-hidden="true">open_in_new</span></a>
       </nav>
       <div class="rail-spacer"></div>
       <div class="rail-language" aria-label="{{ strings.ui.language_controls | escape }}">

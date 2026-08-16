@@ -72,6 +72,37 @@ class OpenRouterReasoningMetadataTest {
         assertEquals("generated-image-1.svg", image.displayName)
     }
 
+    @Test
+    fun `OpenRouter instance id retains normalized effort fallback`() {
+        val instance = provider.copy(id = "provider-openrouter-test-instance")
+        val model = reasoningModel(mandatory = false).copy(
+            providerId = instance.id,
+            reasoningEffortsCsv = "",
+            metadataSource = "",
+        )
+        val efforts = supportedThinkingLevels(instance, model).mapNotNull { it.effort }
+        assertEquals(ThinkingEffort.entries.toList(), efforts)
+    }
+
+    @Test
+    fun `OpenAI instance id retains gpt 5 1 effort policy`() {
+        val instance = provider.copy(
+            id = "provider-openai-test-instance",
+            displayName = "OpenAI secondary",
+            baseUrl = "https://api.openai.com/v1",
+        )
+        val model = reasoningModel(mandatory = false).copy(
+            providerId = instance.id,
+            modelId = "gpt-5.1",
+            displayName = "GPT-5.1",
+            reasoningMetadataAvailable = false,
+            reasoningEffortsCsv = "",
+            metadataSource = "",
+        )
+        val efforts = supportedThinkingLevels(instance, model).mapNotNull { it.effort }
+        assertEquals(listOf(ThinkingEffort.LOW, ThinkingEffort.MEDIUM, ThinkingEffort.HIGH), efforts)
+    }
+
     private fun reasoningModel(mandatory: Boolean) = ModelEntity(
         providerId = provider.id,
         modelId = "vendor/reasoner",

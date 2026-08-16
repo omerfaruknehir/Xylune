@@ -447,7 +447,7 @@ private fun SettingsHome(
     SettingsGroup("About") {
         SettingsDestination(
             icon = Icons.Outlined.Info,
-            title = "About Xylune",
+            title = "About Turp",
             subtitle = "Version, architecture, and privacy model",
             onClick = { onOpen(SettingsRoute.ABOUT) },
         )
@@ -665,7 +665,7 @@ private fun AutomationSettingsPage(
     providers: List<ProviderEntity>,
     viewModel: ChatViewModel,
 ) = SettingsPage {
-    SectionTitle("Background task models", "Choose how Xylune names chats and compresses older context.")
+    SectionTitle("Background task models", "Choose how Turp names chats and compresses older context.")
     if (providers.isEmpty()) {
         Text("Configure a usable provider to enable model-based automation.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
     }
@@ -756,7 +756,7 @@ private fun MemorySettingsPage(
 
     SectionTitle(
         "Memory",
-        "Xylune stores memories in its encrypted local database and selects only relevant items under a strict context budget. Disabled memories remain stored but are not supplied to models.",
+        "Turp stores memories in its encrypted local database and selects only relevant items under a strict context budget. Disabled memories remain stored but are not supplied to models.",
     )
     ListItem(
         headlineContent = { Text("Use memory") },
@@ -982,7 +982,7 @@ private fun MemorySettingsPage(
         XyluneAlertDialog(
             onDismissRequest = { pendingDeleteIds = null },
             title = { Text(if (ids.size == 1) "Delete memory?" else "Delete ${ids.size} memories?") },
-            text = { Text("This permanently removes the selected memory data from Xylune.") },
+            text = { Text("This permanently removes the selected memory data from Turp.") },
             confirmButton = {
                 Button(onClick = {
                     viewModel.deleteMemories(ids)
@@ -1074,9 +1074,9 @@ private fun AppearanceSettingsPage(
                 Text("Match launcher icon to palette", fontWeight = FontWeight.SemiBold)
                 Text(
                     if (matchLauncherIconToPalette) {
-                        "Changing the launcher icon briefly restarts Xylune after saving the open page, chat drafts and files, and current scroll positions. Android themed icons can still override app-selected colors."
+                        "Changing the launcher icon briefly restarts Turp after saving the open page, chat drafts and files, and current scroll positions. Android themed icons can still override app-selected colors."
                     } else {
-                        "Keep the classic Xylune green icon regardless of the selected palette."
+                        "Keep the classic Turp green icon regardless of the selected palette."
                     },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -1089,7 +1089,7 @@ private fun AppearanceSettingsPage(
         }
     }
     Text(
-        "Android themed icons can recolor Xylune's monochrome layer. Dynamic uses the live wallpaper-derived Material You palette when themed icons are off.",
+        "Android themed icons can recolor Turp's monochrome layer. Dynamic uses the live wallpaper-derived Material You palette when themed icons are off.",
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
@@ -1187,10 +1187,10 @@ private fun PrivacySettingsPage(
     val deletionUrl = remember(siteColors, matchLauncherIconToPalette) {
         xyluneWebsiteUrl("data-deletion/", siteColors, dynamicLogo = matchLauncherIconToPalette)
     }
-    SectionTitle("Generated content", "Controls how Xylune handles AI-generated interactive UI.")
+    SectionTitle("Generated content", "Controls how Turp handles AI-generated interactive UI.")
     SettingsSwitch("Safe generated rendering", renderSafeMode, viewModel::setRenderSafeMode)
     Text(
-        if (renderSafeMode) "Generated widgets are paused and shown as safe fallback content." else "Generated widgets may render, but Xylune still applies its capability checks and crash recovery.",
+        if (renderSafeMode) "Generated widgets are paused and shown as safe fallback content." else "Generated widgets may render, but Turp still applies its capability checks and crash recovery.",
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
@@ -1207,10 +1207,10 @@ private fun PrivacySettingsPage(
     HorizontalDivider()
     SectionTitle(
         "Third-party AI and services",
-        "Xylune is a client, not an AI model host. Responses come from the provider or local server selected by the user.",
+        "Turp is a client, not an AI model host. Responses come from the provider or local server selected by the user.",
     )
     Text(
-        "The Xylune maintainer does not create, train, host, pre-review, or endorse individual model outputs. AI output can be wrong, unsafe, biased, or unsuitable; verify it before relying on it. Provider terms, fees, retention, and content rules apply independently.",
+        "The Turp maintainer does not create, train, host, pre-review, or endorse individual model outputs. AI output can be wrong, unsafe, biased, or unsuitable; verify it before relying on it. Provider terms, fees, retention, and content rules apply independently.",
         style = MaterialTheme.typography.bodyMedium,
     )
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -1231,7 +1231,7 @@ private fun PrivacySettingsPage(
         Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
             Icon(Icons.Outlined.Security, null)
             Text(
-                "No Xylune account, ads, analytics, or Xylune cloud. Chat history and API keys remain on this device; traffic goes to endpoints and web tools you explicitly enable.",
+                "No Turp account, ads, analytics, or Turp cloud. Chat history and API keys remain on this device; traffic goes to endpoints and web tools you explicitly enable.",
                 Modifier.padding(start = 12.dp),
                 style = MaterialTheme.typography.bodySmall,
             )
@@ -1250,7 +1250,7 @@ private fun SystemPromptProfilesPage(
     var creating by remember { mutableStateOf(false) }
     SectionTitle(
         "Custom instruction profiles",
-        "Xylune's versioned core prompt is built into the app and updates with Xylune. Profiles can adjust tone or add preferences, but cannot replace the core capability, tool, research, date, privacy, or safety protocol.",
+        "Turp's versioned core prompt is built into the app and updates with Turp. Profiles can adjust tone or add preferences, but cannot replace the core capability, tool, research, date, privacy, or safety protocol.",
     )
     FilledTonalButton(onClick = { creating = true }, modifier = Modifier.fillMaxWidth()) {
         Icon(Icons.Outlined.Add, null)
@@ -1285,7 +1285,7 @@ private fun SystemPromptProfilesPage(
     if (selectedDefaultId != null) OutlinedButton(
         onClick = { viewModel.updateNewChatDefaults { it.copy(systemPromptProfileId = null) } },
         modifier = Modifier.fillMaxWidth(),
-    ) { Text("Use Xylune default for new chats") }
+    ) { Text("Use Turp default for new chats") }
     if (creating) SystemPromptEditorDialog(
         title = "New custom profile",
         initial = null,
@@ -1389,7 +1389,7 @@ private fun LocalCodeExecutionSettingsPage(
         }
         SectionTitle(
             "Package approval",
-            "Choose when Xylune may install Python or Linux packages and which sources are trusted.",
+            "Choose when Turp may install Python or Linux packages and which sources are trusted.",
         )
         PackageApprovalEditor(automation, providers, viewModel)
         Spacer(Modifier.padding(bottom = 24.dp))
@@ -1403,7 +1403,7 @@ private fun DeveloperSettingsPage(
 ) = SettingsPage {
     SectionTitle(
         "Developer settings",
-        "Local diagnostics for measuring Xylune's rendering and process performance. No metrics are uploaded or stored in chat history.",
+        "Local diagnostics for measuring Turp's rendering and process performance. No metrics are uploaded or stored in chat history.",
     )
     SettingsSwitch(
         label = "Enable developer settings",
@@ -1463,7 +1463,7 @@ private fun DeveloperSettingsPage(
         enabled = settings.enabled,
     )
     Text(
-        "Attributes slow frames to Android frame stages, Xylune blur work, Compose recomposition pressure, allocations, and blocking GC. It adds some diagnostic overhead, so use it while reproducing an issue.",
+        "Attributes slow frames to Android frame stages, Turp blur work, Compose recomposition pressure, allocations, and blocking GC. It adds some diagnostic overhead, so use it while reproducing an issue.",
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
@@ -1690,7 +1690,7 @@ private fun AboutSettingsPage(
     SettingsGroup("Updates") {
         ListItem(
             headlineContent = { Text("Check automatically", fontWeight = FontWeight.SemiBold) },
-            supportingContent = { Text("Check the source repository once per day when Xylune starts") },
+            supportingContent = { Text("Check the source repository once per day when Turp starts") },
             leadingContent = { Icon(Icons.Outlined.Refresh, null, tint = MaterialTheme.colorScheme.primary) },
             trailingContent = {
                 Switch(
@@ -1726,7 +1726,7 @@ private fun AboutSettingsPage(
                     }
                 }
                 is RepositoryUpdateState.UpToDate -> {
-                    Text("Xylune is up to date", fontWeight = FontWeight.SemiBold)
+                    Text("Turp is up to date", fontWeight = FontWeight.SemiBold)
                     Text(
                         "Latest release: ${state.latestVersion} · checked ${DateFormat.getDateTimeInstance().format(Date(state.checkedAt))}",
                         style = MaterialTheme.typography.bodySmall,
@@ -1739,7 +1739,7 @@ private fun AboutSettingsPage(
                 }
                 is RepositoryUpdateState.Available -> {
                     val release = state.release
-                    Text("Xylune ${release.versionName} is available", fontWeight = FontWeight.SemiBold)
+                    Text("Turp ${release.versionName} is available", fontWeight = FontWeight.SemiBold)
                     Text(
                         "Source: ${release.repository}" + (release.publishedAt?.let { " · $it" } ?: ""),
                         style = MaterialTheme.typography.bodySmall,
@@ -1802,7 +1802,7 @@ private fun AboutSettingsPage(
         Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text("Private by design", fontWeight = FontWeight.SemiBold)
             Text(
-                "Chats, credentials, and workspaces stay on your device. Xylune connects directly to providers you configure and has no application backend, ads, or telemetry.",
+                "Chats, credentials, and workspaces stay on your device. Turp connects directly to providers you configure and has no application backend, ads, or telemetry.",
                 style = MaterialTheme.typography.bodySmall,
             )
             if (BuildConfig.DEBUG) {
@@ -1894,7 +1894,7 @@ internal fun xyluneWebsiteUrl(
 
 private val ColorPalette.displayName: String
     get() = when (this) {
-        ColorPalette.XYLUNE -> "Xylune"
+        ColorPalette.XYLUNE -> "Turp"
         ColorPalette.SYSTEM -> "Dynamic"
         ColorPalette.GRAPHITE -> "Graphite"
         ColorPalette.OCEAN -> "Ocean"
@@ -1904,7 +1904,7 @@ private val ColorPalette.displayName: String
 
 private val ColorPalette.description: String
     get() = when (this) {
-        ColorPalette.XYLUNE -> "Xylune's natural green Material palette"
+        ColorPalette.XYLUNE -> "Turp's natural green Material palette"
         ColorPalette.SYSTEM -> "Colors generated from your wallpaper on Android 12+"
         ColorPalette.GRAPHITE -> "Restrained blue-gray palette"
         ColorPalette.OCEAN -> "Cool teal and cyan accents"
@@ -1986,7 +1986,7 @@ private fun ChatOptionsEditor(
 
     HorizontalDivider()
     SectionTitle(
-        "Xylune core prompt",
+        "Turp core prompt",
         "The exact prompt bundled with this app version is shown below. It is selectable for inspection and intentionally read-only.",
     )
     Surface(
@@ -2001,7 +2001,7 @@ private fun ChatOptionsEditor(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Outlined.Security, null, tint = MaterialTheme.colorScheme.primary)
                 Column(Modifier.padding(start = 12.dp)) {
-                    Text("Managed by Xylune · revision $XYLUNE_CORE_PROMPT_REVISION", fontWeight = FontWeight.SemiBold)
+                    Text("Managed by Turp · revision $XYLUNE_CORE_PROMPT_REVISION", fontWeight = FontWeight.SemiBold)
                     Text(
                         "Use custom instruction profiles for additional tone and workflow preferences.",
                         style = MaterialTheme.typography.bodySmall,
@@ -2024,7 +2024,7 @@ private fun ChatOptionsEditor(
                 }
             }
             Text(
-                "Xylune adds request-specific date, enabled-tool, research, memory, attachment, and generated-content instructions at runtime. Those dynamic layers are not editable either and are not presented as one misleading static block.",
+                "Turp adds request-specific date, enabled-tool, research, memory, attachment, and generated-content instructions at runtime. Those dynamic layers are not editable either and are not presented as one misleading static block.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -2109,7 +2109,7 @@ private fun ProviderModelSelector(
     val provider = providers.firstOrNull { it.id == providerId }
     val selectedModel = models.firstOrNull { it.modelId == modelId }
         ?: allModels.firstOrNull { it.providerId == providerId && it.modelId == modelId }
-    SectionTitle("Model", "One searchable catalog is used everywhere in Xylune.")
+    SectionTitle("Model", "One searchable catalog is used everywhere in Turp.")
     OutlinedButton(
         onClick = { showPicker = true },
         enabled = providers.isNotEmpty(),
@@ -2197,6 +2197,7 @@ private fun ProviderSettings(
 ) {
     var selectedId by remember { mutableStateOf<String?>(null) }
     var addingProvider by remember { mutableStateOf(false) }
+    var addingProviderTemplateId by remember { mutableStateOf<String?>(null) }
     var addingChatGpt by remember { mutableStateOf(false) }
     var renamingOAuth by remember { mutableStateOf<ProviderEntity?>(null) }
     var removingProvider by remember { mutableStateOf<ProviderEntity?>(null) }
@@ -2256,32 +2257,88 @@ private fun ProviderSettings(
         syncingModels = false
     }
 
+    val featuredApiPresets = remember(providers) {
+        listOf(
+            "openai" to "OpenAI",
+            "anthropic" to "Anthropic",
+            "gemini" to "Gemini",
+            "openrouter" to "OpenRouter",
+            "deepseek" to "DeepSeek",
+            "groq" to "Groq",
+            "mistral" to "Mistral",
+            "ollama" to "Local server",
+        ).mapNotNull { (id, label) -> DefaultCatalog.providers.firstOrNull { it.id == id }?.let { it to label } }
+    }
+
     SettingsPage {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
-                SectionTitle("Providers", "Choose a provider, then manage its connection and models.")
+                SectionTitle("Providers", "Connect an account or API, then manage its models in one place.")
             }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedButton(onClick = { addingChatGpt = true }) {
-                    Icon(Icons.Outlined.AccountCircle, null)
-                    Text(" ChatGPT")
-                }
-                FilledTonalButton(onClick = { addingProvider = true }) {
-                    Icon(Icons.Outlined.Add, null)
-                    Text(" API", Modifier.padding(start = 2.dp))
+            if (registeredProviders.isNotEmpty()) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = { addingChatGpt = true }) {
+                        Icon(Icons.Outlined.AccountCircle, null)
+                        Text(" ChatGPT")
+                    }
+                    FilledTonalButton(onClick = {
+                        addingProviderTemplateId = null
+                        addingProvider = true
+                    }) {
+                        Icon(Icons.Outlined.Add, null)
+                        Text(" API", Modifier.padding(start = 2.dp))
+                    }
                 }
             }
         }
 
         if (registeredProviders.isEmpty()) {
             Surface(color = MaterialTheme.colorScheme.surfaceContainer, shape = MaterialTheme.shapes.extraLarge, modifier = Modifier.fillMaxWidth()) {
-                Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Icon(Icons.Outlined.Cloud, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(30.dp))
-                    Text("No providers yet", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                    Text("Add a ChatGPT account or configure an API-compatible provider.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Button(onClick = { addingChatGpt = true }) { Text("Add ChatGPT") }
-                        OutlinedButton(onClick = { addingProvider = true }) { Text("Add API") }
+                Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Icon(Icons.Outlined.Cloud, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(28.dp))
+                    Text("Choose a provider", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text(
+                        "Start with a preset. You can review its endpoint and discovered models before saving.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = { addingChatGpt = true }, modifier = Modifier.weight(1f)) {
+                            Text("ChatGPT", maxLines = 1)
+                        }
+                        featuredApiPresets.firstOrNull()?.let { (preset, label) ->
+                            OutlinedButton(
+                                onClick = {
+                                    addingProviderTemplateId = preset.id
+                                    addingProvider = true
+                                },
+                                modifier = Modifier.weight(1f),
+                            ) { Text(label, maxLines = 1) }
+                        } ?: Spacer(Modifier.weight(1f))
+                    }
+                    featuredApiPresets.drop(1).chunked(2).forEach { pair ->
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            pair.forEach { (preset, label) ->
+                                OutlinedButton(
+                                    onClick = {
+                                        addingProviderTemplateId = preset.id
+                                        addingProvider = true
+                                    },
+                                    modifier = Modifier.weight(1f),
+                                ) { Text(label, maxLines = 1) }
+                            }
+                            if (pair.size == 1) Spacer(Modifier.weight(1f))
+                        }
+                    }
+                    TextButton(
+                        onClick = {
+                            addingProviderTemplateId = null
+                            addingProvider = true
+                        },
+                        modifier = Modifier.align(Alignment.End),
+                    ) {
+                        Icon(Icons.Outlined.Add, null, Modifier.size(18.dp))
+                        Text(" More API providers", Modifier.padding(start = 4.dp))
                     }
                 }
             }
@@ -2478,15 +2535,19 @@ private fun ProviderSettings(
     }
 
     if (addingProvider) AddProviderDialog(
-        templates = providers.filter { provider -> provider.kind != ProviderKind.OPENAI_OAUTH && provider !in registeredProviders },
-        onDismiss = { addingProvider = false },
+        initialTemplateId = addingProviderTemplateId,
+        templates = DefaultCatalog.providers.filter { provider -> provider.kind != ProviderKind.OPENAI_OAUTH },
+        onDismiss = { addingProvider = false
+            addingProviderTemplateId = null },
         onDiscover = viewModel::discoverModels,
         onAdd = { draft ->
-            val id = draft.templateProviderId ?: "provider-${UUID.randomUUID()}"
-            val template = providers.firstOrNull { it.id == draft.templateProviderId }
+            val templateId = draft.templateProviderId
+            val id = "provider-${templateId ?: draft.kind.name.lowercase()}-${UUID.randomUUID()}"
+            val template = DefaultCatalog.providers.firstOrNull { it.id == templateId }
             val provider = (template ?: ProviderEntity(
                 id = id, displayName = draft.name, kind = draft.kind, baseUrl = draft.baseUrl,
             )).copy(
+                id = id,
                 displayName = draft.name,
                 kind = draft.kind,
                 baseUrl = draft.baseUrl.trimEnd('/'),
@@ -2495,7 +2556,7 @@ private fun ProviderSettings(
                 apiKeyRequired = draft.apiKeyRequired,
             )
             val models = draft.selectedModels.map { candidate ->
-                val bundled = DefaultCatalog.models.firstOrNull { it.providerId == id && it.modelId == candidate.id }
+                val bundled = DefaultCatalog.models.firstOrNull { it.providerId == (templateId ?: id) && it.modelId == candidate.id }
                 val base = bundled ?: ModelEntity(
                     providerId = id, modelId = candidate.id, displayName = candidate.displayName,
                     contextWindow = 128_000, maxOutputTokens = 16_384,
@@ -2503,6 +2564,7 @@ private fun ProviderSettings(
                     outputUsdPerMillion = 0.0,
                 )
                 val model = base.copy(
+                    providerId = id,
                     displayName = candidate.displayName,
                     contextWindow = candidate.contextWindow ?: base.contextWindow,
                     maxOutputTokens = candidate.maxOutputTokens ?: base.maxOutputTokens,
@@ -2532,6 +2594,7 @@ private fun ProviderSettings(
             viewModel.addProvider(provider, draft.apiKey, models)
             selectedId = id
             addingProvider = false
+            addingProviderTemplateId = null
         },
     )
 }
@@ -2548,7 +2611,7 @@ private fun AddChatGptProviderDialog(
         title = { Text("Add ChatGPT provider") },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("Each provider keeps its OAuth session, models, usage limits, and refresh state separate. Xylune requests a fresh sign-in page so you can add a different ChatGPT account.")
+                Text("Each provider keeps its OAuth session, models, usage limits, and refresh state separate. Turp requests a fresh sign-in page so you can add a different ChatGPT account.")
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
@@ -2639,7 +2702,7 @@ private fun ChatGptOAuthCard(
                 }
             }
             Text(
-                "One-tap native OAuth. Xylune opens the system browser, receives the localhost callback itself, encrypts the session on this device, and refreshes it automatically. No extension or local proxy is required.",
+                "One-tap native OAuth. Turp opens the system browser, receives the localhost callback itself, encrypts the session on this device, and refreshes it automatically. No extension or local proxy is required.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -2917,20 +2980,23 @@ private data class ProviderDraft(
 @Composable
 private fun AddProviderDialog(
     templates: List<ProviderEntity>,
+    initialTemplateId: String? = null,
     onDismiss: () -> Unit,
     onDiscover: suspend (ProviderKind, String, String, String) -> List<DiscoveredModel>,
     onAdd: (ProviderDraft) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
-    var templateId by remember { mutableStateOf<String?>(null) }
+    val initialTemplate = remember(initialTemplateId, templates) { templates.firstOrNull { it.id == initialTemplateId } }
+    val initialKind = initialTemplate?.kind ?: ProviderKind.OPENAI_COMPATIBLE
+    var templateId by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.id) }
     var templateMenu by remember { mutableStateOf(false) }
-    var name by remember { mutableStateOf("") }
-    var kind by remember { mutableStateOf(ProviderKind.OPENAI_COMPATIBLE) }
+    var name by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.displayName.orEmpty()) }
+    var kind by remember(initialTemplateId, templates) { mutableStateOf(initialKind) }
     var typeMenu by remember { mutableStateOf(false) }
-    var baseUrl by remember { mutableStateOf(defaultBaseUrl(kind)) }
+    var baseUrl by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.baseUrl ?: defaultBaseUrl(initialKind)) }
     var apiKey by remember { mutableStateOf("") }
-    var apiKeyRequired by remember { mutableStateOf(true) }
-    var headers by remember { mutableStateOf("{}") }
+    var apiKeyRequired by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.apiKeyRequired ?: true) }
+    var headers by remember(initialTemplateId, templates) { mutableStateOf(initialTemplate?.customHeadersJson ?: "{}") }
     var manualModelId by remember { mutableStateOf("") }
     var manualModelName by remember { mutableStateOf("") }
     var discoveredModels by remember { mutableStateOf<List<DiscoveredModel>>(emptyList()) }
@@ -3471,13 +3537,13 @@ private fun PackageApprovalEditor(
             }
             if (settings.packageApprovalMode == PackageApprovalMode.AUTO_APPROVE || !settings.packageRestrictionsEnabled) {
                 Text(
-                    "Packages and their installers run with Xylune's app permissions. Ubuntu is for compatibility, not containment; these settings intentionally reduce confirmation barriers.",
+                    "Packages and their installers run with Turp's app permissions. Ubuntu is for compatibility, not containment; these settings intentionally reduce confirmation barriers.",
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
             if (settings.packageApprovalMode == PackageApprovalMode.MODEL_REVIEW) Text(
-                "Model review is advisory and can be wrong. Xylune records the selected model's allow/deny reason, but this is not malware analysis or a security guarantee.",
+                "Model review is advisory and can be wrong. Turp records the selected model's allow/deny reason, but this is not malware analysis or a security guarantee.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -3755,82 +3821,88 @@ private fun SearchSettingsPage() = SettingsPage {
         mutableStateOf(container.secureStore.searchApiKey(settings.engine.name))
     }
     var keySaved by remember(settings.engine) { mutableStateOf(false) }
+    val showEngine = settings.route != app.xylune.chat.settings.WebSearchRoute.NATIVE_ONLY
 
-    SettingsGroup("Routing") {
-        app.xylune.chat.settings.WebSearchRoute.entries.forEach { route ->
-            ListItem(
-                headlineContent = { Text(route.title) },
-                supportingContent = { Text(route.description) },
-                leadingContent = {
-                    RadioButton(
-                        selected = settings.route == route,
-                        onClick = null,
-                    )
-                },
-                modifier = Modifier.clickable {
-                    container.appPreferences.updateWebSearchSettings { it.copy(route = route) }
-                },
-            )
-        }
-    }
-
-    SettingsGroup("Fallback search engine") {
-        app.xylune.chat.settings.WebSearchEngine.entries.forEach { engine ->
-            ListItem(
-                headlineContent = { Text(engine.title) },
-                supportingContent = { Text(engine.description) },
-                leadingContent = {
-                    RadioButton(
-                        selected = settings.engine == engine,
-                        onClick = null,
-                    )
-                },
-                modifier = Modifier.clickable {
-                    keySaved = false
-                    container.appPreferences.updateWebSearchSettings { it.copy(engine = engine) }
-                },
-            )
-        }
-    }
-
-    if (settings.engine.requiresApiKey) {
-        SettingsGroup("${settings.engine.title} credential") {
-            OutlinedTextField(
-                value = apiKey,
-                onValueChange = {
-                    apiKey = it
-                    keySaved = false
-                },
-                label = { Text("API key") },
-                singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
-            )
+    SettingsGroup("Search routing") {
+        Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.End,
+                Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Button(onClick = {
-                    container.secureStore.setSearchApiKey(settings.engine.name, apiKey)
-                    keySaved = true
-                }) {
-                    Text(if (keySaved) "Saved" else "Save key")
+                app.xylune.chat.settings.WebSearchRoute.entries.forEach { route ->
+                    FilterChip(
+                        selected = settings.route == route,
+                        onClick = { container.appPreferences.updateWebSearchSettings { it.copy(route = route) } },
+                        label = { Text(route.title) },
+                    )
                 }
+            }
+            Text(
+                settings.route.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+
+    if (showEngine) {
+        SettingsGroup(if (settings.route == app.xylune.chat.settings.WebSearchRoute.AUTO) "Fallback engine" else "Search engine") {
+            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Row(
+                    Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    app.xylune.chat.settings.WebSearchEngine.entries.forEach { engine ->
+                        FilterChip(
+                            selected = settings.engine == engine,
+                            onClick = {
+                                keySaved = false
+                                container.appPreferences.updateWebSearchSettings { it.copy(engine = engine) }
+                            },
+                            label = { Text(engine.title) },
+                        )
+                    }
+                }
+                Text(
+                    settings.engine.description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
         }
     }
 
-    if (settings.engine == app.xylune.chat.settings.WebSearchEngine.SEARXNG) {
-        SettingsGroup("SearXNG endpoint") {
+    if (showEngine && settings.engine.requiresApiKey) {
+        SettingsGroup("${settings.engine.title} credential") {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                OutlinedTextField(
+                    value = apiKey,
+                    onValueChange = { apiKey = it; keySaved = false },
+                    label = { Text("API key") },
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Button(
+                    onClick = {
+                        container.secureStore.setSearchApiKey(settings.engine.name, apiKey)
+                        keySaved = true
+                    },
+                    enabled = apiKey.isNotBlank(),
+                ) { Text(if (keySaved) "Saved" else "Save key") }
+            }
+        }
+    }
+
+    if (showEngine && settings.engine == app.xylune.chat.settings.WebSearchEngine.SEARXNG) {
+        SettingsGroup("SearXNG instance") {
             OutlinedTextField(
                 value = settings.searxngEndpoint,
                 onValueChange = { value ->
-                    container.appPreferences.updateWebSearchSettings {
-                        it.copy(searxngEndpoint = value)
-                    }
+                    container.appPreferences.updateWebSearchSettings { it.copy(searxngEndpoint = value) }
                 },
-                label = { Text("Public HTTPS base URL") },
-                supportingText = { Text("The instance must enable JSON search output.") },
+                label = { Text("HTTPS endpoint") },
+                supportingText = { Text("Example: https://search.example.com") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
             )
@@ -3838,37 +3910,35 @@ private fun SearchSettingsPage() = SettingsPage {
     }
 
     SettingsGroup("Tool behavior") {
-        var maxResultsText by remember(settings.maxResults) {
-            mutableStateOf(settings.maxResults.toString())
-        }
-        OutlinedTextField(
-            value = maxResultsText,
-            onValueChange = { raw ->
-                maxResultsText = raw.filter(Char::isDigit).take(2)
-                maxResultsText.toIntOrNull()?.let { value ->
-                    container.appPreferences.updateWebSearchSettings {
-                        it.copy(maxResults = value)
-                    }
-                }
+        ListItem(
+            headlineContent = { Text("Results per search") },
+            supportingContent = { Text("Choose 3–20 results") },
+            trailingContent = {
+                var maxResultsText by remember(settings.maxResults) { mutableStateOf(settings.maxResults.toString()) }
+                OutlinedTextField(
+                    value = maxResultsText,
+                    onValueChange = { raw ->
+                        if (raw.length <= 2 && raw.all(Char::isDigit)) {
+                            maxResultsText = raw
+                            raw.toIntOrNull()?.takeIf { it in 3..20 }?.let { value ->
+                                container.appPreferences.updateWebSearchSettings { it.copy(maxResults = value) }
+                            }
+                        }
+                    },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true,
+                    modifier = Modifier.width(82.dp),
+                )
             },
-            label = { Text("Maximum search results") },
-            supportingText = { Text("3–20 results per search call") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
         )
         ListItem(
             headlineContent = { Text("Allow page fetching") },
-            supportingContent = {
-                Text("Expose web_fetch so the model can read public HTTPS pages after searching.")
-            },
+            supportingContent = { Text("Open relevant result pages when snippets are not enough") },
             trailingContent = {
                 Switch(
                     checked = settings.pageFetchEnabled,
                     onCheckedChange = { enabled ->
-                        container.appPreferences.updateWebSearchSettings {
-                            it.copy(pageFetchEnabled = enabled)
-                        }
+                        container.appPreferences.updateWebSearchSettings { it.copy(pageFetchEnabled = enabled) }
                     },
                 )
             },
@@ -3876,7 +3946,13 @@ private fun SearchSettingsPage() = SettingsPage {
     }
 
     Text(
-        "API keys are stored in Android encrypted preferences. Native-only mode never silently switches to a Xylune engine; Automatic mode does.",
+        "Active: ${settings.activeLabel}",
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(horizontal = 6.dp),
+    )
+    Text(
+        "Search API keys stay encrypted on-device. Native-only never falls back; Automatic uses the selected engine only when native search is unavailable.",
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(horizontal = 6.dp),

@@ -280,7 +280,7 @@ fun ConversationSidebar(
         }
     }
     deleteTarget?.let { item ->
-        ConfirmDeleteDialog("Delete “${item.conversation.title}”?", "Its complete message history, attachments, and local code workspace records will be removed from Xylune.", onDismiss = { deleteTarget = null }) {
+        ConfirmDeleteDialog("Delete “${item.conversation.title}”?", "Its complete message history, attachments, and local code workspace records will be removed from Turp.", onDismiss = { deleteTarget = null }) {
             onDelete(item.conversation.id); deleteTarget = null
         }
     }

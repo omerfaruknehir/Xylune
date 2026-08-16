@@ -19,12 +19,12 @@ class SyntaxHighlightTest {
 
     @Test
     fun jsonSeparatesPropertiesStringsAndLiterals() {
-        val code = "{\"name\": \"Xylune\", \"enabled\": true, \"count\": 3}"
+        val code = "{\"name\": \"Turp\", \"enabled\": true, \"count\": 3}"
         val spans = syntaxSpans("json", code)
         fun kinds(text: String) = spans.filter { code.substring(it.start, it.endExclusive) == text }.map(SyntaxSpan::kind)
 
         assertTrue(SyntaxKind.PROPERTY in kinds("\"name\""))
-        assertTrue(SyntaxKind.STRING in kinds("\"Xylune\""))
+        assertTrue(SyntaxKind.STRING in kinds("\"Turp\""))
         assertTrue(SyntaxKind.KEYWORD in kinds("true"))
         assertTrue(SyntaxKind.NUMBER in kinds("3"))
     }

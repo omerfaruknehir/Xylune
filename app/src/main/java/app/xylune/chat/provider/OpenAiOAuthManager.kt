@@ -477,7 +477,7 @@ class OpenAiOAuthManager(
 
             val callback = awaitCallback(servers)
             if (callback.state != state) {
-                sendBrowserResponse(callback.socket, false, "The sign-in state did not match. Return to Xylune and try again.")
+                sendBrowserResponse(callback.socket, false, "The sign-in state did not match. Return to Turp and try again.")
                 callback.socket.close()
                 throw IllegalStateException("ChatGPT sign-in was rejected because its state did not match")
             }
@@ -495,12 +495,12 @@ class OpenAiOAuthManager(
             // Token exchange must run after Xylune is foreground again. On some Android builds,
             // background-app DNS briefly returns EAI_NODATA while the browser owns the foreground.
             callbackReceived.set(true)
-            sendBrowserResponse(callback.socket, true, "Authorization received. Finishing sign-in in Xylune…")
+            sendBrowserResponse(callback.socket, true, "Authorization received. Finishing sign-in in Turp…")
             callback.socket.close()
 
             val returnedToApp = returnLatch.await(APP_RETURN_TIMEOUT_MS, TimeUnit.MILLISECONDS)
             check(!loginCancelled) { "ChatGPT sign-in was cancelled" }
-            check(returnedToApp) { "Return to Xylune to finish ChatGPT sign-in" }
+            check(returnedToApp) { "Return to Turp to finish ChatGPT sign-in" }
             awaitUsableNetwork(NETWORK_READY_TIMEOUT_MS)
             return exchangeCode(code, verifier)
         } finally {
@@ -620,7 +620,7 @@ class OpenAiOAuthManager(
             .header("Accept", "application/json")
             .header("Authorization", "Bearer ${auth.accessToken}")
             .header("chatgpt-account-id", auth.accountId)
-            .header("User-Agent", "Xylune/0.19.4 openai-oauth-android")
+            .header("User-Agent", "Turp/0.19.4 openai-oauth-android")
             .apply { if (auth.isFedRamp) header("X-OpenAI-Fedramp", "true") }
             .build()
         executeWithNetworkRetry(request).use { response ->
@@ -666,8 +666,8 @@ class OpenAiOAuthManager(
                 .header("Authorization", "Bearer ${auth.accessToken}")
                 .header("chatgpt-account-id", auth.accountId)
                 .header("OpenAI-Beta", "codex-1")
-                .header("originator", "Xylune")
-                .header("User-Agent", "Xylune/0.19.4 openai-oauth-android")
+                .header("originator", "Turp")
+                .header("User-Agent", "Turp/0.19.4 openai-oauth-android")
                 .apply { if (auth.isFedRamp) header("X-OpenAI-Fedramp", "true") }
                 .build()
             executeWithNetworkRetry(request).use { response ->
@@ -750,7 +750,7 @@ class OpenAiOAuthManager(
         .any { it is UnknownHostException }
 
     private fun friendlyNetworkError(request: Request, cause: IOException): IOException = IOException(
-        "Xylune could not reach ${request.url.host}. Check the connection, VPN, Private DNS, or per-app firewall, then try again.",
+        "Turp could not reach ${request.url.host}. Check the connection, VPN, Private DNS, or per-app firewall, then try again.",
         cause,
     )
 

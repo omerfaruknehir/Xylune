@@ -1,4 +1,4 @@
-name: Deploy Xylune site
+name: Deploy Turp site
 
 on:
   push:
@@ -84,7 +84,7 @@ jobs:
               assert parsed.netloc == 'omerfaruknehir.github.io', location
               assert parsed.path.startswith('/Xylune/'), location
           PY
-      - name: Validate optimized 2-to-1 banner source
+      - name: Validate optimized legacy banner asset
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -106,7 +106,7 @@ jobs:
           import xml.etree.ElementTree as ET
           ET.parse('_site/sitemap.xml')
           PY
-      - name: Validate multilingual Pages output
+      - name: Validate multilingual Turp Pages output
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -139,22 +139,24 @@ jobs:
           turkish_releases = Path('_site/tr/releases/index.html').read_text(encoding='utf-8')
           release_js = Path('_site/assets/js/releases-v2.js').read_text(encoding='utf-8')
           banner_css = Path('_site/assets/css/banner.css').read_text(encoding='utf-8')
-          banner_path = '/Xylune/assets/images/xylune-banner-background-2-1.webp'
-          assert 'Your AI.' in english
-          assert 'Yapay zekân.' in turkish
-          assert banner_path in english
-          assert banner_path in turkish
-          assert 'data-themed-banner' in english
-          assert 'data-themed-banner' in turkish
+          logo = Path('_site/assets/images/xylune-logo.svg').read_text(encoding='utf-8')
+
+          for html in (english, turkish):
+              assert 'home-hero__backdrop--turp' in html
+              assert 'data-xylune-logo' in html
+              assert '/Xylune/assets/images/xylune-banner-background-2-1.webp' not in html
+          assert '<strong>Turp</strong>' in english
+          assert '<strong>Turp</strong>' in turkish
           assert 'releases-v2.js?v=3' in english_releases
           assert 'releases-v2.js?v=3' in turkish_releases
           assert 'xylune-release-notes:en' in release_js
           assert 'xylune-release-notes:tr' in release_js
           assert 'localizedReleaseMarkdown' in release_js
-          assert 'aspect-ratio: 2 / 1' in banner_css
-          assert 'width: calc(100% + 48px)' in banner_css
-          assert 'margin-inline: -24px' in banner_css
-          assert 'BASE_BANNER_HUE = 164' in Path('_site/assets/js/banner-theme.js').read_text(encoding='utf-8')
+          assert '.home-hero__backdrop--turp' in banner_css
+          assert '#ef2e52' in banner_css
+          assert '#72b442' in banner_css
+          assert '#338331' in banner_css
+          assert 'M734' in logo and '681' in logo
           PY
       - uses: actions/upload-pages-artifact@v4
         with:

@@ -287,14 +287,14 @@ internal fun CloudBackupTargets(
             .onSuccess {
                 folderLabel = viewModel.connectedCloudFolderLabel()
                 refreshFolderBackups()
-                viewModel.postNotice("Xylune cloud folder connected")
+                viewModel.postNotice("Turp cloud folder connected")
             }
             .onFailure { viewModel.postNotice(it.message ?: "Could not connect the cloud folder") }
     }
 
     TransferHeading(
         title = "Private cloud targets",
-        subtitle = "Choose a scoped Android folder, an OAuth app folder, WebDAV/Nextcloud, or an S3-compatible bucket prefix. Xylune avoids account-wide cloud access.",
+        subtitle = "Choose a scoped Android folder, an OAuth app folder, WebDAV/Nextcloud, or an S3-compatible bucket prefix. Turp avoids account-wide cloud access.",
     )
 
     Surface(
@@ -316,7 +316,7 @@ internal fun CloudBackupTargets(
                 }
             }
             Text(
-                "Android grants Xylune persistent access only to the folder you select. Create or choose a dedicated Xylune folder; no account-wide permission is requested.",
+                "Android grants Turp persistent access only to the folder you select. Create or choose a dedicated Turp folder; no account-wide permission is requested.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -408,7 +408,7 @@ internal fun CloudBackupTargets(
                     Text(" Connect Google Drive")
                 }
                 Text(
-                    "Xylune asks for the non-sensitive drive.appdata scope only. The backup files remain hidden from normal Drive browsing and from other apps.",
+                    "Turp asks for the non-sensitive drive.appdata scope only. The backup files remain hidden from normal Drive browsing and from other apps.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -500,7 +500,7 @@ internal fun CloudBackupTargets(
                             OutlinedButton(
                                 onClick = {
                                     context.getSystemService(ClipboardManager::class.java).setPrimaryClip(
-                                        ClipData.newPlainText("Xylune Google Drive OAuth setup", failure.copyableSetupDetails()),
+                                        ClipData.newPlainText("Turp Google Drive OAuth setup", failure.copyableSetupDetails()),
                                     )
                                     viewModel.postNotice("Google Drive registration details copied")
                                 },
@@ -596,7 +596,7 @@ private fun CloudBackupList(
                             if (isNotEmpty()) append(" • ")
                             append(readableBytes(entry.sizeBytes))
                         }
-                    }.ifBlank { "Portable Xylune backup" },
+                    }.ifBlank { "Portable Turp backup" },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

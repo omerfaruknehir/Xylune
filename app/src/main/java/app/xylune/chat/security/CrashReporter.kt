@@ -27,7 +27,7 @@ class CrashReporter(context: Context) {
             runCatching {
                 val trace = redact(StringWriter().also { error.printStackTrace(PrintWriter(it)) }.toString())
                 reportFile.writeText(
-                    "Xylune crash at ${Instant.now()}\n" +
+                    "Turp crash at ${Instant.now()}\n" +
                         "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})\n" +
                         "Device ${Build.MANUFACTURER} ${Build.MODEL}\n" +
                     "Thread ${thread.name.take(80)}\n\n${trace.take(MAX_REPORT_CHARS)}",

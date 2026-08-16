@@ -56,7 +56,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: xylune-pr-${{ github.event.pull_request.number || 'manual' }}-android-qa
+          name: turp-pr-${{ github.event.pull_request.number || 'manual' }}-android-qa
           if-no-files-found: warn
           retention-days: 7
           path: qa-artifacts/

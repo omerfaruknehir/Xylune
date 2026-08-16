@@ -67,7 +67,7 @@ Second [[Example|https://example.com/a]] and [[Other|https://example.com/b]]."""
 
 | Name | Description |
 | --- | --- |
-| Xylune | A native Android chat client with a long description |
+| Turp | A native Android chat client with a long description |
 
 Outro""",
         )
@@ -82,7 +82,7 @@ Outro""",
 
 | Name | Status |
 | --- | --- |
-| Xylune | Ready |
+| Turp | Ready |
 
 Outro""",
         )
@@ -91,7 +91,7 @@ Outro""",
                 "Intro",
                 """| Name | Status |
 | --- | --- |
-| Xylune | Ready |""",
+| Turp | Ready |""",
                 "Outro",
             ),
             segments.map { it.text },
@@ -107,7 +107,7 @@ Outro""",
         val segments = splitMarkdownTables(
             """| Name | Expression |
 | --- | --- |
-| Xylune | `left|right` |""",
+| Turp | `left|right` |""",
         )
         assertEquals(1, segments.size)
         assertTrue(segments.single().table)
@@ -117,7 +117,7 @@ Outro""",
         val width = estimateMarkdownTableWidthDp(
             """| Package | Very long explanation | Platform | Status |
 | --- | --- | --- | --- |
-| Xylune | This column intentionally contains enough text to require horizontal scrolling | Android | Ready |""",
+| Turp | This column intentionally contains enough text to require horizontal scrolling | Android | Ready |""",
             viewportDp = 360,
         )
         assertTrue(width > 360)
@@ -127,7 +127,7 @@ Outro""",
         val segments = splitMarkdownTables(
             """| Name | Status |
 | --- | --- |
-| Xylune""",
+| Turp""",
             streaming = true,
         )
         assertEquals(1, segments.size)
@@ -136,7 +136,7 @@ Outro""",
     }
 
     @Test fun partialStreamingRowsArePaddedToTheExpectedColumnCount() {
-        val stabilized = stabilizeStreamingTableRow("Xylune | Ready", 3)
+        val stabilized = stabilizeStreamingTableRow("Turp | Ready", 3)
         assertEquals(3, splitMarkdownTableCells(stabilized!!)?.size)
     }
 
@@ -171,8 +171,8 @@ Outro""",
 
     @Test fun streamingTableKeepsOneTailIdentityWhileCellsArrive() {
         val parser = IncrementalRichTextParser()
-        val first = parser.update("| Name | Status |\n| --- | --- |\n| Xylune", streaming = true)
-        val second = parser.update("| Name | Status |\n| --- | --- |\n| Xylune | Ready", streaming = true)
+        val first = parser.update("| Name | Status |\n| --- | --- |\n| Turp", streaming = true)
+        val second = parser.update("| Name | Status |\n| --- | --- |\n| Turp | Ready", streaming = true)
         assertEquals(first.single().key, second.single().key)
         assertTrue(first.single().block is RichBlock.Table)
         assertTrue(second.single().block is RichBlock.Table)
@@ -257,13 +257,13 @@ Outro""",
     }
 
     @Test fun streamingTableGridRendersAlignedCellsInsteadOfRawMarkdown() {
-        val markdown = "Intro\n\n| Name | Status |\n| --- | --- |\n| Xylune | Streaming |"
+        val markdown = "Intro\n\n| Name | Status |\n| --- | --- |\n| Turp | Streaming |"
         val start = findFirstMarkdownTableStart(markdown)
         assertEquals(markdown.indexOf("| Name"), start)
         val rendered = renderStreamingTableGrid(markdown, startOffset = start ?: 0)
         assertTrue(rendered.text.startsWith("┌"))
         assertTrue("│ Name" in rendered.text)
-        assertTrue("Xylune" in rendered.text)
+        assertTrue("Turp" in rendered.text)
         assertFalse("| --- |" in rendered.text)
     }
 
@@ -280,26 +280,26 @@ Outro""",
     }
 
     @Test fun rendererFailureFallbackPreservesOrdinaryMarkdownSource() {
-        val markdown = "**Xylune** keeps streaming."
+        val markdown = "**Turp** keeps streaming."
         assertEquals(markdown, markdownRenderFallbackText(markdown))
     }
 
     @Test fun rendererFailureFallbackKeepsTablesVisualInsteadOfRawMarkdown() {
-        val table = "| Name | Status |\n| --- | --- |\n| Xylune | Streaming"
+        val table = "| Name | Status |\n| --- | --- |\n| Turp | Streaming"
         val fallback = markdownRenderFallbackText(table)
         assertTrue(fallback.startsWith("┌"))
         assertTrue("│ Name" in fallback)
-        assertTrue("Xylune" in fallback)
+        assertTrue("Turp" in fallback)
         assertFalse("| --- |" in fallback)
     }
 
     @Test fun everyProgressiveTableFragmentCanUseTheNativeGridWithoutMarkwon() {
         val fragments = listOf(
             "| Name | Status |\n| --- | --- |\n|",
-            "| Name | Status |\n| --- | --- |\n| Xylune",
-            "| Name | Status |\n| --- | --- |\n| Xylune |",
-            "| Name | Status |\n| --- | --- |\n| Xylune | Ready",
-            "| Name | Status |\n| --- | --- |\n| Xylune | Ready |",
+            "| Name | Status |\n| --- | --- |\n| Turp",
+            "| Name | Status |\n| --- | --- |\n| Turp |",
+            "| Name | Status |\n| --- | --- |\n| Turp | Ready",
+            "| Name | Status |\n| --- | --- |\n| Turp | Ready |",
         )
         fragments.forEach { source ->
             val block = parseBlocks(source, streaming = true).single()

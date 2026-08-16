@@ -271,7 +271,7 @@ class CloudOAuthManager(
     private fun microsoftRedirectUri(): String {
         val fingerprint = appContext.currentAppInstallIdentity().signingSha1
         val raw = fingerprint.split(':').mapNotNull { it.toIntOrNull(16)?.toByte() }.toByteArray()
-        require(raw.isNotEmpty()) { "Could not read Xylune's signing certificate" }
+        require(raw.isNotEmpty()) { "Could not read Turp's signing certificate" }
         val signatureHash = Base64.encodeToString(raw, Base64.NO_WRAP)
         return "msauth://${BuildConfig.APPLICATION_ID}/${Uri.encode(signatureHash)}"
     }

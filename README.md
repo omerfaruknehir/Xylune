@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="branding/xylune-banner.png" alt="Xylune — open-source BYOK AI chat app for Android." width="100%">
+  <img src="branding/turp-banner.svg" alt="Turp" width="100%">
 </p>
 
 <p align="center">
-  <strong>Xylune</strong> (pronounced <strong>“Zy-loon”</strong>) is an open-source BYOK AI chat app for Android: a native workspace for private AI chat, research, files, and local tools.
+  <strong>Turp</strong> is an open-source BYOK AI chat app for Android: a native workspace for private AI chat, research, files, and local tools.
 </p>
 
 <p align="center">
-  <a href="https://omerfaruknehir.github.io/Xylune/"><strong>Xylune website</strong></a>
+  <a href="https://omerfaruknehir.github.io/Xylune/"><strong>Turp website</strong></a>
   ·
   <a href="https://github.com/omerfaruknehir/Xylune/releases/latest"><strong>Download the latest APK</strong></a>
   ·
@@ -30,26 +30,26 @@
   <a href="LICENSE"><img alt="Apache License 2.0" src="https://img.shields.io/badge/License-Apache%202.0-blue"></a>
 </p>
 
-Xylune is a bring-your-own-provider AI client. It connects your phone directly to the services you choose—without a WebView, hosted Xylune account, application backend, telemetry, or advertising. API keys are protected with Android Keystore-backed encryption, chats live in a local SQLCipher database, and imported files remain in app-private storage.
+Turp is a bring-your-own-provider AI client. It connects your phone directly to the services you choose—without a WebView, hosted Turp account, application backend, telemetry, or advertising. API keys are protected with Android Keystore-backed encryption, chats live in a local SQLCipher database, and imported files remain in app-private storage.
 
 Current release: [latest GitHub Release](https://github.com/omerfaruknehir/Xylune/releases/latest)
 
 ## Development disclosure and disclaimer
 
-Xylune was made with **full vibe coding**: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools, with human review and testing. That process does not guarantee correctness, security, availability, or fitness for any purpose, and the app may contain serious defects.
+Turp was made with **full vibe coding**: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools, with human review and testing. That process does not guarantee correctness, security, availability, or fitness for any purpose, and the app may contain serious defects.
 
-Xylune is provided **“AS IS”**, without warranties of any kind. Use, modify, and distribute it at your own risk. Xylune is a client rather than an AI-model host: the maintainer does not create, train, host, pre-review, or endorse individual third-party model outputs. Review the source and output, keep backups, and do not rely on Xylune for safety-critical or irreplaceable work. See the [Terms and Disclaimer](https://omerfaruknehir.github.io/Xylune/terms/); the Apache License 2.0 remains the primary software warranty and liability document.
+Turp is provided **“AS IS”**, without warranties of any kind. Use, modify, and distribute it at your own risk. Turp is a client rather than an AI-model host: the maintainer does not create, train, host, pre-review, or endorse individual third-party model outputs. Review the source and output, keep backups, and do not rely on Turp for safety-critical or irreplaceable work. See the [Terms and Disclaimer](https://omerfaruknehir.github.io/Xylune/terms/); the Apache License 2.0 remains the primary software warranty and liability document.
 
-Xylune is software, not a hosted service or support platform. The maintainer has no technical access to local chats, keys, backups, provider traffic, or provider accounts. GitHub operates the public repository and Issues; posting there is voluntary and public and does not create a private support channel, response promise, or duty to monitor or resolve the post. See the [Privacy Policy](https://omerfaruknehir.github.io/Xylune/privacy/) for the exact data boundaries.
+Turp is software, not a hosted service or support platform. The maintainer has no technical access to local chats, keys, backups, provider traffic, or provider accounts. GitHub operates the public repository and Issues; posting there is voluntary and public and does not create a private support channel, response promise, or duty to monitor or resolve the post. See the [Privacy Policy](https://omerfaruknehir.github.io/Xylune/privacy/) for the exact data boundaries.
 
-## What makes Xylune different
+## What makes Turp different
 
 ### Android-native and private by design
 
 - Built with Kotlin, Jetpack Compose, and Material 3—never a wrapped website.
 - Connect ChatGPT, OpenAI-compatible APIs, Anthropic, Gemini, DeepSeek, OpenRouter, xAI, or a local model server.
 - Keep credentials, conversations, workspaces, and attachments on your device.
-- Talk directly to the selected provider; Xylune does not relay requests through its own server.
+- Talk directly to the selected provider; Turp does not relay requests through its own server.
 
 ### A capable everyday chat client
 
@@ -70,13 +70,13 @@ Xylune is software, not a hosted service or support platform. The maintainer has
 
 1. Open the [latest GitHub Release](https://github.com/omerfaruknehir/Xylune/releases/latest) and download the APK asset.
 2. Allow installation from your browser or file manager when Android asks.
-3. Open Xylune and follow the welcome flow.
+3. Open Turp and follow the welcome flow.
 4. Connect a ChatGPT account, API provider, or local model server.
 5. Start a chat. Optional Python and Linux tools can be prepared later from **Settings → Local execution**.
 
-The public APK is an R8-minified, resource-shrunk **release build**. It intentionally keeps package ID `app.xylune.chat` and Xylune's public reproducible signer so it can update the earlier GitHub debug builds without deleting chats or settings. The Android build is not debuggable, but Xylune's in-app **Developer settings** remain available. Protected production signing switches to the production package ID `app.xylune.chat`.
+The public APK is an R8-minified, resource-shrunk **release build**. It intentionally keeps package ID `app.xylune.chat` and Turp's public reproducible signer so it can update the earlier GitHub debug builds without deleting chats or settings. The Android build is not debuggable, but Turp's in-app **Developer settings** remain available. Protected production signing switches to the production package ID `app.xylune.chat`.
 
-Local OpenAI-compatible servers default to `http://127.0.0.1:11434/v1`. On a physical phone, `127.0.0.1` means the phone itself. Xylune permits cleartext HTTP only for loopback and the Android emulator host alias; remote machines require HTTPS.
+Local OpenAI-compatible servers default to `@@TURP_PROTECTED_17@@ On a physical phone, `127.0.0.1` means the phone itself. Xylune permits cleartext HTTP only for loopback and the Android emulator host alias; remote machines require HTTPS.
 
 ## Build
 
@@ -126,13 +126,13 @@ For dependency sources, bundled native component notices, hashes, and build reci
 
 ## Project
 
-Xylune is created by [@omerfaruknehir](https://github.com/omerfaruknehir).
+Xylune is created by [@omerfaruknehir](@@TURP_PROTECTED_18@@).
 
-- [Xylune website](https://omerfaruknehir.github.io/Xylune/)
+- [Xylune website](@@TURP_PROTECTED_19@@)
 - [Changelog](CHANGELOG.md)
-- [Latest release notes](https://github.com/omerfaruknehir/Xylune/releases/latest)
-- [Source repository](https://github.com/omerfaruknehir/Xylune)
-- [Issue tracker](https://github.com/omerfaruknehir/Xylune/issues)
+- [Latest release notes](@@TURP_PROTECTED_20@@)
+- [Source repository](@@TURP_PROTECTED_21@@)
+- [Issue tracker](@@TURP_PROTECTED_22@@)
 
 ## License
 

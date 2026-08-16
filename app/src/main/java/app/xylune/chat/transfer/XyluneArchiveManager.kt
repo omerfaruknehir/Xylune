@@ -61,6 +61,7 @@ data class ArchiveOptions(
     val includeRequestMetadata: Boolean = false,
     val includeLinuxEnvironments: Boolean = false,
     val includeAppSettings: Boolean = false,
+    val includeApiKeys: Boolean = false,
 )
 
 @Serializable
@@ -198,7 +199,7 @@ data class ArchiveImportResult(
     val settingsRestored: Boolean,
 )
 
-class ArchivePasswordRequiredException : IllegalArgumentException("This Xylune archive is password protected")
+class ArchivePasswordRequiredException : IllegalArgumentException("This Turp archive is password protected")
 
 class XyluneArchiveManager(
     private val context: Context,
@@ -261,7 +262,7 @@ class XyluneArchiveManager(
         val root = File(context.cacheDir, "backup-exports").apply { mkdirs() }
         root.listFiles()?.filter { it.isFile && System.currentTimeMillis() - it.lastModified() > SHARE_CACHE_MAX_AGE_MS }
             ?.forEach(File::delete)
-        val file = File(root, "Xylune-backup-${System.currentTimeMillis()}$XYLUNE_BACKUP_EXTENSION")
+        val file = File(root, "Turp-backup-${System.currentTimeMillis()}$XYLUNE_BACKUP_EXTENSION")
         try {
             file.outputStream().buffered().use { output ->
                 writeArchive(
@@ -333,12 +334,15 @@ class XyluneArchiveManager(
         options: ArchiveOptions,
         password: String,
     ) {
+        require(!options.includeApiKeys || kind == ArchiveKind.BACKUP) { "API keys can only be included in full backups" }
+        require(!options.includeApiKeys || options.includeAppSettings) { "Enable app settings before including API keys" }
+        require(!options.includeApiKeys || password.isNotEmpty()) { "API keys require a password-encrypted backup" }
         val bundles = conversationIds.mapNotNull { id -> snapshotConversation(id, options) }
         val preparedLinux = if (kind == ArchiveKind.BACKUP && options.includeLinuxEnvironments) {
             linuxEnvironments.prepareSnapshots()
         } else emptyList()
         val portableSettings = if (kind == ArchiveKind.BACKUP && options.includeAppSettings) {
-            appSettings.snapshot()
+            appSettings.snapshot(includeApiKeys = options.includeApiKeys)
         } else null
         try {
             require(bundles.isNotEmpty() || preparedLinux.isNotEmpty() || portableSettings != null) {
@@ -353,9 +357,9 @@ class XyluneArchiveManager(
                 appVersion = installedVersion.versionName,
                 title = when {
                     kind == ArchiveKind.CHAT -> bundles.single().conversation.title
-                    bundles.isEmpty() && preparedLinux.isNotEmpty() -> "Xylune Linux backup"
-                    bundles.isEmpty() -> "Xylune settings backup"
-                    else -> "Xylune backup"
+                    bundles.isEmpty() && preparedLinux.isNotEmpty() -> "Turp Linux backup"
+                    bundles.isEmpty() -> "Turp settings backup"
+                    else -> "Turp backup"
                 },
                 options = options,
                 conversations = bundles,
@@ -619,10 +623,10 @@ class XyluneArchiveManager(
         try {
             BufferedInputStream(input).use { buffered ->
                 val magic = ByteArray(MAGIC.size)
-                require(buffered.readFully(magic) && magic.contentEquals(MAGIC)) { "This is not an Xylune archive" }
+                require(buffered.readFully(magic) && magic.contentEquals(MAGIC)) { "This is not an Turp archive" }
                 val headerLine = readLine(buffered, MAX_HEADER_BYTES)
                 val header = json.decodeFromString<EnvelopeHeader>(headerLine)
-                require(header.schema == ENVELOPE_SCHEMA) { "Unsupported Xylune archive envelope" }
+                require(header.schema == ENVELOPE_SCHEMA) { "Unsupported Turp archive envelope" }
                 if (header.encrypted && password.isEmpty()) throw ArchivePasswordRequiredException()
                 val payloadInput: InputStream = if (header.encrypted) {
                     val salt = decodeBase64(requireNotNull(header.saltBase64))
@@ -639,7 +643,7 @@ class XyluneArchiveManager(
             temp.delete()
             val message = if (error.message?.contains("tag", ignoreCase = true) == true || error.cause?.message?.contains("tag", ignoreCase = true) == true) {
                 "Wrong password or damaged archive"
-            } else error.message ?: "The Xylune archive is damaged"
+            } else error.message ?: "The Turp archive is damaged"
             throw IllegalArgumentException(message, error)
         }
     }
@@ -649,7 +653,7 @@ class XyluneArchiveManager(
         require(!entry.isDirectory && entry.size in 1L..MAX_MANIFEST_BYTES) { "Archive manifest is invalid" }
         val bytes = zip.getInputStream(entry).use { input -> readBytesWithLimit(input, MAX_MANIFEST_BYTES) }
         json.decodeFromString<ArchiveManifest>(bytes.toString(Charsets.UTF_8)).also {
-            require(it.schema == MANIFEST_SCHEMA) { "Unsupported Xylune archive version" }
+            require(it.schema == MANIFEST_SCHEMA) { "Unsupported Turp archive version" }
         }
     }
 
@@ -715,7 +719,7 @@ class XyluneArchiveManager(
         .replace(Regex("[^A-Za-z0-9._() -]"), "_")
         .trim()
         .take(140)
-        .ifBlank { "Xylune-chat" }
+        .ifBlank { "Turp-chat" }
 
     private fun encodeBase64(value: ByteArray): String = Base64.encodeToString(value, Base64.NO_WRAP)
     private fun decodeBase64(value: String): ByteArray = Base64.decode(value, Base64.NO_WRAP)

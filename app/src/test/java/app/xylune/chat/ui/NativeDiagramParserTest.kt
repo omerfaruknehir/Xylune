@@ -20,7 +20,7 @@ class NativeDiagramParserTest {
         val diagram = NativeDiagramParser.parse("""
             sequenceDiagram
             participant U as User
-            participant A as Xylune
+            participant A as Turp
             U->>A: Send file
             A-->>U: File card
         """.trimIndent())

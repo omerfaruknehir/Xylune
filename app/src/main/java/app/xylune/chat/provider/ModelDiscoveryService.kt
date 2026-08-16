@@ -129,7 +129,7 @@ class ModelDiscoveryService(
             .take(MAX_MODELS)
         val merged = if (kind == ProviderKind.OPENAI_COMPATIBLE) {
             val withOfficialOpenAi = ModelRequestPolicy.mergeOfficialOpenAiCatalog(baseUrl, distinct)
-            if (providerId.equals("qwen-cloud", ignoreCase = true) || ModelRequestPolicy.isQwenCloudBaseUrl(baseUrl)) {
+            if (ModelRequestPolicy.matchesPresetId(providerId, "qwen-cloud") || ModelRequestPolicy.isQwenCloudBaseUrl(baseUrl)) {
                 ModelRequestPolicy.mergeQwenCloudCatalog(providerId ?: "qwen-cloud", withOfficialOpenAi)
             } else withOfficialOpenAi
         } else distinct

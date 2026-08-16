@@ -1112,31 +1112,26 @@ fun ChatScreen(viewModel: ChatViewModel, openDrawer: (() -> Unit)?) {
                     }
                 },
                 modelSelector = {
-                    Surface(
-                        onClick = {
-                            if (usableProviders.isEmpty()) viewModel.openProviderSetup()
-                            else showModelPicker = true
-                        },
-                        color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = .78f),
-                        shape = CircleShape,
-                    ) {
-                        Row(Modifier.padding(horizontal = 10.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Icon(Icons.Outlined.Psychology, null, Modifier.size(14.dp))
-                            Text(
-                                buildString {
-                                    if (usableProviders.isEmpty()) {
-                                        append("Set up provider")
-                                        return@buildString
-                                    }
-                                    val provider = usableProviders.firstOrNull { it.id == conversation?.selectedProviderId }
-                                    if (provider != null && usableProviders.size > 1) append(provider.displayName).append(" · ")
-                                    append(models.firstOrNull { it.modelId == conversation?.selectedModelId }?.displayName ?: conversation?.selectedModelId ?: "Choose model")
-                                },
-                                Modifier.padding(start = 4.dp),
-                                style = MaterialTheme.typography.labelSmall,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
+                    if (usableProviders.isNotEmpty()) {
+                        Surface(
+                            onClick = { showModelPicker = true },
+                            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = .78f),
+                            shape = CircleShape,
+                        ) {
+                            Row(Modifier.padding(horizontal = 10.dp, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Outlined.Psychology, null, Modifier.size(14.dp))
+                                Text(
+                                    buildString {
+                                        val provider = usableProviders.firstOrNull { it.id == conversation?.selectedProviderId }
+                                        if (provider != null && usableProviders.size > 1) append(provider.displayName).append(" · ")
+                                        append(models.firstOrNull { it.modelId == conversation?.selectedModelId }?.displayName ?: conversation?.selectedModelId ?: "Choose model")
+                                    },
+                                    Modifier.padding(start = 4.dp),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
                         }
                     }
                 },
@@ -1389,7 +1384,7 @@ fun ChatScreen(viewModel: ChatViewModel, openDrawer: (() -> Unit)?) {
             dismissButton = {
                 TextButton(onClick = {
                     dialogContext.getSystemService(android.content.ClipboardManager::class.java)
-                        .setPrimaryClip(android.content.ClipData.newPlainText("Xylune stream error", fullError))
+                        .setPrimaryClip(android.content.ClipData.newPlainText("Turp stream error", fullError))
                 }) {
                     Icon(Icons.Outlined.ContentCopy, null, Modifier.size(17.dp))
                     Spacer(Modifier.width(5.dp))
@@ -1464,7 +1459,7 @@ private fun EmptyConversation(
             if (providerConfigured) {
                 "Ask a question, attach a file, or choose Search and Tools beside the message box."
             } else {
-                "Xylune cannot send messages until ChatGPT, an API provider, or a local model server is connected."
+                "Choose a provider once, then Turp can discover its available models and start chatting."
             },
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -2669,7 +2664,7 @@ private fun CompactSearchToolCard(
                                     }
                                     if (used) {
                                         Text(
-                                            "Opened by Xylune",
+                                            "Opened by Turp",
                                             style = MaterialTheme.typography.labelSmall,
                                             color = MaterialTheme.colorScheme.tertiary,
                                             fontWeight = FontWeight.SemiBold,
@@ -3067,12 +3062,11 @@ private fun Composer(
                     enabled = providerConfigured,
                     placeholder = {
                         Text(
-                            if (!providerConfigured) "Set up a provider to start"
-                            else if (generating) "Add direction…"
+                            if (generating) "Add direction…"
                             else if (imageGenerationBlocked) "Remove attachments to generate an image"
                             else if (imageGenerationMode) "Describe an image to generate…"
                             else if (conversation?.deepResearchEnabled == true) "Research request…"
-                            else "Message Xylune…",
+                            else "Message Turp…",
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
@@ -3184,7 +3178,7 @@ private fun Composer(
         ModalBottomSheet(onDismissRequest = { sendMenu = false }) {
             Column(Modifier.padding(bottom = 24.dp)) {
                 Text(
-                    if (generating) "While Xylune is working" else "Send options",
+                    if (generating) "While Turp is working" else "Send options",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp),
@@ -3610,7 +3604,7 @@ private fun ToolComposerChip(
             modifier = Modifier.width(340.dp),
         ) {
             Text(
-                "Tools available to Xylune in this chat",
+                "Tools available to Turp in this chat",
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
                 style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
@@ -3653,7 +3647,7 @@ private fun ToolComposerChip(
                             Text("Linux workspace not installed", fontWeight = FontWeight.SemiBold)
                         }
                         Text(
-                            "Install Ubuntu, Debian, or Alpine before Xylune can use Linux tools.",
+                            "Install Ubuntu, Debian, or Alpine before Turp can use Linux tools.",
                             style = MaterialTheme.typography.bodySmall,
                         )
                         TextButton(onClick = {

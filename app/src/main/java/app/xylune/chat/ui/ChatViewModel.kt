@@ -1459,7 +1459,7 @@ class ChatViewModel(private val container: AppContainer, savedStateHandle: Saved
             }
             container.repository.recordSystemEvent(
                 id,
-                "The user approved and Xylune installed these Python packages in this conversation workspace: ${result.packages.joinToString()}. ${imports.ifBlank { "Import metadata was unavailable." }}" +
+                "The user approved and Turp installed these Python packages in this conversation workspace: ${result.packages.joinToString()}. ${imports.ifBlank { "Import metadata was unavailable." }}" +
                     if (result.importErrors.isEmpty()) " Import verification passed." else " Import verification warnings: ${result.importErrors.entries.joinToString { "${it.key}: ${it.value}" }}",
             )
         }
@@ -1577,7 +1577,7 @@ class ChatViewModel(private val container: AppContainer, savedStateHandle: Saved
         val result = container.ubuntuRuntime.installPackages(id, packages, restrictions, approvedPlan, onProgress)
         if (result.success) container.repository.recordSystemEvent(
             id,
-            "Xylune's configured package approval policy allowed and installed these ${container.ubuntuRuntime.distribution.value.displayName} packages: ${result.packages.joinToString()}.",
+            "Turp's configured package approval policy allowed and installed these ${container.ubuntuRuntime.distribution.value.displayName} packages: ${result.packages.joinToString()}.",
         )
         return result
     }

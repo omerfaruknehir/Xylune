@@ -179,7 +179,7 @@ internal class OneDriveAppFolderClient(
             provider = CloudBackupProvider.ONEDRIVE_APP_FOLDER,
             id = id,
             name = value["name"]?.jsonPrimitive?.contentOrNull.orEmpty().ifBlank {
-                "Xylune-backup$XYLUNE_BACKUP_EXTENSION"
+                "Turp-backup$XYLUNE_BACKUP_EXTENSION"
             },
             modifiedAt = value["lastModifiedDateTime"]?.jsonPrimitive?.contentOrNull
                 ?.let { runCatching { Instant.parse(it).toEpochMilli() }.getOrNull() } ?: 0L,
@@ -194,7 +194,7 @@ internal class OneDriveAppFolderClient(
         }.getOrNull()
         return when (code) {
             401 -> "OneDrive authorization expired. Connect the account again."
-            403 -> "OneDrive denied access to Xylune's app folder. Confirm Files.ReadWrite.AppFolder permission."
+            403 -> "OneDrive denied access to Turp's app folder. Confirm Files.ReadWrite.AppFolder permission."
             404 -> "OneDrive could not find this app-folder backup."
             507 -> "OneDrive does not have enough storage for this backup."
             else -> detail ?: "OneDrive request failed with HTTP $code"
@@ -393,7 +393,7 @@ internal class DropboxAppFolderClient(
             provider = CloudBackupProvider.DROPBOX_APP_FOLDER,
             id = path,
             name = value["name"]?.jsonPrimitive?.contentOrNull.orEmpty().ifBlank {
-                "Xylune-backup$XYLUNE_BACKUP_EXTENSION"
+                "Turp-backup$XYLUNE_BACKUP_EXTENSION"
             },
             modifiedAt = value["server_modified"]?.jsonPrimitive?.contentOrNull
                 ?.let { runCatching { Instant.parse(it).toEpochMilli() }.getOrNull() } ?: 0L,
@@ -407,7 +407,7 @@ internal class DropboxAppFolderClient(
         }.getOrNull()
         return when (code) {
             401 -> "Dropbox authorization expired. Connect the account again."
-            403 -> "Dropbox denied Xylune app-folder access. Confirm the app is scoped to App folder and has file permissions."
+            403 -> "Dropbox denied Turp app-folder access. Confirm the app is scoped to App folder and has file permissions."
             409 -> detail ?: "Dropbox rejected this file operation."
             507 -> "Dropbox does not have enough storage for this backup."
             else -> detail ?: "Dropbox request failed with HTTP $code"
@@ -1038,7 +1038,7 @@ private fun safeFileName(value: String): String = value
     .replace(Regex("[^A-Za-z0-9._() -]"), "_")
     .trim()
     .take(180)
-    .ifBlank { "Xylune-backup$XYLUNE_BACKUP_EXTENSION" }
+    .ifBlank { "Turp-backup$XYLUNE_BACKUP_EXTENSION" }
 
 private val JSON_MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
 private val XML_MEDIA_TYPE = "application/xml; charset=utf-8".toMediaType()

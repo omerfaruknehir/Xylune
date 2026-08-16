@@ -276,7 +276,7 @@ private suspend fun fetchRemoteMetadata(url: String): RemoteLinkMetadata = withC
         connectTimeout = 3_000
         readTimeout = 3_500
         requestMethod = "GET"
-        setRequestProperty("User-Agent", "Xylune-LinkPreview/1.0")
+        setRequestProperty("User-Agent", "Turp-LinkPreview/1.0")
         setRequestProperty("Accept", "text/html,application/xhtml+xml")
         setRequestProperty("Range", "bytes=0-262143")
     }

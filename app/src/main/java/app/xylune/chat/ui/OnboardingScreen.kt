@@ -87,7 +87,7 @@ internal fun XyluneStartupScreen() {
         ) {
             CircularProgressIndicator()
             Spacer(Modifier.height(16.dp))
-            Text("Preparing Xylune…", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text("Preparing Turp…", color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
@@ -249,7 +249,7 @@ private fun OnboardingStepActions(
                         onFinish()
                     },
                     modifier = Modifier.fillMaxWidth(),
-                ) { Text("Enter Xylune") }
+                ) { Text("Enter Turp") }
             }
         }
     }
@@ -386,9 +386,9 @@ private fun OnboardingProgressHeader(
 @Composable
 private fun WelcomeStep(viewModel: ChatViewModel) {
     Spacer(Modifier.height(8.dp))
-    XyluneMark(modifier = Modifier.size(64.dp), contentDescription = "Xylune")
+    XyluneMark(modifier = Modifier.size(64.dp), contentDescription = "Turp")
     Text(
-        "Welcome to Xylune",
+        "Welcome to Turp",
         style = MaterialTheme.typography.headlineMedium,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onBackground,
@@ -433,7 +433,7 @@ private fun ProviderStep(
         if (configuredProviderCount > 0) {
             "${providerCountLabel(configuredProviderCount)} ready. You can continue or change it now."
         } else {
-            "Choose how Xylune should reach a model. You can also leave this for later."
+            "Choose how Turp should reach a model. You can also leave this for later."
         },
     )
     if (configuredProviderCount > 0) {
@@ -505,7 +505,7 @@ private fun ReadyStep(configuredProviderCount: Int) {
         if (configuredProviderCount > 0) {
             "Your provider is connected. Start a chat and adjust anything else when you need it."
         } else {
-            "You can enter Xylune now and connect a provider when you're ready to send a message."
+            "You can enter Turp now and connect a provider when you're ready to send a message."
         },
     )
     Surface(

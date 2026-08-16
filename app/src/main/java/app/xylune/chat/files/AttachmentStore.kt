@@ -50,7 +50,7 @@ class AttachmentStore(
         }
         val attachmentsRoot = File(context.filesDir, "attachments")
         val appBytes = attachmentsRoot.walkTopDown().filter(File::isFile).sumOf(File::length)
-        require(appBytes + declaredSize.coerceAtLeast(0) <= MAX_APP_ATTACHMENT_BYTES) { "Xylune's 2 GB attachment storage limit has been reached" }
+        require(appBytes + declaredSize.coerceAtLeast(0) <= MAX_APP_ATTACHMENT_BYTES) { "Turp's 2 GB attachment storage limit has been reached" }
         val available = StatFs(context.filesDir.absolutePath).availableBytes
         require(declaredSize < 0 || available > declaredSize * 2 + MIN_FREE_BYTES) { "Not enough free storage to attach this file and make its workspace copy" }
         val id = UUID.randomUUID().toString()
@@ -113,7 +113,7 @@ class AttachmentStore(
             "This chat has reached its 512 MB attachment limit"
         }
         val appBytes = File(context.filesDir, "attachments").walkTopDown().filter(File::isFile).sumOf(File::length)
-        require(appBytes + bytes.size <= MAX_APP_ATTACHMENT_BYTES) { "Xylune's 2 GB attachment storage limit has been reached" }
+        require(appBytes + bytes.size <= MAX_APP_ATTACHMENT_BYTES) { "Turp's 2 GB attachment storage limit has been reached" }
         require(StatFs(context.filesDir.absolutePath).availableBytes > bytes.size * 2L + MIN_FREE_BYTES) {
             "Not enough free storage to save the generated image"
         }

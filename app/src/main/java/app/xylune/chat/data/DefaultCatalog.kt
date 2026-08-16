@@ -8,6 +8,8 @@ object DefaultCatalog {
         ProviderEntity("anthropic", "Anthropic", ProviderKind.ANTHROPIC, "https://api.anthropic.com/v1"),
         ProviderEntity("gemini", "Google Gemini", ProviderKind.GEMINI, "https://generativelanguage.googleapis.com/v1beta"),
         ProviderEntity("openrouter", "OpenRouter", ProviderKind.OPENAI_COMPATIBLE, "https://openrouter.ai/api/v1"),
+        ProviderEntity("groq", "Groq", ProviderKind.OPENAI_COMPATIBLE, "https://api.groq.com/openai/v1"),
+        ProviderEntity("mistral", "Mistral", ProviderKind.OPENAI_COMPATIBLE, "https://api.mistral.ai/v1"),
         ProviderEntity("xai", "xAI", ProviderKind.OPENAI_COMPATIBLE, "https://api.x.ai/v1"),
         ProviderEntity("qwen-cloud", "Qwen Cloud", ProviderKind.OPENAI_COMPATIBLE, "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"),
         ProviderEntity("generic", "OpenAI-compatible", ProviderKind.OPENAI_COMPATIBLE, "https://example.com/v1"),

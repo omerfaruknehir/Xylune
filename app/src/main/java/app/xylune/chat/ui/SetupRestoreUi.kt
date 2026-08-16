@@ -104,9 +104,9 @@ internal fun SetupRestoreActions(viewModel: ChatViewModel) {
         error = null
         finishOperation(
             if (values.isEmpty()) {
-                "Connected to ${source.setupLabel()}, but no Xylune backups were found."
+                "Connected to ${source.setupLabel()}, but no Turp backups were found."
             } else {
-                "Found ${values.size} Xylune backup${if (values.size == 1) "" else "s"} in ${source.setupLabel()}."
+                "Found ${values.size} Turp backup${if (values.size == 1) "" else "s"} in ${source.setupLabel()}."
             },
         )
         cloudDialogOpen = true
@@ -383,13 +383,13 @@ internal fun SetupRestoreActions(viewModel: ChatViewModel) {
                 ) {
                     if (cloudSource == SetupCloudSource.CHOOSE) {
                         Text(
-                            "Choose where Xylune should look. Every option is limited to app-only storage or a folder you explicitly select.",
+                            "Choose where Turp should look. Every option is limited to app-only storage or a folder you explicitly select.",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                         SetupCloudAction(
                             title = "Google Drive",
-                            subtitle = "Private Xylune app storage",
+                            subtitle = "Private Turp app storage",
                             filled = true,
                             enabled = !busy,
                             onClick = ::authorizeGoogleDrive,
@@ -471,7 +471,7 @@ internal fun SetupRestoreActions(viewModel: ChatViewModel) {
                                 modifier = Modifier.fillMaxWidth(),
                             ) {
                                 Text(
-                                    "This location is connected, but it does not contain a Xylune backup yet.",
+                                    "This location is connected, but it does not contain a Turp backup yet.",
                                     modifier = Modifier.padding(14.dp),
                                     style = MaterialTheme.typography.bodyMedium,
                                 )
@@ -709,7 +709,7 @@ private fun oauthActionSubtitle(provider: CloudOAuthProvider, state: CloudOAuthS
     is CloudOAuthState.Authorizing -> "Waiting for sign-in to finish"
     is CloudOAuthState.Error -> "Connection failed • tap to retry"
     is CloudOAuthState.Unavailable -> "Unavailable in this build • tap for details"
-    CloudOAuthState.Disconnected, null -> "Sign in; Xylune only uses its app folder"
+    CloudOAuthState.Disconnected, null -> "Sign in; Turp only uses its app folder"
 }
 
 private fun CloudOAuthProvider.directProvider(): DirectCloudProvider = when (this) {
@@ -725,8 +725,8 @@ private fun CloudOAuthProvider.setupSource(): SetupCloudSource = when (this) {
 private fun SetupCloudSource.setupLabel(): String = when (this) {
     SetupCloudSource.FOLDER -> "the selected backup folder"
     SetupCloudSource.GOOGLE_DRIVE -> "Google Drive app storage"
-    SetupCloudSource.ONEDRIVE -> "OneDrive Apps/Xylune"
-    SetupCloudSource.DROPBOX -> "Dropbox Xylune App folder"
+    SetupCloudSource.ONEDRIVE -> "OneDrive Apps/Turp"
+    SetupCloudSource.DROPBOX -> "Dropbox Turp App folder"
     SetupCloudSource.WEBDAV -> "Nextcloud / WebDAV"
     SetupCloudSource.S3 -> "S3-compatible storage"
     SetupCloudSource.CHOOSE -> "cloud storage"
@@ -745,4 +745,4 @@ private fun setupBackupMetadata(entry: CloudBackupEntry): String = buildString {
             },
         )
     }
-}.ifBlank { "Portable Xylune backup" }
+}.ifBlank { "Portable Turp backup" }

@@ -15,23 +15,42 @@ record_failure() {
 
 capture_screen() {
   local name="$1"
-  adb exec-out uiautomator dump /dev/tty > "$OUT/${name}-ui.xml" 2> "$OUT/${name}-ui-error.txt" || true
+  local attempt
+  local ui="$OUT/${name}-ui.xml"
+  local tmp="$OUT/${name}-ui.tmp"
+  local err="$OUT/${name}-ui-error.txt"
+  : > "$err"
+  for attempt in 1 2 3 4 5; do
+    adb exec-out uiautomator dump /dev/tty > "$tmp" 2>> "$err" || true
+    if grep -q '<hierarchy' "$tmp" 2>/dev/null; then
+      mv "$tmp" "$ui"
+      if (( attempt > 1 )); then
+        echo "uiHierarchyRetry=PASS screen=$name attempt=$attempt" >> "$OUT/qa-summary.txt"
+      fi
+      break
+    fi
+    cp "$tmp" "$ui" 2>/dev/null || true
+    echo "uiautomator dump attempt $attempt returned no hierarchy" >> "$err"
+    sleep 1
+  done
+  rm -f "$tmp"
   adb exec-out screencap -p > "$OUT/${name}.png" 2> "$OUT/${name}-screenshot-error.txt" || true
 }
 
-pick_text_center() {
+pick_node_center() {
   local file="$1"
-  local text="$2"
-  python3 - "$file" "$text" <<'PY'
+  local attr="$2"
+  local target="$3"
+  python3 - "$file" "$attr" "$target" <<'PY'
 import html
 import re
 import sys
 
-path, target = sys.argv[1], sys.argv[2]
+path, attr, target = sys.argv[1], sys.argv[2], sys.argv[3]
 data = open(path, encoding="utf-8", errors="replace").read()
 for tag in re.findall(r"<node\b[^>]*>", data):
     attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', tag))
-    if html.unescape(attrs.get("text", "")) != target:
+    if html.unescape(attrs.get(attr, "")) != target:
         continue
     m = re.fullmatch(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", attrs.get("bounds", ""))
     if m:
@@ -40,6 +59,14 @@ for tag in re.findall(r"<node\b[^>]*>", data):
         raise SystemExit(0)
 raise SystemExit(1)
 PY
+}
+
+pick_text_center() {
+  pick_node_center "$1" text "$2"
+}
+
+pick_desc_center() {
+  pick_node_center "$1" content-desc "$2"
 }
 
 tap_text() {
@@ -54,6 +81,21 @@ tap_text() {
     return 0
   fi
   record_failure "${label}=FAIL node-not-found text=$text"
+  return 1
+}
+
+tap_desc() {
+  local file="$1"
+  local desc="$2"
+  local label="$3"
+  local xy
+  if xy="$(pick_desc_center "$file" "$desc")"; then
+    read -r x y <<<"$xy"
+    adb shell input tap "$x" "$y"
+    echo "${label}=PASS desc=${desc} coord=${x},${y}" >> "$OUT/qa-summary.txt"
+    return 0
+  fi
+  record_failure "${label}=FAIL node-not-found desc=$desc"
   return 1
 }
 
@@ -79,7 +121,7 @@ dismiss_quickstep_anr() {
     if ! grep -Fq "Quickstep isn't responding" "$OUT/${name}-ui.xml" 2>/dev/null; then
       return 0
     fi
-    echo "quickstepAnrObserved=INFO attempt=$i" >> "$OUT/qa-summary.txt"
+    echo "quickstepAnrObserved=INFO screen=$name attempt=$i" >> "$OUT/qa-summary.txt"
     local xy
     if xy="$(pick_text_center "$OUT/${name}-ui.xml" "Wait")"; then
       read -r x y <<<"$xy"
@@ -113,7 +155,7 @@ dismiss_release_dialog() {
 }
 
 {
-  echo "Xylune Android emulator QA"
+  echo "Turp Android emulator QA"
   echo "commit=${GITHUB_SHA:-unknown}"
   echo "utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 } > "$OUT/qa-summary.txt"
@@ -188,6 +230,93 @@ if tap_text "$OUT/welcome-ui.xml" "Skip for now" "tapSkipForNow"; then
     fi
     [[ -s "$OUT/provider.png" ]] && echo "providerScreenshot=PASS" >> "$OUT/qa-summary.txt" \
       || record_failure "providerScreenshot=FAIL"
+
+    # Provider Back returns to Settings home. Keep scrolling until the Search row is not merely
+    # present in the accessibility tree but is also above the bottom system-navigation area.
+    adb shell input keyevent 4
+    sleep 2
+    capture_screen settings-home
+    dismiss_quickstep_anr settings-home || record_failure "settingsHomeSystemOverlayClear=FAIL"
+    settings_ui="$OUT/settings-home-ui.xml"
+    search_ready=false
+    search_x=""
+    search_y=""
+    for scroll_attempt in 1 2 3 4 5 6 7 8; do
+      search_xy="$(pick_text_center "$settings_ui" "Search & web" 2>/dev/null || true)"
+      if [[ -n "$search_xy" ]]; then
+        read -r search_x search_y <<<"$search_xy"
+        if (( search_y <= 2200 )); then
+          echo "searchNodeVisible=PASS attempt=$scroll_attempt coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
+          search_ready=true
+          break
+        fi
+        echo "searchNodeClipped=INFO attempt=$scroll_attempt coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
+      fi
+      scroll_xy="$(python3 - "$settings_ui" <<'PY2'
+import re, sys
+data = open(sys.argv[1], encoding='utf-8', errors='replace').read()
+for tag in re.findall(r'<node\b[^>]*>', data):
+    if 'scrollable="true"' not in tag:
+        continue
+    m = re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', tag)
+    if not m:
+        continue
+    x1, y1, x2, y2 = map(int, m.groups())
+    x = (x1 + x2) // 2
+    print(x, y1 + (y2-y1)*3//4, x, y1 + (y2-y1)//4)
+    raise SystemExit(0)
+raise SystemExit(1)
+PY2
+      )" || true
+      if [[ -z "$scroll_xy" ]]; then
+        record_failure "scrollSettingsHome=FAIL scrollable-node-not-found attempt=$scroll_attempt"
+        break
+      fi
+      read -r sx sy ex ey <<<"$scroll_xy"
+      adb shell input swipe "$sx" "$sy" "$ex" "$ey" 350
+      echo "scrollSettingsHome=PASS attempt=$scroll_attempt coord=${sx},${sy}->${ex},${ey}" >> "$OUT/qa-summary.txt"
+      sleep 2
+      capture_name="settings-home-scroll-${scroll_attempt}"
+      capture_screen "$capture_name"
+      dismiss_quickstep_anr "$capture_name" || record_failure "settingsScrollSystemOverlayClear=FAIL attempt=$scroll_attempt"
+      settings_ui="$OUT/${capture_name}-ui.xml"
+    done
+
+    # The loop captures the result of its final swipe at the end of the last iteration.
+    # Re-evaluate that final capture before declaring the Search row unavailable.
+    if [[ "$search_ready" != true ]]; then
+      search_xy="$(pick_text_center "$settings_ui" "Search & web" 2>/dev/null || true)"
+      if [[ -n "$search_xy" ]]; then
+        read -r search_x search_y <<<"$search_xy"
+        if (( search_y <= 2200 )); then
+          echo "searchNodeVisible=PASS attempt=final coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
+          search_ready=true
+        else
+          echo "searchNodeClipped=INFO attempt=final coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
+        fi
+      fi
+    fi
+
+    if [[ "$search_ready" == true ]]; then
+      adb shell input tap "$search_x" "$search_y"
+      echo "openSearchSettings=PASS text=Search & web coord=${search_x},${search_y}" >> "$OUT/qa-summary.txt"
+      sleep 3
+      capture_screen search
+      if dismiss_quickstep_anr search; then
+        echo "searchSystemOverlayClear=PASS" >> "$OUT/qa-summary.txt"
+      else
+        record_failure "searchSystemOverlayClear=FAIL Quickstep ANR persisted"
+      fi
+      if grep -Fq 'Search routing' "$OUT/search-ui.xml" 2>/dev/null && grep -Fq 'Automatic' "$OUT/search-ui.xml" 2>/dev/null; then
+        echo "searchSettingsUi=PASS" >> "$OUT/qa-summary.txt"
+      else
+        record_failure "searchSettingsUi=FAIL expected-compact-search-controls-missing"
+      fi
+      [[ -s "$OUT/search.png" ]] && echo "searchScreenshot=PASS" >> "$OUT/qa-summary.txt" \
+        || record_failure "searchScreenshot=FAIL"
+    else
+      record_failure "openSearchSettings=FAIL safe-visible-search-row-not-found"
+    fi
   fi
 fi
 
@@ -196,7 +325,7 @@ adb shell dumpsys window windows > "$OUT/windows.txt" 2>&1 || true
 adb shell dumpsys package "$PACKAGE" > "$OUT/package.txt" 2>&1 || true
 adb shell dumpsys meminfo "$PACKAGE" > "$OUT/meminfo.txt" 2>&1 || true
 adb shell dumpsys gfxinfo "$PACKAGE" > "$OUT/gfxinfo.txt" 2>&1 || true
-adb shell pidof -s "$PACKAGE" > "$OUT/pid.txt" 2>&1 || true
+adb shell pidof -s "$PACKAGE" > "$OUT/pid.txt" 2>/dev/null || true
 adb logcat -b crash -d > "$OUT/logcat-crash.txt" 2>&1 || true
 adb logcat -d > "$OUT/logcat.txt" 2>&1 || true
 

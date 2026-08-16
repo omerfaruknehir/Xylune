@@ -6,15 +6,15 @@ enum class WebSearchRoute(
 ) {
     AUTO(
         "Automatic",
-        "Use the model provider's native server-side search when supported, otherwise use the selected Xylune search engine.",
+        "Use the model provider's native server-side search when supported, otherwise use the selected Turp search engine.",
     ),
     NATIVE_ONLY(
         "Provider native only",
         "Require the selected provider/model to perform search itself. Unsupported models fail instead of silently switching engines.",
     ),
     SEARCH_ENGINE(
-        "Xylune search engine",
-        "Always use the selected search engine through Xylune's client-side web_search tool.",
+        "Turp search engine",
+        "Always use the selected search engine through Turp's client-side web_search tool.",
     ),
 }
 

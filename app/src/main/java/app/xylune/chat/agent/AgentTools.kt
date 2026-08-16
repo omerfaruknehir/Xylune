@@ -234,11 +234,13 @@ class AgentTools internal constructor(
         "conversation_search" -> {
             val query = requireNotNull(request.query) { "Conversation search query is missing" }.trim()
             require(query.isNotBlank()) { "Conversation search query is empty" }
-            val defaultScope = if (conversation.projectId == null) "all" else "current_project"
-            val projectId = when (request.historyScope.orEmpty().ifBlank { defaultScope }.lowercase()) {
-                "all" -> null
-                "current_project" -> requireNotNull(conversation.projectId) { "The current conversation is not in a project" }
-                else -> error("history scope must be all or current_project")
+            val requestedScope = request.historyScope?.trim()?.takeIf(String::isNotBlank)?.lowercase()
+            val projectId = when {
+                requestedScope == "all" -> null
+                requestedScope == "current_project" -> requireNotNull(conversation.projectId) { "The current conversation is not in a project" }
+                requestedScope != null -> error("history scope must be all or current_project")
+                conversation.projectId != null -> conversation.projectId
+                else -> error("Outside a project, conversation_search requires explicit scope=all")
             }
             val hits = repository.searchHistory(
                 text = query,
@@ -331,7 +333,7 @@ class AgentTools internal constructor(
         }
         "memory_save" -> {
             val settings = repository.automationSettingsNow()
-            check(settings.memoryEnabled) { "Memory is disabled in Xylune settings." }
+            check(settings.memoryEnabled) { "Memory is disabled in Turp settings." }
             val result = repository.saveMemoryManaged(
                 content = requireNotNull(request.memoryText) { "Memory text is missing" },
                 category = request.memoryCategory.orEmpty().ifBlank { "general" },
@@ -349,7 +351,7 @@ class AgentTools internal constructor(
         }
         "memory_list", "memory_search" -> {
             val settings = repository.automationSettingsNow()
-            check(settings.memoryEnabled) { "Memory is disabled in Xylune settings." }
+            check(settings.memoryEnabled) { "Memory is disabled in Turp settings." }
             val query = request.memoryQuery.orEmpty().trim()
             if (request.type.equals("memory_search", ignoreCase = true)) {
                 require(query.isNotBlank()) { "Memory search query is missing" }
@@ -371,7 +373,7 @@ class AgentTools internal constructor(
         }
         "memory_update" -> {
             val settings = repository.automationSettingsNow()
-            check(settings.memoryEnabled) { "Memory is disabled in Xylune settings." }
+            check(settings.memoryEnabled) { "Memory is disabled in Turp settings." }
             val result = repository.updateMemory(
                 id = requireNotNull(request.memoryId) { "Memory id is missing" },
                 content = requireNotNull(request.memoryText) { "Memory text is missing" },
@@ -389,7 +391,7 @@ class AgentTools internal constructor(
         }
         "memory_forget" -> {
             val settings = repository.automationSettingsNow()
-            check(settings.memoryEnabled) { "Memory is disabled in Xylune settings." }
+            check(settings.memoryEnabled) { "Memory is disabled in Turp settings." }
             val id = requireNotNull(request.memoryId) { "Memory id is missing" }
             AgentToolOutcome(json.encodeToString(MemoryForgetToolResult(
                 forgotten = repository.deleteMemory(id),
@@ -410,7 +412,7 @@ class AgentTools internal constructor(
                 listOf(relative),
             )
         }
-        else -> error("Unknown Xylune tool: ${request.type}")
+        else -> error("Unknown Turp tool: ${request.type}")
         }
     }
 
@@ -480,7 +482,7 @@ class AgentTools internal constructor(
             .addQueryParameter("q", query)
             .build()
         val request = Request.Builder().url(url)
-            .header("User-Agent", "Mozilla/5.0 (Android) Xylune/0.12.0")
+            .header("User-Agent", "Mozilla/5.0 (Android) Turp/0.12.0")
             .header("Accept", "text/html")
             .build()
         client.newCall(request).execute().use { response ->
@@ -627,7 +629,7 @@ class AgentTools internal constructor(
 
         repeat(4) { redirectCount ->
             val builder = Request.Builder().url(url)
-                .header("User-Agent", "Mozilla/5.0 (Android) Xylune/0.12.0")
+                .header("User-Agent", "Mozilla/5.0 (Android) Turp/0.12.0")
             headers.forEach { (name, value) -> builder.header(name, value) }
             if (!contentType.isNullOrBlank() && headers.keys.none { it.equals("Content-Type", ignoreCase = true) }) {
                 builder.header("Content-Type", contentType)
@@ -694,7 +696,7 @@ class AgentTools internal constructor(
         var url = validatePublicUrl(rawUrl)
         repeat(4) { redirectCount ->
             val request = Request.Builder().url(url)
-                .header("User-Agent", "Mozilla/5.0 (Android) Xylune/0.12.0")
+                .header("User-Agent", "Mozilla/5.0 (Android) Turp/0.12.0")
                 .header("Accept", "text/html,text/plain,application/json;q=0.9,*/*;q=0.2")
                 .build()
             client.newBuilder().followRedirects(false).build().newCall(request).execute().use { response ->

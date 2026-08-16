@@ -46,7 +46,7 @@ internal object NativeWebSearch {
             request.provider.kind == ProviderKind.OPENAI_OAUTH -> NativeWebSearchMode.RESPONSES
             request.provider.kind == ProviderKind.ANTHROPIC -> NativeWebSearchMode.ANTHROPIC
             request.provider.kind == ProviderKind.GEMINI && modelId.startsWith("gemini-3") -> NativeWebSearchMode.GEMINI
-            providerId == "deepseek" || baseUrl.contains("api.deepseek.com") -> {
+            ModelRequestPolicy.matchesPreset(request.provider, "deepseek") || baseUrl.contains("api.deepseek.com") -> {
                 if (modelId == "deepseek-v4-flash") NativeWebSearchMode.RESPONSES else NativeWebSearchMode.NONE
             }
             ModelRequestPolicy.supportsAlibabaResponsesWebSearch(
@@ -54,7 +54,7 @@ internal object NativeWebSearch {
                 request.model,
                 effectiveThinkingEnabled(request.model, request.thinkingEnabled),
             ) -> NativeWebSearchMode.RESPONSES
-            providerId in setOf("openai", "openrouter", "xai") -> NativeWebSearchMode.RESPONSES
+            listOf("openai", "openrouter", "xai").any { ModelRequestPolicy.matchesPreset(request.provider, it) } -> NativeWebSearchMode.RESPONSES
             baseUrl.contains("api.openai.com") ||
                 baseUrl.contains("openrouter.ai") ||
                 baseUrl.contains("api.x.ai") ||
@@ -79,10 +79,10 @@ internal object NativeWebSearch {
         val providerId = request.provider.id.lowercase()
         val baseUrl = request.provider.baseUrl.lowercase()
         return when {
-            providerId == "deepseek" || baseUrl.contains("api.deepseek.com") -> "DeepSeek native search"
-            providerId == "openai" || baseUrl.contains("api.openai.com") -> "OpenAI native search"
-            providerId == "openrouter" || baseUrl.contains("openrouter.ai") -> "OpenRouter native search"
-            providerId == "xai" || baseUrl.contains("api.x.ai") -> "xAI native search"
+            ModelRequestPolicy.matchesPreset(request.provider, "deepseek") || baseUrl.contains("api.deepseek.com") -> "DeepSeek native search"
+            ModelRequestPolicy.matchesPreset(request.provider, "openai") || baseUrl.contains("api.openai.com") -> "OpenAI native search"
+            ModelRequestPolicy.matchesPreset(request.provider, "openrouter") || baseUrl.contains("openrouter.ai") -> "OpenRouter native search"
+            ModelRequestPolicy.matchesPreset(request.provider, "xai") || baseUrl.contains("api.x.ai") -> "xAI native search"
             ModelRequestPolicy.supportsAlibabaResponsesWebSearch(
                 request.provider,
                 request.model,
@@ -96,7 +96,7 @@ internal object NativeWebSearch {
     }
 
     fun responsesServerToolType(request: ChatRequest): String =
-        if (request.provider.id.equals("openrouter", ignoreCase = true) ||
+        if (ModelRequestPolicy.matchesPreset(request.provider, "openrouter") ||
             request.provider.baseUrl.contains("openrouter.ai", ignoreCase = true)
         ) {
             "openrouter:web_search"

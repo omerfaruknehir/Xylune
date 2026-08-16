@@ -259,7 +259,7 @@ internal object WidgetDataRuntime {
                 .url(currentUrl)
                 .header("Accept", "application/json, text/json;q=0.9, */*;q=0.1")
                 .header("Cache-Control", "no-cache")
-                .header("User-Agent", "Xylune-HomeWidget/3 (Android)")
+                .header("User-Agent", "Turp-HomeWidget/3 (Android)")
                 .get()
                 .build()
             val response = client.newCall(request).execute()

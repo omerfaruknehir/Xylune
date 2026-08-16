@@ -206,11 +206,11 @@ internal class QwenCloudImageProvider(
             val body = response.body ?: throw ProviderProtocolException("Generated-image download returned no data")
             val declared = body.contentLength()
             require(declared < 0 || declared <= MAX_IMAGE_BYTES) {
-                "Generated image exceeded Xylune's 64 MB limit"
+                "Generated image exceeded Turp's 64 MB limit"
             }
             body.bytes().also { bytes ->
                 require(bytes.size.toLong() <= MAX_IMAGE_BYTES) {
-                    "Generated image exceeded Xylune's 64 MB limit"
+                    "Generated image exceeded Turp's 64 MB limit"
                 }
             }
         }

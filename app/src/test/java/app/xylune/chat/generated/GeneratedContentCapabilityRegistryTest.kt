@@ -64,7 +64,7 @@ class GeneratedContentCapabilityRegistryTest {
         val quiz = GeneratedContentCapabilityRegistry.promptForRequest("Make a quiz inside chat")
         assertTrue(quiz.contains("`xylune-snippet` schema"))
         assertFalse(quiz.contains("`xylune-widget` schema"))
-        assertTrue(quiz.contains("Xylune Home-widget skill manifest"))
+        assertTrue(quiz.contains("Turp Home-widget skill manifest"))
 
         val widget = GeneratedContentCapabilityRegistry.promptForRequest("Make a live home screen widget")
         assertTrue(widget.contains("`xylune-widget` schema"))
@@ -83,7 +83,7 @@ class GeneratedContentCapabilityRegistryTest {
 
         val ordinary = GeneratedContentCapabilityRegistry.promptForRequest("Explain why the sky is blue")
         assertTrue(ordinary.startsWith(GeneratedContentCapabilityRegistry.compactSummary()))
-        assertTrue(ordinary.contains("Xylune Home-widget skill manifest"))
+        assertTrue(ordinary.contains("Turp Home-widget skill manifest"))
         assertFalse(ordinary.contains("`xylune-widget` schema"))
     }
 }

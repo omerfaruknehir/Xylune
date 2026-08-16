@@ -151,3 +151,15 @@ html[lang='tr'] .home-hero__brand-copy span {
     transition: none;
   }
 }
+
+
+/* Turp rebrand: abstract radish palette, deliberately not a literal produce photo. */
+.home-hero__backdrop--turp {
+  background:
+    radial-gradient(circle at 29% 65%, color-mix(in srgb, #ef2e52 82%, transparent) 0 16%, transparent 39%),
+    radial-gradient(circle at 67% 25%, color-mix(in srgb, #72b442 72%, transparent) 0 15%, transparent 42%),
+    radial-gradient(circle at 80% 63%, color-mix(in srgb, #338331 48%, transparent) 0 12%, transparent 38%),
+    linear-gradient(135deg, #fff0d7 0%, #fee8c8 52%, #fde1bd 100%);
+  filter: saturate(.9) contrast(.96);
+  transform: scale(1.03);
+}

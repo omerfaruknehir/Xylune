@@ -84,7 +84,7 @@ class ScopedCloudFolderStore(private val context: Context) {
 
     suspend fun saveBackup(source: File, fileName: String): Uri = withContext(Dispatchers.IO) {
         require(source.isFile) { "Backup file no longer exists" }
-        val tree = requireNotNull(connectedUri()) { "Choose an Xylune cloud folder first" }
+        val tree = requireNotNull(connectedUri()) { "Choose an Turp cloud folder first" }
         val treeDocument = DocumentsContract.buildDocumentUriUsingTree(
             tree,
             DocumentsContract.getTreeDocumentId(tree),
@@ -406,7 +406,7 @@ class GoogleDriveAppDataClient(private val context: Context) {
             provider = CloudBackupProvider.GOOGLE_DRIVE_APP_DATA,
             id = id,
             name = value["name"]?.jsonPrimitive?.contentOrNull.orEmpty().ifBlank {
-                "Xylune-backup$XYLUNE_BACKUP_EXTENSION"
+                "Turp-backup$XYLUNE_BACKUP_EXTENSION"
             },
             modifiedAt = modified,
             sizeBytes = value["size"]?.jsonPrimitive?.contentOrNull?.toLongOrNull() ?: 0L,
@@ -419,8 +419,8 @@ class GoogleDriveAppDataClient(private val context: Context) {
                 ?.get("message")?.jsonPrimitive?.contentOrNull
         }.getOrNull().orEmpty()
         return when (code) {
-            401 -> "Google Drive authorization expired. Authorize Xylune again."
-            403 -> "Google Drive rejected app-folder access. Confirm the Drive API and drive.appdata scope are enabled for Xylune."
+            401 -> "Google Drive authorization expired. Authorize Turp again."
+            403 -> "Google Drive rejected app-folder access. Confirm the Drive API and drive.appdata scope are enabled for Turp."
             404 -> "Google Drive could not find this backup or upload session."
             507 -> "Google Drive does not have enough storage for this backup."
             else -> detail.ifBlank { "Google Drive backup failed with HTTP $code" }
@@ -431,7 +431,7 @@ class GoogleDriveAppDataClient(private val context: Context) {
         .replace(Regex("[^A-Za-z0-9._() -]"), "_")
         .trim()
         .take(160)
-        .ifBlank { "Xylune-backup$XYLUNE_BACKUP_EXTENSION" }
+        .ifBlank { "Turp-backup$XYLUNE_BACKUP_EXTENSION" }
 
     private sealed interface UploadState {
         data class Incomplete(val nextOffset: Long) : UploadState

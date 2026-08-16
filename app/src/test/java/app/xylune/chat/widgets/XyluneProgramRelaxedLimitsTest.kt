@@ -10,7 +10,7 @@ class XyluneProgramRelaxedLimitsTest {
           "schema":"xylune-widget/1",
           "id":"input_widget",
           "title":"Input",
-          "state":{"name":"Xylune"},
+          "state":{"name":"Turp"},
           "ui":{"type":"input","value":"name","label":"Name","action":"open"},
           "actions":{"open":[{"op":"open_app","route":"memory"}]}
         }""".trimIndent()

@@ -1,6 +1,6 @@
 # Architecture
 
-Xylune uses a single-activity Compose UI with an offline-first data layer.
+Turp uses a single-activity Compose UI with an offline-first data layer.
 
 | Area | Implementation |
 |---|---|
@@ -33,9 +33,9 @@ Optional hybrid token counting runs before provider submission. Anthropic and Ge
 
 Messages contain stable node IDs, parent IDs, and branch IDs. A steering request cancels the current worker, preserves its partial text/reasoning as an interrupted assistant node, then appends the steer as a child user node. Resume reuses the interrupted assistant state; DeepSeek uses prefix continuation where supported, while other providers use a conservative continuation prompt fallback.
 
-An assistant may request one Xylune tool at a time. The worker removes the protocol fence from visible content, executes the enabled tool, records status/input/output on the same assistant node, and feeds the untrusted result back to the model. Up to six consecutive calls are allowed normally; Deep Research permits up to fourteen bounded rounds. Python and Ubuntu steps report changed paths but do not attach them automatically; the assistant must invoke `send_file` for each file it intends to return, and Xylune inserts that card as an ordered timeline event.
+An assistant may request one Turp tool at a time. The worker removes the protocol fence from visible content, executes the enabled tool, records status/input/output on the same assistant node, and feeds the untrusted result back to the model. Up to six consecutive calls are allowed normally; Deep Research permits up to fourteen bounded rounds. Python and Ubuntu steps report changed paths but do not attach them automatically; the assistant must invoke `send_file` for each file it intends to return, and Turp inserts that card as an ordered timeline event.
 
-Before executing model Python or Linux source, Xylune writes it to a stable run directory in the existing per-conversation workspace. A failed result carries only bounded logs, a relevant line-numbered excerpt, the current source hash, and its run ID. Subsequent `workspace_read`, `apply_patch`, and `rerun_script` calls reuse that record and appear in the same Working timeline. Environment metadata is allow-listed so credentials and arbitrary environment secrets cannot enter the record.
+Before executing model Python or Linux source, Turp writes it to a stable run directory in the existing per-conversation workspace. A failed result carries only bounded logs, a relevant line-numbered excerpt, the current source hash, and its run ID. Subsequent `workspace_read`, `apply_patch`, and `rerun_script` calls reuse that record and appear in the same Working timeline. Environment metadata is allow-listed so credentials and arbitrary environment secrets cannot enter the record.
 
 Completed generated fences are independently segmented and validated before rendering. Invalid blocks keep their stable timeline position while `GeneratedBlockRepairCoordinator` requests exactly one corrected fence. Valid text/tables/blocks after an invalid block remain visible; provider failures are distinct from validation failures; repeated candidates are fingerprinted; and exhausted repairs become a safe native failure/editor card. No repair path executes generated code or writes chat list position.
 

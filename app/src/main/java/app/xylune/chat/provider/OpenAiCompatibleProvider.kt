@@ -152,8 +152,8 @@ class OpenAiCompatibleProvider(
 
                 if (exposedTools.isEmpty()) {
                     throw ProviderProtocolException(
-                        "The provider repeatedly printed a tool request after Xylune disabled tools for finalization. " +
-                            "Xylune discarded the protocol instead of displaying or executing it.",
+                        "The provider repeatedly printed a tool request after Turp disabled tools for finalization. " +
+                            "Turp discarded the protocol instead of displaying or executing it.",
                     )
                 }
                 val executableRecoveredCalls = recoveredTextCalls.filter { call ->
@@ -161,7 +161,7 @@ class OpenAiCompatibleProvider(
                 }
                 if (executableRecoveredCalls.isEmpty()) {
                     throw ProviderProtocolException(
-                        "The provider repeatedly serialized a tool request into assistant text or reasoning, and Xylune could not safely recover an exposed tool call.",
+                        "The provider repeatedly serialized a tool request into assistant text or reasoning, and Turp could not safely recover an exposed tool call.",
                     )
                 }
                 emit(
@@ -227,7 +227,7 @@ class OpenAiCompatibleProvider(
         require(prompt.isNotBlank()) { "Enter a prompt for image generation" }
         val latestUser = request.messages.lastOrNull { it.role == MessageRole.USER }
         require(latestUser?.attachments.orEmpty().none { it.mimeType.startsWith("image/") }) {
-            "This image model supports text-to-image generation in Xylune. Image editing is not enabled for this model yet."
+            "This image model supports text-to-image generation in Turp. Image editing is not enabled for this model yet."
         }
         val endpoint = endpointFor(request)
         val builder = Request.Builder()
@@ -244,7 +244,7 @@ class OpenAiCompatibleProvider(
             }
             val body = response.body ?: throw ProviderProtocolException("Image provider returned an empty response")
             val declared = body.contentLength()
-            require(declared < 0 || declared <= MAX_IMAGE_RESPONSE_BYTES) { "Image response exceeded Xylune's 96 MB safety limit" }
+            require(declared < 0 || declared <= MAX_IMAGE_RESPONSE_BYTES) { "Image response exceeded Turp's 96 MB safety limit" }
             val root = runCatching { ProviderJson.parseToJsonElement(body.string()).jsonObject }
                 .getOrElse { throw ProviderProtocolException("Image provider returned invalid JSON", it) }
             root.obj("error")?.let { error ->
@@ -377,7 +377,7 @@ class OpenAiCompatibleProvider(
     private fun decodeImageBase64(value: String): ByteArray = runCatching {
         Base64.getDecoder().decode(value.substringAfter("base64,", value))
     }.getOrElse { throw ProviderProtocolException("Image provider returned invalid base64 image data", it) }
-        .also { require(it.size.toLong() <= MAX_IMAGE_BYTES) { "Generated image exceeded Xylune's 64 MB limit" } }
+        .also { require(it.size.toLong() <= MAX_IMAGE_BYTES) { "Generated image exceeded Turp's 64 MB limit" } }
 
     private fun downloadImage(url: String): ByteArray {
         val parsed = runCatching { url.toHttpUrl() }.getOrElse {
@@ -388,13 +388,13 @@ class OpenAiCompatibleProvider(
             if (!response.isSuccessful) throw ProviderHttpException(response.code, "Generated-image download failed (${response.code})")
             val body = response.body ?: throw ProviderProtocolException("Generated-image download returned no data")
             val declared = body.contentLength()
-            require(declared < 0 || declared <= MAX_IMAGE_BYTES) { "Generated image exceeded Xylune's 64 MB limit" }
-            body.bytes().also { require(it.size.toLong() <= MAX_IMAGE_BYTES) { "Generated image exceeded Xylune's 64 MB limit" } }
+            require(declared < 0 || declared <= MAX_IMAGE_BYTES) { "Generated image exceeded Turp's 64 MB limit" }
+            body.bytes().also { require(it.size.toLong() <= MAX_IMAGE_BYTES) { "Generated image exceeded Turp's 64 MB limit" } }
         }
     }
 
     internal fun buildRequestBody(request: ChatRequest): JsonObject {
-        val isDeepSeek = request.provider.id == "deepseek"
+        val isDeepSeek = ModelRequestPolicy.matchesPreset(request.provider, "deepseek")
         val isOpenRouter = ModelRequestPolicy.isOpenRouter(request.provider)
         val isAlibaba = ModelRequestPolicy.isAlibabaModelStudio(request.provider)
         return buildJsonObject {
@@ -404,7 +404,7 @@ class OpenAiCompatibleProvider(
                 if (isAlibaba) "max_completion_tokens" else "max_tokens",
                 JsonPrimitive(request.maxOutputTokens),
             )
-            if (request.provider.id in setOf("openai", "deepseek", "openrouter", "xai", "qwen-cloud") || isOpenRouter || isAlibaba) {
+            if (listOf("openai", "deepseek", "openrouter", "xai", "qwen-cloud").any { ModelRequestPolicy.matchesPreset(request.provider, it) } || isOpenRouter || isAlibaba) {
                 put("stream_options", buildJsonObject { put("include_usage", JsonPrimitive(true)) })
             }
             if (request.tools.isNotEmpty() && request.model.supportsTools) {

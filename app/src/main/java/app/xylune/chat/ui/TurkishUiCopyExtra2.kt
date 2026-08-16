@@ -14,8 +14,8 @@ internal object TurkishUiCopyExtra2 {
         "Could not unlock archive" -> "Arşivin kilidi açılamadı"
         "Reasoning details" -> "Akıl yürütme ayrıntıları"
         "Open the creator's GitHub profile" -> "Geliştiricinin GitHub profilini aç"
-        "Open Xylune archive" -> "Xylune arşivini aç"
-        "Opened by Xylune" -> "Xylune tarafından açıldı"
+        "Open Turp archive" -> "Turp arşivini aç"
+        "Opened by Turp" -> "Turp tarafından açıldı"
         "Opening Android's folder picker…" -> "Android klasör seçici açılıyor…"
         "Opening backup preview…" -> "Yedek önizlemesi açılıyor…"
         "Opening file picker…" -> "Dosya seçici açılıyor…"
@@ -28,20 +28,20 @@ internal object TurkishUiCopyExtra2 {
         "Output / billed tokens" -> "Çıktı / faturalandırılan token'lar"
         "Override default tone/persona" -> "Varsayılan üslup/personayı geçersiz kıl"
         "Package installation failed" -> "Paket yüklemesi başarısız"
-        "Packages and their installers run with Xylune's app permissions. Ubuntu is for compatibility, not containment; these settings intentionally reduce confirmation barriers." -> "Paketler ve yükleyicileri Xylune'un uygulama izinleriyle çalışır. Ubuntu uyumluluk içindir, yalıtım için değil; bu ayarlar onay engellerini bilerek azaltır."
+        "Packages and their installers run with Turp's app permissions. Ubuntu is for compatibility, not containment; these settings intentionally reduce confirmation barriers." -> "Paketler ve yükleyicileri Turp'un uygulama izinleriyle çalışır. Ubuntu uyumluluk içindir, yalıtım için değil; bu ayarlar onay engellerini bilerek azaltır."
         "Password or app password" -> "Parola veya uygulama parolası"
         "Password — leave blank for none" -> "Parola — kullanmayacaksanız boş bırakın"
         "Passwords do not match" -> "Parolalar eşleşmiyor"
         "Per-response call breakdowns are available from each assistant message's ⋮ menu." -> "Yanıt başına çağrı dökümleri her asistan mesajının ⋮ menüsünde bulunur."
         "Plan ready for your confirmation." -> "Plan onayınız için hazır."
         "Portable cloud backups can include chats, app settings, organization, and optional Linux root filesystems. Passwordless backups are allowed after an explicit warning; API keys, OAuth sessions, provider authorization headers, cloud grants, and database encryption keys are excluded." -> "Taşınabilir bulut yedekleri sohbetleri, uygulama ayarlarını, düzenlemeyi ve isteğe bağlı Linux kök dosya sistemlerini içerebilir. Açık bir uyarıdan sonra parolasız yedeklere izin verilir; API anahtarları, OAuth oturumları, sağlayıcı yetkilendirme başlıkları, bulut izinleri ve veritabanı şifreleme anahtarları hariç tutulur."
-        "Portable Xylune backup" -> "Taşınabilir Xylune yedeği"
+        "Portable Turp backup" -> "Taşınabilir Turp yedeği"
         "Preflight & review" -> "Ön kontrol ve inceleme"
         "Preflight failed" -> "Ön kontrol başarısız"
         "Preparing file" -> "Dosya hazırlanıyor"
         "Preparing package plan…" -> "Paket planı hazırlanıyor…"
         "Preparing query" -> "Sorgu hazırlanıyor"
-        "Preparing Xylune…" -> "Xylune hazırlanıyor…"
+        "Preparing Turp…" -> "Turp hazırlanıyor…"
         "Preset: Custom" -> "Ön ayar: Özel"
         "Preview and import a backup" -> "Yedeği önizle ve içe aktar"
         "Previous extracted-text page" -> "Önceki çıkarılan metin sayfası"
@@ -50,7 +50,7 @@ internal object TurkishUiCopyExtra2 {
         "Previously selected backup folder" -> "Daha önce seçilen yedek klasörü"
         "Privacy, local data, providers, and KVKK/GDPR boundaries" -> "Gizlilik, yerel veriler, sağlayıcılar ve KVKK/GDPR sınırları"
         "Private cloud targets" -> "Özel bulut hedefleri"
-        "Private Xylune app storage" -> "Özel Xylune uygulama depolaması"
+        "Private Turp app storage" -> "Özel Turp uygulama depolaması"
         "Profiler disabled" -> "Profilleyici devre dışı"
         "Project website" -> "Proje web sitesi"
         "Provider calls" -> "Sağlayıcı çağrıları"
@@ -167,7 +167,7 @@ internal object TurkishUiCopyExtra2 {
     }
 
     private fun exact4(text: String): String? = when (text) {
-        "Share Xylune chat" -> "Xylune sohbetini paylaş"
+        "Share Turp chat" -> "Turp sohbetini paylaş"
         "SHELL COMMAND" -> "KABUK KOMUTU"
         "Short reasoning" -> "Kısa akıl yürütme"
         "Show backups" -> "Yedekleri göster"
@@ -177,7 +177,7 @@ internal object TurkishUiCopyExtra2 {
         "Shows live frame timing without forcing continuous animation. The monitor observes frames already rendered by Android." -> "Sürekli animasyonu zorlamadan canlı kare zamanlamasını gösterir. İzleyici Android tarafından zaten işlenmiş kareleri gözlemler."
         "Shows raw tool inputs, outputs, source paths, and copyable failure diagnostics inside Working." -> "Çalışma içinde ham araç girdilerini, çıktıları, kaynak yollarını ve kopyalanabilir hata tanılamalarını gösterir."
         "Sign in without pasting an API key." -> "API anahtarı yapıştırmadan oturum açın."
-        "Sign in; Xylune only uses its app folder" -> "Oturum açın; Xylune yalnızca uygulama klasörünü kullanır"
+        "Sign in; Turp only uses its app folder" -> "Oturum açın; Turp yalnızca uygulama klasörünü kullanır"
         "Signing SHA-1" -> "İmzalama SHA-1"
         "Source failed" -> "Kaynak başarısız"
         "Source read" -> "Kaynak okundu"
@@ -199,8 +199,8 @@ internal object TurkishUiCopyExtra2 {
         "Tap a result to add it to the install list" -> "Yükleme listesine eklemek için bir sonuca dokunun"
         "Tap to zoom" -> "Yakınlaştırmak için dokun"
         "Terminal, native CLI tools, and Linux packages" -> "Terminal, yerel CLI araçları ve Linux paketleri"
-        "The Android document picker can save directly to Google Drive, OneDrive, Dropbox, Nextcloud, a USB drive, or local storage. Xylune does not upload through a hidden server." -> "Android belge seçici doğrudan Google Drive, OneDrive, Dropbox, Nextcloud, USB sürücü veya yerel depolamaya kaydedebilir. Xylune gizli bir sunucu üzerinden yükleme yapmaz."
-        "The built-in provider catalog is delayed. Setup remains usable and Xylune will keep retrying in the background." -> "Yerleşik sağlayıcı kataloğu gecikiyor. Kurulum kullanılabilir kalır ve Xylune arka planda yeniden denemeye devam eder."
+        "The Android document picker can save directly to Google Drive, OneDrive, Dropbox, Nextcloud, a USB drive, or local storage. Turp does not upload through a hidden server." -> "Android belge seçici doğrudan Google Drive, OneDrive, Dropbox, Nextcloud, USB sürücü veya yerel depolamaya kaydedebilir. Turp gizli bir sunucu üzerinden yükleme yapmaz."
+        "The built-in provider catalog is delayed. Setup remains usable and Turp will keep retrying in the background." -> "Yerleşik sağlayıcı kataloğu gecikiyor. Kurulum kullanılabilir kalır ve Turp arka planda yeniden denemeye devam eder."
         "The edited source is compiled, executed in the bounded runtime, and rendered before use." -> "Düzenlenen kaynak kullanılmadan önce derlenir, sınırlandırılmış çalışma zamanında yürütülür ve işlenir."
         "The embedded license document could not be opened." -> "Gömülü lisans belgesi açılamadı."
         "The exact prompt bundled with this app version is shown below. It is selectable for inspection and intentionally read-only." -> "Bu uygulama sürümüyle birlikte gelen tam istem aşağıda gösterilir. İncelemek için seçilebilir ve özellikle salt okunurdur."
@@ -213,8 +213,8 @@ internal object TurkishUiCopyExtra2 {
         "The response stopped before it completed." -> "Yanıt tamamlanmadan durdu."
         "The reviewed plan is no longer available. Run preflight again." -> "İncelenen plan artık kullanılamıyor. Ön kontrolü yeniden çalıştırın."
         "The source and conversation are intact." -> "Kaynak ve sohbet sağlam."
-        "The Xylune maintainer does not create, train, host, pre-review, or endorse individual model outputs. AI output can be wrong, unsafe, biased, or unsuitable; verify it before relying on it. Provider terms, fees, retention, and content rules apply independently." -> "Xylune geliştiricisi tek tek model çıktılarını oluşturmaz, eğitmez, barındırmaz, önceden incelemez veya onaylamaz. Yapay zekâ çıktıları yanlış, güvensiz, önyargılı veya uygunsuz olabilir; güvenmeden önce doğrulayın. Sağlayıcı koşulları, ücretleri, saklama ve içerik kuralları bağımsız olarak geçerlidir."
-        "These providers keep Xylune backups in an app-specific folder or prefix. OAuth tokens and storage credentials are encrypted on this device and excluded from exported backups." -> "Bu sağlayıcılar Xylune yedeklerini uygulamaya özel bir klasör veya önekte tutar. OAuth token'ları ve depolama kimlik bilgileri bu cihazda şifrelenir ve dışa aktarılan yedeklere dahil edilmez."
+        "The Turp maintainer does not create, train, host, pre-review, or endorse individual model outputs. AI output can be wrong, unsafe, biased, or unsuitable; verify it before relying on it. Provider terms, fees, retention, and content rules apply independently." -> "Turp geliştiricisi tek tek model çıktılarını oluşturmaz, eğitmez, barındırmaz, önceden incelemez veya onaylamaz. Yapay zekâ çıktıları yanlış, güvensiz, önyargılı veya uygunsuz olabilir; güvenmeden önce doğrulayın. Sağlayıcı koşulları, ücretleri, saklama ve içerik kuralları bağımsız olarak geçerlidir."
+        "These providers keep Turp backups in an app-specific folder or prefix. OAuth tokens and storage credentials are encrypted on this device and excluded from exported backups." -> "Bu sağlayıcılar Turp yedeklerini uygulamaya özel bir klasör veya önekte tutar. OAuth token'ları ve depolama kimlik bilgileri bu cihazda şifrelenir ve dışa aktarılan yedeklere dahil edilmez."
         else -> null
     }
 
@@ -224,7 +224,7 @@ internal object TurkishUiCopyExtra2 {
         "This build has no GitHub source provenance" -> "Bu derlemede GitHub kaynak kökeni yok"
         "This build is missing its generated offline notices." -> "Bu derlemede oluşturulmuş çevrimdışı bildirimler eksik."
         "This file is encrypted. Enter its password to inspect it." -> "Bu dosya şifreli. İncelemek için parolasını girin."
-        "This location is connected, but it does not contain a Xylune backup yet." -> "Bu konum bağlı ancak henüz Xylune yedeği içermiyor."
+        "This location is connected, but it does not contain a Turp backup yet." -> "Bu konum bağlı ancak henüz Turp yedeği içermiyor."
         "This model cannot read the original attachment. OCR fallback will be prepared before sending." -> "Bu model özgün eki okuyamıyor. Göndermeden önce OCR yedeği hazırlanacak."
         "This model does not accept reference images." -> "Bu model referans görsel kabul etmiyor."
         "This model doesn't support tool calling. Web, Python, and Linux tools won't run." -> "Bu model araç çağrısını desteklemiyor. Web, Python ve Linux araçları çalışmaz."
@@ -233,12 +233,12 @@ internal object TurkishUiCopyExtra2 {
         "This provider returns the final image when generation finishes." -> "Bu sağlayıcı oluşturma bittiğinde son görseli döndürür."
         "This removes the selected Linux root filesystem and its installed packages for all chats. Chat files in /workspace and bundled Python packages are kept." -> "Bu işlem seçili Linux kök dosya sistemini ve yüklü paketlerini tüm sohbetler için kaldırır. /workspace içindeki sohbet dosyaları ve dahili Python paketleri korunur."
         "This saved package request already completed successfully." -> "Bu kaydedilmiş paket isteği zaten başarıyla tamamlandı."
-        "Token fields are stored from provider usage metadata when the provider reports them. Otherwise Xylune may fall back to its local counter/estimator. Use the raw token counts above with your provider's current pricing table for manual calculation." -> "Sağlayıcı bildirdiğinde token alanları kullanım meta verilerinden saklanır. Aksi halde Xylune yerel sayaç/tahminciyi kullanabilir. Elle hesaplama için yukarıdaki ham token sayılarını sağlayıcınızın güncel fiyat tablosuyla kullanın."
+        "Token fields are stored from provider usage metadata when the provider reports them. Otherwise Turp may fall back to its local counter/estimator. Use the raw token counts above with your provider's current pricing table for manual calculation." -> "Sağlayıcı bildirdiğinde token alanları kullanım meta verilerinden saklanır. Aksi halde Turp yerel sayaç/tahminciyi kullanabilir. Elle hesaplama için yukarıdaki ham token sayılarını sağlayıcınızın güncel fiyat tablosuyla kullanın."
         "Tool completed" -> "Araç tamamlandı"
         "Tool output" -> "Araç çıktısı"
         "Tool traces" -> "Araç izleri"
         "Tool traces and working timeline" -> "Araç izleri ve çalışma zaman çizelgesi"
-        "Tools available to Xylune in this chat" -> "Bu sohbette Xylune'un kullanabildiği araçlar"
+        "Tools available to Turp in this chat" -> "Bu sohbette Turp'un kullanabildiği araçlar"
         "Try a different word or a shorter phrase." -> "Farklı bir kelime veya daha kısa bir ifade deneyin."
         "Try a library name such as SQLCipher or a license such as Apache-2.0." -> "SQLCipher gibi bir kitaplık adı veya Apache-2.0 gibi bir lisans deneyin."
         "Try another provider or clear the current filters." -> "Başka bir sağlayıcı deneyin veya mevcut filtreleri temizleyin."
@@ -256,8 +256,8 @@ internal object TurkishUiCopyExtra2 {
         "Use custom instruction profiles for additional tone and workflow preferences." -> "Ek üslup ve iş akışı tercihleri için özel talimat profillerini kullanın."
         "Use OpenAI, Anthropic, Gemini, DeepSeek, or another compatible endpoint." -> "OpenAI, Anthropic, Gemini, DeepSeek veya başka uyumlu bir uç nokta kullanın."
         "Use terms, third-party AI limits, warranty, and liability" -> "Kullanım koşulları, üçüncü taraf yapay zekâ sınırları, garanti ve sorumluluk"
-        "Uses Dropbox App folder access and scoped file permissions. Xylune cannot browse the rest of Dropbox." -> "Dropbox uygulama klasörü erişimini ve kapsamlı dosya izinlerini kullanır. Xylune Dropbox'ın geri kalanına göz atamaz."
-        "Uses OneDrive's Apps/Xylune folder with Files.ReadWrite.AppFolder instead of access to the whole drive." -> "Tüm sürücüye erişmek yerine OneDrive'ın Apps/Xylune klasörünü Files.ReadWrite.AppFolder ile kullanır."
+        "Uses Dropbox App folder access and scoped file permissions. Turp cannot browse the rest of Dropbox." -> "Dropbox uygulama klasörü erişimini ve kapsamlı dosya izinlerini kullanır. Turp Dropbox'ın geri kalanına göz atamaz."
+        "Uses OneDrive's Apps/Turp folder with Files.ReadWrite.AppFolder instead of access to the whole drive." -> "Tüm sürücüye erişmek yerine OneDrive'ın Apps/Turp klasörünü Files.ReadWrite.AppFolder ile kullanır."
         "Uses only Drive's hidden appDataFolder. Connect once, then create, browse, preview, and restore backups without repeating the consent flow." -> "Yalnızca Drive'ın gizli appDataFolder alanını kullanır. Bir kez bağlandıktan sonra izin akışını tekrarlamadan yedek oluşturabilir, göz atabilir, önizleyebilir ve geri yükleyebilirsiniz."
         "Waiting for Google Drive approval…" -> "Google Drive onayı bekleniyor…"
         "Waiting for output…" -> "Çıktı bekleniyor…"
@@ -275,7 +275,7 @@ internal object TurkishUiCopyExtra2 {
         "What are we creating?" -> "Ne oluşturuyoruz?"
         "What are we working on?" -> "Ne üzerinde çalışıyoruz?"
         "What this screen manages" -> "Bu ekranın yönettikleri"
-        "While Xylune is working" -> "Xylune çalışırken"
+        "While Turp is working" -> "Turp çalışırken"
         "Within frame budget" -> "Kare bütçesi içinde"
         "Work complete" -> "Çalışma tamamlandı"
         "Working-history token budget" -> "Çalışma geçmişi token bütçesi"
@@ -283,15 +283,15 @@ internal object TurkishUiCopyExtra2 {
         "Works with Drive, OneDrive, Dropbox, Nextcloud, USB, local storage, and other Android document providers." -> "Drive, OneDrive, Dropbox, Nextcloud, USB, yerel depolama ve diğer Android belge sağlayıcılarıyla çalışır."
         "Writing report" -> "Rapor yazılıyor"
         "Writing source request…" -> "Kaynak isteği yazılıyor…"
-        "Xylune adds request-specific date, enabled-tool, research, memory, attachment, and generated-content instructions at runtime. Those dynamic layers are not editable either and are not presented as one misleading static block." -> "Xylune çalışma zamanında isteğe özel tarih, etkin araç, araştırma, hafıza, ek ve oluşturulan içerik talimatları ekler. Bu dinamik katmanlar da düzenlenemez ve yanıltıcı tek bir statik blok olarak sunulmaz."
-        "Xylune asks for the non-sensitive drive.appdata scope only. The backup files remain hidden from normal Drive browsing and from other apps." -> "Xylune yalnızca hassas olmayan drive.appdata kapsamını ister. Yedek dosyaları normal Drive gezintisinden ve diğer uygulamalardan gizli kalır."
-        "Xylune cannot send messages until ChatGPT, an API provider, or a local model server is connected." -> "ChatGPT, bir API sağlayıcısı veya yerel model sunucusu bağlanana kadar Xylune mesaj gönderemez."
-        "Xylune chat" -> "Xylune sohbeti"
-        "Xylune cloud folder connected" -> "Xylune bulut klasörü bağlandı"
-        "Xylune includes each installed root filesystem, packages, and configuration. Permissions, symbolic links, and hard links are preserved. This can make the backup several gigabytes." -> "Xylune her yüklü kök dosya sistemini, paketleri ve yapılandırmayı dahil eder. İzinler, sembolik bağlantılar ve sabit bağlantılar korunur. Bu, yedeği birkaç gigabayt büyütebilir."
-        "Xylune is ready" -> "Xylune hazır"
-        "Xylune stores memories in its encrypted local database and selects only relevant items under a strict context budget. Disabled memories remain stored but are not supplied to models." -> "Xylune hafızaları şifreli yerel veritabanında saklar ve sıkı bir bağlam bütçesi altında yalnızca ilgili öğeleri seçer. Devre dışı hafızalar saklanmaya devam eder ancak modellere verilmez."
-        "Xylune stream error" -> "Xylune akış hatası"
+        "Turp adds request-specific date, enabled-tool, research, memory, attachment, and generated-content instructions at runtime. Those dynamic layers are not editable either and are not presented as one misleading static block." -> "Turp çalışma zamanında isteğe özel tarih, etkin araç, araştırma, hafıza, ek ve oluşturulan içerik talimatları ekler. Bu dinamik katmanlar da düzenlenemez ve yanıltıcı tek bir statik blok olarak sunulmaz."
+        "Turp asks for the non-sensitive drive.appdata scope only. The backup files remain hidden from normal Drive browsing and from other apps." -> "Turp yalnızca hassas olmayan drive.appdata kapsamını ister. Yedek dosyaları normal Drive gezintisinden ve diğer uygulamalardan gizli kalır."
+        "Turp cannot send messages until ChatGPT, an API provider, or a local model server is connected." -> "ChatGPT, bir API sağlayıcısı veya yerel model sunucusu bağlanana kadar Turp mesaj gönderemez."
+        "Turp chat" -> "Turp sohbeti"
+        "Turp cloud folder connected" -> "Turp bulut klasörü bağlandı"
+        "Turp includes each installed root filesystem, packages, and configuration. Permissions, symbolic links, and hard links are preserved. This can make the backup several gigabytes." -> "Turp her yüklü kök dosya sistemini, paketleri ve yapılandırmayı dahil eder. İzinler, sembolik bağlantılar ve sabit bağlantılar korunur. Bu, yedeği birkaç gigabayt büyütebilir."
+        "Turp is ready" -> "Turp hazır"
+        "Turp stores memories in its encrypted local database and selects only relevant items under a strict context budget. Disabled memories remain stored but are not supplied to models." -> "Turp hafızaları şifreli yerel veritabanında saklar ve sıkı bir bağlam bütçesi altında yalnızca ilgili öğeleri seçer. Devre dışı hafızalar saklanmaya devam eder ancak modellere verilmez."
+        "Turp stream error" -> "Turp akış hatası"
         else -> null
     }
 
@@ -313,8 +313,8 @@ internal object TurkishUiCopyExtra2 {
         Regex("""Updated (\d+) models for (.+)""").matchEntire(text)?.let { return "${it.groupValues[2]} için ${it.groupValues[1]} model güncellendi" }
         Regex("""Waiting for (.+) authorization…""").matchEntire(text)?.let { return "${it.groupValues[1]} yetkilendirmesi bekleniyor…" }
         Regex("""Waiting for (.+) sign-in to finish…""").matchEntire(text)?.let { return "${it.groupValues[1]} oturum açma işleminin tamamlanması bekleniyor…" }
-        Regex("""Xylune (.+) is available from (.+)""").matchEntire(text)?.let { return "Xylune ${it.groupValues[1]}, ${it.groupValues[2]} üzerinden kullanılabilir" }
-        Regex("""Xylune (.+) is available""").matchEntire(text)?.let { return "Xylune ${it.groupValues[1]} kullanılabilir" }
+        Regex("""Turp (.+) is available from (.+)""").matchEntire(text)?.let { return "Turp ${it.groupValues[1]}, ${it.groupValues[2]} üzerinden kullanılabilir" }
+        Regex("""Turp (.+) is available""").matchEntire(text)?.let { return "Turp ${it.groupValues[1]} kullanılabilir" }
         return text
     }
 }

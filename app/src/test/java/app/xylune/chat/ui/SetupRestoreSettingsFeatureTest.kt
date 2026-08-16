@@ -28,7 +28,7 @@ class SetupRestoreSettingsFeatureTest {
         assertTrue(restore.contains("Google Drive sign-in was cancelled"))
         assertTrue(restore.contains("Folder selection was cancelled"))
         assertTrue(restore.contains("Waiting for \${provider.displayName} sign-in to finish"))
-        assertTrue(restore.contains("no Xylune backups were found"))
+        assertTrue(restore.contains("no Turp backups were found"))
         assertTrue(restore.contains("Unavailable in this build • tap for details"))
         assertTrue(restore.contains("viewModel.postNotice(\"Backup downloaded. Opening preview…\")"))
     }
@@ -52,19 +52,20 @@ class SetupRestoreSettingsFeatureTest {
     }
 
     @Test
-    fun portableBackupCarriesNonSecretSettingsAndOrganization() {
+    fun portableBackupCanCarryApiKeysOnlyWhenExplicitlyEncrypted() {
         val archive = source("src/main/java/app/xylune/chat/transfer/XyluneArchiveManager.kt")
         val settings = source("src/main/java/app/xylune/chat/transfer/AppSettingsArchiveStore.kt")
+        val ui = source("src/main/java/app/xylune/chat/ui/TransferUi.kt")
         assertTrue(archive.contains("includeAppSettings: Boolean = false"))
-        assertTrue(archive.contains("appSettings.snapshot()"))
-        assertTrue(settings.contains("PortablePreferenceSettings"))
-        assertTrue(settings.contains("PortableProviderSettings"))
-        assertTrue(settings.contains("PortableProjectSettings"))
-        assertTrue(settings.contains("PortableSystemPromptSettings"))
-        assertTrue(settings.contains("customHeadersJson = \"{}\""))
-        assertFalse(settings.contains("SecureStore"))
-        assertFalse(settings.contains("setApiKey"))
+        assertTrue(archive.contains("includeApiKeys: Boolean = false"))
+        assertTrue(archive.contains("appSettings.snapshot(includeApiKeys = options.includeApiKeys)"))
+        assertTrue(archive.contains("API keys require a password-encrypted backup"))
+        assertTrue(settings.contains("val apiKey: String? = null"))
+        assertTrue(settings.contains("SecureStore"))
+        assertTrue(settings.contains("secureStore.setApiKey"))
         assertFalse(settings.contains("accessToken"))
+        assertTrue(ui.contains("Include API keys"))
+        assertTrue(ui.contains("!includeApiKeys || password.isNotEmpty()"))
     }
 
     @Test

@@ -32,7 +32,7 @@ class TurkishDynamicUiCopyTest {
             "omerfaruknehir/Xylune kontrol ediliyor…",
             TurkishDynamicUiCopy.translate("Checking omerfaruknehir/Xylune…"),
         )
-        assertEquals("Xylune 0.24.27 kullanılabilir", TurkishDynamicUiCopy.translate("Xylune 0.24.27 is available"))
+        assertEquals("Turp 0.24.27 kullanılabilir", TurkishDynamicUiCopy.translate("Turp 0.24.27 is available"))
         assertEquals("Kaynak: omerfaruknehir/Xylune", TurkishDynamicUiCopy.translate("Source: omerfaruknehir/Xylune"))
     }
 
@@ -43,12 +43,12 @@ class TurkishDynamicUiCopyTest {
         assertEquals("PDF sayfası 4", TurkishDynamicUiCopy.translate("PDF page 4"))
         assertEquals("9 sayfanın 4. sayfası", TurkishDynamicUiCopy.translate("Page 4 of 9"))
         assertEquals(
-            "Google Drive bağlantısı kuruldu ancak Xylune yedeği bulunamadı.",
-            TurkishDynamicUiCopy.translate("Connected to Google Drive, but no Xylune backups were found."),
+            "Google Drive bağlantısı kuruldu ancak Turp yedeği bulunamadı.",
+            TurkishDynamicUiCopy.translate("Connected to Google Drive, but no Turp backups were found."),
         )
         assertEquals(
-            "Google Drive içinde 2 Xylune yedeği bulundu.",
-            TurkishDynamicUiCopy.translate("Found 2 Xylune backups in Google Drive."),
+            "Google Drive içinde 2 Turp yedeği bulundu.",
+            TurkishDynamicUiCopy.translate("Found 2 Turp backups in Google Drive."),
         )
     }
 

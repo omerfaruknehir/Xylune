@@ -61,6 +61,7 @@ internal fun BackupSettingsPage(viewModel: ChatViewModel) = SettingsPage {
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var includeAppSettings by remember { mutableStateOf(true) }
+    var includeApiKeys by remember { mutableStateOf(false) }
     var includeAttachments by remember { mutableStateOf(true) }
     var includePrivateData by remember { mutableStateOf(true) }
     var includeSystemPrompt by remember { mutableStateOf(true) }
@@ -75,7 +76,9 @@ internal fun BackupSettingsPage(viewModel: ChatViewModel) = SettingsPage {
         includeRequestMetadata = includePrivateData,
         includeLinuxEnvironments = includeLinuxEnvironments,
         includeAppSettings = includeAppSettings,
+        includeApiKeys = includeApiKeys,
     )
+    val backupReady = passwordsMatch && (!includeApiKeys || password.isNotEmpty())
     val backupLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.CreateDocument(XYLUNE_BACKUP_MIME),
     ) { uri ->
@@ -104,7 +107,7 @@ internal fun BackupSettingsPage(viewModel: ChatViewModel) = SettingsPage {
 
     TransferHeading(
         title = "Cloud & file backup",
-        subtitle = "The Android document picker can save directly to Google Drive, OneDrive, Dropbox, Nextcloud, a USB drive, or local storage. Xylune does not upload through a hidden server.",
+        subtitle = "The Android document picker can save directly to Google Drive, OneDrive, Dropbox, Nextcloud, a USB drive, or local storage. Turp does not upload through a hidden server.",
     )
 
     Surface(
@@ -116,21 +119,32 @@ internal fun BackupSettingsPage(viewModel: ChatViewModel) = SettingsPage {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Outlined.CloudUpload, null, tint = MaterialTheme.colorScheme.primary)
                 Column(Modifier.weight(1f).padding(start = 12.dp)) {
-                    Text("Portable Xylune backup", fontWeight = FontWeight.SemiBold)
+                    Text("Portable Turp backup", fontWeight = FontWeight.SemiBold)
                     Text(
-                        "Chats, branches, app configuration, organization, metadata, and optional attachments. API keys and OAuth sessions are deliberately excluded.",
+                        "Chats, branches, app configuration, organization, metadata, and optional attachments. API keys are optional and require password encryption; OAuth sessions are always excluded.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
-            TransferSwitch("Include app settings and configuration", includeAppSettings) { includeAppSettings = it }
+            TransferSwitch("Include app settings and configuration", includeAppSettings) { enabled ->
+                includeAppSettings = enabled
+                if (!enabled) includeApiKeys = false
+            }
             if (includeAppSettings) {
                 Text(
-                    "Includes theme, UI behavior, new-chat defaults, provider endpoints/models, projects, prompt profiles, and automation settings. Credentials, OAuth sessions, provider authorization headers, cloud grants, drafts, and navigation state stay excluded.",
+                    "Includes theme, UI behavior, new-chat defaults, provider endpoints/models, projects, prompt profiles, and automation settings. API keys are included only when separately enabled. OAuth sessions, provider authorization headers, cloud grants, drafts, and navigation state stay excluded.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+                TransferSwitch("Include API keys", includeApiKeys) { includeApiKeys = it }
+                if (includeApiKeys) {
+                    Text(
+                        "API keys are sensitive. Turp requires a non-empty backup password before this backup can be saved or uploaded. OAuth sessions are never exported.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
             }
             TransferSwitch("Include attachments", includeAttachments) { includeAttachments = it }
             TransferSwitch("Include reasoning, tool traces, and request metadata", includePrivateData) { includePrivateData = it }
@@ -138,7 +152,7 @@ internal fun BackupSettingsPage(viewModel: ChatViewModel) = SettingsPage {
             TransferSwitch("Include installed Linux environments", includeLinuxEnvironments) { includeLinuxEnvironments = it }
             if (includeLinuxEnvironments) {
                 Text(
-                    "Xylune includes each installed root filesystem, packages, and configuration. Permissions, symbolic links, and hard links are preserved. This can make the backup several gigabytes.",
+                    "Turp includes each installed root filesystem, packages, and configuration. Permissions, symbolic links, and hard links are preserved. This can make the backup several gigabytes.",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -159,15 +173,15 @@ internal fun BackupSettingsPage(viewModel: ChatViewModel) = SettingsPage {
         viewModel = viewModel,
         options = backupOptions,
         password = password,
-        enabled = !busy && passwordsMatch,
+        enabled = !busy && backupReady,
     )
 
     Button(
         onClick = {
             val stamp = SimpleDateFormat("yyyyMMdd-HHmm", Locale.US).format(Date())
-            backupLauncher.launch("Xylune-backup-$stamp$XYLUNE_BACKUP_EXTENSION")
+            backupLauncher.launch("Turp-backup-$stamp$XYLUNE_BACKUP_EXTENSION")
         },
-        enabled = !busy && passwordsMatch,
+        enabled = !busy && backupReady,
         modifier = Modifier.fillMaxWidth(),
     ) {
         if (busy) CircularProgressIndicator(Modifier.padding(end = 8.dp), strokeWidth = 2.dp)
@@ -192,7 +206,7 @@ internal fun BackupSettingsPage(viewModel: ChatViewModel) = SettingsPage {
         modifier = Modifier.fillMaxWidth(),
     ) {
         Text(
-            "Imports are non-destructive: every chat is created as a separate copy. Existing chats are never overwritten. Provider credentials are not imported, so reconnect the required provider before continuing an imported chat.",
+            "Imports are non-destructive: every chat is created as a separate copy. Existing chats are never overwritten. API keys are restored only from backups that explicitly included them; OAuth sessions are never imported.",
             modifier = Modifier.padding(14.dp),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -286,10 +300,10 @@ internal fun ChatShareDialog(
                             val send = Intent(Intent.ACTION_SEND).apply {
                                 type = XYLUNE_CHAT_MIME
                                 putExtra(Intent.EXTRA_STREAM, uri)
-                                clipData = ClipData.newUri(context.contentResolver, "Xylune chat", uri)
+                                clipData = ClipData.newUri(context.contentResolver, "Turp chat", uri)
                                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                             }
-                            context.startActivity(Intent.createChooser(send, "Share Xylune chat"))
+                            context.startActivity(Intent.createChooser(send, "Share Turp chat"))
                             onDismiss()
                         }.onFailure {
                             error = it.message ?: "Could not create the chat file"
@@ -318,9 +332,9 @@ internal fun IncomingArchiveDialog(
         title = {
             Text(
                 when {
-                    preview?.kind == ArchiveKind.BACKUP -> "Import Xylune backup"
-                    preview?.kind == ArchiveKind.CHAT -> "Open shared Xylune chat"
-                    else -> "Open Xylune archive"
+                    preview?.kind == ArchiveKind.BACKUP -> "Import Turp backup"
+                    preview?.kind == ArchiveKind.CHAT -> "Open shared Turp chat"
+                    else -> "Open Turp archive"
                 },
             )
         },
@@ -368,7 +382,7 @@ internal fun IncomingArchiveDialog(
                                 },
                             )
                             Text(
-                                "Created by Xylune ${value.appVersion} • ${if (value.encrypted) "Password protected" else "Not encrypted"}",
+                                "Created by Turp ${value.appVersion} • ${if (value.encrypted) "Password protected" else "Not encrypted"}",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
@@ -381,6 +395,7 @@ internal fun IncomingArchiveDialog(
                     IncludedRow("Custom system prompt", value.options.includeSystemPrompt)
                     IncludedRow("Request metadata", value.options.includeRequestMetadata)
                     IncludedRow("App settings and configuration", value.appSettingsIncluded)
+                    IncludedRow("API keys", value.options.includeApiKeys)
                     IncludedRow("Installed Linux environments", value.options.includeLinuxEnvironments)
                     Surface(
                         color = MaterialTheme.colorScheme.tertiaryContainer,

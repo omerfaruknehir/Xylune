@@ -30,7 +30,7 @@ class RepositoryUpdateManagerTest {
     fun releaseAssetSelectionPrefersManifestAndExactVersion() {
         val assets = listOf(
             RepositoryReleaseAsset("random.apk", "https://example/random"),
-            RepositoryReleaseAsset("Xylune-0.22.4-release.apk", "https://example/exact"),
+            RepositoryReleaseAsset("Turp-0.22.4-release.apk", "https://example/exact"),
             RepositoryReleaseAsset("custom-release.apk", "https://example/custom"),
         )
         assertEquals(
@@ -38,7 +38,7 @@ class RepositoryUpdateManagerTest {
             selectRepositoryReleaseApk(assets, "0.22.4", "custom-release.apk")?.name,
         )
         assertEquals(
-            "Xylune-0.22.4-release.apk",
+            "Turp-0.22.4-release.apk",
             selectRepositoryReleaseApk(assets, "0.22.4")?.name,
         )
     }
@@ -51,7 +51,7 @@ class RepositoryUpdateManagerTest {
             versionName = "0.22.4",
             versionCode = 168,
             packageName = "app.xylune.chat.debug",
-            apkAsset = "Xylune-0.22.4-release.apk",
+            apkAsset = "Turp-0.22.4-release.apk",
             apkSha256 = "abc",
             signingCertificateSha256 = "AA:BB:CC",
             sourceCommit = "deadbeef",
