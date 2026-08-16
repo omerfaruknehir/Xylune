@@ -17,6 +17,12 @@ text = text.replace('<si><t>Turp</t></si>', '<si><t>Xylune</t></si>')
 text = text.replace('text.contains("Name\\tTurp")', 'text.contains("Name\\tXylune")')
 office_test.write_text(text)
 
+# Theme.Xylune.* is a stable Android resource identifier, not user-facing brand copy.
+launcher_test = Path("app/src/test/java/app/xylune/chat/settings/LauncherIconManagerTest.kt")
+text = launcher_test.read_text()
+text = text.replace('Theme.Turp.Launcher.System', 'Theme.Xylune.Launcher.System')
+launcher_test.write_text(text)
+
 # Android 12+ System palette must remain runtime-dynamic. The radish geometry changes,
 # but v31 System resources continue to use @android:color/system_* instead of hardcoded hex.
 def system_tint(source: str, leaf_start: str) -> str:
@@ -52,6 +58,7 @@ v31.joinpath("ic_xylune_mark_system.xml").write_text(
 assert '# Xylune 0.24.28' in release_test.read_text()
 assert '<si><t>Xylune</t></si>' in office_test.read_text()
 assert 'Name\\tXylune' in office_test.read_text()
+assert 'Theme.Xylune.Launcher.System' in launcher_test.read_text()
 foreground = v31.joinpath("ic_xylune_foreground_system.xml").read_text()
 mark = v31.joinpath("ic_xylune_mark_system.xml").read_text()
 assert '@android:color/system_accent1_200' in foreground
