@@ -47,10 +47,10 @@ concurrency:
   cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' }}
 
 env:
-  XYLUNE_SOURCE_REPOSITORY: ${{ github.repository }}
-  XYLUNE_SOURCE_COMMIT: ${{ github.sha }}
-  XYLUNE_MICROSOFT_CLIENT_ID: ${{ vars.XYLUNE_MICROSOFT_CLIENT_ID }}
-  XYLUNE_DROPBOX_APP_KEY: ${{ vars.XYLUNE_DROPBOX_APP_KEY }}
+  TURP_SOURCE_REPOSITORY: ${{ github.repository }}
+  TURP_SOURCE_COMMIT: ${{ github.sha }}
+  TURP_MICROSOFT_CLIENT_ID: ${{ vars.TURP_MICROSOFT_CLIENT_ID }}
+  TURP_DROPBOX_APP_KEY: ${{ vars.TURP_DROPBOX_APP_KEY }}
 
 jobs:
   verify:
@@ -156,8 +156,8 @@ jobs:
     permissions:
       contents: write
     env:
-      XYLUNE_VERSION: ${{ needs.detect-release.outputs.version }}
-      XYLUNE_TAG: ${{ needs.detect-release.outputs.tag }}
+      TURP_VERSION: ${{ needs.detect-release.outputs.version }}
+      TURP_TAG: ${{ needs.detect-release.outputs.tag }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -181,18 +181,18 @@ jobs:
           rm -rf release
           mkdir release
 
-          apk="Turp-${XYLUNE_VERSION}-release.apk"
-          aab="Turp-${XYLUNE_VERSION}-release.aab"
-          source_zip="Turp-${XYLUNE_VERSION}-source.zip"
-          source_tar="Turp-${XYLUNE_VERSION}-source.tar.gz"
-          manifest="Turp-${XYLUNE_VERSION}-release.json"
-          checksums="Turp-${XYLUNE_VERSION}-SHA256.txt"
+          apk="Turp-${TURP_VERSION}-release.apk"
+          aab="Turp-${TURP_VERSION}-release.aab"
+          source_zip="Turp-${TURP_VERSION}-source.zip"
+          source_tar="Turp-${TURP_VERSION}-source.tar.gz"
+          manifest="Turp-${TURP_VERSION}-release.json"
+          checksums="Turp-${TURP_VERSION}-SHA256.txt"
 
           cp ci-release/app-release.apk "release/$apk"
           cp ci-release/app-release.aab "release/$aab"
           "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs "release/$apk"
-          git archive --format=zip --prefix="Turp-${XYLUNE_VERSION}/" -o "release/$source_zip" "$GITHUB_SHA"
-          git archive --format=tar --prefix="Turp-${XYLUNE_VERSION}/" "$GITHUB_SHA" | gzip -n > "release/$source_tar"
+          git archive --format=zip --prefix="Turp-${TURP_VERSION}/" -o "release/$source_zip" "$GITHUB_SHA"
+          git archive --format=tar --prefix="Turp-${TURP_VERSION}/" "$GITHUB_SHA" | gzip -n > "release/$source_tar"
 
           apk_sha256="$(sha256sum "release/$apk" | awk '{print $1}')"
           cert_sha256="$("$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs "release/$apk" | sed -n 's/^Signer #1 certificate SHA-256 digest: //p' | head -n1)"
@@ -208,8 +208,8 @@ jobs:
           data = {
               "schemaVersion": 1,
               "repository": os.environ["GITHUB_REPOSITORY"],
-              "tag": os.environ["XYLUNE_TAG"],
-              "versionName": os.environ["XYLUNE_VERSION"],
+              "tag": os.environ["TURP_TAG"],
+              "versionName": os.environ["TURP_VERSION"],
               "versionCode": int(os.environ["version_code"]),
               "packageName": os.environ["package_name"],
               "apkAsset": os.environ["apk"],
@@ -234,31 +234,31 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          notes="$(bash ci/resolve-release-notes.sh "$XYLUNE_VERSION")"
+          notes="$(bash ci/resolve-release-notes.sh "$TURP_VERSION")"
           test -s "$notes"
 
           mapfile -t draft_ids < <(
             gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
-              --jq ".[] | select(.tag_name == \"${XYLUNE_TAG}\" and .draft == true) | .id"
+              --jq ".[] | select(.tag_name == \"${TURP_TAG}\" and .draft == true) | .id"
           )
           for id in "${draft_ids[@]}"; do
             gh api --method DELETE "repos/${GITHUB_REPOSITORY}/releases/$id"
           done
 
-          if git ls-remote --exit-code --tags origin "refs/tags/${XYLUNE_TAG}" >/dev/null 2>&1; then
-            git push origin ":refs/tags/${XYLUNE_TAG}"
+          if git ls-remote --exit-code --tags origin "refs/tags/${TURP_TAG}" >/dev/null 2>&1; then
+            git push origin ":refs/tags/${TURP_TAG}"
           fi
 
-          gh release create "$XYLUNE_TAG" \
-            "release/Turp-${XYLUNE_VERSION}-release.apk" \
-            "release/Turp-${XYLUNE_VERSION}-release.aab" \
-            "release/Turp-${XYLUNE_VERSION}-source.zip" \
-            "release/Turp-${XYLUNE_VERSION}-source.tar.gz" \
-            "release/Turp-${XYLUNE_VERSION}-release.json" \
-            "release/Turp-${XYLUNE_VERSION}-SHA256.txt" \
+          gh release create "$TURP_TAG" \
+            "release/Turp-${TURP_VERSION}-release.apk" \
+            "release/Turp-${TURP_VERSION}-release.aab" \
+            "release/Turp-${TURP_VERSION}-source.zip" \
+            "release/Turp-${TURP_VERSION}-source.tar.gz" \
+            "release/Turp-${TURP_VERSION}-release.json" \
+            "release/Turp-${TURP_VERSION}-SHA256.txt" \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
-            --title "Turp ${XYLUNE_VERSION}" \
+            --title "Turp ${TURP_VERSION}" \
             --notes-file "$notes"
 
   device-smoke:
@@ -313,14 +313,14 @@ jobs:
         run: ./gradlew --no-daemon --stacktrace --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process :app:generateOfflineLicenseCatalog
       - name: Restore release keystore
         env:
-          KEYSTORE_BASE64: ${{ secrets.XYLUNE_KEYSTORE_BASE64 }}
-        run: echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/xylune-release.jks"
+          KEYSTORE_BASE64: ${{ secrets.TURP_KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/turp-release.jks"
       - name: Build protected signed release
         env:
-          XYLUNE_KEYSTORE_FILE: ${{ runner.temp }}/xylune-release.jks
-          XYLUNE_KEYSTORE_PASSWORD: ${{ secrets.XYLUNE_KEYSTORE_PASSWORD }}
-          XYLUNE_KEY_ALIAS: ${{ secrets.XYLUNE_KEY_ALIAS }}
-          XYLUNE_KEY_PASSWORD: ${{ secrets.XYLUNE_KEY_PASSWORD }}
+          TURP_KEYSTORE_FILE: ${{ runner.temp }}/turp-release.jks
+          TURP_KEYSTORE_PASSWORD: ${{ secrets.TURP_KEYSTORE_PASSWORD }}
+          TURP_KEY_ALIAS: ${{ secrets.TURP_KEY_ALIAS }}
+          TURP_KEY_PASSWORD: ${{ secrets.TURP_KEY_PASSWORD }}
         run: ./gradlew --no-daemon --stacktrace --max-workers=2 -Pkotlin.compiler.execution.strategy=in-process testReleaseUnitTest lintRelease assembleRelease bundleRelease
       - uses: actions/upload-artifact@v7
         with:

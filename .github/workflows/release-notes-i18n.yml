@@ -50,8 +50,8 @@ jobs:
 
             notes="$(bash ci/resolve-release-notes.sh "$version")"
             test -s "$notes"
-            grep -q '<!-- xylune-release-notes:en -->' "$notes"
-            grep -q '<!-- xylune-release-notes:tr -->' "$notes"
+            grep -q '<!-- turp-release-notes:en -->' "$notes"
+            grep -q '<!-- turp-release-notes:tr -->' "$notes"
             gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --notes-file "$notes"
             echo "Synchronized $tag"
           done

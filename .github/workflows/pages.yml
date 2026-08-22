@@ -49,9 +49,9 @@ jobs:
             test -s "docs/releases/tr/RELEASE_NOTES_${version}.md"
             notes="$(bash ci/resolve-release-notes.sh "$version")"
             test -s "$notes"
-            grep -q '<!-- xylune-release-notes:en -->' "$notes"
+            grep -q '<!-- turp-release-notes:en -->' "$notes"
             grep -q '^## English$' "$notes"
-            grep -q '<!-- xylune-release-notes:tr -->' "$notes"
+            grep -q '<!-- turp-release-notes:tr -->' "$notes"
             grep -q '^## Türkçe$' "$notes"
           done
       - name: Validate source sitemap
@@ -61,16 +61,16 @@ jobs:
           from urllib.parse import urlparse
 
           expected = {
-              'https://omerfaruknehir.github.io/Xylune/',
-              'https://omerfaruknehir.github.io/Xylune/releases/',
-              'https://omerfaruknehir.github.io/Xylune/privacy/',
-              'https://omerfaruknehir.github.io/Xylune/terms/',
-              'https://omerfaruknehir.github.io/Xylune/data-deletion/',
-              'https://omerfaruknehir.github.io/Xylune/tr/',
-              'https://omerfaruknehir.github.io/Xylune/tr/releases/',
-              'https://omerfaruknehir.github.io/Xylune/tr/privacy/',
-              'https://omerfaruknehir.github.io/Xylune/tr/terms/',
-              'https://omerfaruknehir.github.io/Xylune/tr/data-deletion/',
+              'https://omerfaruknehir.github.io/Turp/',
+              'https://omerfaruknehir.github.io/Turp/releases/',
+              'https://omerfaruknehir.github.io/Turp/privacy/',
+              'https://omerfaruknehir.github.io/Turp/terms/',
+              'https://omerfaruknehir.github.io/Turp/data-deletion/',
+              'https://omerfaruknehir.github.io/Turp/tr/',
+              'https://omerfaruknehir.github.io/Turp/tr/releases/',
+              'https://omerfaruknehir.github.io/Turp/tr/privacy/',
+              'https://omerfaruknehir.github.io/Turp/tr/terms/',
+              'https://omerfaruknehir.github.io/Turp/tr/data-deletion/',
           }
           root = ET.parse('docs/sitemap.xml').getroot()
           ns = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
@@ -82,13 +82,13 @@ jobs:
               parsed = urlparse(location)
               assert parsed.scheme == 'https', location
               assert parsed.netloc == 'omerfaruknehir.github.io', location
-              assert parsed.path.startswith('/Xylune/'), location
+              assert parsed.path.startswith('/Turp/'), location
           PY
       - name: Validate optimized legacy banner asset
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          path = Path('docs/assets/images/xylune-banner-background-2-1.webp')
+          path = Path('docs/assets/images/turp-banner-background-2-1.webp')
           data = path.read_bytes()
           assert 0 < len(data) < 100_000, len(data)
           assert data[:4] == b'RIFF' and data[8:12] == b'WEBP', 'not a WebP file'
@@ -101,7 +101,7 @@ jobs:
       - name: Verify built static assets
         run: |
           cmp docs/sitemap.xml _site/sitemap.xml
-          cmp docs/assets/images/xylune-banner-background-2-1.webp _site/assets/images/xylune-banner-background-2-1.webp
+          cmp docs/assets/images/turp-banner-background-2-1.webp _site/assets/images/turp-banner-background-2-1.webp
           python3 - <<'PY'
           import xml.etree.ElementTree as ET
           ET.parse('_site/sitemap.xml')
@@ -112,16 +112,16 @@ jobs:
           from pathlib import Path
 
           pages = {
-              '_site/index.html': ('en', '/Xylune/', '/Xylune/tr/'),
-              '_site/releases/index.html': ('en', '/Xylune/releases/', '/Xylune/tr/releases/'),
-              '_site/privacy/index.html': ('en', '/Xylune/privacy/', '/Xylune/tr/privacy/'),
-              '_site/terms/index.html': ('en', '/Xylune/terms/', '/Xylune/tr/terms/'),
-              '_site/data-deletion/index.html': ('en', '/Xylune/data-deletion/', '/Xylune/tr/data-deletion/'),
-              '_site/tr/index.html': ('tr', '/Xylune/', '/Xylune/tr/'),
-              '_site/tr/releases/index.html': ('tr', '/Xylune/releases/', '/Xylune/tr/releases/'),
-              '_site/tr/privacy/index.html': ('tr', '/Xylune/privacy/', '/Xylune/tr/privacy/'),
-              '_site/tr/terms/index.html': ('tr', '/Xylune/terms/', '/Xylune/tr/terms/'),
-              '_site/tr/data-deletion/index.html': ('tr', '/Xylune/data-deletion/', '/Xylune/tr/data-deletion/'),
+              '_site/index.html': ('en', '/Turp/', '/Turp/tr/'),
+              '_site/releases/index.html': ('en', '/Turp/releases/', '/Turp/tr/releases/'),
+              '_site/privacy/index.html': ('en', '/Turp/privacy/', '/Turp/tr/privacy/'),
+              '_site/terms/index.html': ('en', '/Turp/terms/', '/Turp/tr/terms/'),
+              '_site/data-deletion/index.html': ('en', '/Turp/data-deletion/', '/Turp/tr/data-deletion/'),
+              '_site/tr/index.html': ('tr', '/Turp/', '/Turp/tr/'),
+              '_site/tr/releases/index.html': ('tr', '/Turp/releases/', '/Turp/tr/releases/'),
+              '_site/tr/privacy/index.html': ('tr', '/Turp/privacy/', '/Turp/tr/privacy/'),
+              '_site/tr/terms/index.html': ('tr', '/Turp/terms/', '/Turp/tr/terms/'),
+              '_site/tr/data-deletion/index.html': ('tr', '/Turp/data-deletion/', '/Turp/tr/data-deletion/'),
           }
           for filename, (lang, en_path, tr_path) in pages.items():
               path = Path(filename)
@@ -139,18 +139,18 @@ jobs:
           turkish_releases = Path('_site/tr/releases/index.html').read_text(encoding='utf-8')
           release_js = Path('_site/assets/js/releases-v2.js').read_text(encoding='utf-8')
           banner_css = Path('_site/assets/css/banner.css').read_text(encoding='utf-8')
-          logo = Path('_site/assets/images/xylune-logo.svg').read_text(encoding='utf-8')
+          logo = Path('_site/assets/images/turp-logo.svg').read_text(encoding='utf-8')
 
           for html in (english, turkish):
               assert 'home-hero__backdrop--turp' in html
-              assert 'data-xylune-logo' in html
-              assert '/Xylune/assets/images/xylune-banner-background-2-1.webp' not in html
+              assert 'data-turp-logo' in html
+              assert '/Turp/assets/images/turp-banner-background-2-1.webp' not in html
           assert '<strong>Turp</strong>' in english
           assert '<strong>Turp</strong>' in turkish
           assert 'releases-v2.js?v=3' in english_releases
           assert 'releases-v2.js?v=3' in turkish_releases
-          assert 'xylune-release-notes:en' in release_js
-          assert 'xylune-release-notes:tr' in release_js
+          assert 'turp-release-notes:en' in release_js
+          assert 'turp-release-notes:tr' in release_js
           assert 'localizedReleaseMarkdown' in release_js
           assert '.home-hero__backdrop--turp' in banner_css
           assert '#ef2e52' in banner_css
