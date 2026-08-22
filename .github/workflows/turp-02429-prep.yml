@@ -1,0 +1,81 @@
+name: Prepare Turp 0.24.29
+
+on:
+  push:
+    branches: [release/turp-0.24.29]
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: release/turp-0.24.29
+      - name: Prepare version and release notes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("app/build.gradle.kts")
+          text = path.read_text(encoding="utf-8")
+          if 'versionCode = 218' in text and 'versionName = "0.24.29"' in text:
+              pass
+          else:
+              old_code = 'versionCode = 217'
+              old_name = 'versionName = "0.24.28"'
+              if text.count(old_code) != 1 or text.count(old_name) != 1:
+                  raise SystemExit("Unexpected current version; refusing blind release bump")
+              text = text.replace(old_code, 'versionCode = 218', 1)
+              text = text.replace(old_name, 'versionName = "0.24.29"', 1)
+              path.write_text(text, encoding="utf-8")
+
+          readme = Path("docs/releases/README.md")
+          r = readme.read_text(encoding="utf-8")
+          marker = "Current notes:"
+          if marker in r:
+              prefix = r.split(marker, 1)[0]
+              r = prefix + "Current notes: [Turp 0.24.29 — English](RELEASE_NOTES_0.24.29.md) · [Türkçe](tr/RELEASE_NOTES_0.24.29.md)\n"
+              readme.write_text(r, encoding="utf-8")
+          PY
+
+          cat > docs/releases/RELEASE_NOTES_0.24.29.md <<'EOF'
+          # Turp 0.24.29
+
+          ## Complete Turp identity
+
+          - Completes the hard Xylune → Turp rebrand across the Android package and namespace, Kotlin/resource/class paths, native library names, storage and backup identifiers, deep links, MIME types, CI variables, documentation, Pages paths, and repository-facing URLs.
+          - Changes the Android application ID to `app.turp.chat`, making Turp a distinct application identity rather than retaining the previous compatibility package.
+          - Intentionally does not migrate or preserve legacy install, preference, database, backup, deep-link, or other Xylune identifiers. Existing legacy installs and backups are not treated as Turp data.
+          - Adds a repository-wide identity regression test plus CI verification that rejects legacy Xylune names in checked-in paths or raw file bytes, including native binaries.
+          - Renames release/build artifacts and source metadata consistently to Turp and validates the new package through unit tests, lint, release assembly, signature checks, and emulator smoke tests.
+          EOF
+
+          mkdir -p docs/releases/tr
+          cat > docs/releases/tr/RELEASE_NOTES_0.24.29.md <<'EOF'
+          # Turp 0.24.29
+
+          ## Turp kimliğinin tamamlanması
+
+          - Android paket ve namespace'i, Kotlin/kaynak/sınıf yolları, yerel kütüphane adları, depolama ve yedekleme tanımlayıcıları, derin bağlantılar, MIME türleri, CI değişkenleri, belgeler, Pages yolları ve depo bağlantıları dahil olmak üzere Xylune → Turp kesin yeniden markalamasını tamamlar.
+          - Android uygulama kimliğini `app.turp.chat` olarak değiştirir; Turp artık önceki uyumluluk paketini korumak yerine ayrı bir uygulama kimliği kullanır.
+          - Eski Xylune kurulum, tercih, veritabanı, yedekleme, derin bağlantı veya diğer tanımlayıcılarını bilerek taşımaz ya da korumaz. Eski kurulumlar ve yedekler Turp verisi olarak kabul edilmez.
+          - Kaynak yollarında veya yerel ikili dosyalar dahil ham dosya baytlarında eski Xylune adlarını reddeden depo çapında kimlik regresyon testi ve CI doğrulaması ekler.
+          - Sürüm/derleme dosyalarını ve kaynak meta verilerini Turp adıyla tutarlı hâle getirir; yeni paketi birim testleri, lint, release derlemesi, imza kontrolleri ve emülatör smoke testleriyle doğrular.
+          EOF
+
+          if git diff --quiet -- app/build.gradle.kts docs/releases/README.md docs/releases/RELEASE_NOTES_0.24.29.md docs/releases/tr/RELEASE_NOTES_0.24.29.md; then
+            echo "Release metadata already prepared."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- app/build.gradle.kts docs/releases/README.md docs/releases/RELEASE_NOTES_0.24.29.md docs/releases/tr/RELEASE_NOTES_0.24.29.md
+          git commit -m "release: prepare Turp 0.24.29"
+          git push origin HEAD:release/turp-0.24.29
