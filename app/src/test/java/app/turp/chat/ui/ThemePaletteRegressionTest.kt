@@ -19,6 +19,6 @@ class ThemePaletteRegressionTest {
         assertTrue(theme.contains("primary = Color(0xFF286448)"))
         assertTrue(theme.contains("private val ArborDark"))
         assertTrue(theme.contains("primary = Color(0xFF99D5B1)"))
-        assertTrue(settings.contains("ColorPalette.ARBOR -> "Arbor""))
+        assertTrue(settings.contains("ColorPalette.ARBOR -> \"Arbor\""))
     }
 }
