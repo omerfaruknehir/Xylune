@@ -21,6 +21,42 @@ import app.turp.chat.settings.ColorPalette
 import app.turp.chat.settings.ThemeMode
 
 private val TurpLight = lightColorScheme(
+    primary = Color(0xFFA51D45), onPrimary = Color.White,
+    primaryContainer = Color(0xFFFFD9E2), onPrimaryContainer = Color(0xFF3F0015),
+    secondary = Color(0xFF4D6350), onSecondary = Color.White,
+    secondaryContainer = Color(0xFFD0E8D0), onSecondaryContainer = Color(0xFF0B1F10),
+    tertiary = Color(0xFF6B5E2E), onTertiary = Color.White,
+    tertiaryContainer = Color(0xFFF4E2A8), onTertiaryContainer = Color(0xFF211B00),
+    background = Color(0xFFFFF8F7), onBackground = Color(0xFF23191C),
+    surface = Color(0xFFFFF8F7), onSurface = Color(0xFF23191C),
+    surfaceVariant = Color(0xFFF1DEE2), onSurfaceVariant = Color(0xFF514347),
+    outline = Color(0xFF837377), outlineVariant = Color(0xFFD5C2C6),
+    surfaceContainerLowest = Color.White, surfaceContainerLow = Color(0xFFFFF0F2),
+    surfaceContainer = Color(0xFFF9EAED), surfaceContainerHigh = Color(0xFFF3E4E7),
+    surfaceContainerHighest = Color(0xFFEDE0E2),
+    inverseSurface = Color(0xFF382E31), inverseOnSurface = Color(0xFFFFECEF), inversePrimary = Color(0xFFFFB1C5),
+    error = Color(0xFFBA1A1A), errorContainer = Color(0xFFFFDAD6), onErrorContainer = Color(0xFF410002),
+)
+
+private val TurpDark = darkColorScheme(
+    primary = Color(0xFFFFB1C5), onPrimary = Color(0xFF650026),
+    primaryContainer = Color(0xFF851334), onPrimaryContainer = Color(0xFFFFD9E2),
+    secondary = Color(0xFFB5CCB6), onSecondary = Color(0xFF203523),
+    secondaryContainer = Color(0xFF374B3A), onSecondaryContainer = Color(0xFFD0E8D0),
+    tertiary = Color(0xFFD8C68B), onTertiary = Color(0xFF393005),
+    tertiaryContainer = Color(0xFF514718), onTertiaryContainer = Color(0xFFF4E2A8),
+    background = Color(0xFF1A1114), onBackground = Color(0xFFF1DEE2),
+    surface = Color(0xFF1A1114), onSurface = Color(0xFFF1DEE2),
+    surfaceVariant = Color(0xFF514347), onSurfaceVariant = Color(0xFFD5C2C6),
+    outline = Color(0xFF9E8C91), outlineVariant = Color(0xFF514347),
+    surfaceContainerLowest = Color(0xFF140C0F), surfaceContainerLow = Color(0xFF23191C),
+    surfaceContainer = Color(0xFF271D20), surfaceContainerHigh = Color(0xFF31272A),
+    surfaceContainerHighest = Color(0xFF3C3135),
+    inverseSurface = Color(0xFFF1DEE2), inverseOnSurface = Color(0xFF382E31), inversePrimary = Color(0xFFA51D45),
+    error = Color(0xFFFFB4AB), errorContainer = Color(0xFF93000A), onErrorContainer = Color(0xFFFFDAD6),
+)
+
+private val ArborLight = lightColorScheme(
     primary = Color(0xFF286448), onPrimary = Color.White,
     primaryContainer = Color(0xFFB5F1CC), onPrimaryContainer = Color(0xFF002112),
     secondary = Color(0xFF4E6356), onSecondary = Color.White,
@@ -38,7 +74,7 @@ private val TurpLight = lightColorScheme(
     error = Color(0xFFBA1A1A), errorContainer = Color(0xFFFFDAD6), onErrorContainer = Color(0xFF410002),
 )
 
-private val TurpDark = darkColorScheme(
+private val ArborDark = darkColorScheme(
     primary = Color(0xFF99D5B1), onPrimary = Color(0xFF003921),
     primaryContainer = Color(0xFF0D5033), onPrimaryContainer = Color(0xFFB5F1CC),
     secondary = Color(0xFFB5CCBC), onSecondary = Color(0xFF213529),
@@ -56,45 +92,45 @@ private val TurpDark = darkColorScheme(
     error = Color(0xFFFFB4AB), errorContainer = Color(0xFF93000A), onErrorContainer = Color(0xFFFFDAD6),
 )
 
-private val GraphiteLight = TurpLight.copy(
+private val GraphiteLight = ArborLight.copy(
     primary = Color(0xFF425F86), primaryContainer = Color(0xFFD5E3FF), onPrimaryContainer = Color(0xFF001C3A),
     secondary = Color(0xFF595E68), secondaryContainer = Color(0xFFDEE2EC), onSecondaryContainer = Color(0xFF171B22),
     tertiary = Color(0xFF745B46), tertiaryContainer = Color(0xFFFFDCC4), onTertiaryContainer = Color(0xFF2B1608),
 )
-private val GraphiteDark = TurpDark.copy(
+private val GraphiteDark = ArborDark.copy(
     primary = Color(0xFFA9C7F8), onPrimary = Color(0xFF0D3058), primaryContainer = Color(0xFF29486F), onPrimaryContainer = Color(0xFFD5E3FF),
     secondary = Color(0xFFC3C6D0), secondaryContainer = Color(0xFF41464F), onSecondaryContainer = Color(0xFFDEE2EC),
     tertiary = Color(0xFFE5BFA6), tertiaryContainer = Color(0xFF5A402D), onTertiaryContainer = Color(0xFFFFDCC4),
 )
 
-private val OceanLight = TurpLight.copy(
+private val OceanLight = ArborLight.copy(
     primary = Color(0xFF00677A), onPrimary = Color.White, primaryContainer = Color(0xFFAAEDFF), onPrimaryContainer = Color(0xFF001F26),
     secondary = Color(0xFF49636A), secondaryContainer = Color(0xFFCDE7EE), onSecondaryContainer = Color(0xFF041F25),
     tertiary = Color(0xFF565E7D), tertiaryContainer = Color(0xFFDDE1FF), onTertiaryContainer = Color(0xFF121A37),
 )
-private val OceanDark = TurpDark.copy(
+private val OceanDark = ArborDark.copy(
     primary = Color(0xFF54D6F2), onPrimary = Color(0xFF00363F), primaryContainer = Color(0xFF004E5D), onPrimaryContainer = Color(0xFFAAEDFF),
     secondary = Color(0xFFB1CBD2), secondaryContainer = Color(0xFF324B52), onSecondaryContainer = Color(0xFFCDE7EE),
     tertiary = Color(0xFFBEC6EA), tertiaryContainer = Color(0xFF3F4664), onTertiaryContainer = Color(0xFFDDE1FF),
 )
 
-private val VioletLight = TurpLight.copy(
+private val VioletLight = ArborLight.copy(
     primary = Color(0xFF67508F), onPrimary = Color.White, primaryContainer = Color(0xFFEADDFF), onPrimaryContainer = Color(0xFF22005D),
     secondary = Color(0xFF625B70), secondaryContainer = Color(0xFFE8DEF8), onSecondaryContainer = Color(0xFF1E192B),
     tertiary = Color(0xFF7E5260), tertiaryContainer = Color(0xFFFFD9E3), onTertiaryContainer = Color(0xFF31101D),
 )
-private val VioletDark = TurpDark.copy(
+private val VioletDark = ArborDark.copy(
     primary = Color(0xFFD1BCFF), onPrimary = Color(0xFF38205F), primaryContainer = Color(0xFF4F3776), onPrimaryContainer = Color(0xFFEADDFF),
     secondary = Color(0xFFCBC2DB), secondaryContainer = Color(0xFF4A4458), onSecondaryContainer = Color(0xFFE8DEF8),
     tertiary = Color(0xFFEFB8C8), tertiaryContainer = Color(0xFF633B48), onTertiaryContainer = Color(0xFFFFD9E3),
 )
 
-private val SunsetLight = TurpLight.copy(
+private val SunsetLight = ArborLight.copy(
     primary = Color(0xFF9B4425), onPrimary = Color.White, primaryContainer = Color(0xFFFFDBCF), onPrimaryContainer = Color(0xFF390C00),
     secondary = Color(0xFF77574D), secondaryContainer = Color(0xFFFFDBCF), onSecondaryContainer = Color(0xFF2C160F),
     tertiary = Color(0xFF6B5D2F), tertiaryContainer = Color(0xFFF4E1A7), onTertiaryContainer = Color(0xFF211B00),
 )
-private val SunsetDark = TurpDark.copy(
+private val SunsetDark = ArborDark.copy(
     primary = Color(0xFFFFB59C), onPrimary = Color(0xFF5C1A07), primaryContainer = Color(0xFF7C2D12), onPrimaryContainer = Color(0xFFFFDBCF),
     secondary = Color(0xFFE7BDB0), secondaryContainer = Color(0xFF5D4037), onSecondaryContainer = Color(0xFFFFDBCF),
     tertiary = Color(0xFFD7C58D), tertiaryContainer = Color(0xFF514619), onTertiaryContainer = Color(0xFFF4E1A7),
@@ -113,6 +149,7 @@ internal fun paletteColorScheme(
     context: Context,
 ): ColorScheme = when (palette) {
     ColorPalette.TURP -> if (dark) TurpDark else TurpLight
+    ColorPalette.ARBOR -> if (dark) ArborDark else ArborLight
     ColorPalette.GRAPHITE -> if (dark) GraphiteDark else GraphiteLight
     ColorPalette.OCEAN -> if (dark) OceanDark else OceanLight
     ColorPalette.VIOLET -> if (dark) VioletDark else VioletLight
