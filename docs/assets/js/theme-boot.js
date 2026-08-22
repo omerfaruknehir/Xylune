@@ -84,7 +84,25 @@
   };
 
   const paletteAccents = {
-    turp: { dark: {}, light: {} },
+    turp: {
+      dark: {
+        '--primary': '#ffb1c5', '--on-primary': '#650026',
+        '--primary-container': '#851334', '--on-primary-container': '#ffd9e2',
+        '--secondary': '#b5ccb6', '--on-secondary': '#203523',
+        '--secondary-container': '#374b3a', '--on-secondary-container': '#d0e8d0',
+        '--tertiary': '#d8c68b', '--on-tertiary': '#393005',
+        '--tertiary-container': '#514718', '--on-tertiary-container': '#f4e2a8',
+      },
+      light: {
+        '--primary': '#a51d45', '--on-primary': '#ffffff',
+        '--primary-container': '#ffd9e2', '--on-primary-container': '#3f0015',
+        '--secondary': '#4d6350', '--on-secondary': '#ffffff',
+        '--secondary-container': '#d0e8d0', '--on-secondary-container': '#0b1f10',
+        '--tertiary': '#6b5e2e', '--on-tertiary': '#ffffff',
+        '--tertiary-container': '#f4e2a8', '--on-tertiary-container': '#211b00',
+      },
+    },
+    arbor: { dark: {}, light: {} },
     graphite: {
       dark: {
         '--primary': '#a9c7f8',
@@ -188,7 +206,21 @@
   };
 
   const paletteSurfaces = {
-    turp: { dark: {}, light: {} },
+    turp: {
+      dark: {
+        '--background': '#1a1114', '--surface': '#1a1114', '--surface-low': '#23191c',
+        '--surface-container': '#271d20', '--on-surface': '#f1dee2',
+        '--on-surface-variant': '#d5c2c6', '--outline': '#9e8c91',
+        '--outline-variant': '#514347', '--rail': '#140c0f',
+      },
+      light: {
+        '--background': '#fff8f7', '--surface': '#fff8f7', '--surface-low': '#fff0f2',
+        '--surface-container': '#f9eaed', '--on-surface': '#23191c',
+        '--on-surface-variant': '#514347', '--outline': '#837377',
+        '--outline-variant': '#d5c2c6', '--rail': '#ffffff',
+      },
+    },
+    arbor: { dark: {}, light: {} },
     graphite: {
       dark: {
         '--background': '#111318', '--surface': '#111318', '--surface-low': '#191b20',
@@ -302,7 +334,7 @@
   const appTheme = urlAppTheme || readStoredAppTheme();
 
   const supportedThemes = ['app', 'dark', 'light', 'system'];
-  const supportedSchemes = ['app', 'turp', 'graphite', 'ocean', 'violet', 'sunset'];
+  const supportedSchemes = ['app', 'turp', 'arbor', 'graphite', 'ocean', 'violet', 'sunset'];
   const storedTheme = localStorage.getItem('turp-theme');
   const storedScheme = localStorage.getItem('turp-scheme');
   const urlTheme = params.get('theme');

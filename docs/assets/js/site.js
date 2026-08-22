@@ -7,7 +7,7 @@
     colorVariables: [],
     fixedColors: () => ({}),
     supportedThemes: ['app', 'dark', 'light', 'system'],
-    supportedSchemes: ['app', 'turp'],
+    supportedSchemes: ['app', 'turp', 'arbor'],
     queryKeys: ['theme', 'scheme', 'dynamicLogo'],
   };
   const storedDynamicIcon = localStorage.getItem('turp-dynamic-icon');
@@ -23,6 +23,14 @@
       markEnd: '#28722e',
       leaf: '#ef2e52',
       secondStroke: '#f5a0b0',
+    },
+    arbor: {
+      backgroundStart: '#e7f4ea',
+      backgroundEnd: '#b5f1cc',
+      markStart: '#286448',
+      markEnd: '#0d5033',
+      leaf: '#3d6472',
+      secondStroke: '#c1eafb',
     },
     system: {
       backgroundStart: '#293b52',
@@ -67,8 +75,10 @@
   };
 
   const appPrimaryToIconPalette = new Map([
-    ['#286448', 'turp'],
-    ['#99d5b1', 'turp'],
+    ['#a51d45', 'turp'],
+    ['#ffb1c5', 'turp'],
+    ['#286448', 'arbor'],
+    ['#99d5b1', 'arbor'],
     ['#425f86', 'graphite'],
     ['#a9c7f8', 'graphite'],
     ['#00677a', 'ocean'],
@@ -313,6 +323,7 @@
         <div class="dialog-scheme-grid" role="radiogroup" aria-label="Color scheme">
           ${schemeButton('app', 'App', true, true)}
           ${schemeButton('turp', 'Turp', false, true)}
+          ${schemeButton('arbor', 'Arbor', false, true)}
           ${schemeButton('graphite', 'Graphite', false, true)}
           ${schemeButton('ocean', 'Ocean', false, true)}
           ${schemeButton('violet', 'Violet', false, true)}

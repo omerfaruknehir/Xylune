@@ -125,9 +125,9 @@ body .rail-appearance {
 }
 
 .palette-choice {
-  --preview-primary: #99d5b1;
-  --preview-secondary: #b5ccbc;
-  --preview-tertiary: #a5cddd;
+  --preview-primary: #ffb1c5;
+  --preview-secondary: #b5ccb6;
+  --preview-tertiary: #d8c68b;
   display: grid;
   min-width: 0;
   min-height: 62px;
@@ -147,6 +147,18 @@ body .rail-appearance {
   --preview-primary: var(--primary);
   --preview-secondary: var(--secondary);
   --preview-tertiary: var(--tertiary);
+}
+
+.palette-choice[data-scheme-choice='turp'] {
+  --preview-primary: #ffb1c5;
+  --preview-secondary: #b5ccb6;
+  --preview-tertiary: #d8c68b;
+}
+
+.palette-choice[data-scheme-choice='arbor'] {
+  --preview-primary: #99d5b1;
+  --preview-secondary: #b5ccbc;
+  --preview-tertiary: #a5cddd;
 }
 
 .palette-choice[data-scheme-choice='graphite'] {
