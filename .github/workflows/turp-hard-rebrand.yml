@@ -1,4 +1,4 @@
-name: Hard rename repository tree to Turp
+name: Stage final Turp workflow rewrites
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  hard-rebrand:
+  stage-workflows:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -20,155 +20,45 @@ jobs:
           ref: rebrand/turp-hard-rename
           fetch-depth: 0
 
-      - name: Rewrite Xylune identity to Turp
+      - name: Generate exact Turp workflow copies
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import os
-          import shutil
 
-          root = Path('.')
           replacements = (
               ('XYLUNE', 'TURP'),
               ('Xylune', 'Turp'),
               ('xylune', 'turp'),
           )
-
-          rewritten = 0
-          skipped_binary = 0
-          for path in list(root.rglob('*')):
-              if not path.is_file() or '.git' in path.parts:
-                  continue
-              try:
-                  raw = path.read_bytes()
-              except OSError:
-                  continue
-              if b'\0' in raw:
-                  skipped_binary += 1
-                  continue
-              try:
-                  text = raw.decode('utf-8')
-              except UnicodeDecodeError:
-                  skipped_binary += 1
-                  continue
-              updated = text
+          names = (
+              'android.yml',
+              'pages.yml',
+              'release-notes-i18n.yml',
+              'wip-android-qa.yml',
+              'wip-debug-apk.yml',
+          )
+          output = Path('.turp-workflow-staging')
+          output.mkdir(exist_ok=True)
+          for name in names:
+              source = Path('.github/workflows') / name
+              text = source.read_text(encoding='utf-8')
               for old, new in replacements:
-                  updated = updated.replace(old, new)
-              if updated != text:
-                  path.write_text(updated, encoding='utf-8', newline='')
-                  rewritten += 1
-
-          renamed = 0
-          dropped_legacy_collisions = 0
-          for current_root, dirs, files in os.walk('.', topdown=False):
-              current = Path(current_root)
-              if '.git' in current.parts:
-                  continue
-              for name in files:
-                  old = current / name
-                  new_name = name
-                  for source, target in replacements:
-                      new_name = new_name.replace(source, target)
-                  if new_name != name:
-                      new = current / new_name
-                      if new.exists():
-                          old.unlink()
-                          dropped_legacy_collisions += 1
-                      else:
-                          old.rename(new)
-                          renamed += 1
-              for name in dirs:
-                  if name == '.git':
-                      continue
-                  old = current / name
-                  if not old.exists():
-                      continue
-                  new_name = name
-                  for source, target in replacements:
-                      new_name = new_name.replace(source, target)
-                  if new_name != name:
-                      new = current / new_name
-                      if new.exists():
-                          for child in list(old.iterdir()):
-                              destination = new / child.name
-                              if destination.exists():
-                                  if child.is_dir():
-                                      shutil.rmtree(child)
-                                  else:
-                                      child.unlink()
-                                  dropped_legacy_collisions += 1
-                              else:
-                                  child.rename(destination)
-                                  renamed += 1
-                          old.rmdir()
-                          dropped_legacy_collisions += 1
-                      else:
-                          old.rename(new)
-                          renamed += 1
-
-          print(f'rewritten_text_files={rewritten}')
-          print(f'renamed_paths={renamed}')
-          print(f'dropped_legacy_collisions={dropped_legacy_collisions}')
-          print(f'skipped_binary_files={skipped_binary}')
+                  text = text.replace(old, new)
+              assert all(old not in text for old, _ in replacements), name
+              (output / f'{name}.txt').write_text(text, encoding='utf-8')
+              print(f'staged {name}')
           PY
 
-      - name: Assert hard rename is complete before workflow restore
+      - name: Commit staged workflow copies
         shell: bash
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import sys
-
-          needles = ('XYLUNE', 'Xylune', 'xylune')
-          failures = []
-          for path in Path('.').rglob('*'):
-              if '.git' in path.parts:
-                  continue
-              if any(n in path.as_posix() for n in needles):
-                  failures.append(f'path: {path}')
-              if not path.is_file():
-                  continue
-              raw = path.read_bytes()
-              if b'\0' in raw:
-                  continue
-              try:
-                  text = raw.decode('utf-8')
-              except UnicodeDecodeError:
-                  continue
-              for needle in needles:
-                  if needle in text:
-                      failures.append(f'content {needle}: {path}')
-                      break
-          if failures:
-              print('\n'.join(failures[:200]))
-              sys.exit(f'{len(failures)} Xylune identity remnants remain')
-          PY
-
-      - name: Sanity-check renamed Android identity
-        shell: bash
-        run: |
-          test -d app/src/main/java/app/turp/chat
-          test ! -e app/src/main/java/app/xylune/chat
-          grep -F 'namespace = "app.turp.chat"' app/build.gradle.kts
-          grep -F 'applicationId = "app.turp.chat"' app/build.gradle.kts
-          grep -F '<string name="app_name">Turp</string>' app/src/main/res/values/strings.xml
-          grep -F 'android:scheme="turp"' app/src/main/AndroidManifest.xml
-          grep -F 'application/vnd.turp.chat' app/src/main/AndroidManifest.xml
-
-      - name: Commit hard rename except workflow YAMLs
-        shell: bash
-        run: |
-          # Workflow files are intentionally restored because this Actions token
-          # lacks GitHub's separate workflow-write permission. They are renamed
-          # through the authenticated GitHub connector after this commit lands.
-          git restore --source=HEAD -- .github/workflows
-          if git diff --quiet; then
-            echo 'No rename changes produced.'
-            exit 0
-          fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m 'Complete hard Xylune to Turp rename'
+          git add -- .turp-workflow-staging
+          if git diff --cached --quiet; then
+            echo 'Workflow staging already current.'
+            exit 0
+          fi
+          git commit -m 'Stage final Turp workflow rewrites'
           git push origin HEAD:rebrand/turp-hard-rename
