@@ -27,7 +27,7 @@ class LegalWebsiteIntegrationTest {
         val appearance = repositoryFile("docs/assets/css/appearance.css").readText()
 
         assertTrue(boot.contains("supportedThemes = ['app', 'dark', 'light', 'system']"))
-        assertTrue(boot.contains("supportedSchemes = ['app', 'turp', 'graphite', 'ocean', 'violet', 'sunset']"))
+        assertTrue(boot.contains("supportedSchemes = ['app', 'turp', 'arbor', 'graphite', 'ocean', 'violet', 'sunset']"))
         assertTrue(boot.contains("localStorage.getItem('turp-scheme')"))
         assertTrue(boot.contains("const queryKeys = ['theme', 'scheme'"))
         assertTrue(boot.contains("const paletteSurfaces ="))
@@ -42,6 +42,7 @@ class LegalWebsiteIntegrationTest {
         assertTrue(site.contains("themeSegmentButton('system', 'brightness_auto', 'Auto')"))
         assertTrue(site.contains("themeSegmentButton('light', 'light_mode', 'Light')"))
         assertTrue(site.contains("themeSegmentButton('dark', 'dark_mode', 'Dark')"))
+        assertTrue(site.contains("schemeButton('arbor', 'Arbor'"))
         assertTrue(site.contains("schemeButton('graphite', 'Graphite'"))
         assertTrue(site.contains("schemeButton('ocean', 'Ocean'"))
         assertTrue(site.contains("schemeButton('violet', 'Violet'"))
