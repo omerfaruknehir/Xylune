@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - rebrand/turp-hard-rename
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
