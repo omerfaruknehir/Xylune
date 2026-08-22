@@ -1,0 +1,213 @@
+name: Apply Turp and Arbor theme
+
+on:
+  push:
+    branches:
+      - feature/turp-arbor-theme
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: feature/turp-arbor-theme
+          fetch-depth: 0
+
+      - name: Apply remaining theme changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new, label):
+              p = Path(path)
+              text = p.read_text()
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly 1 match, found {count}')
+              p.write_text(text.replace(old, new, 1))
+
+          # App appearance copy for the new selectable palette.
+          replace_once(
+              'app/src/main/java/app/turp/chat/ui/SettingsScreen.kt',
+              '                        Text(if (option == ColorPalette.TURP) appName else option.displayName, fontWeight = FontWeight.SemiBold)\n                        Text(if (option == ColorPalette.TURP) "$appNamePossessive green Material palette" else option.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)',
+              '                        Text(if (option == ColorPalette.TURP) appName else option.displayName, fontWeight = FontWeight.SemiBold)\n                        Text(if (option == ColorPalette.TURP) "$appNamePossessive radish-red Material palette" else option.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)',
+              'Turp appearance summary',
+          )
+          replace_once(
+              'app/src/main/java/app/turp/chat/ui/SettingsScreen.kt',
+              '        ColorPalette.TURP -> "Turp"\n        ColorPalette.SYSTEM -> "Dynamic"',
+              '        ColorPalette.TURP -> "Turp"\n        ColorPalette.ARBOR -> "Arbor"\n        ColorPalette.SYSTEM -> "Dynamic"',
+              'Arbor display name',
+          )
+          replace_once(
+              'app/src/main/java/app/turp/chat/ui/SettingsScreen.kt',
+              '        ColorPalette.TURP -> "Turp\'s natural green Material palette"\n        ColorPalette.SYSTEM -> "Colors generated from your wallpaper on Android 12+"',
+              '        ColorPalette.TURP -> "Radish red, leafy green, and warm root-toned surfaces"\n        ColorPalette.ARBOR -> "The original natural green Turp palette"\n        ColorPalette.SYSTEM -> "Colors generated from your wallpaper on Android 12+"',
+              'Arbor palette description',
+          )
+
+          # Pages boot theme: original green base remains the Arbor foundation.
+          replace_once(
+              'docs/assets/js/theme-boot.js',
+              '    turp: { dark: {}, light: {} },\n    graphite:',
+              '''    turp: {
+              dark: {
+                '--primary': '#ffb1c5', '--on-primary': '#650026',
+                '--primary-container': '#851334', '--on-primary-container': '#ffd9e2',
+                '--secondary': '#b5ccb6', '--on-secondary': '#203523',
+                '--secondary-container': '#374b3a', '--on-secondary-container': '#d0e8d0',
+                '--tertiary': '#d8c68b', '--on-tertiary': '#393005',
+                '--tertiary-container': '#514718', '--on-tertiary-container': '#f4e2a8',
+              },
+              light: {
+                '--primary': '#a51d45', '--on-primary': '#ffffff',
+                '--primary-container': '#ffd9e2', '--on-primary-container': '#3f0015',
+                '--secondary': '#4d6350', '--on-secondary': '#ffffff',
+                '--secondary-container': '#d0e8d0', '--on-secondary-container': '#0b1f10',
+                '--tertiary': '#6b5e2e', '--on-tertiary': '#ffffff',
+                '--tertiary-container': '#f4e2a8', '--on-tertiary-container': '#211b00',
+              },
+            },
+            arbor: { dark: {}, light: {} },
+            graphite:''',
+              'Pages Turp accents',
+          )
+          replace_once(
+              'docs/assets/js/theme-boot.js',
+              '    turp: { dark: {}, light: {} },\n    graphite:',
+              '''    turp: {
+              dark: {
+                '--background': '#1a1114', '--surface': '#1a1114', '--surface-low': '#23191c',
+                '--surface-container': '#271d20', '--on-surface': '#f1dee2',
+                '--on-surface-variant': '#d5c2c6', '--outline': '#9e8c91',
+                '--outline-variant': '#514347', '--rail': '#140c0f',
+              },
+              light: {
+                '--background': '#fff8f7', '--surface': '#fff8f7', '--surface-low': '#fff0f2',
+                '--surface-container': '#f9eaed', '--on-surface': '#23191c',
+                '--on-surface-variant': '#514347', '--outline': '#837377',
+                '--outline-variant': '#d5c2c6', '--rail': '#ffffff',
+              },
+            },
+            arbor: { dark: {}, light: {} },
+            graphite:''',
+              'Pages Turp surfaces',
+          )
+          replace_once(
+              'docs/assets/js/theme-boot.js',
+              "  const supportedSchemes = ['app', 'turp', 'graphite', 'ocean', 'violet', 'sunset'];",
+              "  const supportedSchemes = ['app', 'turp', 'arbor', 'graphite', 'ocean', 'violet', 'sunset'];",
+              'Pages supported schemes',
+          )
+
+          replace_once(
+              'docs/assets/css/appearance.css',
+              '  --preview-primary: #99d5b1;\n  --preview-secondary: #b5ccbc;\n  --preview-tertiary: #a5cddd;',
+              '  --preview-primary: #ffb1c5;\n  --preview-secondary: #b5ccb6;\n  --preview-tertiary: #d8c68b;',
+              'Default Turp swatch',
+          )
+          replace_once(
+              'docs/assets/css/appearance.css',
+              ".palette-choice[data-scheme-choice='graphite'] {",
+              '''.palette-choice[data-scheme-choice='turp'] {
+            --preview-primary: #ffb1c5;
+            --preview-secondary: #b5ccb6;
+            --preview-tertiary: #d8c68b;
+          }
+
+          .palette-choice[data-scheme-choice='arbor'] {
+            --preview-primary: #99d5b1;
+            --preview-secondary: #b5ccbc;
+            --preview-tertiary: #a5cddd;
+          }
+
+          .palette-choice[data-scheme-choice='graphite'] {''',
+              'Pages Arbor swatch',
+          )
+
+          replace_once(
+              'docs/assets/js/i18n.js',
+              "      turp: 'Turp',\n      graphite: ui.graphite,",
+              "      turp: 'Turp',\n      arbor: 'Arbor',\n      graphite: ui.graphite,",
+              'Pages Arbor label',
+          )
+
+          replace_once(
+              'docs/assets/js/site.js',
+              "    supportedSchemes: ['app', 'turp'],",
+              "    supportedSchemes: ['app', 'turp', 'arbor'],",
+              'Pages fallback schemes',
+          )
+          replace_once(
+              'docs/assets/js/site.js',
+              '    system: {',
+              '''    arbor: {
+              backgroundStart: '#e7f4ea',
+              backgroundEnd: '#b5f1cc',
+              markStart: '#286448',
+              markEnd: '#0d5033',
+              leaf: '#3d6472',
+              secondStroke: '#c1eafb',
+            },
+            system: {''',
+              'Pages Arbor icon palette',
+          )
+          replace_once(
+              'docs/assets/js/site.js',
+              "    ['#286448', 'turp'],\n    ['#99d5b1', 'turp'],",
+              "    ['#a51d45', 'turp'],\n    ['#ffb1c5', 'turp'],\n    ['#286448', 'arbor'],\n    ['#99d5b1', 'arbor'],",
+              'Pages app primary mapping',
+          )
+          replace_once(
+              'docs/assets/js/site.js',
+              "          ${schemeButton('turp', 'Turp', false, true)}\n          ${schemeButton('graphite', 'Graphite', false, true)}",
+              "          ${schemeButton('turp', 'Turp', false, true)}\n          ${schemeButton('arbor', 'Arbor', false, true)}\n          ${schemeButton('graphite', 'Graphite', false, true)}",
+              'Pages Arbor scheme button',
+          )
+
+          Path('app/src/test/java/app/turp/chat/ui/ThemePaletteRegressionTest.kt').write_text('''package app.turp.chat.ui
+
+          import java.io.File
+          import org.junit.Assert.assertTrue
+          import org.junit.Test
+
+          class ThemePaletteRegressionTest {
+              @Test
+              fun `Turp is radish themed and Arbor preserves the original green palette`() {
+                  val theme = File("src/main/java/app/turp/chat/ui/theme/Theme.kt").readText()
+                  val preferences = File("src/main/java/app/turp/chat/settings/AppPreferences.kt").readText()
+                  val settings = File("src/main/java/app/turp/chat/ui/SettingsScreen.kt").readText()
+
+                  assertTrue(preferences.contains("TURP, ARBOR, SYSTEM"))
+                  assertTrue(theme.contains("private val TurpLight"))
+                  assertTrue(theme.contains("primary = Color(0xFFA51D45)"))
+                  assertTrue(theme.contains("primary = Color(0xFFFFB1C5)"))
+                  assertTrue(theme.contains("private val ArborLight"))
+                  assertTrue(theme.contains("primary = Color(0xFF286448)"))
+                  assertTrue(theme.contains("private val ArborDark"))
+                  assertTrue(theme.contains("primary = Color(0xFF99D5B1)"))
+                  assertTrue(settings.contains("ColorPalette.ARBOR -> \"Arbor\""))
+              }
+          }
+          ''')
+          PY
+
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- \
+            app/src/main/java/app/turp/chat/ui/SettingsScreen.kt \
+            app/src/test/java/app/turp/chat/ui/ThemePaletteRegressionTest.kt \
+            docs/assets/js/theme-boot.js \
+            docs/assets/css/appearance.css \
+            docs/assets/js/i18n.js \
+            docs/assets/js/site.js
+          git commit -m "[theme-bot] Complete Turp and Arbor theme integration"
+          git push origin HEAD:feature/turp-arbor-theme
