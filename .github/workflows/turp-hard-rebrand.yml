@@ -92,8 +92,6 @@ jobs:
                   if new_name != name:
                       new = current / new_name
                       if new.exists():
-                          # Prefer anything already Turp-named, but merge non-conflicting
-                          # legacy children so a directory collision does not lose files.
                           for child in list(old.iterdir()):
                               destination = new / child.name
                               if destination.exists():
@@ -117,7 +115,7 @@ jobs:
           print(f'skipped_binary_files={skipped_binary}')
           PY
 
-      - name: Assert hard rename is complete
+      - name: Assert hard rename is complete before workflow restore
         shell: bash
         run: |
           python3 - <<'PY'
@@ -160,9 +158,13 @@ jobs:
           grep -F 'android:scheme="turp"' app/src/main/AndroidManifest.xml
           grep -F 'application/vnd.turp.chat' app/src/main/AndroidManifest.xml
 
-      - name: Commit hard rename
+      - name: Commit hard rename except workflow YAMLs
         shell: bash
         run: |
+          # GITHUB_TOKEN can write repository contents but this installation does
+          # not have the separate workflows permission. Restore workflow YAMLs to
+          # the feature-branch versions; they are updated via the GitHub connector.
+          git restore --source=origin/rebrand/turp-hard-rename -- .github/workflows
           if git diff --quiet; then
             echo 'No rename changes produced.'
             exit 0
