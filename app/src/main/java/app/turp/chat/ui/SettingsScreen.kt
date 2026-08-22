@@ -1048,7 +1048,7 @@ private fun AppearanceSettingsPage(
                     PaletteSwatch(preview, Modifier.width(58.dp))
                     Column(Modifier.weight(1f).padding(start = 8.dp)) {
                         Text(if (option == ColorPalette.TURP) appName else option.displayName, fontWeight = FontWeight.SemiBold)
-                        Text(if (option == ColorPalette.TURP) "$appNamePossessive green Material palette" else option.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(if (option == ColorPalette.TURP) "$appNamePossessive radish-red Material palette" else option.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     if (palette == option) Icon(Icons.Outlined.CheckCircle, "Selected", tint = MaterialTheme.colorScheme.primary)
                 }
@@ -1895,6 +1895,7 @@ internal fun turpWebsiteUrl(
 private val ColorPalette.displayName: String
     get() = when (this) {
         ColorPalette.TURP -> "Turp"
+        ColorPalette.ARBOR -> "Arbor"
         ColorPalette.SYSTEM -> "Dynamic"
         ColorPalette.GRAPHITE -> "Graphite"
         ColorPalette.OCEAN -> "Ocean"
@@ -1904,7 +1905,8 @@ private val ColorPalette.displayName: String
 
 private val ColorPalette.description: String
     get() = when (this) {
-        ColorPalette.TURP -> "Turp's natural green Material palette"
+        ColorPalette.TURP -> "Radish red, leafy green, and warm root-toned surfaces"
+        ColorPalette.ARBOR -> "The original natural green Turp palette"
         ColorPalette.SYSTEM -> "Colors generated from your wallpaper on Android 12+"
         ColorPalette.GRAPHITE -> "Restrained blue-gray palette"
         ColorPalette.OCEAN -> "Cool teal and cyan accents"

@@ -39,6 +39,7 @@
     const schemeLabels = {
       app: ui.app,
       turp: 'Turp',
+      arbor: 'Arbor',
       graphite: ui.graphite,
       ocean: ui.ocean,
       violet: ui.violet,

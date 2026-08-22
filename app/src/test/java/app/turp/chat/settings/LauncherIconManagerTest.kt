@@ -40,6 +40,7 @@ class LauncherIconManagerTest {
 
         val expectedTargets = listOf(
             ".LauncherTurpActivity",
+            ".LauncherTurpActivity",
             ".LauncherSystemActivity",
             ".LauncherGraphiteActivity",
             ".LauncherOceanActivity",

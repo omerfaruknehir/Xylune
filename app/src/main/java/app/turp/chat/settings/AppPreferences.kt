@@ -54,7 +54,7 @@ internal fun chromeEdgeCornerTransition(value: Float): Float {
     return x * x * (3f - 2f * x)
 }
 
-enum class ColorPalette { TURP, SYSTEM, GRAPHITE, OCEAN, VIOLET, SUNSET }
+enum class ColorPalette { TURP, ARBOR, SYSTEM, GRAPHITE, OCEAN, VIOLET, SUNSET }
 
 enum class PerformanceOverlayPosition { TOP_START, TOP_END, BOTTOM_START, BOTTOM_END }
 

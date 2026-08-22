@@ -224,8 +224,8 @@ android {
         applicationId = "app.turp.chat"
         minSdk = 26
         targetSdk = 36
-        versionCode = 218
-        versionName = "0.24.29"
+        versionCode = 219
+        versionName = "0.24.30"
         buildConfigField("String", "SOURCE_REPOSITORY", "\"$sourceRepository\"")
         buildConfigField("String", "SOURCE_COMMIT", "\"$sourceCommit\"")
         buildConfigField("String", "MICROSOFT_CLIENT_ID", "\"$microsoftClientId\"")

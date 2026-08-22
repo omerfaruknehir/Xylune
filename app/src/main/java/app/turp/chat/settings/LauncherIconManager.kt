@@ -25,6 +25,7 @@ internal object LauncherIconManager {
     internal const val EXTRA_RELAUNCH_INTENT = "app.turp.chat.extra.RELAUNCH_INTENT"
 
     internal const val TURP_ALIAS = "app.turp.chat.LauncherTurp"
+    internal const val ARBOR_ALIAS = "app.turp.chat.LauncherArbor"
     internal const val SYSTEM_ALIAS = "app.turp.chat.LauncherSystem"
     internal const val GRAPHITE_ALIAS = "app.turp.chat.LauncherGraphite"
     internal const val OCEAN_ALIAS = "app.turp.chat.LauncherOcean"
@@ -33,6 +34,7 @@ internal object LauncherIconManager {
 
     internal val allAliases = listOf(
         TURP_ALIAS,
+        ARBOR_ALIAS,
         SYSTEM_ALIAS,
         GRAPHITE_ALIAS,
         OCEAN_ALIAS,
@@ -44,6 +46,7 @@ internal object LauncherIconManager {
         if (!matchPalette) return TURP_ALIAS
         return when (palette) {
             ColorPalette.TURP -> TURP_ALIAS
+            ColorPalette.ARBOR -> ARBOR_ALIAS
             ColorPalette.SYSTEM -> SYSTEM_ALIAS
             ColorPalette.GRAPHITE -> GRAPHITE_ALIAS
             ColorPalette.OCEAN -> OCEAN_ALIAS
@@ -55,6 +58,7 @@ internal object LauncherIconManager {
     @DrawableRes
     internal fun iconResource(matchPalette: Boolean, palette: ColorPalette): Int =
         when (aliasClassName(matchPalette, palette)) {
+            ARBOR_ALIAS -> R.mipmap.ic_launcher
             SYSTEM_ALIAS -> R.mipmap.ic_launcher_system
             GRAPHITE_ALIAS -> R.mipmap.ic_launcher_graphite
             OCEAN_ALIAS -> R.mipmap.ic_launcher_ocean

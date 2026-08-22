@@ -88,6 +88,7 @@ internal fun LauncherIconPreview(
 internal val ColorPalette.launcherPreviewDrawable: Int
     get() = when (this) {
         ColorPalette.TURP -> R.drawable.ic_turp_mark
+        ColorPalette.ARBOR -> R.drawable.ic_turp_mark
         ColorPalette.SYSTEM -> R.drawable.ic_turp_mark_system
         ColorPalette.GRAPHITE -> R.drawable.ic_turp_mark_graphite
         ColorPalette.OCEAN -> R.drawable.ic_turp_mark_ocean
