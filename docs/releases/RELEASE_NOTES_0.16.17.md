@@ -1,4 +1,4 @@
-# Xylune 0.16.17
+# Turp 0.16.17
 
 - Replaces the chat title overlay with one real collapsing header.
 - At the oldest/top of a conversation the header is stable and expanded.

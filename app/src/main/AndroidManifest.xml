@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
-        android:name=".XyluneApplication"
+        android:name=".TurpApplication"
         android:allowBackup="true"
         android:usesCleartextTraffic="false"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -22,7 +22,7 @@
         android:localeConfig="@xml/locales_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Xylune"
+        android:theme="@style/Theme.Turp"
         tools:targetApi="33">
 
         <activity
@@ -44,7 +44,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="xylune" android:host="oauth-complete" />
+                <data android:scheme="turp" android:host="oauth-complete" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -67,47 +67,47 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="application/vnd.xylune.chat" />
-                <data android:mimeType="application/vnd.xylune.backup" />
+                <data android:mimeType="application/vnd.turp.chat" />
+                <data android:mimeType="application/vnd.turp.backup" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".LauncherXyluneActivity"
+            android:name=".LauncherTurpActivity"
             android:exported="false"
             android:noHistory="true"
             android:process=":launcher_icon"
-            android:theme="@style/Theme.Xylune.Launcher.Xylune" />
+            android:theme="@style/Theme.Turp.Launcher.Turp" />
         <activity
             android:name=".LauncherSystemActivity"
             android:exported="false"
             android:noHistory="true"
             android:process=":launcher_icon"
-            android:theme="@style/Theme.Xylune.Launcher.System" />
+            android:theme="@style/Theme.Turp.Launcher.System" />
         <activity
             android:name=".LauncherGraphiteActivity"
             android:exported="false"
             android:noHistory="true"
             android:process=":launcher_icon"
-            android:theme="@style/Theme.Xylune.Launcher.Graphite" />
+            android:theme="@style/Theme.Turp.Launcher.Graphite" />
         <activity
             android:name=".LauncherOceanActivity"
             android:exported="false"
             android:noHistory="true"
             android:process=":launcher_icon"
-            android:theme="@style/Theme.Xylune.Launcher.Ocean" />
+            android:theme="@style/Theme.Turp.Launcher.Ocean" />
         <activity
             android:name=".LauncherVioletActivity"
             android:exported="false"
             android:noHistory="true"
             android:process=":launcher_icon"
-            android:theme="@style/Theme.Xylune.Launcher.Violet" />
+            android:theme="@style/Theme.Turp.Launcher.Violet" />
         <activity
             android:name=".LauncherSunsetActivity"
             android:exported="false"
             android:noHistory="true"
             android:process=":launcher_icon"
-            android:theme="@style/Theme.Xylune.Launcher.Sunset" />
+            android:theme="@style/Theme.Turp.Launcher.Sunset" />
 
         <receiver
             android:name=".settings.LauncherIconSwitchReceiver"
@@ -115,12 +115,12 @@
             android:process=":launcher_icon" />
 
          <activity-alias
-            android:name=".LauncherXylune"
+            android:name=".LauncherTurp"
             android:enabled="true"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:targetActivity=".LauncherXyluneActivity">
+            android:targetActivity=".LauncherTurpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -202,7 +202,7 @@
             android:exported="false" />
 
         <receiver
-            android:name=".widgets.XyluneHomeWidgetProvider"
+            android:name=".widgets.TurpHomeWidgetProvider"
             android:exported="false"
             android:label="@string/home_widget_name">
             <intent-filter>
@@ -210,7 +210,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/xylune_home_widget_info" />
+                android:resource="@xml/turp_home_widget_info" />
         </receiver>
 
         <receiver

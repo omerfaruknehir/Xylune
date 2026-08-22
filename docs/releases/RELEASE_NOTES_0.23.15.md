@@ -1,4 +1,4 @@
-# Xylune 0.23.15
+# Turp 0.23.15
 
 ## Chat title scroll synchronization
 

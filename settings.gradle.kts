@@ -21,5 +21,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Xylune"
+rootProject.name = "Turp"
 include(":app")

@@ -1,4 +1,4 @@
-# Xylune 0.24.12
+# Turp 0.24.12
 
 ## Görseller çalışma alanı
 
@@ -14,10 +14,10 @@ OpenAI GPT Image modelleri yerel Images üretim ve düzenleme uç noktalarını 
 
 ## Canlı üretim önizlemeleri
 
-Gerçek ara görsel kareleri sunan sağlayıcılar artık bunları üretim sırasında gösterebiliyor. OpenAI GPT Image üretim ve düzenleme istekleri en fazla üç yerel kısmi görsel talep ediyor; daha yeni sağlayıcı kareleri geldikçe Xylune devam eden önizlemeyi değiştirip aralarında geçiş yapıyor ve yalnızca son görseli kaydediyor.
+Gerçek ara görsel kareleri sunan sağlayıcılar artık bunları üretim sırasında gösterebiliyor. OpenAI GPT Image üretim ve düzenleme istekleri en fazla üç yerel kısmi görsel talep ediyor; daha yeni sağlayıcı kareleri geldikçe Turp devam eden önizlemeyi değiştirip aralarında geçiş yapıyor ve yalnızca son görseli kaydediyor.
 
 Mevcut Qwen Image API'si gibi aşamalı kare sunmayan sağlayıcılarda ise sahte ara ayrıntılar üretmek yerine son görsel gelene kadar açık bir üretim yer tutucusu gösteriliyor.
 
 ## Sürüm notu güvenilirliği
 
-Sürüm yayımlama artık tüm `CHANGELOG.md` dosyasına geri dönemiyor. Xylune, varsa tam sürüme ait sürüm notu dosyasını kullanıyor; yoksa yalnızca o sürümün değişiklik günlüğü bölümünü çıkarıyor ve ikisi de bulunamazsa yayını reddediyor. Aynı sürümün daha önce yayımlanmış GitHub sürümü de etiket veya varlıklar yeniden oluşturulmadan açıklamasıyla eşitlenebiliyor.
+Sürüm yayımlama artık tüm `CHANGELOG.md` dosyasına geri dönemiyor. Turp, varsa tam sürüme ait sürüm notu dosyasını kullanıyor; yoksa yalnızca o sürümün değişiklik günlüğü bölümünü çıkarıyor ve ikisi de bulunamazsa yayını reddediyor. Aynı sürümün daha önce yayımlanmış GitHub sürümü de etiket veya varlıklar yeniden oluşturulmadan açıklamasıyla eşitlenebiliyor.

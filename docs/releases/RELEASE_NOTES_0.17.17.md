@@ -1,4 +1,4 @@
-# Xylune 0.17.17
+# Turp 0.17.17
 
 - Fixes the visual contour that appeared when gradual blur edge softness was set near zero.
 - Removes the abrupt hard-edge/feather branch in the AGSL blur mask.

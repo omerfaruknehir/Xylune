@@ -1,6 +1,6 @@
 # Turp snippets and programmable widgets
 
-Contract family: `xylune-generated-content/2`
+Contract family: `turp-generated-content/2`
 Validator: `2.4.0`
 
 `GeneratedContentCapabilityRegistry` is the prompt-time and validation-time authority. This document is the human-readable skill specification supplied with the app.
@@ -11,14 +11,14 @@ Turp has two generated-program surfaces. They are intentionally incompatible.
 
 | Surface | Fence | Schema | Lives where | External capabilities |
 |---|---|---|---|---|
-| Snippet | `xylune-snippet` | `xylune-snippet/1` | Inside one chat message | None |
-| Widget | `xylune-widget` | `xylune-widget/1` | Android Home screen | Explicit per-widget grants |
+| Snippet | `turp-snippet` | `turp-snippet/1` | Inside one chat message | None |
+| Widget | `turp-widget` | `turp-widget/1` | Android Home screen | Explicit per-widget grants |
 
 A **snippet** is a chat interaction: a quiz, short questionnaire, calculator, checklist, configuration form, simple question, or other temporary interactive answer.
 
 A **widget** is an Android launcher program. Turp shows an installation card inside chat, but the program itself runs outside the app after the user reviews its manifest and pins it.
 
-The removed `xylune-ui`, `ui`, `xylune-form`, `widget`, category-based widget roots, and `mini_app` schema are not parsed or migrated.
+The removed `turp-ui`, `ui`, `turp-form`, `widget`, category-based widget roots, and `mini_app` schema are not parsed or migrated.
 
 ## One component language, not widget categories
 
@@ -97,9 +97,9 @@ Later operations see state changes made by earlier operations in the same group.
 
 Use a snippet only when the interaction belongs in the answer itself. Snippets cannot request network, background work, location, folders, notifications, contacts, camera, microphone, or other Android permissions.
 
-```xylune-snippet
+```turp-snippet
 {
-  "schema": "xylune-snippet/1",
+  "schema": "turp-snippet/1",
   "id": "prime_quiz",
   "title": "Prime-number check",
   "state": {"answer": "", "checked": false},
@@ -137,7 +137,7 @@ A widget requires a stable `id`, a general UI tree, named actions, an explicit c
 
 ### Compile before display
 
-Turp does not present a raw `xylune-widget` block as a usable widget. It first compiles the definition into the typed widget runtime and runs a bounded preflight:
+Turp does not present a raw `turp-widget` block as a usable widget. It first compiles the definition into the typed widget runtime and runs a bounded preflight:
 
 1. Parse and validate the complete schema and capability graph.
 2. Seed representative location/folder values, then execute public HTTP JSON sources in dependency order.
@@ -167,9 +167,9 @@ A widget that requests no capabilities remains fully local.
 
 Location and folder sources run before HTTP sources, so their state can safely parameterize an allowed URL.
 
-```xylune-widget
+```turp-widget
 {
-  "schema": "xylune-widget/1",
+  "schema": "turp-widget/1",
   "id": "local_weather",
   "title": "Weather",
   "description": "Live temperature for the current area",
@@ -221,11 +221,11 @@ Network grants expose the device IP address to only the listed origin. Location 
 
 ## Model capability delivery
 
-Xylune injects an always-on compact widget manifest into the system context and selects the full schema from up to sixteen recent conversation messages. This preserves capability awareness across follow-ups and multilingual requests instead of relying only on the latest user sentence.
+Turp injects an always-on compact widget manifest into the system context and selects the full schema from up to sixteen recent conversation messages. This preserves capability awareness across follow-ups and multilingual requests instead of relying only on the latest user sentence.
 
 Generated widgets should be glanceable, honest about unavailable live data, usable when resized, and limited to a small set of meaningful launcher actions. The compiler enforces readable launcher typography (normally 15sp+, supporting text 13sp+, primary metrics around 28–32sp), bounded rows/actions, and representative resize checks before display. The chat install card provides an interactive local preview, grant progress, grouped origin approval, clearer launcher feedback, and per-instance permission explanations. The launcher widget uses a dedicated refresh affordance and avoids drawing duplicate action controls into the bitmap.
 ## Native compiler tool protocol
 
-Tool-capable models receive a native `compile_widget` function. A candidate is passed as the complete JSON `source` argument without a Markdown fence. Xylune returns `xylune-widget-compiler-result/1` with `success`, the active contract version, a source SHA-256, bounded structured diagnostics, and an exact next instruction.
+Tool-capable models receive a native `compile_widget` function. A candidate is passed as the complete JSON `source` argument without a Markdown fence. Turp returns `turp-widget-compiler-result/1` with `success`, the active contract version, a source SHA-256, bounded structured diagnostics, and an exact next instruction.
 
-The model must keep failed candidates inside tool calls, replace the complete source, and call the compiler again. It may emit an `xylune-widget` fence only after `success=true`, using the exact source from the successful call (or `compiledSource` when the compiler supplies a normalized replacement). Models without native tool support continue through the post-generation compiler and repair fallback.
+The model must keep failed candidates inside tool calls, replace the complete source, and call the compiler again. It may emit an `turp-widget` fence only after `success=true`, using the exact source from the successful call (or `compiledSource` when the compiler supplies a normalized replacement). Models without native tool support continue through the post-generation compiler and repair fallback.

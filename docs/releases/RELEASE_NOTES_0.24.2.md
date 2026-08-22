@@ -1,4 +1,4 @@
-# Xylune 0.24.2
+# Turp 0.24.2
 
 ## A model catalog that stays put
 
@@ -16,7 +16,7 @@ The title/model overlay now matches the already measured app bar, keeping the tr
 
 ## Legal documents match the actual project boundary
 
-The bilingual privacy policy is now a concise factual notice rather than contract-style language. It says exactly what the architecture does: Xylune has no application backend; the maintainer does not receive or have technical access to local chats, credentials, backups, or provider-held copies; and user-selected AI and storage traffic goes directly from the device to the chosen provider. It also identifies GitHub as the independent operator of repository accounts, hosting, logs, and public Issues.
+The bilingual privacy policy is now a concise factual notice rather than contract-style language. It says exactly what the architecture does: Turp has no application backend; the maintainer does not receive or have technical access to local chats, credentials, backups, or provider-held copies; and user-selected AI and storage traffic goes directly from the device to the chosen provider. It also identifies GitHub as the independent operator of repository accounts, hosting, logs, and public Issues.
 
 The former large Terms of Use is replaced by short Terms and Disclaimer. It covers independent providers, AI-output risk, local execution, backups, GitHub's role, and the absence of any support or response-time commitment. Unnecessary extra risk-transfer and artificial monetary-cap clauses are removed. The Apache License 2.0 remains the primary software warranty and liability document, while non-waivable legal rights remain unaffected.
 

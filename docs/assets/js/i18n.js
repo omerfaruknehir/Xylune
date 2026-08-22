@@ -1,5 +1,5 @@
 (() => {
-  const locale = window.XyluneLocale || {};
+  const locale = window.TurpLocale || {};
   const ui = locale.ui || {};
 
   function text(selector, value) {
@@ -38,7 +38,7 @@
 
     const schemeLabels = {
       app: ui.app,
-      xylune: 'Xylune',
+      turp: 'Turp',
       graphite: ui.graphite,
       ocean: ui.ocean,
       violet: ui.violet,

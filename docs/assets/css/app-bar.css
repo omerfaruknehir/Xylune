@@ -1,13 +1,13 @@
 :root {
-  --xylune-app-bar-expanded-height: 152px;
-  --xylune-app-bar-compact-height: 64px;
-  --xylune-app-bar-collapse-distance: 88px;
-  --xylune-app-bar-row-shift: 0px;
-  --xylune-title-shift: 58px;
-  --xylune-title-expanded-scale: 1.18;
-  --xylune-title-scale: var(--xylune-title-expanded-scale);
-  --xylune-bar-opacity: 0;
-  --xylune-bar-shadow-alpha: 0;
+  --turp-app-bar-expanded-height: 152px;
+  --turp-app-bar-compact-height: 64px;
+  --turp-app-bar-collapse-distance: 88px;
+  --turp-app-bar-row-shift: 0px;
+  --turp-title-shift: 58px;
+  --turp-title-expanded-scale: 1.18;
+  --turp-title-scale: var(--turp-title-expanded-scale);
+  --turp-bar-opacity: 0;
+  --turp-bar-shadow-alpha: 0;
 }
 
 html.collapsing-title-page,
@@ -29,19 +29,19 @@ body.page-with-collapsing-title {
   overflow-y: auto;
   overscroll-behavior-y: contain;
   scroll-behavior: auto;
-  scroll-padding-top: var(--xylune-app-bar-compact-height);
+  scroll-padding-top: var(--turp-app-bar-compact-height);
 }
 
 .home-shell.page-with-app-bar {
-  --xylune-title-expanded-scale: 1.82;
+  --turp-title-expanded-scale: 1.82;
 }
 
 .document-app-bar {
   position: sticky;
-  top: calc(-1 * var(--xylune-app-bar-collapse-distance));
+  top: calc(-1 * var(--turp-app-bar-collapse-distance));
   z-index: 16;
   width: 100%;
-  height: var(--xylune-app-bar-expanded-height);
+  height: var(--turp-app-bar-expanded-height);
   border-bottom: 1px solid transparent;
   background: color-mix(in srgb, var(--background) 96%, transparent);
   isolation: isolate;
@@ -53,9 +53,9 @@ body.page-with-collapsing-title {
   z-index: -1;
   border-bottom: 1px solid var(--outline-variant);
   background: color-mix(in srgb, var(--background) 94%, transparent);
-  box-shadow: 0 7px 20px rgb(0 0 0 / var(--xylune-bar-shadow-alpha));
+  box-shadow: 0 7px 20px rgb(0 0 0 / var(--turp-bar-shadow-alpha));
   content: "";
-  opacity: var(--xylune-bar-opacity);
+  opacity: var(--turp-bar-opacity);
   pointer-events: none;
 }
 
@@ -64,10 +64,10 @@ body.page-with-collapsing-title {
   inset: 0 0 auto;
   display: grid;
   width: 100%;
-  height: var(--xylune-app-bar-compact-height);
+  height: var(--turp-app-bar-compact-height);
   grid-template-columns: 80px minmax(0, 1fr) 80px;
   align-items: center;
-  transform: translateY(var(--xylune-app-bar-row-shift));
+  transform: translateY(var(--turp-app-bar-row-shift));
 }
 
 .document-app-bar__title {
@@ -82,7 +82,7 @@ body.page-with-collapsing-title {
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  transform: translateY(var(--xylune-title-shift)) scale(var(--xylune-title-scale));
+  transform: translateY(var(--turp-title-shift)) scale(var(--turp-title-scale));
   transform-origin: center center;
 }
 

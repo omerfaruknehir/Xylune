@@ -1,12 +1,12 @@
-# Xylune 0.24.7
+# Turp 0.24.7
 
 ## Search configuration
 
 Search routing is now explicit and configurable:
 
-- **Automatic** uses provider-native search when supported and the selected Xylune engine otherwise.
+- **Automatic** uses provider-native search when supported and the selected Turp engine otherwise.
 - **Provider native only** refuses unsupported provider/model combinations instead of silently changing backends.
-- **Xylune search engine** always uses the selected engine.
+- **Turp search engine** always uses the selected engine.
 
 Available client-side engines are DuckDuckGo, Brave Search, Tavily, Serper, and a configurable public SearXNG instance. Search API keys remain in Android encrypted preferences. Result count and page fetching are configurable.
 

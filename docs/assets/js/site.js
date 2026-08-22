@@ -2,21 +2,21 @@
   const root = document.documentElement;
   const media = matchMedia('(prefers-color-scheme: dark)');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const themeState = window.XylunePageTheme || {
+  const themeState = window.TurpPageTheme || {
     appTheme: null,
     colorVariables: [],
     fixedColors: () => ({}),
     supportedThemes: ['app', 'dark', 'light', 'system'],
-    supportedSchemes: ['app', 'xylune'],
+    supportedSchemes: ['app', 'turp'],
     queryKeys: ['theme', 'scheme', 'dynamicLogo'],
   };
-  const storedDynamicIcon = localStorage.getItem('xylune-dynamic-icon');
+  const storedDynamicIcon = localStorage.getItem('turp-dynamic-icon');
   let dynamicIconEnabled = storedDynamicIcon !== null
     ? storedDynamicIcon === '1'
     : Boolean(themeState.appTheme?.dynamicLogo);
 
   const appIconPalettes = {
-    xylune: {
+    turp: {
       backgroundStart: '#fff0d7',
       backgroundEnd: '#fde1bd',
       markStart: '#78bf43',
@@ -67,8 +67,8 @@
   };
 
   const appPrimaryToIconPalette = new Map([
-    ['#286448', 'xylune'],
-    ['#99d5b1', 'xylune'],
+    ['#286448', 'turp'],
+    ['#99d5b1', 'turp'],
     ['#425f86', 'graphite'],
     ['#a9c7f8', 'graphite'],
     ['#00677a', 'ocean'],
@@ -90,7 +90,7 @@
 
   function iconPaletteFor(schemePreference) {
     if (schemePreference !== 'app') {
-      return appIconPalettes[schemePreference] ? schemePreference : 'xylune';
+      return appIconPalettes[schemePreference] ? schemePreference : 'turp';
     }
     const appPrimary = normalizeHex(themeState.appTheme?.colors?.['--primary']);
     return appPrimaryToIconPalette.get(appPrimary) || 'system';
@@ -125,11 +125,11 @@
   function syncBrandLogo(schemePreference) {
     const dynamicSource = dynamicLogoDataUrl(schemePreference);
     root.dataset.brandLogo = dynamicSource ? iconPaletteFor(schemePreference) : 'static';
-    document.querySelectorAll('[data-xylune-logo]').forEach((image) => {
+    document.querySelectorAll('[data-turp-logo]').forEach((image) => {
       image.dataset.staticSrc ||= image.getAttribute('src') || '';
       image.setAttribute('src', dynamicSource || image.dataset.staticSrc);
     });
-    document.querySelectorAll('link[data-xylune-favicon]').forEach((icon) => {
+    document.querySelectorAll('link[data-turp-favicon]').forEach((icon) => {
       icon.dataset.staticHref ||= icon.getAttribute('href') || '';
       const desired = dynamicSource || icon.dataset.staticHref;
       if (icon.getAttribute('href') === desired) return;
@@ -158,10 +158,10 @@
   }
 
   function storedFixedScheme() {
-    const stored = localStorage.getItem('xylune-scheme');
+    const stored = localStorage.getItem('turp-scheme');
     return themeState.supportedSchemes.includes(stored) && stored !== 'app'
       ? stored
-      : 'xylune';
+      : 'turp';
   }
 
   function resolvedTheme(themePreference) {
@@ -175,7 +175,7 @@
   function colorsFor(themePreference, schemePreference) {
     if (schemePreference === 'app' && themeState.appTheme) {
       return {
-        ...themeState.fixedColors('xylune', themeState.appTheme.dark),
+        ...themeState.fixedColors('turp', themeState.appTheme.dark),
         ...themeState.appTheme.colors,
         '--focus': themeState.appTheme.colors['--primary'],
       };
@@ -193,7 +193,7 @@
 
   function currentSchemePreference() {
     const value = root.dataset.schemePreference;
-    return themeState.supportedSchemes.includes(value) ? value : 'xylune';
+    return themeState.supportedSchemes.includes(value) ? value : 'turp';
   }
 
   function cleanAppearanceUrl() {
@@ -240,8 +240,8 @@
     });
 
     if (persist) {
-      localStorage.setItem('xylune-theme', themePreference);
-      localStorage.setItem('xylune-scheme', schemePreference);
+      localStorage.setItem('turp-theme', themePreference);
+      localStorage.setItem('turp-scheme', schemePreference);
     }
 
     cleanAppearanceUrl();
@@ -265,7 +265,7 @@
 
   function setDynamicIcon(enabled) {
     dynamicIconEnabled = Boolean(enabled);
-    localStorage.setItem('xylune-dynamic-icon', dynamicIconEnabled ? '1' : '0');
+    localStorage.setItem('turp-dynamic-icon', dynamicIconEnabled ? '1' : '0');
     const themePreference = currentThemePreference();
     const schemePreference = currentSchemePreference();
     syncBrandLogo(schemePreference);
@@ -312,7 +312,7 @@
         <h3 class="appearance-dialog__section-title" id="scheme-section-title">Color scheme</h3>
         <div class="dialog-scheme-grid" role="radiogroup" aria-label="Color scheme">
           ${schemeButton('app', 'App', true, true)}
-          ${schemeButton('xylune', 'Xylune', false, true)}
+          ${schemeButton('turp', 'Turp', false, true)}
           ${schemeButton('graphite', 'Graphite', false, true)}
           ${schemeButton('ocean', 'Ocean', false, true)}
           ${schemeButton('violet', 'Violet', false, true)}
@@ -325,9 +325,9 @@
           <span class="material-symbols-rounded appearance-switch-row__icon" aria-hidden="true">gradient</span>
           <span class="appearance-switch-row__copy">
             <strong>Dynamic icon</strong>
-            <small>Use the same icon variant as Xylune for the selected color scheme.</small>
+            <small>Use the same icon variant as Turp for the selected color scheme.</small>
           </span>
-          <button class="material-switch" type="button" role="switch" data-dynamic-icon-toggle aria-label="Use dynamic Xylune icon" aria-checked="false">
+          <button class="material-switch" type="button" role="switch" data-dynamic-icon-toggle aria-label="Use dynamic Turp icon" aria-checked="false">
             <span class="material-switch__handle"></span>
           </button>
         </div>
@@ -411,11 +411,11 @@
     const scroller = document.querySelector('.page-with-app-bar');
     if (!scroller) return;
     const collapseDistance = Number.parseFloat(
-      getComputedStyle(root).getPropertyValue('--xylune-app-bar-collapse-distance'),
+      getComputedStyle(root).getPropertyValue('--turp-app-bar-collapse-distance'),
     ) || 88;
     const expandedTitleShift = 58;
     const expandedTitleScale = Number.parseFloat(
-      getComputedStyle(scroller).getPropertyValue('--xylune-title-expanded-scale'),
+      getComputedStyle(scroller).getPropertyValue('--turp-title-expanded-scale'),
     ) || 1.18;
     const supportsScrollEnd = 'onscrollend' in scroller;
     let animationFrame = 0;
@@ -426,14 +426,14 @@
     const applyProgress = () => {
       animationFrame = 0;
       const progress = Math.min(1, Math.max(0, scroller.scrollTop / collapseDistance));
-      scroller.style.setProperty('--xylune-app-bar-row-shift', `${collapseDistance * progress}px`);
-      scroller.style.setProperty('--xylune-title-shift', `${expandedTitleShift * (1 - progress)}px`);
+      scroller.style.setProperty('--turp-app-bar-row-shift', `${collapseDistance * progress}px`);
+      scroller.style.setProperty('--turp-title-shift', `${expandedTitleShift * (1 - progress)}px`);
       scroller.style.setProperty(
-        '--xylune-title-scale',
+        '--turp-title-scale',
         String(expandedTitleScale - ((expandedTitleScale - 1) * progress)),
       );
-      scroller.style.setProperty('--xylune-bar-opacity', String(progress));
-      scroller.style.setProperty('--xylune-bar-shadow-alpha', String(0.13 * progress));
+      scroller.style.setProperty('--turp-bar-opacity', String(progress));
+      scroller.style.setProperty('--turp-bar-shadow-alpha', String(0.13 * progress));
     };
 
     const queueProgress = () => {

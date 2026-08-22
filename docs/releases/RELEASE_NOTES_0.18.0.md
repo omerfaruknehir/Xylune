@@ -1,6 +1,6 @@
-# Xylune 0.18.0
+# Turp 0.18.0
 
-Version: `0.18.0` (`versionCode 105`). Debug package: `app.xylune.chat.debug`; debug version name: `0.18.0-debug`.
+Version: `0.18.0` (`versionCode 105`). Debug package: `app.turp.chat.debug`; debug version name: `0.18.0-debug`.
 
 ## Corrected glass controls
 

@@ -1,4 +1,4 @@
-# Xylune 0.24.22
+# Turp 0.24.22
 
 - Fixed the source-pill soft lock at its root by removing the full-window focusable source preview popup that could retain input focus while rendering invisibly.
 - Source pills now reuse the normal anchored link/source preview with reliable Back and outside-tap dismissal.

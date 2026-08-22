@@ -1,4 +1,4 @@
-# Xylune 0.21.0
+# Turp 0.21.0
 
 This release repairs long-running agent work and adds first-class local memory while relaxing arbitrary generated-widget UI limits.
 

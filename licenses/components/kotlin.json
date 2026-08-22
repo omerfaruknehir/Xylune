@@ -3,7 +3,7 @@
   "name": "Kotlin & kotlinx.serialization",
   "version": "Serialization 1.8.1",
   "category": "Language runtime",
-  "description": "Kotlin runtime support and JSON serialization used throughout Xylune.",
+  "description": "Kotlin runtime support and JSON serialization used throughout Turp.",
   "projectUrl": "https://github.com/Kotlin/kotlinx.serialization",
   "icon": "icons/kotlin.svg",
   "coordinates": [

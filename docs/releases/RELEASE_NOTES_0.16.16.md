@@ -1,7 +1,7 @@
-# Xylune 0.16.16
+# Turp 0.16.16
 
-- Makes Xylune's built-in core system prompt immutable, versioned with the app, and automatically updated by app releases; legacy editable prompt copies are ignored and removed from defaults.
-- Keeps reusable custom instruction profiles as a separate tone/workflow layer that cannot replace Xylune's capability and tool protocol.
+- Makes Turp's built-in core system prompt immutable, versioned with the app, and automatically updated by app releases; legacy editable prompt copies are ignored and removed from defaults.
+- Keeps reusable custom instruction profiles as a separate tone/workflow layer that cannot replace Turp's capability and tool protocol.
 - Adds an explicit model-only Deep Research planning pass so the model creates and reports a task-specific roadmap before normal research begins.
 - Stops showing a guessed or indefinitely waiting roadmap card when no valid model state exists.
 - Retains the 0.16.15 navigation, streaming, text-selection, horizontal-table, top-blur, and Ubuntu stream-shutdown fixes.

@@ -9,7 +9,7 @@ captures/
 app/build/
 *.jks
 *.keystore
-!ci/xylune-debug.keystore
+!ci/turp-debug.keystore
 
 .kotlin/
 node_modules/

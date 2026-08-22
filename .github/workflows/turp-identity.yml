@@ -1,0 +1,58 @@
+name: Verify Turp identity
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  identity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Reject legacy identity in paths or bytes
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import sys
+
+          # Construct forbidden legacy identity spellings without embedding them
+          # in the repository, so this invariant can scan its own source too.
+          lower = bytes((120, 121, 108, 117, 110, 101))
+          title = bytes((88, 121, 108, 117, 110, 101))
+          upper = bytes((88, 89, 76, 85, 78, 69))
+          forbidden = (lower, title, upper)
+
+          failures = []
+          for path in Path('.').rglob('*'):
+              if '.git' in path.parts:
+                  continue
+
+              encoded_path = path.as_posix().encode('utf-8', errors='surrogateescape')
+              if any(token in encoded_path for token in forbidden):
+                  failures.append(f'path: {path}')
+
+              if not path.is_file():
+                  continue
+              data = path.read_bytes()
+              matches = [token for token in forbidden if token in data]
+              if matches:
+                  failures.append(
+                      f'content: {path} ({", ".join(token.decode("ascii") for token in matches)})'
+                  )
+
+          if failures:
+              print('\n'.join(failures[:250]))
+              if len(failures) > 250:
+                  print(f'... and {len(failures) - 250} more')
+              sys.exit(f'Legacy identity remains in {len(failures)} checked-in paths/files')
+
+          print('Turp identity invariant passed across all checked-in paths and raw file bytes.')
+          PY

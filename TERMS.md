@@ -2,9 +2,9 @@
 
 **Effective date: August 5, 2026**
 
-[Türkçe metin aşağıdadır.](#xylune-koşullar-ve-sorumluluk-reddi)
+[Türkçe metin aşağıdadır.](#turp-koşullar-ve-sorumluluk-reddi)
 
-Turp is free, downloadable open-source client software—not a hosted AI, cloud, account, or support service. The [Apache License 2.0](https://github.com/omerfaruknehir/Xylune/blob/main/LICENSE) governs copying, modification, and distribution of Turp's licensed source code and is the primary software warranty and liability document. These short terms explain use of the official build. Mandatory rights that cannot lawfully be waived remain unaffected.
+Turp is free, downloadable open-source client software—not a hosted AI, cloud, account, or support service. The [Apache License 2.0](https://github.com/omerfaruknehir/Turp/blob/main/LICENSE) governs copying, modification, and distribution of Turp's licensed source code and is the primary software warranty and liability document. These short terms explain use of the official build. Mandatory rights that cannot lawfully be waived remain unaffected.
 
 ## 1. Third-party services
 
@@ -44,7 +44,7 @@ The laws of Türkiye apply to these terms, without removing any mandatory consum
 
 **Yürürlük tarihi: 5 Ağustos 2026**
 
-Turp; barındırılan bir yapay zekâ, bulut, hesap veya destek hizmeti değil, ücretsiz, indirilebilir açık kaynaklı istemci yazılımıdır. Turp'un lisanslı kaynak kodunun kopyalanması, değiştirilmesi ve dağıtılması [Apache Lisansı 2.0'a](https://github.com/omerfaruknehir/Xylune/blob/main/LICENSE) tabidir; yazılıma ilişkin temel garanti ve sorumluluk metni bu lisanstır. Bu kısa koşullar resmî derlemenin kullanımını açıklar. Hukuken kaldırılamayan emredici haklar etkilenmez.
+Turp; barındırılan bir yapay zekâ, bulut, hesap veya destek hizmeti değil, ücretsiz, indirilebilir açık kaynaklı istemci yazılımıdır. Turp'un lisanslı kaynak kodunun kopyalanması, değiştirilmesi ve dağıtılması [Apache Lisansı 2.0'a](https://github.com/omerfaruknehir/Turp/blob/main/LICENSE) tabidir; yazılıma ilişkin temel garanti ve sorumluluk metni bu lisanstır. Bu kısa koşullar resmî derlemenin kullanımını açıklar. Hukuken kaldırılamayan emredici haklar etkilenmez.
 
 ## 1. Üçüncü taraf hizmetler
 

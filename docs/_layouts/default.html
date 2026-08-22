@@ -92,7 +92,7 @@
           "description": {{ site.description | jsonify }},
           "inLanguage": ["en", "tr"],
           "creator": { "@id": "{{ '/' | absolute_url }}#maintainer" },
-          "sameAs": ["https://github.com/omerfaruknehir/Xylune"]
+          "sameAs": ["https://github.com/omerfaruknehir/Turp"]
         },
         {
           "@type": "WebPage",
@@ -149,15 +149,15 @@
             "price": "0",
             "priceCurrency": "USD"
           },
-          "downloadUrl": "https://github.com/omerfaruknehir/Xylune/releases/latest",
-          "codeRepository": "https://github.com/omerfaruknehir/Xylune",
+          "downloadUrl": "https://github.com/omerfaruknehir/Turp/releases/latest",
+          "codeRepository": "https://github.com/omerfaruknehir/Turp",
           "license": "https://www.apache.org/licenses/LICENSE-2.0",
           "image": "{{ social_image }}",
           "mainEntityOfPage": { "@id": "{{ canonical_url }}#webpage" },
           "author": { "@id": "{{ '/' | absolute_url }}#maintainer" },
           "sameAs": [
-            "https://github.com/omerfaruknehir/Xylune",
-            "https://github.com/omerfaruknehir/Xylune/releases"
+            "https://github.com/omerfaruknehir/Turp",
+            "https://github.com/omerfaruknehir/Turp/releases"
           ],
           "featureList": [
             "Bring-your-own-provider AI chat",
@@ -174,8 +174,8 @@
     </script>
 
     <link rel="shortcut icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml" sizes="any">
-    <link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml" sizes="any" data-xylune-favicon>
-    <link rel="apple-touch-icon" href="{{ '/favicon.svg' | relative_url }}" data-xylune-favicon>
+    <link rel="icon" href="{{ '/favicon.svg' | relative_url }}" type="image/svg+xml" sizes="any" data-turp-favicon>
+    <link rel="apple-touch-icon" href="{{ '/favicon.svg' | relative_url }}" data-turp-favicon>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     {% if page.preconnect_releases %}
@@ -183,7 +183,7 @@
     <link rel="dns-prefetch" href="//api.github.com">
     {% endif %}
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ '/assets/css/appearance.css' | relative_url }}?v=81" data-xylune-appearance>
+    <link rel="stylesheet" href="{{ '/assets/css/appearance.css' | relative_url }}?v=81" data-turp-appearance>
     <script src="{{ '/assets/js/theme-boot.js' | relative_url }}?v=81"></script>
     <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v=81">
     <link rel="stylesheet" href="{{ '/assets/css/app-bar.css' | relative_url }}?v=81">
@@ -192,13 +192,13 @@
     {% if page.home %}<link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}?v=4">{% endif %}
     <link rel="stylesheet" href="{{ '/assets/css/language.css' | relative_url }}?v=4">
     {% if page.home %}<link rel="stylesheet" href="{{ '/assets/css/banner.css' | relative_url }}?v=4">{% endif %}
-    <script>window.XyluneLocale = {{ strings | jsonify }};</script>
+    <script>window.TurpLocale = {{ strings | jsonify }};</script>
   </head>
   <body class="page-with-collapsing-title preload{% if page.home %} home-page{% endif %}">
     <div class="nav-scrim" data-menu-dismiss></div>
     <aside class="site-rail" aria-label="{{ strings.ui.primary_navigation | escape }}">
-      <a class="brand rail-brand" href="{{ home_path | relative_url }}" aria-label="{{ strings.ui.xylune_home | escape }}">
-        <img src="{{ '/assets/images/xylune-logo.svg' | relative_url }}" alt="" data-xylune-logo width="58" height="58">
+      <a class="brand rail-brand" href="{{ home_path | relative_url }}" aria-label="{{ strings.ui.turp_home | escape }}">
+        <img src="{{ '/assets/images/turp-logo.svg' | relative_url }}" alt="" data-turp-logo width="58" height="58">
         <span>Turp</span>
       </a>
       <nav class="rail-nav">
@@ -207,7 +207,7 @@
         <a class="nav-item{% if page.url == terms_path %} is-active{% endif %}" href="{{ terms_path | relative_url }}"{% if page.url == terms_path %} aria-current="page"{% endif %}><span class="material-symbols-rounded" aria-hidden="true">description</span><span>{{ strings.nav.terms }}</span></a>
         <a class="nav-item{% if page.url == deletion_path %} is-active{% endif %}" href="{{ deletion_path | relative_url }}"{% if page.url == deletion_path %} aria-current="page"{% endif %}><span class="material-symbols-rounded" aria-hidden="true">person_remove</span><span>{{ strings.nav.data_deletion }}</span></a>
         <a class="nav-item{% if page.url == releases_path %} is-active{% endif %}" href="{{ releases_path | relative_url }}"{% if page.url == releases_path %} aria-current="page"{% endif %}><span class="material-symbols-rounded" aria-hidden="true">sell</span><span>{{ strings.nav.releases }}</span></a>
-        <a class="nav-item" href="https://github.com/omerfaruknehir/Xylune" aria-label="Turp on GitHub, external link"><span class="material-symbols-rounded" aria-hidden="true">code</span><span>{{ strings.nav.github }}</span><span class="material-symbols-rounded nav-item__external" aria-hidden="true">open_in_new</span></a>
+        <a class="nav-item" href="https://github.com/omerfaruknehir/Turp" aria-label="Turp on GitHub, external link"><span class="material-symbols-rounded" aria-hidden="true">code</span><span>{{ strings.nav.github }}</span><span class="material-symbols-rounded nav-item__external" aria-hidden="true">open_in_new</span></a>
       </nav>
       <div class="rail-spacer"></div>
       <div class="rail-language" aria-label="{{ strings.ui.language_controls | escape }}">
@@ -244,7 +244,7 @@
         </article>
         <footer class="site-footer document-footer">
           <p>{{ strings.footer.maintained_by }} <a href="https://github.com/omerfaruknehir">omerfaruknehir</a>.</p>
-          <p><a href="{{ home_path | relative_url }}">{{ strings.ui.back_to_xylune }}</a></p>
+          <p><a href="{{ home_path | relative_url }}">{{ strings.ui.back_to_turp }}</a></p>
         </footer>
       </div>
       {% endif %}

@@ -1,4 +1,4 @@
-# Xylune 0.16.8
+# Turp 0.16.8
 
 - Replaced captured-layer backdrop replay with an Agora-style two-pass AGSL gradual blur on the actual scrolling content.
 - Added independent top and bottom edge blur for app bars and the message composer.

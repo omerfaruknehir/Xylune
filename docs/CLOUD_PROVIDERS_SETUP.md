@@ -15,8 +15,8 @@ No provider refresh token, user password, S3 access key, or storage secret belon
 
 Two provider values are public application identifiers and are embedded in the APK. Configure them as **Repository variables**, not secrets:
 
-- `XYLUNE_MICROSOFT_CLIENT_ID`
-- `XYLUNE_DROPBOX_APP_KEY`
+- `TURP_MICROSOFT_CLIENT_ID`
+- `TURP_DROPBOX_APP_KEY`
 
 Repository path: **Settings → Secrets and variables → Actions → Variables**.
 
@@ -32,7 +32,7 @@ The repository owner must create or select one Google Cloud project:
 4. Register the exact package and SHA-1 shown by Turp's diagnostic card.
 5. Keep the requested scope limited to `@@TURP_PROTECTED_0@@
 
-The normal public GitHub release currently uses package `app.xylune.chat`. Protected production releases use `app.xylune.chat` and need their private release certificate SHA-1 registered separately in the same Cloud project.
+The normal public GitHub release currently uses package `app.turp.chat`. Protected production releases use `app.turp.chat` and need their private release certificate SHA-1 registered separately in the same Cloud project.
 
 Google Android OAuth clients have no client secret to embed.
 
@@ -42,17 +42,17 @@ Create one Microsoft Entra app registration:
 
 1. Choose supported account types. For personal OneDrive plus work/school accounts, allow organizational directories and personal Microsoft accounts.
 2. Add the Microsoft Graph delegated permission `Files.ReadWrite.AppFolder`.
-3. Add the Android platform using Xylune's package name and signature hash. Xylune shows the exact `msauth://...` redirect URI in the provider card.
+3. Add the Android platform using Turp's package name and signature hash. Turp shows the exact `msauth://...` redirect URI in the provider card.
 4. Enable public-client/native flows.
-5. Put the Application (client) ID in repository variable `XYLUNE_MICROSOFT_CLIENT_ID`.
+5. Put the Application (client) ID in repository variable `TURP_MICROSOFT_CLIENT_ID`.
 
-Xylune uses Authorization Code + PKCE and requests `offline_access`; do not create or embed a client secret.
+Turp uses Authorization Code + PKCE and requests `offline_access`; do not create or embed a client secret.
 
 For the public GitHub release:
 
-- Package: `app.xylune.chat`
+- Package: `app.turp.chat`
 - Microsoft signature hash: `WVR0y8wAc3RlOnBT3zeS2+0WrZk=`
-- Generated redirect URI: `msauth://app.xylune.chat/WVR0y8wAc3RlOnBT3zeS2%2B0WrZk%3D`
+- Generated redirect URI: `msauth://app.turp.chat/WVR0y8wAc3RlOnBT3zeS2%2B0WrZk%3D`
 
 The signature hash is the standard Base64 encoding of the signing certificate's SHA-1 digest. A privately signed release needs a second Android platform entry with the same package and its own signature hash.
 
@@ -63,9 +63,9 @@ Create one scoped Dropbox API app:
 1. Choose **App folder** access, not Full Dropbox.
 2. Enable `account_info.read`, `files.metadata.read`, `files.content.read`, and `files.content.write`.
 3. Add redirect URI `db-APP_KEY://2/token`, replacing `APP_KEY` with the app key.
-4. Put the app key in repository variable `XYLUNE_DROPBOX_APP_KEY`.
+4. Put the app key in repository variable `TURP_DROPBOX_APP_KEY`.
 
-Xylune uses Authorization Code + PKCE with refresh tokens. A Dropbox app secret is not used by the Android app.
+Turp uses Authorization Code + PKCE with refresh tokens. A Dropbox app secret is not used by the Android app.
 
 ## Nextcloud / WebDAV
 
@@ -78,10 +78,10 @@ No developer project or repository variable is required. Each user enters:
 A typical Nextcloud URL is:
 
 ```text
-https://cloud.example.com/remote.php/dav/files/USERNAME/Xylune/
+https://cloud.example.com/remote.php/dav/files/USERNAME/Turp/
 ```
 
-Xylune refuses unencrypted HTTP endpoints and stores credentials in encrypted local preferences.
+Turp refuses unencrypted HTTP endpoints and stores credentials in encrypted local preferences.
 
 ## S3-compatible storage
 
@@ -91,9 +91,9 @@ Use a dedicated key restricted to the selected bucket and prefix. A minimal poli
 
 ## Public legal URLs
 
-- Homepage: `https://omerfaruknehir.github.io/Xylune/`
+- Homepage: `https://omerfaruknehir.github.io/Turp/`
 - Privacy: `@@TURP_PROTECTED_3@@
-- Terms: `https://omerfaruknehir.github.io/Xylune/terms/`
-- Data deletion: `https://omerfaruknehir.github.io/Xylune/data-deletion/`
+- Terms: `https://omerfaruknehir.github.io/Turp/terms/`
+- Data deletion: `https://omerfaruknehir.github.io/Turp/data-deletion/`
 
 Use these URLs in Google Auth Platform, Microsoft Entra, Dropbox, and provider review forms.

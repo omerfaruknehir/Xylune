@@ -1,11 +1,11 @@
 (() => {
   const root = document.documentElement;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const staticPaletteName = 'xylune';
+  const staticPaletteName = 'turp';
   const animationDuration = 320;
 
   const palettes = {
-    xylune: {
+    turp: {
       backgroundStart: '#fff0d7',
       backgroundEnd: '#fde1bd',
       markStart: '#78bf43',
@@ -56,8 +56,8 @@
   };
 
   const primaryToPalette = new Map([
-    ['#286448', 'xylune'],
-    ['#99d5b1', 'xylune'],
+    ['#286448', 'turp'],
+    ['#99d5b1', 'turp'],
     ['#425f86', 'graphite'],
     ['#a9c7f8', 'graphite'],
     ['#00677a', 'ocean'],
@@ -107,7 +107,7 @@
   }
 
   function paletteNameForScheme() {
-    const scheme = root.dataset.schemePreference || 'xylune';
+    const scheme = root.dataset.schemePreference || 'turp';
     if (scheme !== 'app') return palettes[scheme] ? scheme : staticPaletteName;
     const primary = normalizeHex(getComputedStyle(root).getPropertyValue('--primary'));
     return primaryToPalette.get(primary) || 'system';
@@ -144,14 +144,14 @@
   function installDialogLogoPreview() {
     const icon = document.querySelector('.appearance-switch-row__icon');
     if (!icon || document.querySelector('.appearance-switch-row__logo')) return;
-    const source = document.querySelector('[data-xylune-logo]')?.getAttribute('src')
-      || '/assets/images/xylune-logo.svg';
+    const source = document.querySelector('[data-turp-logo]')?.getAttribute('src')
+      || '/assets/images/turp-logo.svg';
     const image = document.createElement('img');
     image.className = 'appearance-switch-row__logo';
     image.setAttribute('src', source);
     image.setAttribute('alt', '');
     image.setAttribute('aria-hidden', 'true');
-    image.dataset.xyluneLogo = '';
+    image.dataset.turpLogo = '';
     icon.replaceWith(image);
   }
 
@@ -163,7 +163,7 @@
   function renderPalette(palette) {
     currentPalette = palette;
     const source = logoDataUrl(palette);
-    document.querySelectorAll('[data-xylune-logo]').forEach((image) => {
+    document.querySelectorAll('[data-turp-logo]').forEach((image) => {
       image.setAttribute('src', source);
     });
   }
@@ -204,7 +204,7 @@
     attributeFilter: ['data-dynamic-icon', 'data-scheme-preference', 'style'],
   });
 
-  document.addEventListener('xylune-switch-preview', (event) => {
+  document.addEventListener('turp-switch-preview', (event) => {
     const control = event.detail?.control;
     if (!(control instanceof Element) || !control.matches('[data-dynamic-icon-toggle]')) return;
     isPreviewing = true;
@@ -213,7 +213,7 @@
     renderPalette(mixPalette(palettes[staticPaletteName], palettes[paletteNameForScheme()], progress));
   });
 
-  document.addEventListener('xylune-switch-preview-end', (event) => {
+  document.addEventListener('turp-switch-preview-end', (event) => {
     const control = event.detail?.control;
     if (!(control instanceof Element) || !control.matches('[data-dynamic-icon-toggle]')) return;
     isPreviewing = false;

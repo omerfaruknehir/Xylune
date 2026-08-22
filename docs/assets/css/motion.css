@@ -1,25 +1,25 @@
 :root {
-  --xylune-motion-standard: cubic-bezier(0.2, 0, 0, 1);
-  --xylune-motion-emphasized: cubic-bezier(0.2, 0, 0, 1);
-  --xylune-motion-fast: 160ms;
-  --xylune-motion-medium: 260ms;
+  --turp-motion-standard: cubic-bezier(0.2, 0, 0, 1);
+  --turp-motion-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --turp-motion-fast: 160ms;
+  --turp-motion-medium: 260ms;
 }
 
-html.xylune-motion-ready body,
-html.xylune-motion-ready .site-rail,
-html.xylune-motion-ready .document-app-bar,
-html.xylune-motion-ready .document-app-bar::before,
-html.xylune-motion-ready .appearance-dialog,
-html.xylune-motion-ready .appearance-dialog::backdrop,
-html.xylune-motion-ready .release-card,
-html.xylune-motion-ready .privacy-note,
-html.xylune-motion-ready .resource-card,
-html.xylune-motion-ready .appearance-switch-row,
-html.xylune-motion-ready .theme-selector,
-html.xylune-motion-ready .palette-choice {
-  transition-duration: var(--xylune-motion-medium);
+html.turp-motion-ready body,
+html.turp-motion-ready .site-rail,
+html.turp-motion-ready .document-app-bar,
+html.turp-motion-ready .document-app-bar::before,
+html.turp-motion-ready .appearance-dialog,
+html.turp-motion-ready .appearance-dialog::backdrop,
+html.turp-motion-ready .release-card,
+html.turp-motion-ready .privacy-note,
+html.turp-motion-ready .resource-card,
+html.turp-motion-ready .appearance-switch-row,
+html.turp-motion-ready .theme-selector,
+html.turp-motion-ready .palette-choice {
+  transition-duration: var(--turp-motion-medium);
   transition-property: background-color, border-color, box-shadow, color;
-  transition-timing-function: var(--xylune-motion-standard);
+  transition-timing-function: var(--turp-motion-standard);
 }
 
 .rail-nav {
@@ -31,21 +31,21 @@ html.xylune-motion-ready .palette-choice {
   position: absolute;
   inset: 0 0 auto;
   z-index: 0;
-  height: var(--xylune-nav-indicator-height, 58px);
+  height: var(--turp-nav-indicator-height, 58px);
   border-radius: 6px;
   background: color-mix(in srgb, var(--primary-container) 44%, transparent);
   opacity: 0;
   pointer-events: none;
-  transform: translate3d(0, var(--xylune-nav-indicator-y, 0px), 0);
+  transform: translate3d(0, var(--turp-nav-indicator-y, 0px), 0);
 }
 
 .rail-nav.is-ready .rail-nav__indicator {
   opacity: 1;
   transition:
-    transform 240ms var(--xylune-motion-emphasized),
-    height 240ms var(--xylune-motion-emphasized),
-    background-color var(--xylune-motion-medium) var(--xylune-motion-standard),
-    opacity var(--xylune-motion-fast) linear;
+    transform 240ms var(--turp-motion-emphasized),
+    height 240ms var(--turp-motion-emphasized),
+    background-color var(--turp-motion-medium) var(--turp-motion-standard),
+    opacity var(--turp-motion-fast) linear;
 }
 
 .nav-item {
@@ -54,9 +54,9 @@ html.xylune-motion-ready .palette-choice {
   border-radius: 6px;
   background: transparent !important;
   transition:
-    color var(--xylune-motion-fast) var(--xylune-motion-standard),
-    transform var(--xylune-motion-fast) var(--xylune-motion-standard),
-    background-color var(--xylune-motion-fast) var(--xylune-motion-standard);
+    color var(--turp-motion-fast) var(--turp-motion-standard),
+    transform var(--turp-motion-fast) var(--turp-motion-standard),
+    background-color var(--turp-motion-fast) var(--turp-motion-standard);
 }
 
 .nav-item.is-active {
@@ -85,21 +85,21 @@ html.xylune-motion-ready .palette-choice {
   bottom: 4px;
   left: 0;
   z-index: 0;
-  width: var(--xylune-theme-indicator-width, 0px);
+  width: var(--turp-theme-indicator-width, 0px);
   border-radius: 10px;
   background: var(--primary-container);
   opacity: 0;
   pointer-events: none;
-  transform: translate3d(var(--xylune-theme-indicator-x, 0px), 0, 0);
+  transform: translate3d(var(--turp-theme-indicator-x, 0px), 0, 0);
 }
 
 .theme-selector.is-ready .theme-selector__indicator {
   opacity: 1;
   transition:
-    transform 240ms var(--xylune-motion-emphasized),
-    width 240ms var(--xylune-motion-emphasized),
-    background-color var(--xylune-motion-medium) var(--xylune-motion-standard),
-    opacity var(--xylune-motion-fast) linear;
+    transform 240ms var(--turp-motion-emphasized),
+    width 240ms var(--turp-motion-emphasized),
+    background-color var(--turp-motion-medium) var(--turp-motion-standard),
+    opacity var(--turp-motion-fast) linear;
 }
 
 .theme-selector__choice {
@@ -107,9 +107,9 @@ html.xylune-motion-ready .palette-choice {
   z-index: 1;
   background: transparent !important;
   transition:
-    color var(--xylune-motion-fast) var(--xylune-motion-standard),
-    transform var(--xylune-motion-fast) var(--xylune-motion-standard),
-    background-color var(--xylune-motion-fast) var(--xylune-motion-standard);
+    color var(--turp-motion-fast) var(--turp-motion-standard),
+    transform var(--turp-motion-fast) var(--turp-motion-standard),
+    background-color var(--turp-motion-fast) var(--turp-motion-standard);
 }
 
 .theme-selector__choice.is-selected {
@@ -132,12 +132,12 @@ html.xylune-motion-ready .palette-choice {
 .release-card__toggle,
 .material-switch {
   transition:
-    transform var(--xylune-motion-fast) var(--xylune-motion-standard),
-    background-color var(--xylune-motion-fast) var(--xylune-motion-standard),
-    border-color var(--xylune-motion-fast) var(--xylune-motion-standard),
-    box-shadow var(--xylune-motion-fast) var(--xylune-motion-standard),
-    color var(--xylune-motion-fast) var(--xylune-motion-standard),
-    filter var(--xylune-motion-fast) var(--xylune-motion-standard);
+    transform var(--turp-motion-fast) var(--turp-motion-standard),
+    background-color var(--turp-motion-fast) var(--turp-motion-standard),
+    border-color var(--turp-motion-fast) var(--turp-motion-standard),
+    box-shadow var(--turp-motion-fast) var(--turp-motion-standard),
+    color var(--turp-motion-fast) var(--turp-motion-standard),
+    filter var(--turp-motion-fast) var(--turp-motion-standard);
 }
 
 .button-primary {
@@ -176,18 +176,18 @@ html.xylune-motion-ready .palette-choice {
 }*/
 
 @media (prefers-reduced-motion: reduce) {
-  html.xylune-motion-ready body,
-  html.xylune-motion-ready .site-rail,
-  html.xylune-motion-ready .document-app-bar,
-  html.xylune-motion-ready .document-app-bar::before,
-  html.xylune-motion-ready .appearance-dialog,
-  html.xylune-motion-ready .appearance-dialog::backdrop,
-  html.xylune-motion-ready .release-card,
-  html.xylune-motion-ready .privacy-note,
-  html.xylune-motion-ready .resource-card,
-  html.xylune-motion-ready .appearance-switch-row,
-  html.xylune-motion-ready .theme-selector,
-  html.xylune-motion-ready .palette-choice,
+  html.turp-motion-ready body,
+  html.turp-motion-ready .site-rail,
+  html.turp-motion-ready .document-app-bar,
+  html.turp-motion-ready .document-app-bar::before,
+  html.turp-motion-ready .appearance-dialog,
+  html.turp-motion-ready .appearance-dialog::backdrop,
+  html.turp-motion-ready .release-card,
+  html.turp-motion-ready .privacy-note,
+  html.turp-motion-ready .resource-card,
+  html.turp-motion-ready .appearance-switch-row,
+  html.turp-motion-ready .theme-selector,
+  html.turp-motion-ready .palette-choice,
   .rail-nav__indicator,
   .theme-selector__indicator,
   .nav-item,

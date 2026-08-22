@@ -1,4 +1,4 @@
-# Xylune 0.24.22
+# Turp 0.24.22
 
 - Kaynak düğmesine dokunulduğunda görünmez halde odak alıp uygulamadaki diğer etkileşimleri engelleyebilen tam pencere, odaklanabilir kaynak önizleme açılır penceresi kaldırılarak kilitlenme sorunu kökünden giderildi.
 - Kaynak düğmeleri artık normal bağlantı/kaynak önizlemesini kullanıyor; Geri hareketi ve dışarı dokunma ile güvenilir biçimde kapatılabiliyor.

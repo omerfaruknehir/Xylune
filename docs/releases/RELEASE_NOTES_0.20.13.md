@@ -1,4 +1,4 @@
-# Xylune 0.20.13
+# Turp 0.20.13
 
 ## Fixed
 
@@ -11,8 +11,8 @@
 
 - Optimized release APK
 - Release AAB
-- Explicit `Xylune-0.20.13-source.zip`
-- Explicit `Xylune-0.20.13-source.tar.gz`
+- Explicit `Turp-0.20.13-source.zip`
+- Explicit `Turp-0.20.13-source.tar.gz`
 - SHA-256 checksums covering every attached asset
 
 Developer settings and the performance overlay remain available in the optimized release build.

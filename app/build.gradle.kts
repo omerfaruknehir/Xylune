@@ -33,31 +33,31 @@ fun repositoryFromGitConfig(): String {
 }
 
 val sourceRepository = normalizeGitHubRepository(
-    providers.gradleProperty("XYLUNE_SOURCE_REPOSITORY").orNull
-        ?: System.getenv("XYLUNE_SOURCE_REPOSITORY")
+    providers.gradleProperty("TURP_SOURCE_REPOSITORY").orNull
+        ?: System.getenv("TURP_SOURCE_REPOSITORY")
         ?: System.getenv("GITHUB_REPOSITORY")
 ).ifBlank(::repositoryFromGitConfig)
 val sourceCommit = (
-    providers.gradleProperty("XYLUNE_SOURCE_COMMIT").orNull
-        ?: System.getenv("XYLUNE_SOURCE_COMMIT")
+    providers.gradleProperty("TURP_SOURCE_COMMIT").orNull
+        ?: System.getenv("TURP_SOURCE_COMMIT")
         ?: System.getenv("GITHUB_SHA")
         ?: ""
 ).trim().take(64)
 val microsoftClientId = (
-    providers.gradleProperty("XYLUNE_MICROSOFT_CLIENT_ID").orNull
-        ?: System.getenv("XYLUNE_MICROSOFT_CLIENT_ID")
+    providers.gradleProperty("TURP_MICROSOFT_CLIENT_ID").orNull
+        ?: System.getenv("TURP_MICROSOFT_CLIENT_ID")
         ?: ""
 ).trim()
 val dropboxAppKey = (
-    providers.gradleProperty("XYLUNE_DROPBOX_APP_KEY").orNull
-        ?: System.getenv("XYLUNE_DROPBOX_APP_KEY")
+    providers.gradleProperty("TURP_DROPBOX_APP_KEY").orNull
+        ?: System.getenv("TURP_DROPBOX_APP_KEY")
         ?: ""
 ).trim()
 
-val releaseStoreFile = providers.gradleProperty("XYLUNE_KEYSTORE_FILE").orNull ?: System.getenv("XYLUNE_KEYSTORE_FILE")
-val releaseStorePassword = providers.gradleProperty("XYLUNE_KEYSTORE_PASSWORD").orNull ?: System.getenv("XYLUNE_KEYSTORE_PASSWORD")
-val releaseKeyAlias = providers.gradleProperty("XYLUNE_KEY_ALIAS").orNull ?: System.getenv("XYLUNE_KEY_ALIAS")
-val releaseKeyPassword = providers.gradleProperty("XYLUNE_KEY_PASSWORD").orNull ?: System.getenv("XYLUNE_KEY_PASSWORD")
+val releaseStoreFile = providers.gradleProperty("TURP_KEYSTORE_FILE").orNull ?: System.getenv("TURP_KEYSTORE_FILE")
+val releaseStorePassword = providers.gradleProperty("TURP_KEYSTORE_PASSWORD").orNull ?: System.getenv("TURP_KEYSTORE_PASSWORD")
+val releaseKeyAlias = providers.gradleProperty("TURP_KEY_ALIAS").orNull ?: System.getenv("TURP_KEY_ALIAS")
+val releaseKeyPassword = providers.gradleProperty("TURP_KEY_PASSWORD").orNull ?: System.getenv("TURP_KEY_PASSWORD")
 val hasProtectedReleaseSigning = listOf(
     releaseStoreFile,
     releaseStorePassword,
@@ -216,12 +216,12 @@ val generateOfflineLicenseCatalog by tasks.registering {
 }
 
 android {
-    namespace = "app.xylune.chat"
+    namespace = "app.turp.chat"
     compileSdk = 36
     buildToolsVersion = "36.0.0"
 
     defaultConfig {
-        applicationId = "app.xylune.chat"
+        applicationId = "app.turp.chat"
         minSdk = 26
         targetSdk = 36
         versionCode = 217
@@ -231,7 +231,7 @@ android {
         buildConfigField("String", "MICROSOFT_CLIENT_ID", "\"$microsoftClientId\"")
         buildConfigField("String", "DROPBOX_APP_KEY", "\"$dropboxAppKey\"")
         manifestPlaceholders["dropboxOAuthScheme"] =
-            if (dropboxAppKey.isBlank()) "db-xylune-unconfigured" else "db-$dropboxAppKey"
+            if (dropboxAppKey.isBlank()) "db-turp-unconfigured" else "db-$dropboxAppKey"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -243,7 +243,7 @@ android {
     signingConfigs {
         getByName("debug") {
             // Public test key: reproducible public builds and in-place upgrades.
-            storeFile = rootProject.file("ci/xylune-debug.keystore")
+            storeFile = rootProject.file("ci/turp-debug.keystore")
             storePassword = "android"
             keyAlias = "androiddebugkey"
             keyPassword = "android"
@@ -273,7 +273,7 @@ android {
             if (hasProtectedReleaseSigning) {
                 signingConfig = signingConfigs.getByName("release")
             } else {
-                // Public GitHub releases use Xylune's canonical package while retaining
+                // Public GitHub releases use Turp's canonical package while retaining
                 // the repository's reproducible public signing certificate.
                 signingConfig = signingConfigs.getByName("debug")
             }

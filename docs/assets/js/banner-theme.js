@@ -5,7 +5,7 @@
 
   const BASE_BANNER_HUE = 164;
   const schemePrimary = {
-    xylune: '#99d5b1',
+    turp: '#99d5b1',
     graphite: '#a9c7f8',
     ocean: '#54d6f2',
     violet: '#d1bcff',
@@ -34,10 +34,10 @@
     return ((to - from + 540) % 360) - 180;
   }
 
-  const basePrimaryHue = hexHue(schemePrimary.xylune);
+  const basePrimaryHue = hexHue(schemePrimary.turp);
 
   function activePrimaryHue() {
-    const scheme = root.dataset.schemePreference || 'xylune';
+    const scheme = root.dataset.schemePreference || 'turp';
     if (scheme !== 'app' && schemePrimary[scheme]) return hexHue(schemePrimary[scheme]);
     return hexHue(getComputedStyle(root).getPropertyValue('--primary')) ?? basePrimaryHue;
   }
@@ -46,8 +46,8 @@
     const targetPrimaryHue = activePrimaryHue();
     const shift = shortestHueDelta(basePrimaryHue, targetPrimaryHue);
     const targetBannerHue = (BASE_BANNER_HUE + shift + 360) % 360;
-    root.style.setProperty('--xylune-banner-hue-shift', `${shift.toFixed(2)}deg`);
-    root.style.setProperty('--xylune-banner-target-hue', `${targetBannerHue.toFixed(2)}deg`);
+    root.style.setProperty('--turp-banner-hue-shift', `${shift.toFixed(2)}deg`);
+    root.style.setProperty('--turp-banner-target-hue', `${targetBannerHue.toFixed(2)}deg`);
   }
 
   banners.forEach((banner) => {

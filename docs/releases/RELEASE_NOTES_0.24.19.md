@@ -1,4 +1,4 @@
-# Xylune 0.24.19
+# Turp 0.24.19
 
 - Source citations now keep their pills fixed and open a separate anchored preview card which grows and fades in from the tapped source instead of stretching the pill itself.
 - Predictive Back edge contact no longer counts as an outside tap for popups and menus; dismissal is deferred until release and gestures that begin in a system Back edge are ignored by outside-tap handling.

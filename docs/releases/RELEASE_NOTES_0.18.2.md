@@ -1,4 +1,4 @@
-# Xylune 0.18.2
+# Turp 0.18.2
 
 ## Stable artifact-free glass renderer
 

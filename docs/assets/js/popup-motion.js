@@ -10,7 +10,7 @@
   const indexDialogItems = () => {
     dialog.querySelectorAll(':scope > .dialog-heading, :scope > .appearance-dialog__section')
       .forEach((item, index) => {
-        item.style.setProperty('--xylune-popup-item-delay', `${45 + (index * 32)}ms`);
+        item.style.setProperty('--turp-popup-item-delay', `${45 + (index * 32)}ms`);
       });
   };
 
@@ -26,8 +26,8 @@
       dialogRect.height,
       Math.max(0, triggerRect.top + (triggerRect.height / 2) - dialogRect.top),
     );
-    dialog.style.setProperty('--xylune-popup-origin-x', `${x}px`);
-    dialog.style.setProperty('--xylune-popup-origin-y', `${y}px`);
+    dialog.style.setProperty('--turp-popup-origin-x', `${x}px`);
+    dialog.style.setProperty('--turp-popup-origin-y', `${y}px`);
   };
 
   const reveal = (trigger = null) => {

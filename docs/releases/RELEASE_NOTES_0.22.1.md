@@ -1,6 +1,6 @@
-# Xylune 0.22.1
+# Turp 0.22.1
 
-Xylune 0.22.1 improves memory management and repairs navigation state on phones.
+Turp 0.22.1 improves memory management and repairs navigation state on phones.
 
 ## Memory management
 

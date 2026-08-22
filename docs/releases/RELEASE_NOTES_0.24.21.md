@@ -1,4 +1,4 @@
-# Xylune 0.24.21
+# Turp 0.24.21
 
 - Fixed a regression where tapping a source pill could open an invisible focusable overlay and effectively lock the rest of the app.
 - Source previews now size their overlay from the real host window instead of relying on popup `fillMaxSize()` measurement.

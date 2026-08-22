@@ -1,0 +1,155 @@
+package app.turp.chat.ui
+
+import app.turp.chat.data.ModelEntity
+import app.turp.chat.data.ProviderEntity
+import app.turp.chat.data.ProviderKind
+import app.turp.chat.settings.modelPreferenceKey
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+class ModelCatalogOverhaulTest {
+    private val openRouter = ProviderEntity(
+        id = "openrouter",
+        displayName = "OpenRouter",
+        kind = ProviderKind.OPENAI_COMPATIBLE,
+        baseUrl = "https://openrouter.ai/api/v1",
+    )
+
+    @Test
+    fun `large catalogs are searchable and capability filtered`() {
+        val models = (1..350).map { index ->
+            model(
+                id = "author/model-$index",
+                name = if (index == 317) "Needle Vision" else "Model $index",
+                vision = index == 317,
+            )
+        }
+
+        val search = filteredModelChoices(
+            providers = listOf(openRouter),
+            models = models,
+            query = "needle vision",
+            providerId = null,
+            filters = emptySet(),
+            favoriteKeys = emptySet(),
+            recentKeys = emptyList(),
+        )
+        val vision = filteredModelChoices(
+            providers = listOf(openRouter),
+            models = models,
+            query = "",
+            providerId = null,
+            filters = setOf(ModelPickerFilter.VISION),
+            favoriteKeys = emptySet(),
+            recentKeys = emptyList(),
+        )
+
+        assertEquals(listOf("author/model-317"), search.map { it.model.modelId })
+        assertEquals(listOf("author/model-317"), vision.map { it.model.modelId })
+    }
+
+    @Test
+    fun `selected favorites and recent models sort ahead of the long tail`() {
+        val first = model("a/first", "First")
+        val favorite = model("z/favorite", "Favorite")
+        val selected = model("m/selected", "Selected")
+        val choices = filteredModelChoices(
+            providers = listOf(openRouter),
+            models = listOf(first, favorite, selected),
+            query = "",
+            providerId = null,
+            filters = emptySet(),
+            favoriteKeys = setOf(modelPreferenceKey(openRouter.id, favorite.modelId)),
+            recentKeys = listOf(modelPreferenceKey(openRouter.id, first.modelId)),
+            selectedKey = modelPreferenceKey(openRouter.id, selected.modelId),
+        )
+
+        assertEquals(selected.modelId, choices.first().model.modelId)
+        assertEquals(favorite.modelId, choices[1].model.modelId)
+        assertTrue(choices.size == 3)
+    }
+
+    @Test
+    fun `multiple capability filters are combined`() {
+        val visionOnly = model("vision", "Vision", vision = true)
+        val toolsOnly = model("tools", "Tools", tools = true)
+        val both = model("both", "Both", vision = true, tools = true)
+
+        val choices = filteredModelChoices(
+            providers = listOf(openRouter),
+            models = listOf(visionOnly, toolsOnly, both),
+            query = "",
+            providerId = null,
+            filters = setOf(ModelPickerFilter.VISION, ModelPickerFilter.TOOLS),
+            favoriteKeys = emptySet(),
+            recentKeys = emptyList(),
+        )
+
+        assertEquals(listOf("both"), choices.map { it.model.modelId })
+    }
+
+    @Test
+    fun `chat and image models live in separate picker modes`() {
+        val chat = model("chat", "Chat")
+        val image = model("image", "Image", imageGeneration = true)
+        val models = listOf(chat, image)
+
+        val chatChoices = filteredModelChoices(
+            providers = listOf(openRouter),
+            models = models,
+            query = "",
+            providerId = null,
+            filters = emptySet(),
+            favoriteKeys = emptySet(),
+            recentKeys = emptyList(),
+            mode = ModelPickerMode.CHAT,
+        )
+        val imageChoices = filteredModelChoices(
+            providers = listOf(openRouter),
+            models = models,
+            query = "",
+            providerId = null,
+            filters = emptySet(),
+            favoriteKeys = emptySet(),
+            recentKeys = emptyList(),
+            mode = ModelPickerMode.IMAGE,
+        )
+
+        assertEquals(listOf("chat"), chatChoices.map { it.model.modelId })
+        assertEquals(listOf("image"), imageChoices.map { it.model.modelId })
+    }
+
+    @Test
+    fun `large model catalog uses a stable animated bottom sheet surface`() {
+        val source = java.io.File("src/main/java/app/turp/chat/ui/ModelPickerSheet.kt").readText()
+
+        assertTrue(source.contains("ModalBottomSheet("))
+        assertTrue(source.contains("rememberModalBottomSheetState(skipPartiallyExpanded = true)"))
+        assertTrue(source.contains(".fillMaxHeight(0.94f)"))
+        assertTrue(source.contains("sheetState.hide()"))
+        assertTrue(source.contains("ModelPickerMode.IMAGE"))
+        assertTrue(!source.contains("Dialog("))
+        assertTrue(!source.contains("DialogProperties"))
+    }
+
+    private fun model(
+        id: String,
+        name: String,
+        vision: Boolean = false,
+        tools: Boolean = false,
+        imageGeneration: Boolean = false,
+    ) = ModelEntity(
+        providerId = openRouter.id,
+        modelId = id,
+        displayName = name,
+        contextWindow = 128_000,
+        maxOutputTokens = 16_384,
+        inputCacheHitUsdPerMillion = 0.0,
+        inputCacheMissUsdPerMillion = 0.0,
+        outputUsdPerMillion = 0.0,
+        supportsVision = vision,
+        supportsTools = tools,
+        supportsImageGeneration = imageGeneration,
+    )
+}

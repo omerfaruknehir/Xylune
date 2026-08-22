@@ -1,8 +1,8 @@
 # CI signing
 
-`xylune-debug.keystore` is an intentionally public Android debug key. It signs only the installable test build with package ID `app.xylune.chat`, giving local and GitHub Actions builds a stable signer so one debug release can update another.
+`turp-debug.keystore` is an intentionally public Android debug key. It signs only the installable test build with package ID `app.turp.chat`, giving local and GitHub Actions builds a stable signer so one debug release can update another.
 
-It is not a secret and must never be used for the production package. Store builds use a separate protected release key configured through the `XYLUNE_KEYSTORE_*` values documented in [BUILDING.md](../BUILDING.md).
+It is not a secret and must never be used for the production package. Store builds use a separate protected release key configured through the `TURP_KEYSTORE_*` values documented in [BUILDING.md](../BUILDING.md).
 
 Debug certificate SHA-256:
 

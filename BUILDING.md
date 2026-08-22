@@ -37,7 +37,7 @@ The same ABI folders contain the PRoot launcher, loader, talloc, and libandroid-
 
 ## Public release signing and update compatibility
 
-When no protected release key is configured, the `release` build type uses Turp's intentionally public reproducible key and package ID `app.xylune.chat`. This keeps the optimized GitHub release APK update-compatible with older GitHub debug APKs and preserves their app data. The build itself is still non-debuggable, minified, and resource-shrunk. Turp's in-app Developer settings are normal product functionality and remain available.
+When no protected release key is configured, the `release` build type uses Turp's intentionally public reproducible key and package ID `app.turp.chat`. This keeps the optimized GitHub release APK update-compatible with older GitHub debug APKs and preserves their app data. The build itself is still non-debuggable, minified, and resource-shrunk. Turp's in-app Developer settings are normal product functionality and remain available.
 
 The public key is documented in [`ci/README.md`](ci/README.md). It is not suitable for store or production distribution.
 
@@ -46,22 +46,22 @@ The public key is documented in [`ci/README.md`](ci/README.md). It is not suitab
 Configure these environment variables or equivalent Gradle properties, then run `assembleRelease bundleRelease`:
 
 ```bash
-export XYLUNE_KEYSTORE_FILE=/absolute/path/xylune-release.jks
-export XYLUNE_KEYSTORE_PASSWORD='...'
-export XYLUNE_KEY_ALIAS='...'
-export XYLUNE_KEY_PASSWORD='...'
+export TURP_KEYSTORE_FILE=/absolute/path/turp-release.jks
+export TURP_KEYSTORE_PASSWORD='...'
+export TURP_KEY_ALIAS='...'
+export TURP_KEY_PASSWORD='...'
 ./gradlew assembleRelease bundleRelease
 ```
 
-With all four values present, the build uses the protected release signer and production package ID `app.xylune.chat`. Never commit the keystore or passwords. The manually dispatched protected-signing GitHub Actions job accepts the same values through repository/environment secrets.
+With all four values present, the build uses the protected release signer and production package ID `app.turp.chat`. Never commit the keystore or passwords. The manually dispatched protected-signing GitHub Actions job accepts the same values through repository/environment secrets.
 
 ## Toolchain archive
 
-Extract `Android-Build-Tools-for-ChatGPT-Xylune-0.9.2-2026-07-16.tar.gz`. Its `env.sh` establishes the bundled JDK, Android SDK, Gradle, and cache paths. From the extracted directory:
+Extract `Android-Build-Tools-for-ChatGPT-Turp-0.9.2-2026-07-16.tar.gz`. Its `env.sh` establishes the bundled JDK, Android SDK, Gradle, and cache paths. From the extracted directory:
 
 ```bash
 source ./env.sh
-cd /path/to/Xylune
+cd /path/to/Turp
 gradle --offline --no-daemon testReleaseUnitTest lintRelease assembleRelease bundleRelease assembleDebugAndroidTest
 ```
 

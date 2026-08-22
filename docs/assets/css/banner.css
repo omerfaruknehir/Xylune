@@ -19,13 +19,13 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: hue-rotate(var(--xylune-banner-hue-shift, 0deg));
+  filter: hue-rotate(var(--turp-banner-hue-shift, 0deg));
   transform: scale(1.01);
   transition: filter 320ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* Logo and copy are live DOM content so they stay sharp and can follow the
-   selected Xylune icon/theme. There is deliberately no second card/overlay. */
+   selected Turp icon/theme. There is deliberately no second card/overlay. */
 .home-hero__brand-card {
   position: absolute;
   inset: 50% 24px auto;

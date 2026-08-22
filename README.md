@@ -7,24 +7,24 @@
 </p>
 
 <p align="center">
-  <a href="https://omerfaruknehir.github.io/Xylune/"><strong>Turp website</strong></a>
+  <a href="https://omerfaruknehir.github.io/Turp/"><strong>Turp website</strong></a>
   ·
-  <a href="https://github.com/omerfaruknehir/Xylune/releases/latest"><strong>Download the latest APK</strong></a>
+  <a href="https://github.com/omerfaruknehir/Turp/releases/latest"><strong>Download the latest APK</strong></a>
   ·
   <a href="BUILDING.md">Build from source</a>
   ·
-  <a href="https://github.com/omerfaruknehir/Xylune/issues">Report an issue</a>
+  <a href="https://github.com/omerfaruknehir/Turp/issues">Report an issue</a>
   ·
-  <a href="https://omerfaruknehir.github.io/Xylune/privacy/">Privacy</a>
+  <a href="https://omerfaruknehir.github.io/Turp/privacy/">Privacy</a>
   ·
-  <a href="https://omerfaruknehir.github.io/Xylune/terms/">Terms</a>
+  <a href="https://omerfaruknehir.github.io/Turp/terms/">Terms</a>
   ·
-  <a href="https://omerfaruknehir.github.io/Xylune/data-deletion/">Data deletion</a>
+  <a href="https://omerfaruknehir.github.io/Turp/data-deletion/">Data deletion</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/omerfaruknehir/Xylune/actions/workflows/android.yml"><img alt="Android checks" src="https://github.com/omerfaruknehir/Xylune/actions/workflows/android.yml/badge.svg"></a>
-  <a href="https://github.com/omerfaruknehir/Xylune/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/omerfaruknehir/Xylune?display_name=tag&sort=semver"></a>
+  <a href="https://github.com/omerfaruknehir/Turp/actions/workflows/android.yml"><img alt="Android checks" src="https://github.com/omerfaruknehir/Turp/actions/workflows/android.yml/badge.svg"></a>
+  <a href="https://github.com/omerfaruknehir/Turp/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/omerfaruknehir/Turp?display_name=tag&sort=semver"></a>
   <img alt="Android 8+" src="https://img.shields.io/badge/Android-8.0%2B-3DDC84?logo=android&logoColor=white">
   <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-Jetpack%20Compose-7F52FF?logo=kotlin&logoColor=white">
   <a href="LICENSE"><img alt="Apache License 2.0" src="https://img.shields.io/badge/License-Apache%202.0-blue"></a>
@@ -32,15 +32,15 @@
 
 Turp is a bring-your-own-provider AI client. It connects your phone directly to the services you choose—without a WebView, hosted Turp account, application backend, telemetry, or advertising. API keys are protected with Android Keystore-backed encryption, chats live in a local SQLCipher database, and imported files remain in app-private storage.
 
-Current release: [latest GitHub Release](https://github.com/omerfaruknehir/Xylune/releases/latest)
+Current release: [latest GitHub Release](https://github.com/omerfaruknehir/Turp/releases/latest)
 
 ## Development disclosure and disclaimer
 
 Turp was made with **full vibe coding**: features and changes were primarily directed in natural language and implemented with AI-assisted coding tools, with human review and testing. That process does not guarantee correctness, security, availability, or fitness for any purpose, and the app may contain serious defects.
 
-Turp is provided **“AS IS”**, without warranties of any kind. Use, modify, and distribute it at your own risk. Turp is a client rather than an AI-model host: the maintainer does not create, train, host, pre-review, or endorse individual third-party model outputs. Review the source and output, keep backups, and do not rely on Turp for safety-critical or irreplaceable work. See the [Terms and Disclaimer](https://omerfaruknehir.github.io/Xylune/terms/); the Apache License 2.0 remains the primary software warranty and liability document.
+Turp is provided **“AS IS”**, without warranties of any kind. Use, modify, and distribute it at your own risk. Turp is a client rather than an AI-model host: the maintainer does not create, train, host, pre-review, or endorse individual third-party model outputs. Review the source and output, keep backups, and do not rely on Turp for safety-critical or irreplaceable work. See the [Terms and Disclaimer](https://omerfaruknehir.github.io/Turp/terms/); the Apache License 2.0 remains the primary software warranty and liability document.
 
-Turp is software, not a hosted service or support platform. The maintainer has no technical access to local chats, keys, backups, provider traffic, or provider accounts. GitHub operates the public repository and Issues; posting there is voluntary and public and does not create a private support channel, response promise, or duty to monitor or resolve the post. See the [Privacy Policy](https://omerfaruknehir.github.io/Xylune/privacy/) for the exact data boundaries.
+Turp is software, not a hosted service or support platform. The maintainer has no technical access to local chats, keys, backups, provider traffic, or provider accounts. GitHub operates the public repository and Issues; posting there is voluntary and public and does not create a private support channel, response promise, or duty to monitor or resolve the post. See the [Privacy Policy](https://omerfaruknehir.github.io/Turp/privacy/) for the exact data boundaries.
 
 ## What makes Turp different
 
@@ -68,15 +68,15 @@ Turp is software, not a hosted service or support platform. The maintainer has n
 
 ## Install
 
-1. Open the [latest GitHub Release](https://github.com/omerfaruknehir/Xylune/releases/latest) and download the APK asset.
+1. Open the [latest GitHub Release](https://github.com/omerfaruknehir/Turp/releases/latest) and download the APK asset.
 2. Allow installation from your browser or file manager when Android asks.
 3. Open Turp and follow the welcome flow.
 4. Connect a ChatGPT account, API provider, or local model server.
 5. Start a chat. Optional Python and Linux tools can be prepared later from **Settings → Local execution**.
 
-The public APK is an R8-minified, resource-shrunk **release build**. It intentionally keeps package ID `app.xylune.chat` and Turp's public reproducible signer so it can update the earlier GitHub debug builds without deleting chats or settings. The Android build is not debuggable, but Turp's in-app **Developer settings** remain available. Protected production signing switches to the production package ID `app.xylune.chat`.
+The public APK is an R8-minified, resource-shrunk **release build**. It intentionally keeps package ID `app.turp.chat` and Turp's public reproducible signer so it can update the earlier GitHub debug builds without deleting chats or settings. The Android build is not debuggable, but Turp's in-app **Developer settings** remain available. Protected production signing switches to the production package ID `app.turp.chat`.
 
-Local OpenAI-compatible servers default to `@@TURP_PROTECTED_17@@ On a physical phone, `127.0.0.1` means the phone itself. Xylune permits cleartext HTTP only for loopback and the Android emulator host alias; remote machines require HTTPS.
+Local OpenAI-compatible servers default to `@@TURP_PROTECTED_17@@ On a physical phone, `127.0.0.1` means the phone itself. Turp permits cleartext HTTP only for loopback and the Android emulator host alias; remote machines require HTTPS.
 
 ## Build
 
@@ -118,17 +118,17 @@ Production distribution deliberately requires your own protected signing key. No
 
 ## Security boundaries
 
-Xylune's Python and Linux workspaces are private app storage, not operating-system sandboxes. Python runs inside the Xylune process. PRoot supplies Linux path and syscall compatibility under the same Android app UID; it is not a VM or privilege boundary. Do not run untrusted code.
+Turp's Python and Linux workspaces are private app storage, not operating-system sandboxes. Python runs inside the Turp process. PRoot supplies Linux path and syscall compatibility under the same Android app UID; it is not a VM or privilege boundary. Do not run untrusted code.
 
 Runtime package installation blocks unsafe command-line options by default and may reject packages without compatible Android wheels. Optional Linux distributions are downloaded only when selected, checked against pinned publisher SHA-256 values, and kept isolated from one another.
 
-For dependency sources, bundled native component notices, hashes, and build recipes, see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), the build-validated [`licenses/`](licenses/) catalog, and `third_party/`. The same catalog, local icons, and full texts are generated into Xylune's offline **About Xylune → Licenses & notices** screen.
+For dependency sources, bundled native component notices, hashes, and build recipes, see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), the build-validated [`licenses/`](licenses/) catalog, and `third_party/`. The same catalog, local icons, and full texts are generated into Turp's offline **About Turp → Licenses & notices** screen.
 
 ## Project
 
-Xylune is created by [@omerfaruknehir](@@TURP_PROTECTED_18@@).
+Turp is created by [@omerfaruknehir](@@TURP_PROTECTED_18@@).
 
-- [Xylune website](@@TURP_PROTECTED_19@@)
+- [Turp website](@@TURP_PROTECTED_19@@)
 - [Changelog](CHANGELOG.md)
 - [Latest release notes](@@TURP_PROTECTED_20@@)
 - [Source repository](@@TURP_PROTECTED_21@@)
@@ -136,4 +136,4 @@ Xylune is created by [@omerfaruknehir](@@TURP_PROTECTED_18@@).
 
 ## License
 
-Xylune is licensed under the [Apache License 2.0](LICENSE). Bundled third-party components retain their own licenses as documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and the local [`licenses/`](licenses/) catalog.
+Turp is licensed under the [Apache License 2.0](LICENSE). Bundled third-party components retain their own licenses as documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and the local [`licenses/`](licenses/) catalog.

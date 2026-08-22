@@ -13,7 +13,7 @@ description: Terms and disclaimer for Turp, the open-source Android BYOK AI chat
 
 **Effective date: August 5, 2026**
 
-Turp is free, downloadable open-source client software—not a hosted AI, cloud, account, or support service. The [Apache License 2.0](https://github.com/omerfaruknehir/Xylune/blob/main/LICENSE) governs copying, modification, and distribution of Turp's licensed source code and is the primary software warranty and liability document. These short terms explain use of the official build. Mandatory rights that cannot lawfully be waived remain unaffected.
+Turp is free, downloadable open-source client software—not a hosted AI, cloud, account, or support service. The [Apache License 2.0](https://github.com/omerfaruknehir/Turp/blob/main/LICENSE) governs copying, modification, and distribution of Turp's licensed source code and is the primary software warranty and liability document. These short terms explain use of the official build. Mandatory rights that cannot lawfully be waived remain unaffected.
 
 ## 1. Third-party services
 

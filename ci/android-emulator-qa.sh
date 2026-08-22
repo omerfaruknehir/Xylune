@@ -3,8 +3,8 @@ set -uo pipefail
 
 ROOT="${GITHUB_WORKSPACE:-$(pwd)}"
 OUT="$ROOT/qa-artifacts"
-PACKAGE="app.xylune.chat.debug"
-ACTIVITY="app.xylune.chat.MainActivity"
+PACKAGE="app.turp.chat.debug"
+ACTIVITY="app.turp.chat.MainActivity"
 mkdir -p "$OUT"
 status=0
 
@@ -336,7 +336,7 @@ else
   record_failure "processAlive=FAIL"
 fi
 
-if grep -Eiq 'FATAL EXCEPTION|Process: app\.xylune\.chat\.debug.*has died|ANR in app\.xylune\.chat\.debug' "$OUT/logcat.txt" "$OUT/logcat-crash.txt"; then
+if grep -Eiq 'FATAL EXCEPTION|Process: app\.turp\.chat\.debug.*has died|ANR in app\.turp\.chat\.debug' "$OUT/logcat.txt" "$OUT/logcat-crash.txt"; then
   record_failure "runtimeCrashOrAnr=FAIL"
 else
   echo "runtimeCrashOrAnr=PASS" >> "$OUT/qa-summary.txt"

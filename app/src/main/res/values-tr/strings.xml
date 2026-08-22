@@ -47,7 +47,7 @@
     <string name="settings_developer">Geliştirici ayarları</string>
     <string name="settings_custom_instructions">Özel talimatlar</string>
     <string name="settings_providers_models">Sağlayıcılar ve modeller</string>
-    <string name="settings_about_xylune">Turp hakkında</string>
+    <string name="settings_about_turp">Turp hakkında</string>
     <string name="settings_licenses_notices">Lisanslar ve bildirimler</string>
     <string name="provider_catalog_initialization_failed">Yerleşik sağlayıcı kataloğu başlatılamadı. Kurulum kullanılabilir durumda; özel bir sağlayıcıyı elle ekleyebilirsiniz.</string>
 
@@ -74,7 +74,7 @@
     <string name="ui_copy_api_model_id_d4e4b444" formatted="false">API model kimliği</string>
     <string name="ui_copy_archived_chats_f8b0180b" formatted="false">ARŞİVLENMİŞ SOHBETLER</string>
     <string name="ui_copy_about_6b21fb79" formatted="false">Hakkında</string>
-    <string name="ui_copy_about_xylune_be7ca9fe" formatted="false">Turp hakkında</string>
+    <string name="ui_copy_about_turp_be7ca9fe" formatted="false">Turp hakkında</string>
     <string name="ui_copy_access_key_id_2ea1eee1" formatted="false">Erişim anahtarı kimliği</string>
     <string name="ui_copy_account_connected_4d04eece" formatted="false">Hesap bağlandı</string>
     <string name="ui_copy_add_61cc55aa" formatted="false">Ekle</string>
@@ -114,8 +114,8 @@
     <string name="ui_copy_allow_pip_direct_references_and_relaxed_ap_bfca3617" formatted="false">pip doğrudan referanslarına ve esnek apt adlarına izin ver; komut satırı seçenekleri engelli kalır</string>
     <string name="ui_copy_amazon_s3_minio_backblaze_b2_or_another_co_7a850576" formatted="false">Amazon S3, MinIO, Backblaze B2 veya başka bir uyumlu bucket</string>
     <string name="ui_copy_an_external_page_linked_from_this_answer_c8d5d675" formatted="false">Bu yanıttan bağlantı verilen harici bir sayfa.</string>
-    <string name="ui_copy_android_grants_xylune_persistent_access_on_34c55edf" formatted="false">Android, Turp\'a yalnızca seçtiğiniz klasöre kalıcı erişim verir. Turp için özel bir klasör oluşturun veya seçin; hesap genelinde izin istenmez.</string>
-    <string name="ui_copy_android_themed_icons_can_recolor_xylune_s__f7184987" formatted="false">Android temalı simgeleri Turp\'un tek renkli katmanını yeniden renklendirebilir. Temalı simgeler kapalıyken Dinamik, duvar kâğıdından türetilen canlı Material You paletini kullanır.</string>
+    <string name="ui_copy_android_grants_turp_persistent_access_on_34c55edf" formatted="false">Android, Turp\'a yalnızca seçtiğiniz klasöre kalıcı erişim verir. Turp için özel bir klasör oluşturun veya seçin; hesap genelinde izin istenmez.</string>
+    <string name="ui_copy_android_themed_icons_can_recolor_turp_s__f7184987" formatted="false">Android temalı simgeleri Turp\'un tek renkli katmanını yeniden renklendirebilir. Temalı simgeler kapalıyken Dinamik, duvar kâğıdından türetilen canlı Material You paletini kullanır.</string>
     <string name="ui_copy_app_settings_and_configuration_54efc74b" formatted="false">Uygulama ayarları ve yapılandırma</string>
     <string name="ui_copy_appearance_41def7a0" formatted="false">Görünüm</string>
     <string name="ui_copy_appearance_backups_memory_and_advanced_beh_5e5344ce" formatted="false">Görünüm, yedekler, hafıza ve gelişmiş davranışlar daha sonra düzenlenmek üzere gruplandırılmıştır.</string>
@@ -197,9 +197,9 @@
     <string name="ui_copy_choose_approval_model_411af022" formatted="false">Onay modeli seç</string>
     <string name="ui_copy_choose_automation_model_91c89c6f" formatted="false">Otomasyon modeli seç</string>
     <string name="ui_copy_choose_folder_1838a415" formatted="false">Klasör seç</string>
-    <string name="ui_copy_choose_how_xylune_names_chats_and_compress_0c947c25" formatted="false">Turp\'un sohbetleri nasıl adlandıracağını ve eski bağlamı nasıl sıkıştıracağını seçin.</string>
+    <string name="ui_copy_choose_how_turp_names_chats_and_compress_0c947c25" formatted="false">Turp\'un sohbetleri nasıl adlandıracağını ve eski bağlamı nasıl sıkıştıracağını seçin.</string>
     <string name="ui_copy_choose_image_model_fc20b463" formatted="false">Görsel modeli seç</string>
-    <string name="ui_copy_choose_when_xylune_may_install_python_or_l_0e6027fb" formatted="false">Turp\'un Python veya Linux paketlerini ne zaman yükleyebileceğini ve hangi kaynakların güvenilir olduğunu seçin.</string>
+    <string name="ui_copy_choose_when_turp_may_install_python_or_l_0e6027fb" formatted="false">Turp\'un Python veya Linux paketlerini ne zaman yükleyebileceğini ve hangi kaynakların güvenilir olduğunu seçin.</string>
     <string name="ui_copy_clear_719ea396" formatted="false">Temizle</string>
     <string name="ui_copy_clear_terminal_b754d96c" formatted="false">Terminali temizle</string>
     <string name="ui_copy_close_bbfa773e" formatted="false">Kapat</string>
@@ -234,7 +234,7 @@
     <string name="ui_copy_context_tokens_4d6993db" formatted="false">Bağlam token\'ları</string>
     <string name="ui_copy_continue_2e026239" formatted="false">Devam et</string>
     <string name="ui_copy_continue_without_one_f9f05eb4" formatted="false">Sağlayıcı olmadan devam et</string>
-    <string name="ui_copy_controls_how_xylune_handles_ai_generated_i_48acf2ef" formatted="false">Turp\'un yapay zekâ tarafından oluşturulan etkileşimli arayüzü nasıl işleyeceğini denetler.</string>
+    <string name="ui_copy_controls_how_turp_handles_ai_generated_i_48acf2ef" formatted="false">Turp\'un yapay zekâ tarafından oluşturulan etkileşimli arayüzü nasıl işleyeceğini denetler.</string>
     <string name="ui_copy_controls_whether_reasoning_and_tool_cards__21e3df21" formatted="false">Akıl yürütme ve araç kartlarının otomatik açılıp açılmayacağını belirler; her durumda kaydedilmeye devam ederler.</string>
     <string name="ui_copy_controls_whether_this_custom_endpoint_uses_284b17b7" formatted="false">Bu özel uç noktanın chat/completions mı yoksa images/generations mı kullanacağını belirler.</string>
     <string name="ui_copy_conversation_deleted_798eb3c2" formatted="false">Sohbet silindi</string>
@@ -342,7 +342,7 @@
     <string name="ui_copy_download_update_870d57b0" formatted="false">Güncellemeyi indir</string>
     <string name="ui_copy_draws_explicit_debug_guides_at_the_top_and_5be7ef59" formatted="false">Üst ve alt panel sınırlarında belirgin hata ayıklama kılavuzları çizer. Normal arayüz artık sınır vurgusu çizmez.</string>
     <string name="ui_copy_dropbox_ac88abd7" formatted="false">Dropbox</string>
-    <string name="ui_copy_dropbox_xylune_app_folder_eb60f8b3" formatted="false">Dropbox Turp uygulama klasörü</string>
+    <string name="ui_copy_dropbox_turp_app_folder_eb60f8b3" formatted="false">Dropbox Turp uygulama klasörü</string>
     <string name="ui_copy_duplicate_content_recording_for_blur_abb2e364" formatted="false">Bulanıklık için yinelenen içerik kaydı</string>
     <string name="ui_copy_dynamic_ceb739df" formatted="false">Dinamik</string>
     <string name="ui_copy_each_chat_has_a_persistent_bundled_python__0645477c" formatted="false">Her sohbetin kalıcı bir dahili Python oturumu ve yalıtılmış .packages dizini vardır. Linux yüklemeden çalışır ve Android uygulama sanal alanı içinde kalır.</string>
@@ -366,8 +366,8 @@
     <string name="ui_copy_enabled_by_default_technical_symbols_and_e_053fa2a9" formatted="false">Varsayılan olarak etkindir. Teknik semboller ve kullanıcının istediği emojiler engellenmez.</string>
     <string name="ui_copy_encryption_password_optional_d7003844" formatted="false">Şifreleme parolası (isteğe bağlı)</string>
     <string name="ui_copy_endpoint_92ec6350" formatted="false">Uç nokta</string>
-    <string name="ui_copy_enter_xylune_7e429cf0" formatted="false">Turp\'a gir</string>
-    <string name="ui_copy_enter_xylune_now_you_can_return_to_provide_a37af7f9" formatted="false">Şimdi Turp\'a girin. İstediğiniz zaman Ayarlar\'dan Sağlayıcılar ve modeller bölümüne dönebilirsiniz.</string>
+    <string name="ui_copy_enter_turp_7e429cf0" formatted="false">Turp\'a gir</string>
+    <string name="ui_copy_enter_turp_now_you_can_return_to_provide_a37af7f9" formatted="false">Şimdi Turp\'a girin. İstediğiniz zaman Ayarlar\'dan Sağlayıcılar ve modeller bölümüne dönebilirsiniz.</string>
     <string name="ui_copy_enter_a_server_folder_and_credentials_ac04ef74" formatted="false">Sunucu klasörü ve kimlik bilgilerini girin</string>
     <string name="ui_copy_enter_the_exact_https_url_of_a_dedicated_x_91f38cfa" formatted="false">Özel bir Turp klasörünün tam HTTPS URL\'sini girin. Nextcloud için bu genellikle /remote.php/dav/files/KULLANICI_ADI/Turp/ ile biter.</string>
     <string name="ui_copy_everything_listed_here_is_embedded_in_this_6cdf576d" formatted="false">Burada listelenen her şey bu derlemeye gömülüdür ve ağ bağlantısı olmadan kullanılabilir.</string>
@@ -416,7 +416,7 @@
     <string name="ui_copy_generated_ui_safety_and_local_data_behavio_07e16dad" formatted="false">Oluşturulan arayüz güvenliği ve yerel veri davranışı</string>
     <string name="ui_copy_generated_content_265611d8" formatted="false">Oluşturulan içerik</string>
     <string name="ui_copy_generated_widgets_are_paused_and_shown_as__7189218f" formatted="false">Oluşturulan widget\'lar duraklatılır ve güvenli yedek içerik olarak gösterilir.</string>
-    <string name="ui_copy_generated_widgets_may_render_but_xylune_st_9a434e3e" formatted="false">Oluşturulan widget\'lar işlenebilir; Turp yine de yetenek kontrollerini ve çökme kurtarmasını uygular.</string>
+    <string name="ui_copy_generated_widgets_may_render_but_turp_st_9a434e3e" formatted="false">Oluşturulan widget\'lar işlenebilir; Turp yine de yetenek kontrollerini ve çökme kurtarmasını uygular.</string>
     <string name="ui_copy_generating_image_6adaae43" formatted="false">Görsel oluşturuluyor</string>
     <string name="ui_copy_generating_image_2ff63fd3" formatted="false">Görsel oluşturuluyor…</string>
     <string name="ui_copy_github_release_workflows_embed_their_own_o_777dfc18" formatted="false">GitHub sürüm iş akışları kendi sahip/depo bilgisini içerir. Bu nedenle fork derlemeleri geldikleri fork\'u takip eder.</string>
@@ -459,7 +459,7 @@
     <string name="ui_copy_image_model_ec9bc150" formatted="false">Görsel modeli</string>
     <string name="ui_copy_image_request_ce977f3c" formatted="false">Görsel isteği</string>
     <string name="ui_copy_import_d6fbc9d2" formatted="false">İçe aktar</string>
-    <string name="ui_copy_import_xylune_backup_32a86156" formatted="false">Turp yedeğini içe aktar</string>
+    <string name="ui_copy_import_turp_backup_32a86156" formatted="false">Turp yedeğini içe aktar</string>
     <string name="ui_copy_import_and_continue_2d344c5b" formatted="false">İçe aktar ve devam et</string>
     <string name="ui_copy_import_backup_1b40a3ad" formatted="false">Yedeği içe aktar</string>
     <string name="ui_copy_import_creates_separate_local_copies_it_ne_68b9d377" formatted="false">İçe aktarma ayrı yerel kopyalar oluşturur. Mevcut bir sohbeti asla değiştirmez ve API anahtarlarını veya OAuth oturumlarını içe aktarmaz.</string>
@@ -508,9 +508,9 @@
     <string name="ui_copy_its_complete_message_history_attachments_a_2bc529c4" formatted="false">Tüm mesaj geçmişi, ekleri ve yerel kod çalışma alanı kayıtları Turp\'dan kaldırılır.</string>
     <string name="ui_copy_its_encrypted_oauth_session_and_models_wil_ce3a7c79" formatted="false">Şifreli OAuth oturumu ve modellerin bağlantısı kesilir. Sohbetler ve kullanım geçmişi korunur.</string>
     <string name="ui_copy_its_saved_api_key_will_be_erased_and_it_wi_6ee2c51a" formatted="false">Kaydedilmiş API anahtarı silinir ve sağlayıcı model seçicilerden kaybolur. Sohbetler ve kullanım geçmişi korunur.</string>
-    <string name="ui_copy_keep_xylune_open_ba99f421" formatted="false">Turp\'u açık tut</string>
+    <string name="ui_copy_keep_turp_open_ba99f421" formatted="false">Turp\'u açık tut</string>
     <string name="ui_copy_keep_in_background_eef84cf4" formatted="false">Arka planda tut</string>
-    <string name="ui_copy_keep_the_classic_xylune_green_icon_regardl_a53d36aa" formatted="false">Seçili paletten bağımsız olarak klasik yeşil Turp simgesini koru.</string>
+    <string name="ui_copy_keep_the_classic_turp_green_icon_regardl_a53d36aa" formatted="false">Seçili paletten bağımsız olarak klasik yeşil Turp simgesini koru.</string>
     <string name="ui_copy_keep_the_partial_answer_4335f8b2" formatted="false">Kısmi yanıtı koru</string>
     <string name="ui_copy_keyless_endpoint_c68df92f" formatted="false">Anahtarsız uç nokta</string>
     <string name="ui_copy_known_calculated_cost_5822cfd8" formatted="false">Bilinen hesaplanmış maliyet</string>
@@ -545,7 +545,7 @@
     <string name="ui_copy_local_backup_14278997" formatted="false">Yerel yedek</string>
     <string name="ui_copy_local_code_execution_dba7a428" formatted="false">Yerel kod çalıştırma</string>
     <string name="ui_copy_local_description_a14ecdef" formatted="false">Yerel açıklama</string>
-    <string name="ui_copy_local_diagnostics_for_measuring_xylune_s_r_7859cb0b" formatted="false">Turp\'un işleme ve süreç performansını ölçen yerel tanılamalar. Hiçbir ölçüm yüklenmez veya sohbet geçmişinde saklanmaz.</string>
+    <string name="ui_copy_local_diagnostics_for_measuring_turp_s_r_7859cb0b" formatted="false">Turp\'un işleme ve süreç performansını ölçen yerel tanılamalar. Hiçbir ölçüm yüklenmez veya sohbet geçmişinde saklanmaz.</string>
     <string name="ui_copy_local_execution_f3ca65f0" formatted="false">Yerel çalıştırma</string>
     <string name="ui_copy_local_execution_is_opt_in_for_fresh_instal_bd33adc8" formatted="false">Yerel çalıştırma yeni kurulumlarda isteğe bağlıdır. Mevcut sohbetler kendi araç seçimlerini korur.</string>
     <string name="ui_copy_local_execution_starts_off_enable_python_o_fc0fc181" formatted="false">Yerel çalıştırma kapalı başlar; Python veya Linux\'u yalnızca bir sohbet gerektiğinde etkinleştirin.</string>
@@ -566,7 +566,7 @@
     <string name="ui_copy_maximum_supported_reasoning_72f61320" formatted="false">Desteklenen maksimum akıl yürütme</string>
     <string name="ui_copy_medium_d404968e" formatted="false">Orta</string>
     <string name="ui_copy_memory_89c8a285" formatted="false">Hafıza</string>
-    <string name="ui_copy_message_xylune_5bdb2e7f" formatted="false">Turp\'a mesaj yaz…</string>
+    <string name="ui_copy_message_turp_5bdb2e7f" formatted="false">Turp\'a mesaj yaz…</string>
     <string name="ui_copy_message_actions_949184b0" formatted="false">Mesaj işlemleri</string>
     <string name="ui_copy_messages_code_and_reasoning_are_searched_l_e9813ab2" formatted="false">Yazdıkça mesajlar, kod ve akıl yürütme yerel olarak aranır.</string>
     <string name="ui_copy_minimal_a711cca9" formatted="false">Minimum</string>
@@ -607,7 +607,7 @@
     <string name="ui_copy_nextcloud_aab73a3d" formatted="false">Nextcloud</string>
     <string name="ui_copy_nextcloud_webdav_0869236b" formatted="false">Nextcloud / WebDAV</string>
     <string name="ui_copy_no_github_source_was_embedded_in_this_buil_ca48df2c" formatted="false">Bu derlemeye GitHub kaynağı eklenmemiş</string>
-    <string name="ui_copy_no_xylune_account_ads_analytics_or_xylune__58797359" formatted="false">Turp hesabı, reklam, analiz veya Turp bulutu yoktur. Sohbet geçmişi ve API anahtarları bu cihazda kalır; trafik yalnızca açıkça etkinleştirdiğiniz uç noktalara ve web araçlarına gider.</string>
+    <string name="ui_copy_no_turp_account_ads_analytics_or_turp__58797359" formatted="false">Turp hesabı, reklam, analiz veya Turp bulutu yoktur. Sohbet geçmişi ve API anahtarları bu cihazda kalır; trafik yalnızca açıkça etkinleştirdiğiniz uç noktalara ve web araçlarına gider.</string>
     <string name="ui_copy_no_additional_diagnostic_text_was_returned_04b2ab87" formatted="false">Sağlayıcı ek tanılama metni döndürmedi.</string>
     <string name="ui_copy_no_backup_file_selected_11ac152a" formatted="false">Yedek dosyası seçilmedi.</string>
     <string name="ui_copy_no_chat_workspace_is_available_4a5eaecf" formatted="false">Kullanılabilir sohbet çalışma alanı yok</string>
@@ -653,11 +653,11 @@
     <string name="ui_copy_offline_dependency_catalog_and_full_licens_7fff5d96" formatted="false">Çevrimdışı bağımlılık kataloğu ve tam lisans metinleri</string>
     <string name="ui_copy_older_messages_outside_the_active_context__8f176d19" formatted="false">Etkin bağlam penceresinin dışındaki eski mesajlar, kaydedilmiş sıkıştırılmış bağlamla birleştirilir.</string>
     <string name="ui_copy_on_e0049a66" formatted="false">Açık</string>
-    <string name="ui_copy_one_package_requirement_per_line_xylune_re_2cdc609b" formatted="false">Satır başına bir paket gereksinimi. Turp onay politikanızı uygulamadan önce Android uyumlu Python 3.12 wheel paketlerini çözümler.</string>
+    <string name="ui_copy_one_package_requirement_per_line_turp_re_2cdc609b" formatted="false">Satır başına bir paket gereksinimi. Turp onay politikanızı uygulamadan önce Android uyumlu Python 3.12 wheel paketlerini çözümler.</string>
     <string name="ui_copy_one_searchable_catalog_is_used_everywhere__3b52403e" formatted="false">Turp\'un her yerinde tek bir aranabilir katalog kullanılır.</string>
-    <string name="ui_copy_one_tap_native_oauth_xylune_opens_the_syst_028265ea" formatted="false">Tek dokunuşla yerel OAuth. Turp sistem tarayıcısını açar, localhost geri çağrısını kendisi alır, oturumu bu cihazda şifreler ve otomatik yeniler. Eklenti veya yerel proxy gerekmez.</string>
+    <string name="ui_copy_one_tap_native_oauth_turp_opens_the_syst_028265ea" formatted="false">Tek dokunuşla yerel OAuth. Turp sistem tarayıcısını açar, localhost geri çağrısını kendisi alır, oturumu bu cihazda şifreler ve otomatik yeniler. Eklenti veya yerel proxy gerekmez.</string>
     <string name="ui_copy_onedrive_80753c98" formatted="false">OneDrive</string>
-    <string name="ui_copy_onedrive_apps_xylune_65f8fd13" formatted="false">OneDrive Apps/Turp</string>
+    <string name="ui_copy_onedrive_apps_turp_65f8fd13" formatted="false">OneDrive Apps/Turp</string>
     <string name="ui_copy_only_missing_or_outdated_packages_will_be__36387bb4" formatted="false">Yalnızca eksik veya eski paketler değiştirilir. Paketler ve kurulum betikleri Turp\'un uygulama izinleriyle çalışır.</string>
     <string name="ui_copy_only_missing_or_outdated_packages_will_cha_0024de76" formatted="false">Yalnızca eksik veya eski paketler değişir. Kurulum betikleri Turp\'un uygulama izinleriyle çalışır.</string>
     <string name="ui_copy_only_the_essentials_are_shown_pricing_is_o_ec6a64b1" formatted="false">Yalnızca temel alanlar gösterilir. Fiyatlandırma isteğe bağlıdır.</string>
@@ -665,7 +665,7 @@
     <string name="ui_copy_only_this_page_is_held_in_memory_save_or_s_f543dcb1" formatted="false">Yalnızca bu sayfa bellekte tutulur. Dosyanın tamamını işlemek için kaydedin veya paylaşın.</string>
     <string name="ui_copy_open_cf9b7706" formatted="false">Aç</string>
     <string name="ui_copy_open_ocr_view_94133154" formatted="false">OCR görünümünü aç</string>
-    <string name="ui_copy_open_xylune_archive_925f05d2" formatted="false">Turp arşivini aç</string>
+    <string name="ui_copy_open_turp_archive_925f05d2" formatted="false">Turp arşivini aç</string>
     <string name="ui_copy_open_conversations_65aafc8c" formatted="false">Sohbetleri aç</string>
     <string name="ui_copy_open_full_screen_preview_54e1aea4" formatted="false">Tam ekran önizlemeyi aç</string>
     <string name="ui_copy_open_navigation_drawer_73502976" formatted="false">Gezinme çekmecesini aç</string>
@@ -675,7 +675,7 @@
     <string name="ui_copy_open_terminal_b4ae7862" formatted="false">Terminali aç</string>
     <string name="ui_copy_open_the_creator_s_github_profile_1882d59e" formatted="false">Geliştiricinin GitHub profilini aç</string>
     <string name="ui_copy_open_source_licenses_30dced67" formatted="false">Açık kaynak lisansları</string>
-    <string name="ui_copy_opened_by_xylune_809ef254" formatted="false">Turp tarafından açıldı</string>
+    <string name="ui_copy_opened_by_turp_809ef254" formatted="false">Turp tarafından açıldı</string>
     <string name="ui_copy_opening_android_s_folder_picker_e7e6b80d" formatted="false">Android klasör seçici açılıyor…</string>
     <string name="ui_copy_opening_backup_preview_9e9080e2" formatted="false">Yedek önizlemesi açılıyor…</string>
     <string name="ui_copy_opening_file_picker_a46eeb43" formatted="false">Dosya seçici açılıyor…</string>
@@ -723,11 +723,11 @@
     <string name="ui_copy_personalization_f203458e" formatted="false">Kişiselleştirme</string>
     <string name="ui_copy_pin_9c918414" formatted="false">Sabitle</string>
     <string name="ui_copy_plan_ready_for_your_confirmation_7f5831cb" formatted="false">Plan onayınız için hazır.</string>
-    <string name="ui_copy_portable_xylune_backup_27aec9c6" formatted="false">Taşınabilir Turp yedeği</string>
+    <string name="ui_copy_portable_turp_backup_27aec9c6" formatted="false">Taşınabilir Turp yedeği</string>
     <string name="ui_copy_portable_cloud_backups_can_include_chats_a_4e7a5c3f" formatted="false">Taşınabilir bulut yedekleri sohbetleri, uygulama ayarlarını, düzenlemeyi ve isteğe bağlı Linux kök dosya sistemlerini içerebilir. Açık bir uyarıdan sonra parolasız yedeklere izin verilir; API anahtarları, OAuth oturumları, sağlayıcı yetkilendirme başlıkları, bulut izinleri ve veritabanı şifreleme anahtarları hariç tutulur.</string>
     <string name="ui_copy_preflight_review_25740cd2" formatted="false">Ön kontrol ve inceleme</string>
     <string name="ui_copy_preflight_failed_10168b8c" formatted="false">Ön kontrol başarısız</string>
-    <string name="ui_copy_preparing_xylune_25621d30" formatted="false">Turp hazırlanıyor…</string>
+    <string name="ui_copy_preparing_turp_25621d30" formatted="false">Turp hazırlanıyor…</string>
     <string name="ui_copy_preparing_file_17b2d5d2" formatted="false">Dosya hazırlanıyor</string>
     <string name="ui_copy_preparing_package_plan_a7d922a2" formatted="false">Paket planı hazırlanıyor…</string>
     <string name="ui_copy_preparing_query_03c56532" formatted="false">Sorgu hazırlanıyor</string>
@@ -749,7 +749,7 @@
     <string name="ui_copy_privacy_safety_3c5b980b" formatted="false">Gizlilik ve güvenlik</string>
     <string name="ui_copy_privacy_policy_7ceacdca" formatted="false">Gizlilik politikası</string>
     <string name="ui_copy_privacy_local_data_providers_and_kvkk_gdpr_fb4f9a28" formatted="false">Gizlilik, yerel veriler, sağlayıcılar ve KVKK/GDPR sınırları</string>
-    <string name="ui_copy_private_xylune_app_storage_d537b698" formatted="false">Özel Turp uygulama depolaması</string>
+    <string name="ui_copy_private_turp_app_storage_d537b698" formatted="false">Özel Turp uygulama depolaması</string>
     <string name="ui_copy_private_by_design_3aaa9fd1" formatted="false">Tasarım gereği özel</string>
     <string name="ui_copy_private_cloud_targets_d3ad80b3" formatted="false">Özel bulut hedefleri</string>
     <string name="ui_copy_profiler_disabled_26604127" formatted="false">Profilleyici devre dışı</string>
@@ -950,7 +950,7 @@
     <string name="ui_copy_server_folder_fb1c1bc5" formatted="false">Sunucu klasörü</string>
     <string name="ui_copy_session_f7f1997c" formatted="false">Oturum</string>
     <string name="ui_copy_session_token_optional_2a8a2056" formatted="false">Oturum token\'ı (isteğe bağlı)</string>
-    <string name="ui_copy_set_up_xylune_f554f170" formatted="false">Turp\'u kur</string>
+    <string name="ui_copy_set_up_turp_f554f170" formatted="false">Turp\'u kur</string>
     <string name="ui_copy_set_up_a_provider_a3a52a95" formatted="false">Bir sağlayıcı kur</string>
     <string name="ui_copy_set_up_a_provider_to_start_0994c6b5" formatted="false">Başlamak için bir sağlayıcı kur</string>
     <string name="ui_copy_set_up_provider_f899c153" formatted="false">Sağlayıcıyı kur</string>
@@ -960,7 +960,7 @@
     <string name="ui_copy_setup_connections_85bdfce5" formatted="false">Kurulum ve bağlantılar</string>
     <string name="ui_copy_setup_details_97269512" formatted="false">Kurulum ayrıntıları</string>
     <string name="ui_copy_share_09ca55ca" formatted="false">Paylaş</string>
-    <string name="ui_copy_share_xylune_chat_2c99756b" formatted="false">Turp sohbetini paylaş</string>
+    <string name="ui_copy_share_turp_chat_2c99756b" formatted="false">Turp sohbetini paylaş</string>
     <string name="ui_copy_share_image_ecb8ec64" formatted="false">Görseli paylaş</string>
     <string name="ui_copy_share_message_c1c0e65f" formatted="false">Mesajı paylaş</string>
     <string name="ui_copy_share_portable_chat_a106eb58" formatted="false">Taşınabilir sohbeti paylaş</string>
@@ -981,7 +981,7 @@
     <string name="ui_copy_sign_in_again_7842ff56" formatted="false">Tekrar oturum aç</string>
     <string name="ui_copy_sign_in_with_chatgpt_fe0b3b61" formatted="false">ChatGPT ile oturum aç</string>
     <string name="ui_copy_sign_in_without_pasting_an_api_key_6acc0e4c" formatted="false">API anahtarı yapıştırmadan oturum açın.</string>
-    <string name="ui_copy_sign_in_xylune_only_uses_its_app_folder_1177a8cd" formatted="false">Oturum açın; Turp yalnızca uygulama klasörünü kullanır</string>
+    <string name="ui_copy_sign_in_turp_only_uses_its_app_folder_1177a8cd" formatted="false">Oturum açın; Turp yalnızca uygulama klasörünü kullanır</string>
     <string name="ui_copy_sign_out_dc1649a1" formatted="false">Oturumu kapat</string>
     <string name="ui_copy_signing_sha_1_c7a274c3" formatted="false">İmzalama SHA-1</string>
     <string name="ui_copy_skip_for_now_6fc09607" formatted="false">Şimdilik atla</string>
@@ -1023,7 +1023,7 @@
     <string name="ui_copy_terms_disclaimer_7add8494" formatted="false">Koşullar ve sorumluluk reddi</string>
     <string name="ui_copy_text_opacity_83e09703" formatted="false">Metin opaklığı</string>
     <string name="ui_copy_the_android_document_picker_can_save_direc_92e0305e" formatted="false">Android belge seçici doğrudan Google Drive, OneDrive, Dropbox, Nextcloud, USB sürücü veya yerel depolamaya kaydedebilir. Turp gizli bir sunucu üzerinden yükleme yapmaz.</string>
-    <string name="ui_copy_the_xylune_maintainer_does_not_create_trai_448f39da" formatted="false">Turp geliştiricisi tek tek model çıktılarını oluşturmaz, eğitmez, barındırmaz, önceden incelemez veya onaylamaz. Yapay zekâ çıktıları yanlış, güvensiz, önyargılı veya uygunsuz olabilir; güvenmeden önce doğrulayın. Sağlayıcı koşulları, ücretleri, saklama ve içerik kuralları bağımsız olarak geçerlidir.</string>
+    <string name="ui_copy_the_turp_maintainer_does_not_create_trai_448f39da" formatted="false">Turp geliştiricisi tek tek model çıktılarını oluşturmaz, eğitmez, barındırmaz, önceden incelemez veya onaylamaz. Yapay zekâ çıktıları yanlış, güvensiz, önyargılı veya uygunsuz olabilir; güvenmeden önce doğrulayın. Sağlayıcı koşulları, ücretleri, saklama ve içerik kuralları bağımsız olarak geçerlidir.</string>
     <string name="ui_copy_the_built_in_provider_catalog_is_delayed_s_ce0dd5b5" formatted="false">Yerleşik sağlayıcı kataloğu gecikiyor. Kurulum kullanılabilir kalacak ve Turp arka planda yeniden denemeye devam edecek.</string>
     <string name="ui_copy_the_edited_source_is_compiled_executed_in__476436cf" formatted="false">Düzenlenen kaynak kullanılmadan önce derlenir, sınırlandırılmış çalışma zamanında yürütülür ve işlenir.</string>
     <string name="ui_copy_the_embedded_license_document_could_not_be_74bfeeea" formatted="false">Gömülü lisans belgesi açılamadı.</string>
@@ -1040,7 +1040,7 @@
     <string name="ui_copy_the_source_and_conversation_are_intact_e8bc1257" formatted="false">Kaynak ve sohbet sağlam.</string>
     <string name="ui_copy_theme_mode_a4085941" formatted="false">Tema modu</string>
     <string name="ui_copy_theme_palette_launcher_icon_and_amoled_bla_d2a156c2" formatted="false">Tema, palet, başlatıcı simgesi ve AMOLED siyahı</string>
-    <string name="ui_copy_these_providers_keep_xylune_backups_in_an__1d48776c" formatted="false">Bu sağlayıcılar Turp yedeklerini uygulamaya özel bir klasör veya önekte tutar. OAuth token\'ları ve depolama kimlik bilgileri bu cihazda şifrelenir ve dışa aktarılan yedeklere dahil edilmez.</string>
+    <string name="ui_copy_these_providers_keep_turp_backups_in_an__1d48776c" formatted="false">Bu sağlayıcılar Turp yedeklerini uygulamaya özel bir klasör veya önekte tutar. OAuth token\'ları ve depolama kimlik bilgileri bu cihazda şifrelenir ve dışa aktarılan yedeklere dahil edilmez.</string>
     <string name="ui_copy_thinking_d08d8da0" formatted="false">Düşünme</string>
     <string name="ui_copy_thinking_always_on_cfd10cca" formatted="false">Düşünme her zaman açık</string>
     <string name="ui_copy_thinking_effort_ffa4386d" formatted="false">Düşünme düzeyi</string>
@@ -1078,7 +1078,7 @@
     <string name="ui_copy_tools_4fa8cc86" formatted="false">Araçlar</string>
     <string name="ui_copy_tools_safety_b9da3713" formatted="false">Araçlar ve güvenlik</string>
     <string name="ui_copy_tools_and_modes_128b5854" formatted="false">Araçlar ve modlar</string>
-    <string name="ui_copy_tools_available_to_xylune_in_this_chat_3fc79d3d" formatted="false">Bu sohbette Turp\'un kullanabildiği araçlar</string>
+    <string name="ui_copy_tools_available_to_turp_in_this_chat_3fc79d3d" formatted="false">Bu sohbette Turp\'un kullanabildiği araçlar</string>
     <string name="ui_copy_top_left_04b38cf9" formatted="false">Sol üst</string>
     <string name="ui_copy_top_right_c1cc898f" formatted="false">Sağ üst</string>
     <string name="ui_copy_total_tokens_e6dad16e" formatted="false">Toplam token</string>
@@ -1108,7 +1108,7 @@
     <string name="ui_copy_usage_limits_199e5478" formatted="false">Kullanım ve sınırlar</string>
     <string name="ui_copy_usage_details_e3d72694" formatted="false">Kullanım ayrıntıları</string>
     <string name="ui_copy_use_openai_anthropic_gemini_deepseek_or_an_dbc45081" formatted="false">OpenAI, Anthropic, Gemini, DeepSeek veya başka uyumlu bir uç nokta kullanın.</string>
-    <string name="ui_copy_use_xylune_default_for_new_chats_7d65475a" formatted="false">Yeni sohbetlerde Turp varsayılanını kullan</string>
+    <string name="ui_copy_use_turp_default_for_new_chats_7d65475a" formatted="false">Yeni sohbetlerde Turp varsayılanını kullan</string>
     <string name="ui_copy_use_a_chatgpt_account_api_provider_or_loca_453052ab" formatted="false">Bir ChatGPT hesabı, API sağlayıcısı veya yerel sunucu kullanın.</string>
     <string name="ui_copy_use_a_key_restricted_to_this_bucket_and_pr_2fe03688" formatted="false">Bu bucket ve önekle sınırlandırılmış bir anahtar kullanın. Kimlik bilgileri cihazda şifreli kalır.</string>
     <string name="ui_copy_use_chart_json_or_label_value_lines_f2a909d0" formatted="false">Grafik JSON\'u veya `etiket: değer` satırları kullanın.</string>
@@ -1120,7 +1120,7 @@
     <string name="ui_copy_use_terms_third_party_ai_limits_warranty_a_5b45ab19" formatted="false">Kullanım koşulları, üçüncü taraf yapay zekâ sınırları, garanti ve sorumluluk</string>
     <string name="ui_copy_use_your_chatgpt_plan_without_an_api_key_bee8ee5d" formatted="false">API anahtarı olmadan ChatGPT planınızı kullanın</string>
     <string name="ui_copy_uses_dropbox_app_folder_access_and_scoped__e108dc0b" formatted="false">Dropbox uygulama klasörü erişimini ve kapsamlı dosya izinlerini kullanır. Turp Dropbox\'ın geri kalanına göz atamaz.</string>
-    <string name="ui_copy_uses_onedrive_s_apps_xylune_folder_with_fi_86f5b49b" formatted="false">Tüm sürücüye erişmek yerine OneDrive\'ın Apps/Turp klasörünü Files.ReadWrite.AppFolder ile kullanır.</string>
+    <string name="ui_copy_uses_onedrive_s_apps_turp_folder_with_fi_86f5b49b" formatted="false">Tüm sürücüye erişmek yerine OneDrive\'ın Apps/Turp klasörünü Files.ReadWrite.AppFolder ile kullanır.</string>
     <string name="ui_copy_uses_only_drive_s_hidden_appdatafolder_con_119f5820" formatted="false">Yalnızca Drive\'ın gizli appDataFolder alanını kullanır. Bir kez bağlandıktan sonra izin akışını tekrarlamadan yedek oluşturabilir, göz atabilir, önizleyebilir ve geri yükleyebilirsiniz.</string>
     <string name="ui_copy_usually_unnecessary_71831aa8" formatted="false">Genellikle gerekli değildir</string>
     <string name="ui_copy_verify_dda6ac27" formatted="false">Doğrula</string>
@@ -1144,7 +1144,7 @@
     <string name="ui_copy_what_are_we_creating_20d7e61f" formatted="false">Ne oluşturuyoruz?</string>
     <string name="ui_copy_what_are_we_working_on_81ac7f3a" formatted="false">Ne üzerinde çalışıyoruz?</string>
     <string name="ui_copy_what_this_screen_manages_542d8dc3" formatted="false">Bu ekranın yönettikleri</string>
-    <string name="ui_copy_while_xylune_is_working_34273e03" formatted="false">Turp çalışırken</string>
+    <string name="ui_copy_while_turp_is_working_34273e03" formatted="false">Turp çalışırken</string>
     <string name="ui_copy_while_working_3cf6d7a9" formatted="false">Çalışırken</string>
     <string name="ui_copy_within_frame_budget_b9f948c7" formatted="false">Kare bütçesi içinde</string>
     <string name="ui_copy_work_complete_272c4c9f" formatted="false">Çalışma tamamlandı</string>
@@ -1158,18 +1158,18 @@
     <string name="ui_copy_workspace_4ca0a75c" formatted="false">Çalışma alanı</string>
     <string name="ui_copy_writing_report_37d1a667" formatted="false">Rapor yazılıyor</string>
     <string name="ui_copy_writing_source_request_3021661d" formatted="false">Kaynak isteği yazılıyor…</string>
-    <string name="ui_copy_xylune_adds_request_specific_date_enabled__388d9dd8" formatted="false">Turp çalışma zamanında isteğe özel tarih, etkin araç, araştırma, hafıza, ek ve oluşturulan içerik talimatları ekler. Bu dinamik katmanlar da düzenlenemez ve yanıltıcı tek bir statik blok olarak sunulmaz.</string>
-    <string name="ui_copy_xylune_asks_for_the_non_sensitive_drive_ap_1514dc2b" formatted="false">Turp yalnızca hassas olmayan drive.appdata kapsamını ister. Yedek dosyaları normal Drive gezintisinden ve diğer uygulamalardan gizli kalır.</string>
-    <string name="ui_copy_xylune_cannot_send_messages_until_chatgpt__31d3179a" formatted="false">ChatGPT, bir API sağlayıcısı veya yerel model sunucusu bağlanana kadar Turp mesaj gönderemez.</string>
-    <string name="ui_copy_xylune_chat_cb1f11e8" formatted="false">Turp sohbeti</string>
-    <string name="ui_copy_xylune_cloud_folder_connected_2e05f8b8" formatted="false">Turp bulut klasörü bağlandı</string>
-    <string name="ui_copy_xylune_core_prompt_768aad75" formatted="false">Turp çekirdek istemi</string>
-    <string name="ui_copy_xylune_includes_each_installed_root_filesy_fcf873a0" formatted="false">Turp her yüklü kök dosya sistemini, paketleri ve yapılandırmayı dahil eder. İzinler, sembolik bağlantılar ve sabit bağlantılar korunur. Bu, yedeği birkaç gigabayt büyütebilir.</string>
-    <string name="ui_copy_xylune_is_a_client_not_an_ai_model_host_re_1e39bcf3" formatted="false">Turp bir istemcidir, yapay zekâ modeli barındırmaz. Yanıtlar kullanıcının seçtiği sağlayıcıdan veya yerel sunucudan gelir.</string>
-    <string name="ui_copy_xylune_is_ready_13cb949f" formatted="false">Turp hazır</string>
-    <string name="ui_copy_xylune_is_up_to_date_ee323ee0" formatted="false">Turp güncel</string>
-    <string name="ui_copy_xylune_stores_memories_in_its_encrypted_lo_22af7bbe" formatted="false">Turp hafızaları şifreli yerel veritabanında saklar ve sıkı bir bağlam bütçesi altında yalnızca ilgili öğeleri seçer. Devre dışı hafızalar saklanmaya devam eder ancak modellere verilmez.</string>
-    <string name="ui_copy_xylune_stream_error_bc4660cd" formatted="false">Turp akış hatası</string>
+    <string name="ui_copy_turp_adds_request_specific_date_enabled__388d9dd8" formatted="false">Turp çalışma zamanında isteğe özel tarih, etkin araç, araştırma, hafıza, ek ve oluşturulan içerik talimatları ekler. Bu dinamik katmanlar da düzenlenemez ve yanıltıcı tek bir statik blok olarak sunulmaz.</string>
+    <string name="ui_copy_turp_asks_for_the_non_sensitive_drive_ap_1514dc2b" formatted="false">Turp yalnızca hassas olmayan drive.appdata kapsamını ister. Yedek dosyaları normal Drive gezintisinden ve diğer uygulamalardan gizli kalır.</string>
+    <string name="ui_copy_turp_cannot_send_messages_until_chatgpt__31d3179a" formatted="false">ChatGPT, bir API sağlayıcısı veya yerel model sunucusu bağlanana kadar Turp mesaj gönderemez.</string>
+    <string name="ui_copy_turp_chat_cb1f11e8" formatted="false">Turp sohbeti</string>
+    <string name="ui_copy_turp_cloud_folder_connected_2e05f8b8" formatted="false">Turp bulut klasörü bağlandı</string>
+    <string name="ui_copy_turp_core_prompt_768aad75" formatted="false">Turp çekirdek istemi</string>
+    <string name="ui_copy_turp_includes_each_installed_root_filesy_fcf873a0" formatted="false">Turp her yüklü kök dosya sistemini, paketleri ve yapılandırmayı dahil eder. İzinler, sembolik bağlantılar ve sabit bağlantılar korunur. Bu, yedeği birkaç gigabayt büyütebilir.</string>
+    <string name="ui_copy_turp_is_a_client_not_an_ai_model_host_re_1e39bcf3" formatted="false">Turp bir istemcidir, yapay zekâ modeli barındırmaz. Yanıtlar kullanıcının seçtiği sağlayıcıdan veya yerel sunucudan gelir.</string>
+    <string name="ui_copy_turp_is_ready_13cb949f" formatted="false">Turp hazır</string>
+    <string name="ui_copy_turp_is_up_to_date_ee323ee0" formatted="false">Turp güncel</string>
+    <string name="ui_copy_turp_stores_memories_in_its_encrypted_lo_22af7bbe" formatted="false">Turp hafızaları şifreli yerel veritabanında saklar ve sıkı bir bağlam bütçesi altında yalnızca ilgili öğeleri seçer. Devre dışı hafızalar saklanmaya devam eder ancak modellere verilmez.</string>
+    <string name="ui_copy_turp_stream_error_bc4660cd" formatted="false">Turp akış hatası</string>
     <string name="ui_copy_cost_unavailable_b1d105c1" formatted="false">maliyet kullanılamıyor</string>
     <string name="ui_copy_not_found_094b763b" formatted="false">bulunamadı</string>
     <string name="ui_copy_running_c85296cf" formatted="false">çalışıyor…</string>

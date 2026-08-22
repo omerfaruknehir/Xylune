@@ -1,4 +1,4 @@
-# Xylune 0.23.7
+# Turp 0.23.7
 
 - Replace setup's two-tree transition host with a real horizontally draggable pager.
 - Give every setup page a full opaque background and remove fade, scale, and overlapping transition layers.

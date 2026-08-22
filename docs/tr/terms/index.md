@@ -13,7 +13,7 @@ description: Android için açık kaynaklı BYOK yapay zekâ sohbet uygulaması 
 
 **Yürürlük tarihi: 5 Ağustos 2026**
 
-Turp; barındırılan bir yapay zekâ, bulut, hesap veya destek hizmeti değil, ücretsiz, indirilebilir açık kaynaklı istemci yazılımıdır. Turp'un lisanslı kaynak kodunun kopyalanması, değiştirilmesi ve dağıtılması [Apache Lisansı 2.0'a](https://github.com/omerfaruknehir/Xylune/blob/main/LICENSE) tabidir; yazılıma ilişkin temel garanti ve sorumluluk metni bu lisanstır. Bu kısa koşullar resmî derlemenin kullanımını açıklar. Hukuken kaldırılamayan emredici haklar etkilenmez.
+Turp; barındırılan bir yapay zekâ, bulut, hesap veya destek hizmeti değil, ücretsiz, indirilebilir açık kaynaklı istemci yazılımıdır. Turp'un lisanslı kaynak kodunun kopyalanması, değiştirilmesi ve dağıtılması [Apache Lisansı 2.0'a](https://github.com/omerfaruknehir/Turp/blob/main/LICENSE) tabidir; yazılıma ilişkin temel garanti ve sorumluluk metni bu lisanstır. Bu kısa koşullar resmî derlemenin kullanımını açıklar. Hukuken kaldırılamayan emredici haklar etkilenmez.
 
 ## 1. Üçüncü taraf hizmetler
 

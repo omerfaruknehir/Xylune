@@ -1,4 +1,4 @@
-# Xylune 0.17.8
+# Turp 0.17.8
 
 - Rounded lower corners on top chrome panels and rounded upper corners on composer panels.
 - Increased panel opacity for clearer Mica-style separation.

@@ -1,6 +1,6 @@
-# Xylune 0.20.15
+# Turp 0.20.15
 
-Xylune 0.20.15 turns first launch into a complete, recoverable setup assistant instead of a provider-only gate.
+Turp 0.20.15 turns first launch into a complete, recoverable setup assistant instead of a provider-only gate.
 
 ## Setup and appearance
 

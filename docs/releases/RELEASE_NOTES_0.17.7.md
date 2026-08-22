@@ -1,4 +1,4 @@
-# Xylune 0.17.7
+# Turp 0.17.7
 
 - Added independent **Blur** and **Gradual** appearance switches, producing gradual blur, panel blur, gradual panel, and normal panel modes.
 - Improved the gradual tint falloff and preserved the 16 dp minimum blur.

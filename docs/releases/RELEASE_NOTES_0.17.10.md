@@ -1,4 +1,4 @@
-# Xylune 0.17.10
+# Turp 0.17.10
 
 - Replaces the custom sampled blur kernel with Android/Skia native Gaussian blur.
 - Uses one canonical rounded mask for both blur and tint, eliminating cross-coordinate geometry drift.
