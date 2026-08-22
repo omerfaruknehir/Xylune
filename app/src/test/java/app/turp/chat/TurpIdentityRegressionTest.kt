@@ -6,17 +6,11 @@ import org.junit.Test
 
 class TurpIdentityRegressionTest {
     @Test
-    fun `tracked repository paths and bytes contain only Turp identity`() {
+    fun `repository paths and bytes contain only Turp identity`() {
         val start = File(System.getProperty("user.dir")).canonicalFile
         val root = generateSequence(start) { it.parentFile }
-            .firstOrNull { File(it, ".git").exists() }
-            ?: error("Unable to locate repository root from $start")
-
-        val process = ProcessBuilder("git", "-C", root.absolutePath, "ls-files", "-z")
-            .redirectErrorStream(true)
-            .start()
-        val output = process.inputStream.readBytes()
-        check(process.waitFor() == 0) { "git ls-files failed: ${output.decodeToString()}" }
+            .firstOrNull { File(it, "settings.gradle.kts").isFile }
+            ?: error("Unable to locate project root from $start")
 
         val lower = byteArrayOf(120, 121, 108, 117, 110, 101)
         val title = byteArrayOf(88, 121, 108, 117, 110, 101)
@@ -24,26 +18,27 @@ class TurpIdentityRegressionTest {
         val forbidden = listOf(lower, title, upper)
         val failures = mutableListOf<String>()
 
-        output.toString(Charsets.UTF_8)
-            .split('\u0000')
-            .filter(String::isNotBlank)
-            .forEach { relativePath ->
+        root.walkTopDown()
+            .onEnter { directory ->
+                directory == root || directory.name !in EXCLUDED_DIRECTORIES
+            }
+            .forEach { file ->
+                if (file == root) return@forEach
+                val relativePath = file.relativeTo(root).invariantSeparatorsPath
                 val pathBytes = relativePath.toByteArray()
                 if (forbidden.any { pathBytes.containsSubsequence(it) }) {
                     failures += "path: $relativePath"
                 }
 
-                val file = File(root, relativePath)
                 if (!file.isFile) return@forEach
                 val bytes = file.readBytes()
-                val matches = forbidden.filter { bytes.containsSubsequence(it) }
-                if (matches.isNotEmpty()) {
+                if (forbidden.any { bytes.containsSubsequence(it) }) {
                     failures += "content: $relativePath"
                 }
             }
 
         if (failures.isNotEmpty()) {
-            fail("Legacy identity remains in tracked files:\n" + failures.take(200).joinToString("\n"))
+            fail("Legacy identity remains in repository files:\n" + failures.take(200).joinToString("\n"))
         }
     }
 
@@ -57,5 +52,9 @@ class TurpIdentityRegressionTest {
             return true
         }
         return false
+    }
+
+    private companion object {
+        val EXCLUDED_DIRECTORIES = setOf(".git", ".gradle", "build")
     }
 }
