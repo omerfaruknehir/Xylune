@@ -28,6 +28,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import os
+          import shutil
 
           root = Path('.')
           replacements = (
@@ -61,6 +62,7 @@ jobs:
                   rewritten += 1
 
           renamed = 0
+          dropped_legacy_collisions = 0
           for current_root, dirs, files in os.walk('.', topdown=False):
               current = Path(current_root)
               if '.git' in current.parts:
@@ -73,9 +75,11 @@ jobs:
                   if new_name != name:
                       new = current / new_name
                       if new.exists():
-                          raise RuntimeError(f'rename collision: {old} -> {new}')
-                      old.rename(new)
-                      renamed += 1
+                          old.unlink()
+                          dropped_legacy_collisions += 1
+                      else:
+                          old.rename(new)
+                          renamed += 1
               for name in dirs:
                   if name == '.git':
                       continue
@@ -88,12 +92,28 @@ jobs:
                   if new_name != name:
                       new = current / new_name
                       if new.exists():
-                          raise RuntimeError(f'rename collision: {old} -> {new}')
-                      old.rename(new)
-                      renamed += 1
+                          # Prefer anything already Turp-named, but merge non-conflicting
+                          # legacy children so a directory collision does not lose files.
+                          for child in list(old.iterdir()):
+                              destination = new / child.name
+                              if destination.exists():
+                                  if child.is_dir():
+                                      shutil.rmtree(child)
+                                  else:
+                                      child.unlink()
+                                  dropped_legacy_collisions += 1
+                              else:
+                                  child.rename(destination)
+                                  renamed += 1
+                          old.rmdir()
+                          dropped_legacy_collisions += 1
+                      else:
+                          old.rename(new)
+                          renamed += 1
 
           print(f'rewritten_text_files={rewritten}')
           print(f'renamed_paths={renamed}')
+          print(f'dropped_legacy_collisions={dropped_legacy_collisions}')
           print(f'skipped_binary_files={skipped_binary}')
           PY
 
