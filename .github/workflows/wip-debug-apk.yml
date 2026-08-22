@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: wip-debug-apk-${{ github.event.pull_request.number || github.ref }}
@@ -32,6 +32,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: feature/turp-arbor-theme
+          fetch-depth: 0
+
+      - name: Apply staged Turp and Arbor theme
+        if: github.actor != 'github-actions[bot]'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 ci/turp-arbor-theme-transform.py
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app/src/main/java/app/turp/chat/ui/SettingsScreen.kt app/src/test/java/app/turp/chat/ui/ThemePaletteRegressionTest.kt docs/assets/js/theme-boot.js docs/assets/css/appearance.css docs/assets/js/i18n.js docs/assets/js/site.js
+          git commit -m '[theme-bot] Complete Turp and Arbor theme integration'
+          git push origin HEAD:feature/turp-arbor-theme
 
       - uses: actions/setup-java@v5
         with:
