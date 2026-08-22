@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feature/turp-arbor-theme
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -33,7 +36,6 @@ jobs:
                   raise SystemExit(f'{label}: expected exactly 1 match, found {count}')
               p.write_text(text.replace(old, new, 1))
 
-          # App appearance copy for the new selectable palette.
           replace_once(
               'app/src/main/java/app/turp/chat/ui/SettingsScreen.kt',
               '                        Text(if (option == ColorPalette.TURP) appName else option.displayName, fontWeight = FontWeight.SemiBold)\n                        Text(if (option == ColorPalette.TURP) "$appNamePossessive green Material palette" else option.description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)',
@@ -53,7 +55,6 @@ jobs:
               'Arbor palette description',
           )
 
-          # Pages boot theme: original green base remains the Arbor foundation.
           replace_once(
               'docs/assets/js/theme-boot.js',
               '    turp: { dark: {}, light: {} },\n    graphite:',
