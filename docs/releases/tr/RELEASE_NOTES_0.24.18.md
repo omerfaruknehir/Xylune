@@ -1,4 +1,4 @@
-# Xylune 0.24.18
+# Turp 0.24.18
 
 - Klavyede düzenleme yapılan iletişim kutularında Geri hareketi artık önce klavyeyi gizliyor ve iletişim kutusunu açık tutuyor; pencere yalnızca sonraki Geri hareketinde kapanıyor.
 - Kaynak çipleri artık ayrı bir popup'ı aniden açmak yerine yerinde büyüyüp animasyonla genişleyerek önizleme ayrıntılarını gösteriyor.

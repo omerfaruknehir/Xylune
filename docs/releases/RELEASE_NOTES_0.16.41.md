@@ -1,4 +1,4 @@
-# Xylune 0.16.41
+# Turp 0.16.41
 
 - Replaced snap-to-bottom streaming with one frame-paced auto-follow controller.
 - Freezes the active streaming message after the user detaches, preserving the viewport exactly until the true bottom is reached again.

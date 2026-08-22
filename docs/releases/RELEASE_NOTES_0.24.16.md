@@ -1,4 +1,4 @@
-# Xylune 0.24.16
+# Turp 0.24.16
 
 ## Image composer blur
 
@@ -12,4 +12,4 @@ Thinking, search, and execution controls now live under the + menu instead of pe
 
 ## Reliable popup dismissal
 
-Thinking/search/tool menus, Xylune dialogs, and anchored link/source previews now use native focusable outside-tap dismissal. Tapping outside closes the popup instead of leaving it stuck on screen, while predictive Back remains keyboard-aware for dialogs.
+Thinking/search/tool menus, Turp dialogs, and anchored link/source previews now use native focusable outside-tap dismissal. Tapping outside closes the popup instead of leaving it stuck on screen, while predictive Back remains keyboard-aware for dialogs.

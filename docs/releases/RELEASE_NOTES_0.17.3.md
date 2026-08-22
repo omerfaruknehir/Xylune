@@ -1,4 +1,4 @@
-# Xylune 0.17.3
+# Turp 0.17.3
 
 This maintenance release fixes gesture ownership on secondary pages.
 

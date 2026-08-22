@@ -1,8 +1,8 @@
-# Xylune 0.24.0
+# Turp 0.24.0
 
 ## A model catalog and setup flow that scale
 
-Xylune's model selection has been rebuilt for providers with hundreds of models. The shared model catalog now supports instant search, provider and capability filters, favorites, recents, and selected-model prioritization. The same picker is used consistently in chat defaults, automation, package review, and provider management.
+Turp's model selection has been rebuilt for providers with hundreds of models. The shared model catalog now supports instant search, provider and capability filters, favorites, recents, and selected-model prioritization. The same picker is used consistently in chat defaults, automation, package review, and provider management.
 
 OpenRouter discovery now imports and persists the provider's model metadata instead of guessing from model names. Context and output limits, input and output modalities, pricing, supported request parameters, and reasoning metadata are refreshed automatically and can also be refreshed manually. Thinking controls follow each model's supported effort levels, default state, and mandatory-reasoning behavior, including OpenRouter's unified reasoning request format.
 

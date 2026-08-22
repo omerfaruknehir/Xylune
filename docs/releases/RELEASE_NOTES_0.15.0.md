@@ -1,4 +1,4 @@
-# Xylune 0.15.0
+# Turp 0.15.0
 
 This release simplifies the chat composer.
 

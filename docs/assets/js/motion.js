@@ -16,8 +16,8 @@
   function placeNavigationIndicator(nav, tab) {
     if (!nav || !tab) return;
     ensureIndicator(nav, 'rail-nav__indicator');
-    nav.style.setProperty('--xylune-nav-indicator-y', `${tab.offsetTop}px`);
-    nav.style.setProperty('--xylune-nav-indicator-height', `${tab.offsetHeight}px`);
+    nav.style.setProperty('--turp-nav-indicator-y', `${tab.offsetTop}px`);
+    nav.style.setProperty('--turp-nav-indicator-height', `${tab.offsetHeight}px`);
   }
 
   function setupNavigationTabs() {
@@ -86,8 +86,8 @@
     const selected = selector.querySelector('.theme-selector__choice.is-selected:not([hidden])');
     if (!selected) return;
     ensureIndicator(selector, 'theme-selector__indicator');
-    selector.style.setProperty('--xylune-theme-indicator-x', `${selected.offsetLeft}px`);
-    selector.style.setProperty('--xylune-theme-indicator-width', `${selected.offsetWidth}px`);
+    selector.style.setProperty('--turp-theme-indicator-x', `${selected.offsetLeft}px`);
+    selector.style.setProperty('--turp-theme-indicator-width', `${selected.offsetWidth}px`);
     if (animate) selector.classList.add('is-ready');
   }
 
@@ -156,16 +156,16 @@
     const renderDrag = (position, travel) => {
       dragX = Math.min(travel, Math.max(0, position));
       const progress = dragX / travel;
-      control.style.setProperty('--xylune-switch-drag-x', `${dragX}px`);
-      control.style.setProperty('--xylune-switch-progress', `${progress * 100}%`);
+      control.style.setProperty('--turp-switch-drag-x', `${dragX}px`);
+      control.style.setProperty('--turp-switch-progress', `${progress * 100}%`);
       control.classList.add('is-dragging');
-      dispatchSwitchPreview('xylune-switch-preview', control, { progress });
+      dispatchSwitchPreview('turp-switch-preview', control, { progress });
     };
 
     const clearDrag = () => {
       control.classList.remove('is-dragging');
-      control.style.removeProperty('--xylune-switch-drag-x');
-      control.style.removeProperty('--xylune-switch-progress');
+      control.style.removeProperty('--turp-switch-drag-x');
+      control.style.removeProperty('--turp-switch-progress');
     };
 
     control.addEventListener('click', (event) => {
@@ -203,14 +203,14 @@
       clearDrag();
 
       if (cancelled) {
-        dispatchSwitchPreview('xylune-switch-preview-end', control, { checked: startChecked });
+        dispatchSwitchPreview('turp-switch-preview-end', control, { checked: startChecked });
         return;
       }
       if (!moved) return;
 
       suppressNativeClick = true;
       if (desired !== startChecked) control.click();
-      dispatchSwitchPreview('xylune-switch-preview-end', control, { checked: desired });
+      dispatchSwitchPreview('turp-switch-preview-end', control, { checked: desired });
       window.setTimeout(() => {
         suppressNativeClick = false;
       }, 400);
@@ -222,7 +222,7 @@
       if (pointerId === null) return;
       pointerId = null;
       clearDrag();
-      dispatchSwitchPreview('xylune-switch-preview-end', control, { checked: checked() });
+      dispatchSwitchPreview('turp-switch-preview-end', control, { checked: checked() });
     });
   }
 
@@ -234,6 +234,6 @@
   setupThemeSelectionMotion();
   setupDraggableSwitches();
   requestAnimationFrame(() => {
-    requestAnimationFrame(() => root.classList.add('xylune-motion-ready'));
+    requestAnimationFrame(() => root.classList.add('turp-motion-ready'));
   });
 })();

@@ -1,5 +1,5 @@
 {
-  "name": "xylune-pages-preview",
+  "name": "turp-pages-preview",
   "private": true,
   "scripts": {
     "dev": "vite --config docs/vite.config.js"

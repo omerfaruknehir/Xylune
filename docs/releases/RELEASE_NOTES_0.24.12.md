@@ -1,4 +1,4 @@
-# Xylune 0.24.12
+# Turp 0.24.12
 
 ## Images workspace
 
@@ -14,10 +14,10 @@ OpenAI GPT Image models use the native Images generation and editing endpoints. 
 
 ## Live generation previews
 
-Providers that expose real intermediate image frames can now show them while rendering. OpenAI GPT Image generation and editing request up to three native partial images; Xylune replaces the in-progress preview as newer provider frames arrive and crossfades between them before saving only the final image.
+Providers that expose real intermediate image frames can now show them while rendering. OpenAI GPT Image generation and editing request up to three native partial images; Turp replaces the in-progress preview as newer provider frames arrive and crossfades between them before saving only the final image.
 
 Providers that do not expose progressive frames, including the current Qwen Image API, show an explicit generation placeholder until the final image arrives instead of fabricating intermediate detail.
 
 ## Release-note reliability
 
-Release publication can no longer fall back to the complete `CHANGELOG.md`. Xylune uses the exact version-specific release-note file when present, otherwise extracts only that version's changelog section, and refuses publication if neither exists. Already-published same-version releases can synchronize their description without recreating their tag or assets.
+Release publication can no longer fall back to the complete `CHANGELOG.md`. Turp uses the exact version-specific release-note file when present, otherwise extracts only that version's changelog section, and refuses publication if neither exists. Already-published same-version releases can synchronize their description without recreating their tag or assets.

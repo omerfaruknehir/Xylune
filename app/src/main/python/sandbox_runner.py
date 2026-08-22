@@ -51,13 +51,13 @@ def run_code(code, workspace, output_limit=1_000_000, timeout_seconds=90, args_j
     with _execution_lock:
         _activate_packages(workspace)
         namespace = _namespaces.setdefault(workspace, {
-            "__name__": "__xylune_cell__",
+            "__name__": "__turp_cell__",
             "__builtins__": __builtins__,
             "WORKSPACE": workspace,
         })
         namespace["WORKSPACE"] = workspace
         deadline = time.monotonic() + max(1, min(int(timeout_seconds), 600))
-        cancel_path = os.path.join(workspace, ".xylune-cancel")
+        cancel_path = os.path.join(workspace, ".turp-cancel")
         try:
             os.unlink(cancel_path)
         except FileNotFoundError:
@@ -80,10 +80,10 @@ def run_code(code, workspace, output_limit=1_000_000, timeout_seconds=90, args_j
 
         try:
             os.chdir(workspace)
-            sys.argv = ["<xylune-script>"] + requested_args
+            sys.argv = ["<turp-script>"] + requested_args
             sys.settrace(deadline_trace)
             with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
-                compiled = compile(code, "<xylune-cell>", "exec")
+                compiled = compile(code, "<turp-cell>", "exec")
                 exec(compiled, namespace, namespace)
                 if "_" in namespace:
                     result = repr(namespace["_"])
@@ -609,7 +609,7 @@ def _file_state(workspace):
 
 
 def _environment_id(workspace):
-    metadata_path = os.path.join(workspace, ".xylune-python.json")
+    metadata_path = os.path.join(workspace, ".turp-python.json")
     try:
         with open(metadata_path, "r", encoding="utf-8") as stream:
             value = json.load(stream).get("environmentId")
@@ -627,7 +627,7 @@ def _environment_id(workspace):
 
 
 def _write_environment_metadata(workspace):
-    metadata_path = os.path.join(workspace, ".xylune-python.json")
+    metadata_path = os.path.join(workspace, ".turp-python.json")
     value = _environment_id(workspace)
     try:
         with open(metadata_path, "w", encoding="utf-8") as stream:

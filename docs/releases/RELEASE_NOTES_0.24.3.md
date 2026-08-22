@@ -1,10 +1,10 @@
-# Xylune 0.24.3
+# Turp 0.24.3
 
-## A simpler Xylune website
+## A simpler Turp website
 
-The GitHub Pages site now uses Xylune's own restrained Material design instead of the stock repository theme. The selected V2 layout keeps one focused content column, a stable navigation rail on larger screens, a compact mobile menu, and the legal pages in the same visual system.
+The GitHub Pages site now uses Turp's own restrained Material design instead of the stock repository theme. The selected V2 layout keeps one focused content column, a stable navigation rail on larger screens, a compact mobile menu, and the legal pages in the same visual system.
 
-The small Appearance panel offers dark, light, and system themes. When Privacy, Terms, or Data Deletion is opened from Xylune, the app also passes its resolved Material color scheme in the URL. That includes Android dynamic color, Xylune palettes, light and dark modes, and AMOLED surfaces. Internal website links retain the supplied palette, while visitors can still override it from the page.
+The small Appearance panel offers dark, light, and system themes. When Privacy, Terms, or Data Deletion is opened from Turp, the app also passes its resolved Material color scheme in the URL. That includes Android dynamic color, Turp palettes, light and dark modes, and AMOLED surfaces. Internal website links retain the supplied palette, while visitors can still override it from the page.
 
 ## OpenRouter image generation repaired
 

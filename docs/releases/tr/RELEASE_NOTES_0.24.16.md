@@ -1,4 +1,4 @@
-# Xylune 0.24.16
+# Turp 0.24.16
 
 ## Görsel oluşturucu bulanıklığı
 
@@ -12,4 +12,4 @@ Düşünme, arama ve yürütme denetimleri artık istemin üzerinde sürekli bir
 
 ## Güvenilir popup kapatma
 
-Düşünme/arama/araç menüleri, Xylune iletişim kutuları ve bağlı bağlantı/kaynak önizlemeleri artık odaklanabilir yerel dışarı dokunma ile kapatma davranışını kullanıyor. Dışarı dokunulduğunda popup ekranda takılı kalmak yerine kapanıyor; iletişim kutularında öngörülü Geri davranışı klavyeyi dikkate almaya devam ediyor.
+Düşünme/arama/araç menüleri, Turp iletişim kutuları ve bağlı bağlantı/kaynak önizlemeleri artık odaklanabilir yerel dışarı dokunma ile kapatma davranışını kullanıyor. Dışarı dokunulduğunda popup ekranda takılı kalmak yerine kapanıyor; iletişim kutularında öngörülü Geri davranışı klavyeyi dikkate almaya devam ediyor.

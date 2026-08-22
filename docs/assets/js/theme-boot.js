@@ -1,10 +1,10 @@
 (() => {
   const bootScript = document.currentScript;
-  if (bootScript?.src && !document.querySelector('link[data-xylune-appearance]')) {
+  if (bootScript?.src && !document.querySelector('link[data-turp-appearance]')) {
     const appearance = document.createElement('link');
     appearance.rel = 'stylesheet';
     appearance.href = new URL('../css/appearance.css', bootScript.src).href;
-    appearance.dataset.xyluneAppearance = '';
+    appearance.dataset.turpAppearance = '';
     document.head.append(appearance);
   }
 
@@ -84,7 +84,7 @@
   };
 
   const paletteAccents = {
-    xylune: { dark: {}, light: {} },
+    turp: { dark: {}, light: {} },
     graphite: {
       dark: {
         '--primary': '#a9c7f8',
@@ -188,7 +188,7 @@
   };
 
   const paletteSurfaces = {
-    xylune: { dark: {}, light: {} },
+    turp: { dark: {}, light: {} },
     graphite: {
       dark: {
         '--background': '#111318', '--surface': '#111318', '--surface-low': '#191b20',
@@ -251,15 +251,15 @@
     const mode = dark ? 'dark' : 'light';
     const colors = {
       ...basePalettes[mode],
-      ...(paletteSurfaces[scheme]?.[mode] || paletteSurfaces.xylune[mode]),
-      ...(paletteAccents[scheme]?.[mode] || paletteAccents.xylune[mode]),
+      ...(paletteSurfaces[scheme]?.[mode] || paletteSurfaces.turp[mode]),
+      ...(paletteAccents[scheme]?.[mode] || paletteAccents.turp[mode]),
     };
     colors['--focus'] = colors['--primary'];
     return colors;
   };
 
   const params = new URLSearchParams(location.search);
-  const APP_THEME_STORAGE = 'xylune-app-theme-v1';
+  const APP_THEME_STORAGE = 'turp-app-theme-v1';
   const isHex = (value) => /^[0-9a-f]{6}$/i.test(value || '');
   const required = ['--primary', '--background', '--on-surface'];
   const urlColors = {};
@@ -297,14 +297,14 @@
     localStorage.setItem(APP_THEME_STORAGE, JSON.stringify(urlAppTheme));
   }
   if (params.has('dynamicLogo')) {
-    localStorage.setItem('xylune-dynamic-icon', params.get('dynamicLogo') === '1' ? '1' : '0');
+    localStorage.setItem('turp-dynamic-icon', params.get('dynamicLogo') === '1' ? '1' : '0');
   }
   const appTheme = urlAppTheme || readStoredAppTheme();
 
   const supportedThemes = ['app', 'dark', 'light', 'system'];
-  const supportedSchemes = ['app', 'xylune', 'graphite', 'ocean', 'violet', 'sunset'];
-  const storedTheme = localStorage.getItem('xylune-theme');
-  const storedScheme = localStorage.getItem('xylune-scheme');
+  const supportedSchemes = ['app', 'turp', 'graphite', 'ocean', 'violet', 'sunset'];
+  const storedTheme = localStorage.getItem('turp-theme');
+  const storedScheme = localStorage.getItem('turp-scheme');
   const urlTheme = params.get('theme');
   const urlScheme = params.get('scheme');
 
@@ -319,7 +319,7 @@
       ? 'app'
       : urlTheme === 'app' && appTheme
         ? 'app'
-        : supportedSchemes.includes(storedScheme) ? storedScheme : 'xylune';
+        : supportedSchemes.includes(storedScheme) ? storedScheme : 'turp';
 
   if (!appTheme && themePreference === 'app') {
     themePreference = supportedThemes.includes(storedTheme) && storedTheme !== 'app'
@@ -329,11 +329,11 @@
   if (!appTheme && schemePreference === 'app') {
     schemePreference = supportedSchemes.includes(storedScheme) && storedScheme !== 'app'
       ? storedScheme
-      : 'xylune';
+      : 'turp';
   }
   if (schemePreference === 'app') themePreference = 'app';
-  if (params.has('theme') || urlAppTheme) localStorage.setItem('xylune-theme', themePreference);
-  if (params.has('scheme') || urlAppTheme) localStorage.setItem('xylune-scheme', schemePreference);
+  if (params.has('theme') || urlAppTheme) localStorage.setItem('turp-theme', themePreference);
+  if (params.has('scheme') || urlAppTheme) localStorage.setItem('turp-scheme', schemePreference);
 
   const resolvedTheme = themePreference === 'app'
     ? (appTheme.dark ? 'dark' : 'light')
@@ -343,7 +343,7 @@
 
   const resolvedColors = schemePreference === 'app' && appTheme
     ? {
-        ...fixedColors('xylune', appTheme.dark),
+        ...fixedColors('turp', appTheme.dark),
         ...appTheme.colors,
         '--focus': appTheme.colors['--primary'],
       }
@@ -372,7 +372,7 @@
   });
   if (removedAppearanceParameter) history.replaceState(null, '', cleanUrl);
 
-  window.XylunePageTheme = {
+  window.TurpPageTheme = {
     appTheme,
     colorVariables,
     fixedColors,

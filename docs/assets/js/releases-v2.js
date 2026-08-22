@@ -2,10 +2,10 @@
   const container = document.querySelector('[data-release-list-v2]');
   if (!container) return;
 
-  const repository = container.dataset.repository || 'omerfaruknehir/Xylune';
+  const repository = container.dataset.repository || 'omerfaruknehir/Turp';
   const maxReleases = 10;
   const endpoint = `https://api.github.com/repos/${repository}/releases?per_page=${maxReleases}`;
-  const locale = window.XyluneLocale || {};
+  const locale = window.TurpLocale || {};
   const strings = locale.release || {};
   const pageLanguage = document.documentElement.lang || 'en';
   const releaseLanguage = pageLanguage.toLowerCase().startsWith('tr') ? 'tr' : 'en';
@@ -23,8 +23,8 @@
 
   function localizedReleaseMarkdown(value) {
     const text = String(value || '').replace(/\r\n?/g, '\n');
-    const englishMarker = '<!-- xylune-release-notes:en -->';
-    const turkishMarker = '<!-- xylune-release-notes:tr -->';
+    const englishMarker = '<!-- turp-release-notes:en -->';
+    const turkishMarker = '<!-- turp-release-notes:tr -->';
     const englishIndex = text.indexOf(englishMarker);
     const turkishIndex = text.indexOf(turkishMarker);
 
@@ -268,7 +268,7 @@
     const titleRow = document.createElement('div');
     titleRow.className = 'release-card__title-row';
     const title = document.createElement('h2');
-    title.textContent = `Xylune ${releaseVersion(release)}`;
+    title.textContent = `Turp ${releaseVersion(release)}`;
     titleRow.append(title);
 
     if (index === 0) {
@@ -364,7 +364,7 @@
 
   load();
 
-  window.XyluneReleaseSort = {
+  window.TurpReleaseSort = {
     parseSemanticVersion,
     compareSemanticVersionsDescending,
   };

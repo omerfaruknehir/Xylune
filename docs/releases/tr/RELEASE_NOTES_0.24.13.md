@@ -1,14 +1,14 @@
-# Xylune 0.24.13
+# Turp 0.24.13
 
 ## Geliştirilmiş Görseller çalışma alanı
 
-Özel Görseller çalışma alanı artık daralan konuşma başlığı ve yarı saydam oluşturucu dâhil olmak üzere Xylune'un normal konuşma düzenine daha yakın çalışıyor. Referans görselleri Fotoğraflar ve Kamera eylemleriyle kompakt önizlemeler kullanırken Oluştur/Düzenle, Kuyruk ve Durdur denetimleri normal sohbete özgü Düşünme, Arama veya Araçlar seçeneklerini göstermeden görsel iş akışına odaklanıyor.
+Özel Görseller çalışma alanı artık daralan konuşma başlığı ve yarı saydam oluşturucu dâhil olmak üzere Turp'un normal konuşma düzenine daha yakın çalışıyor. Referans görselleri Fotoğraflar ve Kamera eylemleriyle kompakt önizlemeler kullanırken Oluştur/Düzenle, Kuyruk ve Durdur denetimleri normal sohbete özgü Düşünme, Arama veya Araçlar seçeneklerini göstermeden görsel iş akışına odaklanıyor.
 
 ## Gemini görsel üretimi
 
-Xylune artık Gemini model kataloğundaki güncel görsel üretim ailelerini; `*-image`, `*-image-*` ve Imagen tarzı model kimlikleri dâhil olmak üzere algılıyor. Gemini görsel istekleri metin ve görsel çıktısını açıkça talep ediyor; dönen gömülü görsel verileri çözümlenip oluşturulan ekler olarak kaydediliyor.
+Turp artık Gemini model kataloğundaki güncel görsel üretim ailelerini; `*-image`, `*-image-*` ve Imagen tarzı model kimlikleri dâhil olmak üzere algılıyor. Gemini görsel istekleri metin ve görsel çıktısını açıkça talep ediyor; dönen gömülü görsel verileri çözümlenip oluşturulan ekler olarak kaydediliyor.
 
-Gemini görsel üretimindeki ilerleme göstergesi gerçeğe uygun kalıyor: sağlayıcı gerçekten aşamalı kareler sunmadıkça Xylune yalnızca son görsel çıktısını gösteriyor.
+Gemini görsel üretimindeki ilerleme göstergesi gerçeğe uygun kalıyor: sağlayıcı gerçekten aşamalı kareler sunmadıkça Turp yalnızca son görsel çıktısını gösteriyor.
 
 ## Daha iyi kullanım hesaplaması
 

@@ -52,7 +52,7 @@ Rights and deletion requests must be directed to the party that actually control
 - for GitHub account or platform data, use GitHub's controls; and
 - for information deliberately sent privately to the maintainer, use the private contact method shown on the relevant OAuth consent screen.
 
-The maintainer cannot act on information never received or controlled. For a deliberate private submission the maintainer actually controls, applicable KVKK, GDPR, or other mandatory rights remain available. Reasonable identity and scope verification may be required. Do not use a public GitHub issue for a privacy request. Practical deletion steps are described on the [Turp data deletion page](https://omerfaruknehir.github.io/Xylune/data-deletion/).
+The maintainer cannot act on information never received or controlled. For a deliberate private submission the maintainer actually controls, applicable KVKK, GDPR, or other mandatory rights remain available. Reasonable identity and scope verification may be required. Do not use a public GitHub issue for a privacy request. Practical deletion steps are described on the [Turp data deletion page](https://omerfaruknehir.github.io/Turp/data-deletion/).
 
 ## 6. Security, children, and changes
 

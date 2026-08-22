@@ -15,10 +15,10 @@ fi
     exit 2
 }
 
-KEYSTORE="${XYLUNE_DEBUG_KEYSTORE_FILE:-${ANDROID_USER_HOME:-$HOME/.android}/debug.keystore}"
-STORE_PASSWORD="${XYLUNE_DEBUG_KEYSTORE_PASSWORD:-android}"
-KEY_ALIAS="${XYLUNE_DEBUG_KEY_ALIAS:-androiddebugkey}"
-KEY_PASSWORD="${XYLUNE_DEBUG_KEY_PASSWORD:-android}"
+KEYSTORE="${TURP_DEBUG_KEYSTORE_FILE:-${ANDROID_USER_HOME:-$HOME/.android}/debug.keystore}"
+STORE_PASSWORD="${TURP_DEBUG_KEYSTORE_PASSWORD:-android}"
+KEY_ALIAS="${TURP_DEBUG_KEY_ALIAS:-androiddebugkey}"
+KEY_PASSWORD="${TURP_DEBUG_KEY_PASSWORD:-android}"
 
 [[ -f "$INPUT_AAB" ]] || {
     echo "Input bundle does not exist: $INPUT_AAB" >&2

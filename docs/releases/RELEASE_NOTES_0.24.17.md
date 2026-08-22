@@ -1,4 +1,4 @@
-# Xylune 0.24.17
+# Turp 0.24.17
 
 - Web-search preparation and execution now share one live search card instead of appearing as duplicate timeline steps.
 - Thinking and Search controls are back above the prompt with their compact labels, while Python and Linux toggles live directly under the + menu.

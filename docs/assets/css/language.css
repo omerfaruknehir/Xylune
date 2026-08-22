@@ -166,13 +166,13 @@
 /* Keep the compact title unchanged, but make the expanded page titles larger
    and place them lower in the expanded app bar. */
 .page-with-app-bar {
-  --xylune-title-shift: 68px;
-  --xylune-title-expanded-scale: 1.34;
+  --turp-title-shift: 68px;
+  --turp-title-expanded-scale: 1.34;
 }
 
 .home-shell.page-with-app-bar {
-  --xylune-title-shift: 70px;
-  --xylune-title-expanded-scale: 2.08;
+  --turp-title-shift: 70px;
+  --turp-title-expanded-scale: 2.08;
 }
 
 /* Main landing headings get a little more visual weight while their content
@@ -226,13 +226,13 @@ html .home-hero__brand-copy strong {
   }
 
   .page-with-app-bar {
-    --xylune-title-shift: 70px;
-    --xylune-title-expanded-scale: 1.36;
+    --turp-title-shift: 70px;
+    --turp-title-expanded-scale: 1.36;
   }
 
   .home-shell.page-with-app-bar {
-    --xylune-title-shift: 74px;
-    --xylune-title-expanded-scale: 2.18;
+    --turp-title-shift: 74px;
+    --turp-title-expanded-scale: 2.18;
   }
 
   .home-page .home-hero {

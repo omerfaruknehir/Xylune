@@ -1,6 +1,6 @@
-# Xylune 0.17.1
+# Turp 0.17.1
 
-Built directly on Xylune 0.17.0.
+Built directly on Turp 0.17.0.
 
 - Horizontal scrollable content owns horizontal gestures before the left drawer.
 - Chat remains composed behind Settings/Search/tool pages, so Back restores the live list and Markdown tree instead of loading the conversation again.

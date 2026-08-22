@@ -1,4 +1,4 @@
-# Xylune 0.20.29
+# Turp 0.20.29
 
 ## Widget compiler as an AI tool
 
@@ -13,7 +13,7 @@
 
 - Adds dedicated “Preparing widget compile” and “Compiling Home widget” activity states.
 - Hides raw candidate JSON from the normal activity summary while preserving it in the provider tool protocol.
-- Treats compiler output as trusted Xylune runtime data rather than untrusted external content.
+- Treats compiler output as trusted Turp runtime data rather than untrusted external content.
 
 ## Version
 

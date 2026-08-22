@@ -1,4 +1,4 @@
-# Xylune 0.23.3
+# Turp 0.23.3
 
 This release repairs first-run setup and cloud restore feedback.
 
@@ -13,7 +13,7 @@ This release repairs first-run setup and cloud restore feedback.
 
 - Replaced oversized cloud-provider artwork with consistently bounded compact icons.
 - Added visible progress, cancellation, success, empty-state, and error feedback to every restore route.
-- Continue OneDrive and Dropbox restore automatically after browser sign-in returns to Xylune.
+- Continue OneDrive and Dropbox restore automatically after browser sign-in returns to Turp.
 - Explain unavailable OAuth configuration instead of silently disabling a provider.
 - Treat a connected location with no backups as a normal empty state and provide **Check again**.
 - Prevent the WebDAV and S3 configuration dialogs from being hidden behind the cloud chooser.

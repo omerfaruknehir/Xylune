@@ -7,7 +7,7 @@ turkish="docs/releases/tr/RELEASE_NOTES_${version}.md"
 english="$english_specific"
 
 if [[ ! -s "$english" ]]; then
-  english="${RUNNER_TEMP:-/tmp}/xylune-release-notes-en-${version}.md"
+  english="${RUNNER_TEMP:-/tmp}/turp-release-notes-en-${version}.md"
   python3 - "$version" "$english" <<'PY'
 from pathlib import Path
 import re
@@ -33,7 +33,7 @@ if [[ ! -s "$turkish" ]]; then
   exit 1
 fi
 
-output="${RUNNER_TEMP:-/tmp}/xylune-release-notes-${version}.md"
+output="${RUNNER_TEMP:-/tmp}/turp-release-notes-${version}.md"
 python3 - "$english" "$turkish" "$output" <<'PY'
 from pathlib import Path
 import re
@@ -45,7 +45,7 @@ def body(path: Path) -> str:
     text = path.read_text(encoding="utf-8").replace("\r\n", "\n").strip()
     # GitHub already displays the release title. Avoid repeating the version H1
     # inside each language section while preserving actual note headings.
-    text = re.sub(r"^#\s+Xylune\s+[^\n]+\n+", "", text, count=1)
+    text = re.sub(r"^#\s+Turp\s+[^\n]+\n+", "", text, count=1)
     return text.strip()
 
 english = body(en_path)
@@ -54,10 +54,10 @@ if not english or not turkish:
     raise SystemExit("Both English and Turkish release notes must contain content")
 
 output_path.write_text(
-    "<!-- xylune-release-notes:en -->\n"
+    "<!-- turp-release-notes:en -->\n"
     "## English\n\n"
     f"{english}\n\n"
-    "<!-- xylune-release-notes:tr -->\n"
+    "<!-- turp-release-notes:tr -->\n"
     "## Türkçe\n\n"
     f"{turkish}\n",
     encoding="utf-8",

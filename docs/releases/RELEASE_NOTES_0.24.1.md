@@ -1,10 +1,10 @@
-# Xylune 0.24.1
+# Turp 0.24.1
 
 ## Capability messages only when something is unavailable
 
-Images no longer show an OCR badge merely because local OCR data already exists. Xylune shows the compatibility badge and fallback controls only when the selected model cannot read the original image. Models with native image input receive the image normally without an unnecessary OCR notice.
+Images no longer show an OCR badge merely because local OCR data already exists. Turp shows the compatibility badge and fallback controls only when the selected model cannot read the original image. Models with native image input receive the image normally without an unnecessary OCR notice.
 
-Tool calling follows the same rule: no positive or redundant compatibility banner is shown for capable models. If web search, Python, Linux, or deep research is enabled for a model without function calling, Xylune shows one direct warning that those tools cannot run.
+Tool calling follows the same rule: no positive or redundant compatibility banner is shown for capable models. If web search, Python, Linux, or deep research is enabled for a model without function calling, Turp shows one direct warning that those tools cannot run.
 
 ## Reliable model selection from the expanded title
 

@@ -1,11 +1,11 @@
-# Xylune 0.24.6
+# Turp 0.24.6
 
-This release fixes oversized and cropped Xylune artwork across Android system surfaces.
+This release fixes oversized and cropped Turp artwork across Android system surfaces.
 
 ## Android icon sizing
 
 - Add a consistent safe zone around every adaptive launcher foreground so the X-and-leaf mark is fully visible in launchers, recent-app/task views, and other masked system surfaces.
-- Apply the same fitted geometry to Xylune, Dynamic/System, Graphite, Ocean, Violet, and Sunset launcher variants.
+- Apply the same fitted geometry to Turp, Dynamic/System, Graphite, Ocean, Violet, and Sunset launcher variants.
 - Keep Android themed/monochrome icons aligned with the normal launcher artwork.
 
 ## Splash screen

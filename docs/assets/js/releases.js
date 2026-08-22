@@ -2,10 +2,10 @@
   const container = document.querySelector('[data-release-list]');
   if (!container) return;
 
-  const repository = container.dataset.repository || 'omerfaruknehir/Xylune';
+  const repository = container.dataset.repository || 'omerfaruknehir/Turp';
   const MAX_RELEASES = 10;
   const endpoint = `https://api.github.com/repos/${repository}/releases?per_page=${MAX_RELEASES}`;
-  const cacheKey = `xylune-release-list-v2:${repository}`;
+  const cacheKey = `turp-release-list-v2:${repository}`;
   const cacheMaxAgeMs = 6 * 60 * 60 * 1000;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let renderedSignature = '';
@@ -314,7 +314,7 @@
     const titleRow = document.createElement('div');
     titleRow.className = 'release-card__title-row';
     const title = document.createElement('h2');
-    title.textContent = `Xylune ${releaseVersion(release)}`;
+    title.textContent = `Turp ${releaseVersion(release)}`;
     titleRow.append(title);
     if (index === 0) {
       const badge = document.createElement('span');
@@ -433,7 +433,7 @@
     refresh();
   }
 
-  window.XyluneReleaseSort = {
+  window.TurpReleaseSort = {
     parseSemanticVersion,
     compareSemanticVersionsDescending,
   };

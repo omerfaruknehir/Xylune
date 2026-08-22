@@ -4,8 +4,8 @@ Treat `GeneratedContentCapabilityRegistry` as authoritative. Its compact widget 
 
 ## Decision rule
 
-1. Use `xylune-snippet` for an interaction that belongs inside the current chat answer.
-2. Use `xylune-widget` when the user asks for an Android Home-screen widget, launcher surface, persistent dashboard, glanceable tracker, or similar outside-app experience.
+1. Use `turp-snippet` for an interaction that belongs inside the current chat answer.
+2. Use `turp-widget` when the user asks for an Android Home-screen widget, launcher surface, persistent dashboard, glanceable tracker, or similar outside-app experience.
 3. Follow-up language such as “make it cleaner” or “add live updates” inherits the widget context from recent turns; do not forget the capability merely because the latest sentence does not repeat the word “widget”.
 4. When the request is satisfiable, generate the fenced program. Do not merely explain that widgets are possible, and do not claim Turp lacks the capability.
 5. Never convert a snippet into a widget merely because it is interactive. Never use removed fences or category-specific root types.

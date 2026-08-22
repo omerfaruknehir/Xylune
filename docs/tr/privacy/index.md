@@ -52,7 +52,7 @@ Hak ve silme talepleri, bilgiyi fiilen kontrol eden tarafa yöneltilmelidir:
 - GitHub hesap veya platform verisi için GitHub'ın araçlarını kullanın; ve
 - geliştiriciye bilerek özel olarak gönderilen bilgi için ilgili OAuth onay ekranındaki özel iletişim yöntemini kullanın.
 
-Geliştirici hiç almadığı veya kontrol etmediği bilgi hakkında işlem yapamaz. Geliştiricinin fiilen kontrol ettiği özel bir gönderi için uygulanabilir KVKK, GDPR veya diğer emredici haklar saklıdır. Makul kimlik ve kapsam doğrulaması istenebilir. Gizlilik talebi için herkese açık GitHub issue'su kullanmayın. Uygulanabilir silme adımları [Turp veri silme sayfasında](https://omerfaruknehir.github.io/Xylune/tr/data-deletion/) açıklanır.
+Geliştirici hiç almadığı veya kontrol etmediği bilgi hakkında işlem yapamaz. Geliştiricinin fiilen kontrol ettiği özel bir gönderi için uygulanabilir KVKK, GDPR veya diğer emredici haklar saklıdır. Makul kimlik ve kapsam doğrulaması istenebilir. Gizlilik talebi için herkese açık GitHub issue'su kullanmayın. Uygulanabilir silme adımları [Turp veri silme sayfasında](https://omerfaruknehir.github.io/Turp/tr/data-deletion/) açıklanır.
 
 ## 6. Güvenlik, çocuklar ve değişiklikler
 

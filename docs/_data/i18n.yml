@@ -8,7 +8,7 @@ en:
     github: GitHub
   ui:
     primary_navigation: Primary navigation
-    xylune_home: Turp home
+    turp_home: Turp home
     open_navigation: Open navigation
     appearance_controls: Appearance controls
     open_appearance: Open appearance settings
@@ -35,7 +35,7 @@ en:
     english: English
     turkish: Türkçe
     current_language: Current language
-    back_to_xylune: Back to Turp
+    back_to_turp: Back to Turp
   footer:
     maintained_by: This project is maintained by
     open_source: Open source on GitHub
@@ -58,7 +58,7 @@ tr:
     github: GitHub
   ui:
     primary_navigation: Ana gezinme
-    xylune_home: Turp ana sayfası
+    turp_home: Turp ana sayfası
     open_navigation: Gezinme menüsünü aç
     appearance_controls: Görünüm ayarları
     open_appearance: Görünüm ayarlarını aç
@@ -85,7 +85,7 @@ tr:
     english: İngilizce
     turkish: Türkçe
     current_language: Seçili dil
-    back_to_xylune: Turp'a dön
+    back_to_turp: Turp'a dön
   footer:
     maintained_by: "Proje sorumlusu:"
     open_source: GitHub'da açık kaynak

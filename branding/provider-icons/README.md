@@ -1,6 +1,6 @@
 # Cloud provider marks
 
-These source SVGs are bundled only to identify user-selected cloud services in Xylune.
+These source SVGs are bundled only to identify user-selected cloud services in Turp.
 The names and marks remain trademarks of their respective owners; their inclusion does not imply endorsement.
 Android PNG resources are generated from these checked-in SVGs so release builds do not fetch artwork from the network.
 

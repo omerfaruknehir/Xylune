@@ -1,6 +1,6 @@
-# Xylune 0.13.0
+# Turp 0.13.0
 
-Xylune 0.13.0 moves common chat controls out of Settings and into the composer.
+Turp 0.13.0 moves common chat controls out of Settings and into the composer.
 
 ## Composer
 

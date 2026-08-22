@@ -1,4 +1,4 @@
-# Xylune 0.24.20
+# Turp 0.24.20
 
 - Restores reliable tap-away dismissal for modal popups by deciding outside taps on finger release while ignoring predictive-Back edge gestures.
 - Keeps keyboard-first Back behavior: a completed Back gesture hides the IME before dismissing the surrounding modal surface.
